@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EA86C7BD14D9E75600CB1551"
-               BuildableName = "Example copy.app"
+               BuildableName = "Example (Fixtures).app"
                BlueprintName = "Example (Fixtures)"
                ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA86C7BD14D9E75600CB1551"
-            BuildableName = "Example copy.app"
+            BuildableName = "Example (Fixtures).app"
             BlueprintName = "Example (Fixtures)"
             ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
          </BuildableReference>
@@ -50,7 +50,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA86C7BD14D9E75600CB1551"
-            BuildableName = "Example copy.app"
+            BuildableName = "Example (Fixtures).app"
             BlueprintName = "Example (Fixtures)"
             ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA86C7BD14D9E75600CB1551"
-            BuildableName = "Example copy.app"
+            BuildableName = "Example (Fixtures).app"
             BlueprintName = "Example (Fixtures)"
             ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
          </BuildableReference>

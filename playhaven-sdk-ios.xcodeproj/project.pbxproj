@@ -116,6 +116,8 @@
 		EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */; };
 		EA86C7FA14D9EB8600CB1551 /* content-integration.json in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F914D9EB8600CB1551 /* content-integration.json */; };
 		EA8A6D3414C8C5CA000B86A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA019C8514C102D4008FBCB1 /* StoreKit.framework */; };
+		EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
+		EA8C313414DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
 		EA9AB62014A3B0AA00079704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		EA9AB62B14A3B0D500079704 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
 		EA9AB62D14A3B0D500079704 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
@@ -243,6 +245,8 @@
 		EA86C7F414D9E77D00CB1551 /* WWURLMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWURLMatching.m; sourceTree = "<group>"; };
 		EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dev.wwfixtures; sourceTree = "<group>"; };
 		EA86C7F914D9EB8600CB1551 /* content-integration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-integration.json"; sourceTree = "<group>"; };
+		EA8C313214DC791B0075B473 /* content-subcontent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-subcontent.json"; sourceTree = "<group>"; };
+		EA8C313614DC9F710075B473 /* Info-fixtures.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-fixtures.plist"; sourceTree = "<group>"; };
 		EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHaven.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB19C8C1357BA390067F27A /* PHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConstants.h; sourceTree = "<group>"; };
 		EAB2B44513CBD172006D2391 /* PHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHReward.h; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 		EA12ABD91365DBB700CB2F24 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EA8C313614DC9F710075B473 /* Info-fixtures.plist */,
 				EA12ABDA1365DBB700CB2F24 /* Info.plist */,
 				EA12ABDB1365DBB700CB2F24 /* InfoPlist.strings */,
 				EA12ABDF1365DBB700CB2F24 /* main.m */,
@@ -502,6 +507,7 @@
 				EA86C7F314D9E77D00CB1551 /* WWURLMatching.h */,
 				EA86C7F414D9E77D00CB1551 /* WWURLMatching.m */,
 				EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */,
+				EA8C313214DC791B0075B473 /* content-subcontent.json */,
 				EA86C7F914D9EB8600CB1551 /* content-integration.json */,
 			);
 			path = WaterWorks;
@@ -705,6 +711,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +726,7 @@
 				EA86C7E814D9E75600CB1551 /* ExampleViewController.xib in Resources */,
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA86C7FA14D9EB8600CB1551 /* content-integration.json in Resources */,
+				EA8C313414DC791B0075B473 /* content-subcontent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,7 +1065,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_NETWORK_FIXTURES=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = example/Info.plist;
+				INFOPLIST_FILE = "example/Info-fixtures.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "Example (Fixtures)";
 				WRAPPER_EXTENSION = app;
@@ -1074,7 +1082,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_NETWORK_FIXTURES=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = example/Info.plist;
+				INFOPLIST_FILE = "example/Info-fixtures.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "Example (Fixtures)";
 				VALIDATE_PRODUCT = YES;
