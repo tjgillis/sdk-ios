@@ -51,6 +51,8 @@
 }
 @end
 
+@interface PHPublisherContentPreloadParameterTest : SenTestCase @end
+
 
 @implementation PHContentTest
 
@@ -320,6 +322,28 @@
     STAssertTrue([_request state] == PHPublisherContentRequestPreloaded,@"Request wasn't preloaded!");
     
     [_request release], _request = nil;
+}
+
+@end
+
+@implementation PHPublisherContentPreloadParameterTest
+
+-(void)testPreloadParameterWhenPreloading{
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
+    [request preload];
+    
+    NSString *parameters = [request.URL absoluteString];
+    STAssertFalse([parameters rangeOfString:@"preload=1"].location == NSNotFound, @"Expected 'preload=1' in parameter string, did not find it!");
+    [request cancel];
+}
+
+-(void)testPreloadParameterWhenSending{
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
+    [request send];
+    
+    NSString *parameters = [request.URL absoluteString];
+    STAssertFalse([parameters rangeOfString:@"preload=0"].location == NSNotFound, @"Expected 'preload=0' in parameter string, did not find it!");
+    [request cancel];
 }
 
 @end

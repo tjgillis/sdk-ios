@@ -276,6 +276,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 -(NSDictionary *)additionalParameters{
     return [NSDictionary dictionaryWithObjectsAndKeys:
             self.placement, @"placement_id",
+            [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)], @"preload",
             nil];
 }
 
