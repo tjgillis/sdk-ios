@@ -57,6 +57,8 @@
 		EA12AC451366339D00CB2F24 /* PublisherContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */; };
 		EA1799E014200FAE005F286F /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
 		EA21F69D14215EAD00A4177E /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
+		EA2B07A314E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
+		EA2B07A614E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A214E9EBA60087A45F /* 512.png */; };
 		EA4ABA11135F859D0062AE77 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
 		EA4C1912134E84D300755983 /* PHURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C1910134E84D300755983 /* PHURLLoader.m */; };
 		EA50F3D31436426F0055EB3A /* PublisherContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */; };
@@ -71,6 +73,8 @@
 		EA6ADFC51475CF3A00DBE60B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
 		EA6ADFC81475F22C00DBE60B /* PHPublisherContentRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */; };
 		EA7BC61A13537F8700B4518D /* PHURLLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */; };
+		EA837E9314EB349A001C8147 /* content-integration.json in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F914D9EB8600CB1551 /* content-integration.json */; };
+		EA837E9414EB3DF4001C8147 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
 		EA86C7BF14D9E75600CB1551 /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
 		EA86C7C014D9E75600CB1551 /* PHUrlPrefetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D118AE5C14B78C3C00C76E2C /* PHUrlPrefetchOperation.m */; };
 		EA86C7C114D9E75600CB1551 /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E15B7B14981C39001241EE /* SDURLCache.m */; };
@@ -114,10 +118,8 @@
 		EA86C7F514D9E77D00CB1551 /* WWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86C7F214D9E77D00CB1551 /* WWURLConnection.m */; };
 		EA86C7F614D9E77D00CB1551 /* WWURLMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86C7F414D9E77D00CB1551 /* WWURLMatching.m */; };
 		EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */; };
-		EA86C7FA14D9EB8600CB1551 /* content-integration.json in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F914D9EB8600CB1551 /* content-integration.json */; };
 		EA8A6D3414C8C5CA000B86A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA019C8514C102D4008FBCB1 /* StoreKit.framework */; };
 		EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
-		EA8C313414DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
 		EA9AB62014A3B0AA00079704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		EA9AB62B14A3B0D500079704 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
 		EA9AB62D14A3B0D500079704 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
@@ -222,6 +224,8 @@
 		EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherContentViewController.m; sourceTree = "<group>"; };
 		EA14C6611342604000E228E0 /* Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1799DF14200FAE005F286F /* PHConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConstants.m; sourceTree = "<group>"; };
+		EA2B07A014E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
+		EA2B07A214E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
 		EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+HardwareString.m"; sourceTree = "<group>"; };
 		EA4C190F134E84D300755983 /* PHURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHURLLoader.h; sourceTree = "<group>"; };
@@ -400,6 +404,7 @@
 		EA12ABD81365DBB700CB2F24 /* example */ = {
 			isa = PBXGroup;
 			children = (
+				EA2B079E14E9EBA60087A45F /* Icons */,
 				EA12ABE11365DBB700CB2F24 /* AppDelegate.h */,
 				EA12ABE21365DBB700CB2F24 /* AppDelegate.m */,
 				EA12ABE41365DBB700CB2F24 /* MainWindow.xib */,
@@ -428,6 +433,31 @@
 				EA12ABDF1365DBB700CB2F24 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA2B079E14E9EBA60087A45F /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				EA2B079F14E9EBA60087A45F /* default */,
+				EA2B07A114E9EBA60087A45F /* light */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
+		EA2B079F14E9EBA60087A45F /* default */ = {
+			isa = PBXGroup;
+			children = (
+				EA2B07A014E9EBA60087A45F /* 512.png */,
+			);
+			path = default;
+			sourceTree = "<group>";
+		};
+		EA2B07A114E9EBA60087A45F /* light */ = {
+			isa = PBXGroup;
+			children = (
+				EA2B07A214E9EBA60087A45F /* 512.png */,
+			);
+			path = light;
 			sourceTree = "<group>";
 		};
 		EA523D891343EE670057DEA5 /* tests */ = {
@@ -704,6 +734,7 @@
 				EA12ABEC1365DBB700CB2F24 /* RootViewController.xib in Resources */,
 				EA50F3D31436426F0055EB3A /* PublisherContentViewController.xib in Resources */,
 				EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */,
+				EA2B07A314E9EBA60087A45F /* 512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,14 +750,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA837E9414EB3DF4001C8147 /* content-subcontent.json in Resources */,
+				EA837E9314EB349A001C8147 /* content-integration.json in Resources */,
 				EA86C7E414D9E75600CB1551 /* InfoPlist.strings in Resources */,
 				EA86C7E514D9E75600CB1551 /* MainWindow.xib in Resources */,
 				EA86C7E614D9E75600CB1551 /* RootViewController.xib in Resources */,
 				EA86C7E714D9E75600CB1551 /* PublisherContentViewController.xib in Resources */,
 				EA86C7E814D9E75600CB1551 /* ExampleViewController.xib in Resources */,
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
-				EA86C7FA14D9EB8600CB1551 /* content-integration.json in Resources */,
-				EA8C313414DC791B0075B473 /* content-subcontent.json in Resources */,
+				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

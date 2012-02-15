@@ -22,8 +22,13 @@ NSString *readLineAsNSString(FILE *file)
     int charsRead;
     do
     {
-        if(fgets(buffer, 4095, file) != NULL)
-            [result appendFormat:@"%s", buffer];
+        if(fgets(buffer, 4095, file) != NULL){
+            //remove newline from the end of the buffer
+            NSString *line = [NSString stringWithFormat:@"%s", buffer];
+            line = [line stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            
+            [result appendString:line];
+        }
         else
             break;
     } while(charsRead == 4095);
@@ -132,7 +137,7 @@ NSString *readLineAsNSString(FILE *file)
                     if (!!url) {
                         //Is the second component a valid file?
                         NSString *responsePath = [resourcePath stringByAppendingPathComponent:[components objectAtIndex:1]];
-                        if ([[NSFileManager defaultManager] fileExistsAtPath:resourcePath]) {
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:responsePath]) {
                             WWURLFileResponse *responseObject = [WWURLFileResponse new];
                             responseObject.filePath = responsePath;
                             [[self allResponses] setObject:responseObject forKey:url];
