@@ -27,7 +27,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SBJsonWriter.h"
+#import "SBJsonWriterPH.h"
 
 @interface SBJsonWriterPH ()
 

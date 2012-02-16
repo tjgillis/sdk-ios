@@ -27,7 +27,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SBJsonParser.h"
+#import "SBJsonParserPH.h"
 
 @interface SBJsonParserPH ()
 

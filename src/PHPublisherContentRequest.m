@@ -12,7 +12,7 @@
 #import "PHConstants.h"
 #import "PHStringUtil.h"
 #import "PHReward.h"
-#import "JSON.h"
+#import "JSONPH.h"
 
 NSString *const PHPublisherContentRequestRewardIDKey = @"reward";
 NSString *const PHPublisherContentRequestRewardQuantityKey = @"quantity";
