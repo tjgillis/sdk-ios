@@ -646,10 +646,11 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             purchase.quantity = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseQuantityKey] integerValue];
             purchase.receipt = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey] stringValue];
             purchase.callback = callback;
-            
+
+#if PH_USE_STOREKIT!=0
             NSString *cookie = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseCookieKey] stringValue];
             [PHPublisherIAPTrackingRequest setConversionCookie:cookie forProduct:purchase.productIdentifier];
-            
+#endif
             if ([self.delegate respondsToSelector:@selector(request:makePurchase:)]) {
                 [(id <PHPublisherContentRequestDelegate>)self.delegate request:self makePurchase:purchase];
             }

@@ -53,6 +53,14 @@
 #define PH_DISMISS_WHEN_BACKGROUNDED
 #endif
 
+// PH_USE_STOREKIT
+// By default, PlayHaven will require the StoreKit framework. Builds that don't need 
+// IAP tracking features may define PH_USE_STOREKIT to be 0.
+#ifndef PH_USE_STOREKIT
+#define PH_USE_STOREKIT 1
+#endif
+
+
 // Macros
 #define PH_URL(PATH) [PH_BASE_URL stringByAppendingString:@#PATH]
 #define PH_URL_FMT(PATH,FMT) [PH_BASE_URL stringByAppendingFormat:@#PATH, FMT]

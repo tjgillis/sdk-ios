@@ -6,8 +6,12 @@
 //  Copyright (c) 2012 Playhaven. All rights reserved.
 //
 
-#import "PHPublisherIAPTrackingRequest.h"
+
+//  This will ensure the PH_USE_STOREKIT macro is properly set.
 #import "PHConstants.h"
+
+#if PH_USE_STOREKIT!=0
+#import "PHPublisherIAPTrackingRequest.h"
 
 @interface PHPublisherIAPTrackingRequest(Private)
 +(NSMutableDictionary *)allConversionCookies;
@@ -97,4 +101,4 @@
 }
 
 @end
-
+#endif

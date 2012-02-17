@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Playhaven. All rights reserved.
 //
 
+#if PH_USE_STOREKIT!=0
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 #import "PHAPIRequest.h"
@@ -28,3 +29,4 @@
 @property (nonatomic, copy) NSError *skError;
 
 @end
+#endif
