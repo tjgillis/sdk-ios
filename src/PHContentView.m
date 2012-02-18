@@ -593,8 +593,8 @@ static NSMutableSet *allContentViews = nil;
 #define DURATION_2 0.125
 
 -(void)bounceIn{
-    self.transform = BOUNCE_OUT;
-    self.alpha = ALPHA_OUT;
+    _webView.transform = BOUNCE_OUT;
+    _webView.alpha = ALPHA_OUT;
     
     [UIView beginAnimations:@"bounce" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -602,15 +602,15 @@ static NSMutableSet *allContentViews = nil;
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(continueBounceIn)];
     
-    self.transform = BOUNCE_MID;
-    self.alpha = ALPHA_IN;
+    _webView.transform = BOUNCE_MID;
+    _webView.alpha = ALPHA_IN;
     
     [UIView commitAnimations];
 }
 
 -(void)continueBounceIn{
-    self.transform = BOUNCE_MID;
-    self.alpha = ALPHA_IN;
+    _webView.transform = BOUNCE_MID;
+    _webView.alpha = ALPHA_IN;
     
     [UIView beginAnimations:@"bounce2" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -618,21 +618,21 @@ static NSMutableSet *allContentViews = nil;
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(finishBounceIn)];
     
-    self.transform = BOUNCE_IN;
+    _webView.transform = BOUNCE_IN;
     
     [UIView commitAnimations];
 }
 
 -(void)finishBounceIn{
-    self.transform = BOUNCE_IN;
-    self.alpha = ALPHA_IN;
+    _webView.transform = BOUNCE_IN;
+    _webView.alpha = ALPHA_IN;
     
     [self viewDidShow];
 }
 
 -(void)bounceOut{
-    self.transform = BOUNCE_IN;
-    self.alpha = ALPHA_IN;
+    _webView.transform = BOUNCE_IN;
+    _webView.alpha = ALPHA_IN;
     
     [UIView beginAnimations:@"bounce" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -640,14 +640,14 @@ static NSMutableSet *allContentViews = nil;
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(continueBounceOut)];
     
-    self.transform = BOUNCE_MID;
+    _webView.transform = BOUNCE_MID;
     
     [UIView commitAnimations];
 }
 
 -(void)continueBounceOut{
-    self.transform = BOUNCE_MID;
-    self.alpha = ALPHA_IN;
+    _webView.transform = BOUNCE_MID;
+    _webView.alpha = ALPHA_IN;
     
     [UIView beginAnimations:@"bounce2" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -655,15 +655,15 @@ static NSMutableSet *allContentViews = nil;
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(finishBounceOut)];
     
-    self.transform = BOUNCE_OUT;
-    self.alpha = ALPHA_OUT;
+    _webView.transform = BOUNCE_OUT;
+    _webView.alpha = ALPHA_OUT;
     
     [UIView commitAnimations];
 }
 
 -(void)finishBounceOut{
-    self.transform = BOUNCE_OUT;
-    self.alpha = ALPHA_OUT;
+    _webView.transform = BOUNCE_OUT;
+    _webView.alpha = ALPHA_OUT;
     
     [self viewDidDismiss];
 }
