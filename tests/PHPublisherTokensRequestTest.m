@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "PHAPIRequest.h"
 #import "PHPublisherPromosRequest.h"
-#import "JSONPH.h"
+#import "JSON.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
