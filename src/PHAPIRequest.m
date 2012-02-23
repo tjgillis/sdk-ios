@@ -10,7 +10,7 @@
 
 #import "NSObject+QueryComponents.h"
 #import "PHStringUtil.h"
-#import "SBJsonParser.h"
+#import "JSON.h"
 #import "UIDevice+HardwareString.h"
 #import "PHConstants.h"
 
@@ -275,7 +275,7 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
     }
     
     NSString *responseString = [[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding];    
-    SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
+    PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
     NSDictionary* resultDictionary = [parser objectWithString:responseString];
     [parser release];
     [responseString release];

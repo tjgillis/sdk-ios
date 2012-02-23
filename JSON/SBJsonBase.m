@@ -28,10 +28,10 @@
  */
 
 #import "SBJsonBase.h"
-NSString * SBJSONErrorDomainPH = @"org.brautaset.JSON.ErrorDomain";
+NSString * PH_SBJSONERRORDOMAIN_CONST = @"org.brautaset.JSON.ErrorDomain";
 
 
-@implementation SBJsonBasePH
+@implementation PH_SBJSONBASE_CLASS
 
 @synthesize errorTrace;
 @synthesize maxDepth;
@@ -61,7 +61,7 @@ NSString * SBJSONErrorDomainPH = @"org.brautaset.JSON.ErrorDomain";
                     nil];
     }
     
-    NSError *error = [NSError errorWithDomain:SBJSONErrorDomainPH code:code userInfo:userInfo];
+    NSError *error = [NSError errorWithDomain:PH_SBJSONERRORDOMAIN_CONST code:code userInfo:userInfo];
 
     [self willChangeValueForKey:@"errorTrace"];
     [errorTrace addObject:error];

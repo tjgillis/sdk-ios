@@ -11,6 +11,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "PHConstants.h"
 #import "SBJsonParser.h"
 #import "PHContent.h"
 #import "PHContentView.h"
@@ -61,9 +62,9 @@
     *empty = @"{}",
     *keyword = @"{\"frame\":\"PH_FULLSCREEN\",\"url\":\"http://google.com\",\"transition\":\"PH_MODAL\",\"context\":{\"awesome\":\"awesome\"}}",
     *rect = @"{\"frame\":{\"PH_LANDSCAPE\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"PH_PORTRAIT\":{\"x\":40,\"y\":60,\"w\":240,\"h\":340}},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"}}";
-    
-    SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
-    NSDictionary
+  
+  PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
+  NSDictionary
     *emptyDict = [parser objectWithString:empty],
     *keywordDict = [parser objectWithString:keyword],
     *rectDict = [parser objectWithString:rect];
@@ -99,37 +100,36 @@
 }
 
 -(void)testCloseButtonDelayParameter{
-    PHContent *content = [[PHContent alloc] init];
-    STAssertTrue(content.closeButtonDelay == 10.0f, @"Default closeButton delay value incorrect!");
-    [content release];
-    
-    NSString
-    *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_delay\":23}";
-    
-    SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
-    NSDictionary *rectDict = [parser objectWithString:rect];
-    [parser release];
-    
-    PHContent *rectUnit = [PHContent contentWithDictionary:rectDict];
-    STAssertTrue(rectUnit.closeButtonDelay == 23.0f, @"Expected 23 got %f", content.closeButtonDelay);
-    
+  PHContent *content = [[PHContent alloc] init];
+  STAssertTrue(content.closeButtonDelay == 10.0f, @"Default closeButton delay value incorrect!");
+  [content release];
+  
+  NSString
+  *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_delay\":23}";
+  
+  PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
+  NSDictionary *rectDict = [parser objectWithString:rect];
+  [parser release];
+  
+  PHContent *rectUnit = [PHContent contentWithDictionary:rectDict];
+  STAssertTrue(rectUnit.closeButtonDelay == 23.0f, @"Expected 23 got %f", content.closeButtonDelay);
+
 }
 
 -(void)testCloseButtonUrlParameter{
-    PHContent *content = [[PHContent alloc] init];
-    STAssertTrue(content.closeButtonURLPath == nil, @"CloseButtonURLPath property not available");
-    [content release];
-    
-    NSString
-    *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_ping\":\"http://playhaven.com\"}";
-    
-    SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
-    NSDictionary *rectDict = [parser objectWithString:rect];
-    [parser release];
-    
-    PHContent *rectUnit = [PHContent contentWithDictionary:rectDict];
-    STAssertTrue([rectUnit.closeButtonURLPath isEqualToString:@"http://playhaven.com"], @"Expected 'http://playhaven.com got %@", content.closeButtonURLPath);
-    
+  PHContent *content = [[PHContent alloc] init];
+  STAssertTrue(content.closeButtonURLPath == nil, @"CloseButtonURLPath property not available");
+  [content release];
+  
+  NSString
+  *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_ping\":\"http://playhaven.com\"}";
+  
+  PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
+  NSDictionary *rectDict = [parser objectWithString:rect];
+  [parser release];
+  
+  PHContent *rectUnit = [PHContent contentWithDictionary:rectDict];
+  STAssertTrue([rectUnit.closeButtonURLPath isEqualToString:@"http://playhaven.com"], @"Expected 'http://playhaven.com got %@", content.closeButtonURLPath);
 }
 
 @end
