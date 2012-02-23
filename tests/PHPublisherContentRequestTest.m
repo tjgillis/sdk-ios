@@ -11,6 +11,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "PHConstants.h"
 #import "SBJsonParser.h"
 #import "PHContent.h"
 #import "PHContentView.h"
@@ -57,7 +58,7 @@
     *keyword = @"{\"frame\":\"PH_FULLSCREEN\",\"url\":\"http://google.com\",\"transition\":\"PH_MODAL\",\"context\":{\"awesome\":\"awesome\"}}",
     *rect = @"{\"frame\":{\"PH_LANDSCAPE\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"PH_PORTRAIT\":{\"x\":40,\"y\":60,\"w\":240,\"h\":340}},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"}}";
   
-  SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
+  PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
   NSDictionary
     *emptyDict = [parser objectWithString:empty],
     *keywordDict = [parser objectWithString:keyword],
@@ -101,7 +102,7 @@
   NSString
   *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_delay\":23}";
   
-  SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
+  PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
   NSDictionary *rectDict = [parser objectWithString:rect];
   [parser release];
   
@@ -118,7 +119,7 @@
   NSString
   *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_ping\":\"http://playhaven.com\"}";
   
-  SBJsonParserPH *parser = [[SBJsonParserPH alloc] init];
+  PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
   NSDictionary *rectDict = [parser objectWithString:rect];
   [parser release];
   

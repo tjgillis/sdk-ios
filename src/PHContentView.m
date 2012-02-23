@@ -421,7 +421,7 @@ static NSMutableSet *allContentViews = nil;
         
         NSString *contextString = [queryComponents valueForKey:@"context"];
         
-        SBJsonParserPH *parser = [SBJsonParserPH new];
+        PH_SBJSONPARSER_CLASS *parser = [PH_SBJSONPARSER_CLASS new];
         id parserObject = [parser objectWithString:contextString];
         NSDictionary *context = ([parserObject isKindOfClass:[NSDictionary class]])?(NSDictionary*) parserObject: nil;
         
@@ -519,7 +519,7 @@ static NSMutableSet *allContentViews = nil;
     NSString *_callback = @"null", *_response = @"null", *_error = @"null";
     if (!!callback) _callback = callback;
     
-    SBJsonWriterPH *jsonWriter = [SBJsonWriterPH new];
+    PH_SBJSONWRITER_CLASS *jsonWriter = [PH_SBJSONWRITER_CLASS new];
     if (!!response) {
         _response = [jsonWriter stringWithObject:response];
     }

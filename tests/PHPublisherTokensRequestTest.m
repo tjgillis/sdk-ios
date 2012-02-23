@@ -8,6 +8,8 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
+
+#import "PHConstants.h"
 #import "PHAPIRequest.h"
 #import "PHPublisherPromosRequest.h"
 #import "JSON.h"
@@ -30,7 +32,7 @@
 
 -(void)testRequestProcessing{
   NSString *responseData = @"{\"response\":{\"redeemed\":[\"TOKEN_0\",\"TOKEN_1\"]}}";
-  SBJsonParserPH *parser = [SBJsonParserPH new];
+  PH_SBJSONPARSER_CLASS *parser = [PH_SBJSONPARSER_CLASS new];
   NSDictionary *responseDictionary = [parser objectWithString:responseData];
   [parser release];
   

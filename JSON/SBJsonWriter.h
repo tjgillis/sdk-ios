@@ -28,6 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PHConstants.h"
 #import "SBJsonBase.h"
 
 /**
@@ -52,7 +53,7 @@
  way you would expect.
  
  */
-@interface SBJsonWriterPH : SBJsonBasePH {
+@interface PH_SBJSONWRITER_CLASS : PH_SBJSONBASE_CLASS {
 
 @private
     BOOL sortKeys, humanReadable;
