@@ -11,7 +11,8 @@
 typedef enum{
     PHPurchaseResolutionBuy,
     PHPurchaseResolutionCancel,
-    PHPurchaseResolutionError
+    PHPurchaseResolutionError,
+    PHPurchaseResolutionFailure
 } PHPurchaseResolutionType;
 
 @interface PHPurchase : NSObject{

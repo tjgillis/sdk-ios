@@ -21,6 +21,9 @@
         case PHPurchaseResolutionCancel:
             result = @"cancel";
             break;
+        
+        case PHPurchaseResolutionFailure:
+            result = @"failure";
             
         default:
             result = @"error";

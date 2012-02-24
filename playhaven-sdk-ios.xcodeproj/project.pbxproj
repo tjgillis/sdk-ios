@@ -222,6 +222,10 @@
 		EAFF5E6C14F6EC8300E96C2C /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
 		EAFF5E6D14F6EC8300E96C2C /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
 		EAFF5E6E14F6EC8300E96C2C /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44268134539F4000DA3E9 /* SBJsonWriter.m */; };
+		EAFF5E7714F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */; };
+		EAFF5E7814F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */; };
+		EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
+		EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -319,6 +323,9 @@
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
 		EAED519D134B949D00D0DCB6 /* PHPublisherContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherContentRequest.h; sourceTree = "<group>"; };
 		EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequest.m; sourceTree = "<group>"; };
+		EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherIAPTrackingViewController.h; sourceTree = "<group>"; };
+		EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherIAPTrackingViewController.m; sourceTree = "<group>"; };
+		EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherIAPTrackingViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +481,9 @@
 				EA12AC431366339D00CB2F24 /* PublisherContentViewController.h */,
 				EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */,
 				EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */,
+				EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */,
+				EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */,
+				EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */,
 			);
 			path = example;
 			sourceTree = "<group>";
@@ -834,6 +844,7 @@
 				EA50F3D31436426F0055EB3A /* PublisherContentViewController.xib in Resources */,
 				EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */,
 				EA2B07A314E9EBA60087A45F /* 512.png in Resources */,
+				EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +869,7 @@
 				EA86C7E814D9E75600CB1551 /* ExampleViewController.xib in Resources */,
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
+				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,6 +925,7 @@
 				EAB2B44813CBD172006D2391 /* PHReward.m in Sources */,
 				EA1799E014200FAE005F286F /* PHConstants.m in Sources */,
 				EA019C8314C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EAFF5E7714F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,6 +1000,7 @@
 				EA86C7DB14D9E75600CB1551 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EA86C7F514D9E77D00CB1551 /* WWURLConnection.m in Sources */,
 				EA86C7F614D9E77D00CB1551 /* WWURLMatching.m in Sources */,
+				EAFF5E7814F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1123,7 +1137,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jesus Fernandez (XMX7NX993S)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1140,6 +1154,7 @@
 				INFOPLIST_FILE = example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE5F744B-88B1-4638-A565-10076DFECDDD";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1148,7 +1163,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jesus Fernandez (XMX7NX993S)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1162,6 +1177,7 @@
 				INFOPLIST_FILE = example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE5F744B-88B1-4638-A565-10076DFECDDD";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

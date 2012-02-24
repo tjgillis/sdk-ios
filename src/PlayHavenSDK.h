@@ -6,6 +6,8 @@
 //  Copyright 2011 Playhaven. All rights reserved.
 //
 
+#import "PHConstants.h"
+
 #import "PHPublisherOpenRequest.h"
 #import "PHPublisherContentRequest.h"
 #import "PHPublisherMetadataRequest.h"

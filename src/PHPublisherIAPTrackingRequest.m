@@ -15,6 +15,9 @@
 
 @interface PHPublisherIAPTrackingRequest(Private)
 +(NSMutableDictionary *)allConversionCookies;
+-(void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale;
+-(void)sendWithErrorCode:(NSInteger)errorCode;
+-(void)sendWithFailure;
 @end
 
 @implementation PHPublisherIAPTrackingRequest
@@ -41,12 +44,10 @@
 @synthesize product;
 @synthesize quantity;
 @synthesize resolution;
-@synthesize skError;
 
 -(void)dealloc{
     [_product release], _product = nil;
-    [_productInfo release], _productInfo = nil;
-    [_skError release], _skError = nil;
+    [_request release], _request = nil;
     [super dealloc];
 }
 
@@ -57,31 +58,50 @@
     return PH_URL(/v3/publisher/iap/);
 }
 
--(NSDictionary *)additionalParameters{
-    if (_skError == nil)
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                self.product, @"product",
-                [NSNumber numberWithInteger: self.quantity], @"quantity",
-                [PHPurchase stringForResolution:self.resolution], @"resolution",
-                @"ios", @"store", 
-                _productInfo.price, @"price",
-                _productInfo.priceLocale, @"price_locale", 
-                [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
-    else
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                self.product, @"product",
-                [NSNumber numberWithInteger: self.quantity], @"quantity",
-                [PHPurchase stringForResolution:self.resolution], @"resolution",
-                @"ios", @"store", 
-                [NSNumber numberWithInteger: _skError.code], @"error_code",
-                [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+-(void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale{
+    self.additionalParameters = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 self.product, @"product",
+                                 [NSNumber numberWithInteger: self.quantity], @"quantity",
+                                 [PHPurchase stringForResolution:self.resolution], @"resolution",
+                                 @"ios", @"store", 
+                                 price, @"price",
+                                 priceLocale, @"price_locale", 
+                                 [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+    [self send];
+}
+
+-(void)sendWithErrorCode:(NSInteger)errorCode{
+    self.additionalParameters = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 self.product, @"product",
+                                 [NSNumber numberWithInteger: self.quantity], @"quantity",
+                                 [PHPurchase stringForResolution:PHPurchaseResolutionError], @"resolution",
+                                 @"ios", @"store", 
+                                 [NSNumber numberWithInteger:errorCode], @"error_code",
+                                 [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+    [self send];
+}
+
+-(void)sendWithFailure{
+    self.additionalParameters = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 self.product, @"product",
+                                 [NSNumber numberWithInteger: self.quantity], @"quantity",
+                                 [PHPurchase stringForResolution:PHPurchaseResolutionFailure], @"resolution",
+                                 @"ios", @"store",
+                                 [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+    [self send];
 }
 
 -(void)send{
-    NSSet *productSet = [NSSet setWithObject:self.product];
-    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
-    [request setDelegate:self];
-    [request start];
+    if (![SKPaymentQueue canMakePayments]) {
+        //if we can't make payments, fail immediately, this might be the sign of a bad implementation
+        PH_NOTE(@"This app doesn't seem to be able to make payments. This might mean something is wrong with your IAP implementation!");
+        [self sendWithFailure];
+    } else if (_request == nil) {        
+        NSSet *productSet = [NSSet setWithObject:self.product];
+        _request = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
+        [_request setDelegate:self];
+        [_request start];
+    }
 }
 
 #pragma mark -
@@ -89,15 +109,14 @@
 -(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     if ([response.products count] > 0) {
         SKProduct *productInfo = [response.products objectAtIndex:0];
-        [_productInfo release], _productInfo = [productInfo retain];
+        [self sendWithPrice:productInfo.price andLocale:productInfo.priceLocale];
+    } else {
+        [self sendWithFailure];
     }
-    
-    [super send];
 }
 
 -(void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    
-    [super send];
+    [self sendWithErrorCode:error.code];
 }
 
 @end
