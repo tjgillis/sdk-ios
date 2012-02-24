@@ -11,6 +11,7 @@
 @implementation PublisherIAPTrackingViewController
 @synthesize productField;
 @synthesize quantityField;
+@synthesize resolutionSegment;
 
 -(void)startRequest{
     [super startRequest];
@@ -23,6 +24,7 @@
     request.delegate = self;
     request.product = self.productField.text;
     request.quantity = [self.quantityField.text integerValue];
+    request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
     [request send];
 }
 
@@ -30,6 +32,7 @@
     [PHAPIRequest cancelAllRequestsWithDelegate:self];
     [productField release];
     [quantityField release];
+    [resolutionSegment release];
     [super dealloc];
 }
 
@@ -51,6 +54,7 @@
 - (void)viewDidUnload {
     [self setProductField:nil];
     [self setQuantityField:nil];
+    [self setResolutionSegment:nil];
     [super viewDidUnload];
 }
 @end
