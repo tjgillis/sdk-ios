@@ -110,28 +110,16 @@
 }
 
 -(void)send{
+    switch (self.resolution) {
+        case PHPurchaseResolutionBuy:
+        case PHPurchaseResolutionCancel:
 #ifdef TARGET_IPHONE_SIMULATOR
-    // IAP requests don't work from the simulator, but it would 
-    // be helpful to allow testing the request itself.
-    switch (self.resolution) {
-        case PHPurchaseResolutionBuy:
-        case PHPurchaseResolutionCancel:
+            // IAP requests don't work from the simulator, but it would 
+            // be helpful to allow testing the request itself.
             [self sendWithPrice:[NSDecimalNumber decimalNumberWithString:@"0.0"] andLocale:[NSLocale currentLocale]];
-            break;
-        
-        case PHPurchaseResolutionError:
-            [self sendWithError:PHCreateError(PHIAPTrackingSimulatorErrorType)];
-            break;
-        
-        case PHPurchaseResolutionFailure:
-            [self sendWithFailure];
-            break;
-    }
 #else
-    switch (self.resolution) {
-        case PHPurchaseResolutionBuy:
-        case PHPurchaseResolutionCancel:
             [self requestProductInformation];
+#endif
             break;
         
         case PHPurchaseResolutionError:
@@ -142,7 +130,7 @@
             [self sendWithFailure];
             break;
     }
-#endif
+
 }
 
 -(void)requestProductInformation{

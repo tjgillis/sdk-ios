@@ -25,6 +25,7 @@
     request.product = self.productField.text;
     request.quantity = [self.quantityField.text integerValue];
     request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
+    request.error = PHCreateError(PHIAPTrackingSimulatorErrorType);
     [request send];
 }
 
