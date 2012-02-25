@@ -108,15 +108,18 @@
 }
 
 -(void)finish{
-    if ([self.delegate respondsToSelector:@selector(loaderFinished:)]) {
-        [self.delegate loaderFinished:self];
-    }
-    
-    [self invalidate];
-    
-    if (self.opensFinalURLOnDevice) {
-        //actually open in app at this point
-        [[UIApplication sharedApplication] openURL:self.targetURL];
+    if ([[UIApplication sharedApplication] canOpenURL:self.targetURL]) {
+        if ([self.delegate respondsToSelector:@selector(loaderFinished:)]) {
+            [self.delegate loaderFinished:self];
+        }
+        
+        [self invalidate];
+        
+        if (self.opensFinalURLOnDevice) {
+            [[UIApplication sharedApplication] openURL:self.targetURL];
+        }
+    } else {
+        [self fail];
     }
 }
 
