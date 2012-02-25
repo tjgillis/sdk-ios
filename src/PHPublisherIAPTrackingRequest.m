@@ -15,8 +15,9 @@
 
 @interface PHPublisherIAPTrackingRequest(Private)
 +(NSMutableDictionary *)allConversionCookies;
+-(void)requestProductInformation;
 -(void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale;
--(void)sendWithErrorCode:(NSInteger)errorCode;
+-(void)sendWithError:(NSError *)error;
 -(void)sendWithFailure;
 @end
 
@@ -41,13 +42,30 @@
     return result;
 }
 
-@synthesize product;
-@synthesize quantity;
-@synthesize resolution;
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution{
+    PHPublisherIAPTrackingRequest *result = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
+    result.product = product;
+    result.quantity = quantity;
+    result.resolution = resolution;
+    return result;
+}
+
++(id)requestForApp:(NSString *)token secret:(NSString *)secret error:(NSError *)error resolution:(PHPurchaseResolutionType)resolution{
+    PHPublisherIAPTrackingRequest *result = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
+    result.error = error;
+    result.resolution = resolution;
+    return result;
+}
+
+@synthesize product = _product;
+@synthesize quantity = _quantity;
+@synthesize resolution = _resolution;
+@synthesize error = _error;
 
 -(void)dealloc{
     [_product release], _product = nil;
     [_request release], _request = nil;
+    [_error release], _error = nil;
     [super dealloc];
 }
 
@@ -65,20 +83,20 @@
                                  [PHPurchase stringForResolution:self.resolution], @"resolution",
                                  @"ios", @"store", 
                                  price, @"price",
-                                 priceLocale, @"price_locale", 
+                                 [priceLocale objectForKey:NSLocaleCurrencyCode], @"price_locale", 
                                  [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
-    [self send];
+    [super send];
 }
 
--(void)sendWithErrorCode:(NSInteger)errorCode{
+-(void)sendWithError:(NSError *)error{
     self.additionalParameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                  self.product, @"product",
                                  [NSNumber numberWithInteger: self.quantity], @"quantity",
                                  [PHPurchase stringForResolution:PHPurchaseResolutionError], @"resolution",
                                  @"ios", @"store", 
-                                 [NSNumber numberWithInteger:errorCode], @"error_code",
+                                 [NSNumber numberWithInteger:error.code], @"error_code",
                                  [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
-    [self send];
+    [super send];
 }
 
 -(void)sendWithFailure{
@@ -88,15 +106,47 @@
                                  [PHPurchase stringForResolution:PHPurchaseResolutionFailure], @"resolution",
                                  @"ios", @"store",
                                  [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
-    [self send];
+    [super send];
 }
 
 -(void)send{
-    if (![SKPaymentQueue canMakePayments]) {
-        //if we can't make payments, fail immediately, this might be the sign of a bad implementation
-        PH_NOTE(@"This app doesn't seem to be able to make payments. This might mean something is wrong with your IAP implementation!");
-        [self sendWithFailure];
-    } else if (_request == nil) {        
+#ifdef TARGET_IPHONE_SIMULATOR
+    // IAP requests don't work from the simulator, but it would 
+    // be helpful to allow testing the request itself.
+    switch (self.resolution) {
+        case PHPurchaseResolutionBuy:
+        case PHPurchaseResolutionCancel:
+            [self sendWithPrice:[NSDecimalNumber decimalNumberWithString:@"0.0"] andLocale:[NSLocale currentLocale]];
+            break;
+        
+        case PHPurchaseResolutionError:
+            [self sendWithError:PHCreateError(PHIAPTrackingSimulatorErrorType)];
+            break;
+        
+        case PHPurchaseResolutionFailure:
+            [self sendWithFailure];
+            break;
+    }
+#else
+    switch (self.resolution) {
+        case PHPurchaseResolutionBuy:
+        case PHPurchaseResolutionCancel:
+            [self requestProductInformation];
+            break;
+        
+        case PHPurchaseResolutionError:
+            [self sendWithError:self.error];
+            break;
+            
+        case PHPurchaseResolutionFailure:
+            [self sendWithFailure];
+            break;
+    }
+#endif
+}
+
+-(void)requestProductInformation{
+    if (_request == nil) {        
         NSSet *productSet = [NSSet setWithObject:self.product];
         _request = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
         [_request setDelegate:self];
@@ -116,7 +166,7 @@
 }
 
 -(void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    [self sendWithErrorCode:error.code];
+    [self sendWithError:error];
 }
 
 @end

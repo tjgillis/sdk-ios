@@ -218,6 +218,7 @@
 		EAC53A94134E5F7A00F2F956 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
+		EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */; };
 		EAED51A0134B949D00D0DCB6 /* PHPublisherContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */; };
 		EAFF5E6C14F6EC8300E96C2C /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
 		EAFF5E6D14F6EC8300E96C2C /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
@@ -226,6 +227,7 @@
 		EAFF5E7814F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */; };
 		EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
 		EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
+		EAFF5E7D14F8154E00E96C2C /* PHPurchaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFF5E7C14F8154E00E96C2C /* PHPurchaseTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -321,11 +323,13 @@
 		EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+QueryComponents.m"; sourceTree = "<group>"; };
 		EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherSubContentRequest.h; sourceTree = "<group>"; };
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
+		EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherIAPTrackingRequestTest.m; sourceTree = "<group>"; };
 		EAED519D134B949D00D0DCB6 /* PHPublisherContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherContentRequest.h; sourceTree = "<group>"; };
 		EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequest.m; sourceTree = "<group>"; };
 		EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherIAPTrackingViewController.h; sourceTree = "<group>"; };
 		EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherIAPTrackingViewController.m; sourceTree = "<group>"; };
 		EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherIAPTrackingViewController.xib; sourceTree = "<group>"; };
+		EAFF5E7C14F8154E00E96C2C /* PHPurchaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPurchaseTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -533,6 +537,8 @@
 				EA523D8A1343EE670057DEA5 /* PHPublisherOpenRequestTest.m */,
 				EAB4423213452026000DA3E9 /* PHAPIRequestTest.m */,
 				EA03810913B25F4300A31FF7 /* PHPublisherMetadataRequestTest.m */,
+				EAFF5E7C14F8154E00E96C2C /* PHPurchaseTest.m */,
+				EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -962,6 +968,8 @@
 				D1E15B7C14981C39001241EE /* SDURLCache.m in Sources */,
 				D118AE5D14B78C3C00C76E2C /* PHUrlPrefetchOperation.m in Sources */,
 				EA019C8214C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EAFF5E7D14F8154E00E96C2C /* PHPurchaseTest.m in Sources */,
+				EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

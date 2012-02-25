@@ -17,13 +17,19 @@
     NSInteger _quantity;
     PHPurchaseResolutionType _resolution;
     SKProductsRequest *_request;
+    NSError *_error;
 }
 
 +(void)setConversionCookie:(NSString *)cookie forProduct:(NSString *)product;
 +(NSString *)getConversionCookieForProduct:(NSString *)product;
 
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution;
+
++(id)requestForApp:(NSString *)token secret:(NSString *)secret error:(NSError *)error resolution:(PHPurchaseResolutionType)resolution;
+
 @property (nonatomic, copy) NSString *product;
 @property (nonatomic, assign) NSInteger quantity;
+@property (nonatomic, retain) NSError *error;
 @property (nonatomic, assign) PHPurchaseResolutionType resolution;
 
 @end

@@ -24,6 +24,7 @@
         
         case PHPurchaseResolutionFailure:
             result = @"failure";
+            break;
             
         default:
             result = @"error";
