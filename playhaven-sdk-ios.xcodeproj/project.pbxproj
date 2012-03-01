@@ -216,6 +216,8 @@
 		EABAA6981450ED640040B937 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
 		EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
 		EAC53A94134E5F7A00F2F956 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
+		EACFC89E1500328E007EF54F /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC89D1500328E007EF54F /* 57.png */; };
+		EACFC8A1150033A6007EF54F /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC8A0150033A6007EF54F /* 72.png */; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */; };
@@ -321,6 +323,8 @@
 		EABC1CE6143A770000638B09 /* ExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExampleViewController.xib; sourceTree = "<group>"; };
 		EAC53A91134E5F7A00F2F956 /* NSObject+QueryComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+QueryComponents.h"; sourceTree = "<group>"; };
 		EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+QueryComponents.m"; sourceTree = "<group>"; };
+		EACFC89D1500328E007EF54F /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
+		EACFC8A0150033A6007EF54F /* 72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72.png; sourceTree = "<group>"; };
 		EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherSubContentRequest.h; sourceTree = "<group>"; };
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
 		EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherIAPTrackingRequestTest.m; sourceTree = "<group>"; };
@@ -515,6 +519,8 @@
 		EA2B079F14E9EBA60087A45F /* default */ = {
 			isa = PBXGroup;
 			children = (
+				EACFC89D1500328E007EF54F /* 57.png */,
+				EACFC8A0150033A6007EF54F /* 72.png */,
 				EA2B07A014E9EBA60087A45F /* 512.png */,
 			);
 			path = default;
@@ -851,6 +857,8 @@
 				EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */,
 				EA2B07A314E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
+				EACFC89E1500328E007EF54F /* 57.png in Resources */,
+				EACFC8A1150033A6007EF54F /* 72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1118,7 @@
 					armv7,
 				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -1128,7 +1137,8 @@
 					armv6,
 					armv7,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -1136,6 +1146,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
