@@ -45,6 +45,7 @@
 }@end
 @interface PHPublisherContentRequestTest : SenTestCase @end
 @interface PHPublisherContentRewardsTest : SenTestCase @end
+@interface PHPublisherContentPurchasesTest : SenTestCase @end
 @interface PHPublisherContentRequestPreservationTest : SenTestCase @end
 @interface PHPublisherContentPreloadTest : SenTestCase{
     PHPublisherContentRequest *_request;
@@ -277,6 +278,60 @@
     
     STAssertTrue([request isValidReward:rewardDict], @"PHPublisherContentRequest could not validate valid reward.");
     STAssertFalse([request isValidReward:badRewardDict], @"PHPublisherContentRequest validated invalid reward.");
+}
+
+@end
+
+@implementation PHPublisherContentPurchasesTest
+
+-(void)testValidation{
+    NSString *product = @"com.playhaven.example.candy";
+    NSString *name = @"Delicious Candy";
+    NSNumber *quantity = [NSNumber numberWithInt:1234];
+    NSNumber *receipt = [NSNumber numberWithInt:102930193];
+    NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
+                                                            product, name, quantity, [[UIDevice currentDevice] uniqueIdentifier], receipt, PUBLISHER_SECRET]];
+    NSNumber *cookie = [NSNumber numberWithInt:3423413];
+    
+    NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                product, @"product",
+                                name, @"name",
+                                quantity, @"quantity",
+                                receipt, @"receipt",
+                                signature, @"signature",
+                                cookie, @"cookie",
+                                nil];
+    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict] forKey:@"purchases"];
+    
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    
+    STAssertTrue([request isValidPurchase:purchaseDict], @"PHPublisherContentRequest could not validate valid purchase");
+    STAssertNoThrow([request requestPurchases:purchasesDict callback:nil source:nil], @"Problem processing valid purchases array");
+}
+
+-(void)testAlternateValidation{
+    NSString *product = @"com.playhaven.example.candy";
+    NSString *name = @"Delicious Candy";
+    NSNumber *quantity = [NSNumber numberWithInt:1234];
+    NSString *receipt = @"102930193";
+    NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
+                                                            product, name, quantity, [[UIDevice currentDevice] uniqueIdentifier], receipt, PUBLISHER_SECRET]];
+    NSString *cookie = @"3423413";
+    
+    NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  product, @"product",
+                                  name, @"name",
+                                  quantity, @"quantity",
+                                  receipt, @"receipt",
+                                  signature, @"signature",
+                                  cookie, @"cookie",
+                                  nil];
+    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict] forKey:@"purchases"];
+    
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    
+    STAssertTrue([request isValidPurchase:purchaseDict], @"PHPublisherContentRequest could not validate valid purchase");
+    STAssertNoThrow([request requestPurchases:purchasesDict callback:nil source:nil], @"Problem processing valid purchases array");
 }
 
 @end

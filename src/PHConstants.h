@@ -112,6 +112,7 @@ NSError *PHCreateError(PHErrorType errorType);
 // 2: WiFi
 int PHNetworkStatus(void);
 
+NSString *PHAgnosticStringValue(id object);
 
 // Caching constant definitions
 //
@@ -145,4 +146,3 @@ extern const playHavenImage badge_image;
 extern const playHavenImage badge_2x_image;
 extern const playHavenImage close_image;
 extern const playHavenImage close_active_image;
-
