@@ -37,7 +37,7 @@
 }
 
 +(NSString *)getConversionCookieForProduct:(NSString *)product{
-    NSString *result = [[self allConversionCookies] valueForKey:product];
+    NSString *result = PHAgnosticStringValue([[self allConversionCookies] valueForKey:product]);
     [[self allConversionCookies] setValue:nil forKey:product];
     return result;
 }
