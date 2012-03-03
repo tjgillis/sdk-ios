@@ -22,14 +22,6 @@
 
 @end
 
-
-@implementation PHPublisherContentRequest(PurchaseSignatureHack)
--(BOOL)isValidPurchase:(NSDictionary *)purchaseData{
-    return YES;
-}
-@end
-
-
 static IAPHelper *sharedIAPHelper;
 
 @implementation IAPHelper

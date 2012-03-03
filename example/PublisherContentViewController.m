@@ -32,7 +32,7 @@
         [self.placementField resignFirstResponder];
         
         NSString *placement = (![self.placementField.text isEqualToString:@""])? self.placementField.text : @"more_games";
-        PHPublisherContentRequest * request = [PHPublisherContentRequest requestForApp:self.token secret:self.secret placement:placement delegate:nil];
+        PHPublisherContentRequest * request = [PHPublisherContentRequest requestForApp:self.token secret:self.secret placement:placement delegate:self];
         [request setShowsOverlayImmediately:[showsOverlaySwitch isOn]];
         [request setAnimated:[animateSwitch isOn]];
         [request send];
