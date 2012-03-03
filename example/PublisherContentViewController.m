@@ -7,6 +7,7 @@
 //
 
 #import "PublisherContentViewController.h"
+#import "IAPHelper.h"
 
 @implementation PublisherContentViewController
 @synthesize placementField = _placementField;
@@ -106,10 +107,10 @@
 }
 
 -(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase{
-    NSString *message = [NSString stringWithFormat:@"Purchased: %dx %@", purchase.quantity, purchase.productIdentifier];
+    NSString *message = [NSString stringWithFormat:@"Initiating purchase for: %dx %@", purchase.quantity, purchase.productIdentifier];
     [self addMessage:message];
     
-    [purchase reportResolution:PHPurchaseResolutionBuy];
+    [[IAPHelper sharedIAPHelper] startPurchase:purchase];
 }
 
 #pragma - Notifications
