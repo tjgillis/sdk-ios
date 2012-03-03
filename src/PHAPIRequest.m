@@ -176,8 +176,8 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         *idiom = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
         *connection = [NSNumber numberWithInt:PHNetworkStatus()];
         
-        
-        NSMutableDictionary *additionalParams = (!!self.additionalParameters)? [self.additionalParameters mutableCopy]: [[NSMutableDictionary alloc] init];  
+        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
+        [combinedParams addEntriesFromDictionary:self.additionalParameters];  
         NSDictionary *signatureParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                          device, @"device",
                                          self.token, @"token",
@@ -192,8 +192,8 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
                                          PH_SDK_VERSION, @"sdk-ios",
                                          nil];
         
-        [additionalParams addEntriesFromDictionary:signatureParams];
-        _signedParameters = additionalParams;
+        [combinedParams addEntriesFromDictionary:signatureParams];
+        _signedParameters = combinedParams;
     }
     
     return _signedParameters;       

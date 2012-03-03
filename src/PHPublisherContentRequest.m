@@ -654,6 +654,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             if ([self.delegate respondsToSelector:@selector(request:makePurchase:)]) {
                 [(id <PHPublisherContentRequestDelegate>)self.delegate request:self makePurchase:purchase];
             }
+            [purchase release];
         }
     }
 }
