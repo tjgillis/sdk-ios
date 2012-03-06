@@ -50,10 +50,12 @@
     return result;
 }
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret error:(NSError *)error resolution:(PHPurchaseResolutionType)resolution{
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error{
     PHPublisherIAPTrackingRequest *result = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
     result.error = error;
-    result.resolution = resolution;
+    result.product = product;
+    result.quantity = quantity;
+    result.resolution = (error.code == SKErrorPaymentCancelled)? PHPurchaseResolutionCancel : PHPurchaseResolutionError;
     return result;
 }
 

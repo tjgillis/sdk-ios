@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "IAPHelper.h"
 @implementation AppDelegate
 
 
@@ -28,6 +28,7 @@
     }
     
     [self.window makeKeyAndVisible];
+    [[IAPHelper sharedIAPHelper] restorePurchases];
     return YES;
 }
 

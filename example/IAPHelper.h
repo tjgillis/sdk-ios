@@ -8,14 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <StoreKit/StoreKit.h>
 @class PHPurchase;
-@interface IAPHelper : NSObject{
+@interface IAPHelper : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver>{
     NSMutableDictionary *_pendingPurchases;
+    NSMutableDictionary *_pendingRequests;
 }
 
 @property(nonatomic, readonly) NSMutableDictionary *pendingPurchases;
+@property(nonatomic, readonly) NSMutableDictionary *pendingRequests;
 
 +(IAPHelper *)sharedIAPHelper;
 
 -(void)startPurchase:(PHPurchase *)purchase;
+-(void)restorePurchases;
 @end

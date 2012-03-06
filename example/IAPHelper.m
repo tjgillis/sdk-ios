@@ -10,16 +10,36 @@
 #import "PlayHavenSDK.h"
 #import "PHPurchase.h"
 
-@interface UIAlertView(hash)
+@interface NSObject(hash)
 -(NSString *)hashString;
 @end
 
-@implementation UIAlertView(hash)
-
+@implementation NSObject(hash)
 -(NSString *)hashString{
     return [NSString stringWithFormat:@"%d",[self hash]];
 }
+@end
 
+@interface SKProduct (LocalizedPrice)
+@property (nonatomic, readonly) NSString *localizedPrice;
+@end
+
+@implementation SKProduct (LocalizedPrice)
+- (NSString *)localizedPrice {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:self.priceLocale];
+    NSString *formattedString = [numberFormatter stringFromNumber:self.price];
+    [numberFormatter release];
+    return formattedString;
+}
+@end
+
+
+@interface IAPHelper(Private)
+-(void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution;
+-(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error;
 @end
 
 static IAPHelper *sharedIAPHelper;
@@ -56,6 +76,7 @@ static IAPHelper *sharedIAPHelper;
 - (void)dealloc {
     // Should never be called, but just here for clarity really.
     [_pendingPurchases release], _pendingPurchases = nil;
+    [_pendingRequests release], _pendingRequests = nil;
     [super dealloc];
 }
 
@@ -67,41 +88,155 @@ static IAPHelper *sharedIAPHelper;
     return _pendingPurchases;
 }
 
+-(NSMutableDictionary *)pendingRequests{
+    if (_pendingRequests == nil) {
+        _pendingRequests = [[NSMutableDictionary alloc] init];
+    }
+    return _pendingRequests;
+}
+
 -(void)startPurchase:(PHPurchase *)purchase{
-    if (!!purchase) {
-        NSString *message = [NSString stringWithFormat:@"Do you want to buy %d %@?",purchase.quantity,purchase.name];
-        UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:@"Confirm your in app purchase" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy", nil];
+    // The first step is requesting product information for this purchase.
+    if (!!purchase){
+        NSSet *productIdentifiers = [NSSet setWithObject:purchase.productIdentifier];
+        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+        request.delegate = self;
+        [request start];
+        
+        //storing the purchase and the product request to retrieve later
+        [self.pendingPurchases setValue:purchase forKey:[request hashString]];
+        [self.pendingRequests setValue:request forKey:[request hashString]];
+        [request release];
+    }
+}
+
+-(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    NSString *key = [request hashString];
+    PHPurchase *purchase = [self.pendingPurchases valueForKey:key];
+    NSArray *products = response.products;
+    SKProduct *product = [products count] == 1 ? [[products objectAtIndex:0] retain] : nil;
+    
+    if ([purchase.productIdentifier isEqualToString:product.productIdentifier]) {
+        //ask the user to choose to purchase or not purchase an item
+        NSString *message = [NSString stringWithFormat:@"Do you want to buy %d %@ for %@?",purchase.quantity, product.localizedTitle, product.localizedPrice];
+        UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:@"In-Game Store" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy", nil];
         [purchaseAlert show];        
         [self.pendingPurchases setObject:purchase forKey:[purchaseAlert hashString]];
         
         [purchaseAlert release];
+    } else {
+        //either the purchase or the product request is invalid, report as an error
+        [self reportPurchase:purchase withResolution:PHPurchaseResolutionError];
     }
+    
+    //either way clean up the stored purchase and request
+    [self.pendingPurchases removeObjectForKey:key];
+    [self.pendingRequests removeObjectForKey:key];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    PHPurchase *purchase = (PHPurchase *)[self.pendingPurchases objectForKey:[alertView hashString]];
-    PHPurchaseResolutionType resolution = PHPurchaseResolutionError;
+    NSString *key = [alertView hashString];
+    PHPurchase *purchase = (PHPurchase *)[self.pendingPurchases objectForKey:key];
     if (buttonIndex == 0) {
-        NSLog(@"Canceled!");
-        resolution = PHPurchaseResolutionCancel;
+        //the user has canceled the request
+        [self reportPurchase:purchase withResolution:PHPurchaseResolutionCancel];
     } else if (buttonIndex == 1) {
-        NSLog(@"Purchasing!");
-        resolution = PHPurchaseResolutionBuy;
+        //start an app store request
+        SKPayment *payment = [SKPayment paymentWithProductIdentifier:purchase.productIdentifier];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+        [self.pendingRequests setValue:purchase forKey:[payment hashString]];
     }
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [defaults valueForKey:@"ExampleToken"];
-    NSString *secret = [defaults valueForKey:@"ExampleSecret"];
-    
-    //This is a hack to bypass the IAP product lookup while still doing something nice.
-    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity resolution:resolution];
-    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:@"0.99"];
-    NSLocale *locale = [NSLocale currentLocale];
-    [request performSelector:@selector(sendWithPrice:andLocale:) withObject:decimalNumber withObject:locale];
-    
-    //Reporting back to the content unit.
-    [purchase reportResolution:resolution];
-    
+    //either way, clean up the stored alertview
+    [self.pendingPurchases removeObjectForKey:key];
+}
+
+#pragma mark-
+#pragma VGP Support Implementation
+
+
+-(void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    //Adding IAP reporting and VGP to transactions requires some modifications to the
+    //payment queue observer. Send IAP Purchase tracking requests whenever a transaction
+    //is purchased (SKTransactionStatePurchased), and send IAP Error tracking requests 
+    //whenever a transaction dails (SKTransactionStateFailed)
+    for (SKPaymentTransaction *transaction in transactions) {
+        NSString *key = [transaction.payment hashString];
+        PHPurchase *purchase = [self.pendingRequests valueForKey:key];
+        if (purchase == nil){
+            //In the case that a transcaction is being restored, we need to
+            //generate a new purchase object so that IAP transactions may
+            //be reported accurately.
+            purchase = [PHPurchase new];
+            purchase.productIdentifier = transaction.payment.productIdentifier;
+            purchase.quantity = transaction.payment.quantity;
+            [purchase autorelease];
+        }
+        
+        switch (transaction.transactionState) {
+            case SKPaymentTransactionStatePurchased:
+                //This would normallly be the point where an in app purchase would
+                //be delivered. Instead we're just doing the necessary reporting
+                //to support IAP tracking and VGP content units.
+                
+                NSLog(@"IAPHelper: Purchased %@!", transaction.payment.productIdentifier);
+                [self reportPurchase:purchase withResolution:PHPurchaseResolutionBuy];
+                [self.pendingPurchases removeObjectForKey:key];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+                
+            case SKPaymentTransactionStateFailed:
+                //Reporting failed transactions and finalizing them.
+                NSLog(@"IAPHelper: Failed to purchase %@!", transaction.payment.productIdentifier);
+                [self reportPurchase:purchase withError:transaction.error];
+                [self.pendingPurchases removeObjectForKey:key];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+-(void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution{
+    //PHPurchase objects are generated from VGP content units. It is important to preserve
+    //these instances throughout the IAP process. This way, these purchase instances may be
+    //used to report purchases to PlayHaven, as well as back to the originating content unit.
+    if (!!purchase) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [defaults valueForKey:@"ExampleToken"];
+        NSString *secret = [defaults valueForKey:@"ExampleSecret"];
+        
+        //Reporting to the Tracking API
+        PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity resolution:resolution];
+        [request send];
+        
+        //Reporting back to the content unit.
+        [purchase reportResolution:resolution];
+    }
+}
+
+-(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error{
+    //To get a more complete picture of your IAP implementation, report any errors, user
+    //cancellations, or other incomplete transactions to PlayHaven. It is also important
+    //to inform the originating content unit (for VGP-driven purchases) of the error.
+    if (!!purchase){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [defaults valueForKey:@"ExampleToken"];
+        NSString *secret = [defaults valueForKey:@"ExampleSecret"];
+        
+        //Reporting to the Tracking API
+        PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity error:error];
+        [request send];
+        
+        //Reporting back to the content unit
+        [purchase reportResolution:request.resolution];
+    }
+}
+
+-(void)restorePurchases{
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
 
 @end
