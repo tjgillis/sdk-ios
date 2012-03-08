@@ -28,6 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PHConstants.h"
 #import "SBJsonBase.h"
 
 /**
@@ -51,7 +52,7 @@
  We can thus avoid any loss of precision as JSON allows ridiculously large numbers.
  
  */
-@interface SBJsonParserPH : SBJsonBasePH {
+@interface PH_SBJSONPARSER_CLASS : PH_SBJSONBASE_CLASS {
     
 @private
     const char *c;

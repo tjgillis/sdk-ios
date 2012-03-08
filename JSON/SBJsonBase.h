@@ -28,8 +28,8 @@
  */
 
 #import <Foundation/Foundation.h>
-
-extern NSString * SBJSONErrorDomainPH;
+#import "PHConstants.h"
+extern NSString * PH_SBJSONERRORDOMAIN_CONST;
 
 
 enum {
@@ -52,7 +52,7 @@ enum {
 
  This class contains the common error-handling code and option between the parser/writer.
  */
-@interface SBJsonBasePH : NSObject {
+@interface PH_SBJSONBASE_CLASS : NSObject {
     NSMutableArray *errorTrace;
 
 @protected

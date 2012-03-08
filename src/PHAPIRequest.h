@@ -13,23 +13,25 @@
 -(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error;
 @end
 
-@interface PHAPIRequest : NSObject {
-  NSURL *_URL;
-  NSString *_token, *_secret;
-  NSURLConnection *_connection;
-  NSDictionary *_signedParameters;
-  id<NSObject> _delegate;
-  NSMutableData *_connectionData;
-  NSString *_urlPath;
-  NSDictionary *_additionalParameters;
-  NSURLResponse *_response;
-  int _hashCode;
+@interface PHAPIRequest : NSObject<NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
+    NSURL *_URL;
+    NSString *_token, *_secret;
+    NSURLConnection *_connection;
+    NSDictionary *_signedParameters;
+    id<NSObject> _delegate;
+    NSMutableData *_connectionData;
+    NSString *_urlPath;
+    NSDictionary *_additionalParameters;
+    NSURLResponse *_response;
+    int _hashCode;
 }
 
 +(NSString *) base64SignatureWithString:(NSString *)string;
 
 +(id)requestForApp:(NSString *)token secret:(NSString *)secret;
++(id)requestWithHashCode:(int)hashCode;
 +(void)cancelAllRequestsWithDelegate:(id) delegate;
++(int)cancelRequestWithHashCode:(int)hashCode;
 
 @property (nonatomic, copy) NSString *urlPath;
 @property (nonatomic, readonly) NSURL *URL;

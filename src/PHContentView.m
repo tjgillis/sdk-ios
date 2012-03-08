@@ -8,12 +8,12 @@
 
 #import "PHContentView.h"
 #import "PHContent.h"
-#import "PHContentWebView.h"
 #import "NSObject+QueryComponents.h"
 #import "JSON.h"
 #import "PHConstants.h"
 #import "SDURLCache.h"
 #import "PHUrlPrefetchOperation.h"
+#import "PHPurchase.h"
 
 #define MAX_MARGIN 20
 
@@ -35,6 +35,8 @@
 -(void) closeView:(BOOL)animated;
 -(void)prepareForReuse;
 -(void)resetRedirects;
+-(void)bounceOut;
+-(void)bounceIn;
 @end
 
 static NSMutableSet *allContentViews = nil;
@@ -61,6 +63,13 @@ static NSMutableSet *allContentViews = nil;
 +(void)clearContentViews{
     @synchronized(allContentViews){
         [allContentViews release], allContentViews = nil;
+    }
+}
+
+-(void)contentViewsCallback:(NSNotification *) notification{
+    if ([[notification name] isEqualToString:PHCONTENTVIEW_CALLBACK_NOTIFICATION]){
+        NSDictionary *callBack = (NSDictionary *)[notification object];
+        [self sendCallback:[callBack valueForKey:@"callback"] withResponse:[callBack valueForKey:@"response"] error:[callBack valueForKey:@"error"]];
     }
 }
 
@@ -108,7 +117,7 @@ static NSMutableSet *allContentViews = nil;
                       loadContextRedirect,@"ph://loadContext",
                       nil];
 #ifndef PH_UNIT_TESTING         
-        _webView = [[PHContentWebView alloc] initWithFrame:CGRectZero];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
         [self addSubview:_webView];
 #endif
         self.content = content;
@@ -209,7 +218,7 @@ static NSMutableSet *allContentViews = nil;
     } else {
         self.frame = CGRectMake(0, 0, width, height);
     }
-        
+    
     self.center = center;
     
     if (transform) {
@@ -238,6 +247,9 @@ static NSMutableSet *allContentViews = nil;
     [_webView setDelegate:self];
     _webView.transform = CGAffineTransformIdentity;
     _webView.alpha = 1.0;
+    
+    self.transform = CGAffineTransformIdentity;
+    self.alpha = 1.0;
     
     [self loadTemplate];
     
@@ -293,17 +305,19 @@ static NSMutableSet *allContentViews = nil;
         if ([self.delegate respondsToSelector:@selector(borderColorForContentView:)]) {
             _webView.layer.borderColor = [[self.delegate borderColorForContentView:self] CGColor];
         }
-                
+        
         [self activityView].center = _webView.center;
         
         if (animated) {
-            [_webView bounceInWithTarget:self action:@selector(viewDidShow)];
+            [self bounceIn];
         } else {
             [self viewDidShow];
         }
     }
     
     [self addSubview:[self activityView]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentViewsCallback:) name:PHCONTENTVIEW_CALLBACK_NOTIFICATION object:nil];
     
     //TRACK_ORIENTATION see STOP_TRACK_ORIENTATION
     [[NSNotificationCenter defaultCenter] 
@@ -324,7 +338,7 @@ static NSMutableSet *allContentViews = nil;
 }
 
 -(void)dismissWithError:(NSError *)error{
-
+    
     // This is here because get called 2x
     // first from handleLoadContext:
     // second from webView:didFailLoadWithError:
@@ -363,11 +377,16 @@ static NSMutableSet *allContentViews = nil;
         }
     } else if (self.content.transition == PHContentTransitionDialog){
         if (_willAnimate) {
-            [_webView bounceOutWithTarget:self action:@selector(viewDidDismiss)];
+            [self bounceOut];
         } else {
             [self viewDidDismiss];
         }
     }
+    
+    [[NSNotificationCenter defaultCenter] 
+     removeObserver:self 
+     name:PHCONTENTVIEW_CALLBACK_NOTIFICATION 
+     object:nil];
     
     //STOP_TRACK_ORIENTATION see TRACK_ORIENTATION
     [[NSNotificationCenter defaultCenter] 
@@ -378,11 +397,11 @@ static NSMutableSet *allContentViews = nil;
 
 -(void)loadTemplate {
     [_webView stopLoading];
-
+    
     PH_LOG(@"Loading content unit template: %@", self.content.URL);
     [_webView loadRequest:[NSURLRequest requestWithURL:self.content.URL
-                                        cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                        timeoutInterval:PH_REQUEST_TIMEOUT]];
+                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                       timeoutInterval:PH_REQUEST_TIMEOUT]];
 }
 
 -(void)viewDidShow{
@@ -414,14 +433,14 @@ static NSMutableSet *allContentViews = nil;
         urlPath = [NSString stringWithFormat:@"%@://%@%@", [url scheme], [url host], [url path]];
     
     NSInvocation *redirect = [_redirects valueForKey:urlPath];
-
+    
     if (redirect) {
         NSDictionary *queryComponents = [url queryComponents];
         NSString *callback = [queryComponents valueForKey:@"callback"];
         
         NSString *contextString = [queryComponents valueForKey:@"context"];
         
-        SBJsonParserPH *parser = [SBJsonParserPH new];
+        PH_SBJSONPARSER_CLASS *parser = [PH_SBJSONPARSER_CLASS new];
         id parserObject = [parser objectWithString:contextString];
         NSDictionary *context = ([parserObject isKindOfClass:[NSDictionary class]])?(NSDictionary*) parserObject: nil;
         
@@ -517,9 +536,12 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark - callbacks
 -(BOOL)sendCallback:(NSString *)callback withResponse:(id)response error:(id)error{
     NSString *_callback = @"null", *_response = @"null", *_error = @"null";
-    if (!!callback) _callback = callback;
+    if (!!callback){
+        PH_LOG(@"Sending callback with id: %@", callback);
+        _callback = callback;       
+    }
     
-    SBJsonWriterPH *jsonWriter = [SBJsonWriterPH new];
+    PH_SBJSONWRITER_CLASS *jsonWriter = [PH_SBJSONWRITER_CLASS new];
     if (!!response) {
         _response = [jsonWriter stringWithObject:response];
     }
@@ -560,5 +582,92 @@ static NSMutableSet *allContentViews = nil;
     [self sendCallback:[contextData valueForKey:@"callback"]
           withResponse:responseDict 
                  error:errorDict];
+}
+
+#pragma mark - PH_DIALOG animation methods
+#define ALPHA_OUT 0.0f
+#define ALPHA_IN 1.0f
+
+#define BOUNCE_OUT CGAffineTransformMakeScale(0.8,0.8)
+#define BOUNCE_MID CGAffineTransformMakeScale(1.1,1.1)
+#define BOUNCE_IN  CGAffineTransformIdentity
+
+#define DURATION_1 0.125
+#define DURATION_2 0.125
+
+-(void)bounceIn{
+    _webView.transform = BOUNCE_OUT;
+    _webView.alpha = ALPHA_OUT;
+    
+    [UIView beginAnimations:@"bounce" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:DURATION_1];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(continueBounceIn)];
+    
+    _webView.transform = BOUNCE_MID;
+    _webView.alpha = ALPHA_IN;
+    
+    [UIView commitAnimations];
+}
+
+-(void)continueBounceIn{
+    _webView.transform = BOUNCE_MID;
+    _webView.alpha = ALPHA_IN;
+    
+    [UIView beginAnimations:@"bounce2" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:DURATION_2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(finishBounceIn)];
+    
+    _webView.transform = BOUNCE_IN;
+    
+    [UIView commitAnimations];
+}
+
+-(void)finishBounceIn{
+    _webView.transform = BOUNCE_IN;
+    _webView.alpha = ALPHA_IN;
+    
+    [self viewDidShow];
+}
+
+-(void)bounceOut{
+    _webView.transform = BOUNCE_IN;
+    _webView.alpha = ALPHA_IN;
+    
+    [UIView beginAnimations:@"bounce" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:DURATION_1];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(continueBounceOut)];
+    
+    _webView.transform = BOUNCE_MID;
+    
+    [UIView commitAnimations];
+}
+
+-(void)continueBounceOut{
+    _webView.transform = BOUNCE_MID;
+    _webView.alpha = ALPHA_IN;
+    
+    [UIView beginAnimations:@"bounce2" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:DURATION_2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(finishBounceOut)];
+    
+    _webView.transform = BOUNCE_OUT;
+    _webView.alpha = ALPHA_OUT;
+    
+    [UIView commitAnimations];
+}
+
+-(void)finishBounceOut{
+    _webView.transform = BOUNCE_OUT;
+    _webView.alpha = ALPHA_OUT;
+    
+    [self viewDidDismiss];
 }
 @end

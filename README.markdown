@@ -1,4 +1,4 @@
-PlayHaven SDK 1.6.1
+PlayHaven SDK 1.8.0
 ====================
 PlayHaven is a real-time mobile game marketing platform to help you take control of the business of your games.
 
@@ -6,8 +6,11 @@ Acquire, retain, re-engage, and monetize your players with the help of PlayHaven
 
 An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the PlayHaven developer dashboard at https://dashboard.playhaven.com
 
-What's new in 1.6.1
+What's new in 1.8.0
 ===================
+
+1.6.1
+=====
 * Fixes crash bug that occasionally appears after multiple content units have been displayed.
 
 1.6.0
@@ -15,18 +18,6 @@ What's new in 1.6.1
 * After a successful open call, the SDK will pre-cache content template data in the background. Be sure to add the source in the Cache directory to your project.
 * CFNetwork.framework is now required.
 * Fixes memory leaks in reachability code.
-
-1.3.14
-======
-* Content units will no longer crash the app during a dismiss.
-* PlayHaven.bundle is no longer required, PlayHaven now includes all image assets into the SDK
-* New dismiss delegate for content unit requests that indicates the reason the view was dismissed. The old dismiss delegate will continue to work but has been deprecated.
-* PHPublisherContentRequests may be preloaded. See "Preloading requests" in the API Reference section for more details
-* *WARNING:* if you have been creating API request class instances directly using -(id)initWithApp... methods, you must now use the static +(id)requestForApp... methods instead. Content request instances created using -(id)initWithApp... may not work as expected for preloading requests.
-
-1.3.10
-======
-* Adds the ability to cancel active content requests, or cancel all active content requests for a given delegate. See "Cancelling requests" in the API Reference section for more details
 
 Integration
 -----------

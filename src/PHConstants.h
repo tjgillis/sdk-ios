@@ -9,7 +9,7 @@
 #import <UIKit/UIImage.h>
 
 // Constants
-#define PH_SDK_VERSION @"1.6.1"
+#define PH_SDK_VERSION @"1.8.0"
 
 #ifndef PH_BASE_URL
 #define PH_BASE_URL @"http://api2.playhaven.com"
@@ -18,6 +18,12 @@
 #ifndef PH_CONTENT_ADDRESS
 #define PH_CONTENT_ADDRESS @"http://media.playhaven.com"
 #endif
+
+
+// PHContentView notification that a callback is ready for processing
+//
+#define PHCONTENTVIEW_CALLBACK_NOTIFICATION  @"PHContentViewPHCallbackNotification"
+
 
 // PH_DISPATCH_PROTOCOL_VERSION
 // Defines characteristics of the requests that get sent from content units to
@@ -28,7 +34,7 @@
 //      in query string. Rewards support requires this setting.
 //   3: Unknown dispatches are ignored instead of throwing an error
 // * 4: ph://launch dispatches no longer create native spinner views
-#define PH_DISPATCH_PROTOCOL_VERSION 4
+#define PH_DISPATCH_PROTOCOL_VERSION 5
 
 // PH_REQUEST_TIMEOUT
 // Defines the maximum amount of time that an API request will wait for a 
@@ -47,6 +53,30 @@
 #define PH_DISMISS_WHEN_BACKGROUNDED
 #endif
 
+// PH_USE_STOREKIT
+// By default, PlayHaven will require the StoreKit framework. Builds that don't need 
+// IAP tracking features may define PH_USE_STOREKIT to be 0.
+#ifndef PH_USE_STOREKIT
+#define PH_USE_STOREKIT 1
+#endif
+
+// PH_NAMESPACE_SBJSON
+// The Unity3D plugin requires namespaced SBJSON classes so that they may co-exist 
+// alongside libraries that use SBJSON. However, source builds that are also using 
+// SBJSON should be able to use the SBJSON classes already in their project. This 
+// allows the SDK to accommodate both.
+#ifndef PH_NAMESPACE_SBJSON
+#define PH_SBJSONBASE_CLASS SBJsonBase
+#define PH_SBJSONPARSER_CLASS SBJsonParser
+#define PH_SBJSONWRITER_CLASS SBJsonWriter
+#define PH_SBJSONERRORDOMAIN_CONST SBJSONErrorDomain
+#else
+#define PH_SBJSONBASE_CLASS SBJsonBasePH
+#define PH_SBJSONPARSER_CLASS SBJsonParserPH
+#define PH_SBJSONWRITER_CLASS SBJsonWriterPH
+#define PH_SBJSONERRORDOMAIN_CONST SBJSONErrorDomainPH
+#endif
+
 // Macros
 #define PH_URL(PATH) [PH_BASE_URL stringByAppendingString:@#PATH]
 #define PH_URL_FMT(PATH,FMT) [PH_BASE_URL stringByAppendingFormat:@#PATH, FMT]
@@ -63,11 +93,12 @@
 
 // Errors
 typedef enum{
-  PHAPIResponseErrorType,
-  PHRequestResponseErrorType,
-  PHOrientationErrorType,
-  PHLoadContextErrorType,
-  PHWindowErrorType
+    PHAPIResponseErrorType,
+    PHRequestResponseErrorType,
+    PHOrientationErrorType,
+    PHLoadContextErrorType,
+    PHWindowErrorType,
+    PHIAPTrackingSimulatorErrorType,
 } PHErrorType;
 
 NSError *PHCreateError(PHErrorType errorType);
@@ -81,6 +112,7 @@ NSError *PHCreateError(PHErrorType errorType);
 // 2: WiFi
 int PHNetworkStatus(void);
 
+NSString *PHAgnosticStringValue(id object);
 
 // Caching constant definitions
 //
@@ -95,11 +127,11 @@ int PHNetworkStatus(void);
 // Play Haven default images
 //
 typedef struct{
-  int width;
-  int height;
-  int length;
-  char data[];
-  
+    int width;
+    int height;
+    int length;
+    char data[];
+    
 } playHavenImage;
 
 //
@@ -114,4 +146,3 @@ extern const playHavenImage badge_image;
 extern const playHavenImage badge_2x_image;
 extern const playHavenImage close_image;
 extern const playHavenImage close_active_image;
-
