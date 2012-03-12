@@ -8,6 +8,7 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 What's new in 1.8.0
 ===================
+* In App Purchase tracking and Virtual Good Promotion support. See "Triggering in-app purchases" and "Tracking in-app purchases" in the API Reference section for information on how to integrate this into your app.
 
 1.6.1
 =====
@@ -104,7 +105,7 @@ You may request content for your app using your API token, secret, as well as a 
 
 Optionally, you may choose to show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
-#### *NEW* Preloading requests (optional)
+#### Preloading requests (optional)
 To make content requests more responsive, you may choose to preload a content unit for a given placement. This will start a request for a content unit without displaying it, preserving the content unit until you call -(void)send on a  content request for the same placement in your app.
 
     [[PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate] preload];
@@ -134,7 +135,7 @@ The content has been successfully loaded and the user is now interacting with th
 
 	-(void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content;
 
-#### *NEW* Content view dismissing
+#### Content view dismissing
 The content has successfully dismissed and control is being returned to your app. This can happen as a result of the user clicking on the close button or clicking on a link that will open outside of the app. You may restore sounds and animations at this point.
 
 	-(void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type;
@@ -153,7 +154,7 @@ If for any reason the content request does not successfully return some content 
 
 NOTE: -(void)request:contentDidFailWithError: is now deprecared in favor of request:didFailWithError: please update implementations accordingly.
 
-### *NEW* Cancelling requests
+### Cancelling requests
 You may now cancel any API request at any time using the -(void)cancel method. This will also cancel any open network connections and clean up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
 
 Additionally you may cancel all open API requests for a given delegate. This can be useful if you are not keeping references to API request instances you may have created. As with the -(void)cancel method, canceled requests will not send any more messages to delegates. To cancel all requests:
@@ -176,6 +177,40 @@ The PHReward object passed through this method has the following helpful propert
   * __name__: the name of your reward as configured on the dashboard
   * __quantity__: if there is a quantity associated with the reward, it will be an integer value here
   * __receipt__: a unique identifier that is used to detect duplicate reward unlocks, your app should ensure that each receipt is only unlocked once
+
+### **NEW** Triggering in-app purchases
+Using the Virtual Goods Promotion content unit, PlayHaven can now be used to trigger in app purchase requests in your app. You will need to support the new 
+
+> \-(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
+  
+The PHPurchase object passed through this method has the following properties:
+
+  * __productIdentifier__: the product identifier for your purchase, used for making a 
+  * __quantity__: if there is a quantity associated with this purchase, it will be an integer value here
+  * __receipt__: a unique identifier
+  
+You will have to keep track of this purchase object throughout your IAP process. You are responsible for making a SKProduct request before initiating the purchase of this item so as to comply with IAP requirements. Once the item has been purchased you will need to inform the content unit of that purchase using the following:
+
+    [purchase reportResolution:(PHPurchaseResolution)resolution];
+
+**This step is important!** Without a call to reportResolution: the content unit will stall, and your users may not be able to come back to your game. Resolution **must** be one of the following values:
+
+  * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
+  * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
+  * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
+  
+### **NEW** Tracking in-app purchases
+By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
+
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY resolution:PHPurchaseResolutionBuy];
+    [request send]; 
+
+Purchases that are canceled or encounter errors should be reported using the following:
+
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY error:ERROR_OBJECT];
+    [request send];
+    
+If the error comes from an SKPaymentTransaction instance's error property, the SDK will automatically select the correct resolution (buy/cancel) based on the NSError object passed in.
 
 ### Notifications with PHNotificationView
 PHNotificationView provides a fully encapsulated notification view that automatically fetches an appropriate notification from the API and renders it into your view heirarchy. It is a UIView subclass that you may place in your UI where it should appear and supply it with your app token, secret, and a placement id.
@@ -205,15 +240,3 @@ This method will be called inside of the PHNotificationView instance -(void)draw
 	-(CGSize)sizeForNotification:(NSDictionary *)notificationData;
 
 This method will be called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of notificationData, you will need to calculate an appropriate size.
-
-#### *NEW* Caching with prefetching of URLs in background
-
-To use caching and prefetching of URL's a publisher only needs to make a PHPublisherOpenRequest. The Play Haven SDK is currently set up to managed the cache and prefetch the URL's automatically in the background. The publisher has more control over the caching defaults using the information provided below.
-
-PHPublisherOpenRequest now returns an array of URL's that can be prefetched. When the response is received from the server the prefetch URL's are stored locally in a plist file and a queue of NSOperation's are created to downoad the data in concurrent background tasks. The PHConstants.h define PH_MAX_CONCURRENT_OPERATIONS is used for setting the max concurrent operations and PH_PREFETCH_URL_PLIST is the name of the plist file for storing the prefetch URL list in the cache applications directory. The Publisher can use the following methods to force a redownload of the prefetch URL list if a plist file exists, cancel any operations currently being run and clear the prefetch cache files.
-
-    -(void) downloadPrefetchURLs;
-    -(void) cancelPrefetchDownload;
-    -(void) clearPrefetchCache;
-
-When the PHPublisherOpenRequest is initialized it will create a subclass of NSURLCache called SDURLCache. This is used for caching the UIWebview data to memory and/or the file system. The setting for the size (in bytes) of the memory cache and file system cache can be found in PHConstants.h - PH_MAX_SIZE_MEMORY_CACHE and PH_MAX_SIZE_FILESYSTEM_CACHE. The current defaults are 1MB for the memory cache and 10MB for the file system cache. The class SDURLCache has methods for clearing the cache if you need more file system space in the applications cache directory. SDURLCache has several background tasks that manages the cache size. The cache data files are stored in the application cache directory.

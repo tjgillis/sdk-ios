@@ -415,8 +415,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
 				EA523DA81343F1C50057DEA5 /* README.markdown */,
+				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
 				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
 				EA523D891343EE670057DEA5 /* tests */,
 				EA12ABD81365DBB700CB2F24 /* example */,
