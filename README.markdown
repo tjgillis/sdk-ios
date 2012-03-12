@@ -94,6 +94,9 @@ Asynchronously reports a game open to PlayHaven. A delegate is not needed for th
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
+#### Precaching content templates
+PlayHaven will automatically download and store a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
+
 ### Requesting content for your placements
 You may request content for your app using your API token, secret, as well as a placement tag to identify the placement you are requesting content for. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the section below as well as *example/PublisherContentViewController.m* for a sample implementation.
 
@@ -240,3 +243,4 @@ This method will be called inside of the PHNotificationView instance -(void)draw
 	-(CGSize)sizeForNotification:(NSDictionary *)notificationData;
 
 This method will be called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of notificationData, you will need to calculate an appropriate size.
+
