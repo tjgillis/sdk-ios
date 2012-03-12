@@ -159,6 +159,13 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
 
 -(NSDictionary *) signedParameters{
     if (_signedParameters == nil) {
+        //limits the number of preferred languages to 5.
+        NSArray *preferredLanguages = [NSLocale preferredLanguages];
+        if ([preferredLanguages count] > 5) {
+            NSRange range = NSMakeRange(0, 5);
+            preferredLanguages = [preferredLanguages subarrayWithRange:range];
+        }
+        
         NSString
         *device = [[UIDevice currentDevice] uniqueIdentifier],
         *nonce = [PHStringUtil uuid],
@@ -169,7 +176,8 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         *hardware = [[UIDevice currentDevice] hardware],
         *os = [NSString stringWithFormat:@"%@ %@",
                [[UIDevice currentDevice] systemName],
-               [[UIDevice currentDevice] systemVersion]];
+               [[UIDevice currentDevice] systemVersion]],
+        *languages = [preferredLanguages componentsJoinedByString:@","];
         if(!appVersion) appVersion = @"NA";
         
         NSNumber 
@@ -190,6 +198,7 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
                                          appVersion, @"app_version",
                                          connection,@"connection",
                                          PH_SDK_VERSION, @"sdk-ios",
+                                         languages,@"languages",
                                          nil];
         
         [combinedParams addEntriesFromDictionary:signatureParams];
