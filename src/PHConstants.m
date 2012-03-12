@@ -115,6 +115,10 @@ int PHNetworkStatus(){
     return 0; // no connection at all
 }
 
+NSString *PHAgnosticStringValue(id object){
+    return [NSString stringWithFormat:@"%@",object];
+}
+
 //
 // Play Haven default image helper function
 //

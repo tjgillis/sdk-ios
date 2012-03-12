@@ -641,19 +641,20 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     for (NSDictionary *purchaseData in purchasesArray) {
         if ([self isValidPurchase:purchaseData]) {
             PHPurchase *purchase = [PHPurchase new];
-            purchase.productIdentifier = [purchaseData valueForKey:PHPublisherContentRequestPurchaseProductIDKey];
-            purchase.name = [purchaseData valueForKey:PHPublisherContentRequestPurchaseNameKey];
+            purchase.productIdentifier = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseProductIDKey]);
+            purchase.name = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseNameKey]);
             purchase.quantity = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseQuantityKey] integerValue];
-            purchase.receipt = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey] stringValue];
+            purchase.receipt = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey]);
             purchase.callback = callback;
 
 #if PH_USE_STOREKIT!=0
-            NSString *cookie = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseCookieKey] stringValue];
+            NSString *cookie = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseCookieKey]);
             [PHPublisherIAPTrackingRequest setConversionCookie:cookie forProduct:purchase.productIdentifier];
 #endif
             if ([self.delegate respondsToSelector:@selector(request:makePurchase:)]) {
                 [(id <PHPublisherContentRequestDelegate>)self.delegate request:self makePurchase:purchase];
             }
+            [purchase release];
         }
     }
 }

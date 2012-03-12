@@ -245,6 +245,9 @@ static NSMutableSet *allContentViews = nil;
     [self sizeToFitOrientation:YES];
     
     [_webView setDelegate:self];
+    _webView.transform = CGAffineTransformIdentity;
+    _webView.alpha = 1.0;
+    
     self.transform = CGAffineTransformIdentity;
     self.alpha = 1.0;
     

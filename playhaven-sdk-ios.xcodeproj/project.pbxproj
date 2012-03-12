@@ -60,6 +60,9 @@
 		EA2B07A314E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA2B07A614E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A214E9EBA60087A45F /* 512.png */; };
 		EA4ABA11135F859D0062AE77 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
+		EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
+		EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
+		EA4AC26015019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
 		EA4C1912134E84D300755983 /* PHURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C1910134E84D300755983 /* PHURLLoader.m */; };
 		EA50F3D31436426F0055EB3A /* PublisherContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */; };
 		EA523D8B1343EE670057DEA5 /* PHPublisherOpenRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D8A1343EE670057DEA5 /* PHPublisherOpenRequestTest.m */; };
@@ -280,6 +283,8 @@
 		EA2B07A214E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
 		EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+HardwareString.m"; sourceTree = "<group>"; };
+		EA4AC25C15019C230069D264 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
+		EA4AC25D15019C230069D264 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
 		EA4C190F134E84D300755983 /* PHURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHURLLoader.h; sourceTree = "<group>"; };
 		EA4C1910134E84D300755983 /* PHURLLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHURLLoader.m; sourceTree = "<group>"; };
 		EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherContentViewController.xib; sourceTree = "<group>"; };
@@ -492,6 +497,8 @@
 				EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */,
 				EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */,
 				EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */,
+				EA4AC25C15019C230069D264 /* IAPHelper.h */,
+				EA4AC25D15019C230069D264 /* IAPHelper.m */,
 			);
 			path = example;
 			sourceTree = "<group>";
@@ -940,6 +947,7 @@
 				EA1799E014200FAE005F286F /* PHConstants.m in Sources */,
 				EA019C8314C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EAFF5E7714F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
+				EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -978,6 +986,7 @@
 				EA019C8214C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EAFF5E7D14F8154E00E96C2C /* PHPurchaseTest.m in Sources */,
 				EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */,
+				EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,6 +1026,7 @@
 				EA86C7F514D9E77D00CB1551 /* WWURLConnection.m in Sources */,
 				EA86C7F614D9E77D00CB1551 /* WWURLMatching.m in Sources */,
 				EAFF5E7814F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
+				EA4AC26015019C230069D264 /* IAPHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

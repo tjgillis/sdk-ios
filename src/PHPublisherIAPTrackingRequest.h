@@ -25,7 +25,7 @@
 
 +(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution;
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret error:(NSError *)error resolution:(PHPurchaseResolutionType)resolution;
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error;
 
 @property (nonatomic, copy) NSString *product;
 @property (nonatomic, assign) NSInteger quantity;
