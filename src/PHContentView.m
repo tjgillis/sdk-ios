@@ -239,17 +239,19 @@ static NSMutableSet *allContentViews = nil;
 }
 
 -(void)show:(BOOL)animated{
-    
-    _willAnimate = animated;
-    [self.targetView addSubview: self];
-    [self sizeToFitOrientation:YES];
-    
-    [_webView setDelegate:self];
+    //reset transforms before doing anything
     _webView.transform = CGAffineTransformIdentity;
     _webView.alpha = 1.0;
     
     self.transform = CGAffineTransformIdentity;
     self.alpha = 1.0;
+    
+    //actually start showing
+    _willAnimate = animated;
+    [self.targetView addSubview: self];
+    [self sizeToFitOrientation:YES];
+    
+    [_webView setDelegate:self];
     
     [self loadTemplate];
     
