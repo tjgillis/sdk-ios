@@ -39,7 +39,7 @@
 // PH_REQUEST_TIMEOUT
 // Defines the maximum amount of time that an API request will wait for a 
 // response from the server.
-#define PH_REQUEST_TIMEOUT 99
+#define PH_REQUEST_TIMEOUT 10
 
 // PH_USE_CONTENT_VIEW_RECYCLING
 // Recycles content view instances to reduce the number of allocations.
