@@ -1,4 +1,4 @@
-PlayHaven SDK 1.8.0
+PlayHaven SDK 1.8.1
 ====================
 PlayHaven is a real-time mobile game marketing platform to help you take control of the business of your games.
 
@@ -6,9 +6,10 @@ Acquire, retain, re-engage, and monetize your players with the help of PlayHaven
 
 An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the PlayHaven developer dashboard at https://dashboard.playhaven.com
 
-What's new in 1.8.0
+What's new in 1.8.1
 ===================
 * In App Purchase tracking and Virtual Good Promotion support. See "Triggering in-app purchases" and "Tracking in-app purchases" in the API Reference section for information on how to integrate this into your app.
+* Fixes orientation issues that impact games in landscape orientation.
 
 1.6.1
 =====
