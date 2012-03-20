@@ -9,7 +9,7 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 What's new in 1.10.0
 ====================
 * In App Purchase tracking and Virtual Good Promotion support. See "Triggering in-app purchases" and "Tracking in-app purchases" in the API Reference section for information on how to integrate this into your app.
-* sdk-ios no longer requires StoreKit by default. This is a change from previous versions, see "Integration" below.
+* Adds documentation for disabling StoreKit-based features in the SDK.
 
 1.8.1
 =====
