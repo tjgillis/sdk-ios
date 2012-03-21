@@ -30,6 +30,16 @@
 		EA03811C13B298AF00A31FF7 /* PHNotificationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811A13B298AF00A31FF7 /* PHNotificationRenderer.m */; };
 		EA03811F13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */; };
 		EA03812013B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */; };
+		EA06AA66151A812B00C11220 /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = EA06AA63151A812B00C11220 /* OpenUDID.h */; };
+		EA06AA67151A812B00C11220 /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = EA06AA63151A812B00C11220 /* OpenUDID.h */; };
+		EA06AA68151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA06AA69151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA06AA6A151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA06AA6B151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA06AA6C151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA06AA6D151A812B00C11220 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
+		EA06AA6E151A812B00C11220 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
+		EA06AA6F151A812B00C11220 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
 		EA0BB5DF13463C00007F95FA /* PHContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB5DD13463C00007F95FA /* PHContentView.m */; };
 		EA12ABD51365DBB700CB2F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		EA12ABD61365DBB700CB2F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -59,6 +69,7 @@
 		EA21F69D14215EAD00A4177E /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
 		EA2B07A314E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA2B07A614E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A214E9EBA60087A45F /* 512.png */; };
+		EA328B30151A9D4400DE3CAD /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = EA328B2F151A9D4400DE3CAD /* README.markdown */; };
 		EA4ABA11135F859D0062AE77 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
 		EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
 		EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
@@ -257,6 +268,9 @@
 		EA03811A13B298AF00A31FF7 /* PHNotificationRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNotificationRenderer.m; sourceTree = "<group>"; };
 		EA03811D13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHNotificationBadgeRenderer.h; sourceTree = "<group>"; };
 		EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNotificationBadgeRenderer.m; sourceTree = "<group>"; };
+		EA06AA63151A812B00C11220 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		EA06AA64151A812B00C11220 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		EA06AA65151A812B00C11220 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		EA0BB5DC13463C00007F95FA /* PHContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHContentView.h; sourceTree = "<group>"; };
 		EA0BB5DD13463C00007F95FA /* PHContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHContentView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EA12ABD31365DBB700CB2F24 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,6 +293,7 @@
 		EA1799DF14200FAE005F286F /* PHConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConstants.m; sourceTree = "<group>"; };
 		EA2B07A014E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA2B07A214E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
+		EA328B2F151A9D4400DE3CAD /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
 		EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+HardwareString.m"; sourceTree = "<group>"; };
 		EA4AC25C15019C230069D264 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
@@ -291,7 +306,6 @@
 		EA523D8E1343EE790057DEA5 /* PHPublisherOpenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherOpenRequest.m; sourceTree = "<group>"; };
 		EA523D8F1343EE790057DEA5 /* PHStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHStringUtil.h; sourceTree = "<group>"; };
 		EA523D901343EE790057DEA5 /* PHStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHStringUtil.m; sourceTree = "<group>"; };
-		EA523DA81343F1C50057DEA5 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		EA523DB11343F7BA0057DEA5 /* PHAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAPIRequest.h; sourceTree = "<group>"; };
 		EA523DB21343F7BA0057DEA5 /* PHAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAPIRequest.m; sourceTree = "<group>"; };
 		EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenSDK.h; sourceTree = "<group>"; };
@@ -411,8 +425,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				EA328B2F151A9D4400DE3CAD /* README.markdown */,
+				EA06AA62151A812B00C11220 /* OpenUDID */,
 				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
-				EA523DA81343F1C50057DEA5 /* README.markdown */,
 				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
 				EA523D891343EE670057DEA5 /* tests */,
 				EA12ABD81365DBB700CB2F24 /* example */,
@@ -469,6 +484,16 @@
 				EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */,
 			);
 			name = Metadata;
+			sourceTree = "<group>";
+		};
+		EA06AA62151A812B00C11220 /* OpenUDID */ = {
+			isa = PBXGroup;
+			children = (
+				EA06AA63151A812B00C11220 /* OpenUDID.h */,
+				EA06AA64151A812B00C11220 /* OpenUDID.m */,
+				EA06AA65151A812B00C11220 /* README */,
+			);
+			path = OpenUDID;
 			sourceTree = "<group>";
 		};
 		EA12ABD81365DBB700CB2F24 /* example */ = {
@@ -691,6 +716,7 @@
 				EA5E5C5914C60D660026B3E0 /* SDURLCache.h in Headers */,
 				EA5E5C5A14C60D660026B3E0 /* PHUrlPrefetchOperation.h in Headers */,
 				EA019C8114C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.h in Headers */,
+				EA06AA66151A812B00C11220 /* OpenUDID.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +748,7 @@
 				EAB6A3A914EED62D00EAC692 /* SDURLCache.h in Headers */,
 				EAB6A3AA14EED62D00EAC692 /* PHUrlPrefetchOperation.h in Headers */,
 				EAB6A3AB14EED62D00EAC692 /* PHPublisherIAPTrackingRequest.h in Headers */,
+				EA06AA67151A812B00C11220 /* OpenUDID.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +885,7 @@
 				EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */,
 				EA2B07A314E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
+				EA06AA6E151A812B00C11220 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,6 +894,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */,
+				EA06AA6D151A812B00C11220 /* README in Resources */,
+				EA328B30151A9D4400DE3CAD /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +913,7 @@
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
+				EA06AA6F151A812B00C11220 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,6 +971,7 @@
 				EA019C8314C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EAFF5E7714F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
 				EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */,
+				EA06AA69151A812B00C11220 /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -979,6 +1011,7 @@
 				EAFF5E7D14F8154E00E96C2C /* PHPurchaseTest.m in Sources */,
 				EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */,
 				EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */,
+				EA06AA68151A812B00C11220 /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1019,6 +1052,7 @@
 				EA86C7F614D9E77D00CB1551 /* WWURLMatching.m in Sources */,
 				EAFF5E7814F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
 				EA4AC26015019C230069D264 /* IAPHelper.m in Sources */,
+				EA06AA6A151A812B00C11220 /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,6 +1083,7 @@
 				EA9AB65014A3B0D500079704 /* PHReward.m in Sources */,
 				EA9AB65414A3B0D500079704 /* PHPublisherOpenRequest.m in Sources */,
 				EA019C8414C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EA06AA6B151A812B00C11220 /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1079,6 +1114,7 @@
 				EAB6A38E14EED62D00EAC692 /* PHReward.m in Sources */,
 				EAB6A38F14EED62D00EAC692 /* PHPublisherOpenRequest.m in Sources */,
 				EAB6A39014EED62D00EAC692 /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EA06AA6C151A812B00C11220 /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

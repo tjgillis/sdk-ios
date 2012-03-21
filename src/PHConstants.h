@@ -77,6 +77,17 @@
 #define PH_SBJSONERRORDOMAIN_CONST SBJSONErrorDomainPH
 #endif
 
+// PH_DEVICE_IDENTIFIER
+#define PH_DEVICE_IDENTIFIER [OpenUDID value]
+
+// PH_USE_UNIQUE_IDENTIFIER
+// This has a chance to cause a rejection down the line, but will help PlayHaven
+// correlate Apple UDIDs with OpenUDIDs. If you run into a rejection, set
+// PH_USE_UNIQUE_IDENTIFIER=0
+#ifndef PH_USE_UNIQUE_IDENTIFIER
+#define PH_USE_UNIQUE_IDENTIFIER 1
+#endif
+
 // Macros
 #define PH_URL(PATH) [PH_BASE_URL stringByAppendingString:@#PATH]
 #define PH_URL_FMT(PATH,FMT) [PH_BASE_URL stringByAppendingFormat:@#PATH, FMT]
@@ -146,3 +157,5 @@ extern const playHavenImage badge_image;
 extern const playHavenImage badge_2x_image;
 extern const playHavenImage close_image;
 extern const playHavenImage close_active_image;
+
+NSString *PHGID();

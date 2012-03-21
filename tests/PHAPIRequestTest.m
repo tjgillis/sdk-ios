@@ -47,27 +47,16 @@
     
     //Test for existence of parameters
     NSString 
-    *device = [signedParameters valueForKey:@"device"], 
     *token  = [signedParameters valueForKey:@"token"], 
     *signature = [signedParameters valueForKey:@"signature"],
     *nonce  = [signedParameters valueForKey:@"nonce"];
     
-    STAssertNotNil(device,@"Required device param is missing!");
     STAssertNotNil(token ,@"Required token param is missing!");
     STAssertNotNil(signature,@"Required signature param is missing!");
     STAssertNotNil(nonce ,@"Required nonce param is missing!");
     
-    //Test for proper signature
-    NSString *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@", token, device, nonce, PUBLISHER_SECRET];
-    NSString *expectedHash = [PHAPIRequest base64SignatureWithString:signatureHash];
-    STAssertTrue([expectedHash isEqualToString:signature], @"Hash mismatch. Expected %@ got %@", expectedHash, signature);
-    
     NSString *parameterString = [request signedParameterString];
     STAssertNotNil(parameterString, @"Parameter string is nil?");
-    
-    NSString *deviceParam = [NSString stringWithFormat:@"device=%@",device];
-    STAssertFalse([parameterString rangeOfString:deviceParam].location == NSNotFound,
-                  @"Device parameter not present!");
     
     NSString *tokenParam = [NSString stringWithFormat:@"token=%@",token];
     STAssertFalse([parameterString rangeOfString:tokenParam].location == NSNotFound,

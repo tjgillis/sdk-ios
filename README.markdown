@@ -1,4 +1,4 @@
-PlayHaven SDK 1.8.1
+PlayHaven SDK 1.8.2
 ====================
 PlayHaven is a real-time mobile game marketing platform to help you take control of the business of your games.
 
@@ -6,19 +6,17 @@ Acquire, retain, re-engage, and monetize your players with the help of PlayHaven
 
 An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the PlayHaven developer dashboard at https://dashboard.playhaven.com
 
-What's new in 1.8.1
+What's new in 1.8.2
 ===================
+* PlayHaven now uses OpenUDID for tracking conversions on the device while still allowing for user opt-out.
+
+1.8.1
+=====
 * Fixes orientation issues that impact games in landscape orientation.
 
 1.6.1
 =====
 * Fixes crash bug that occasionally appears after multiple content units have been displayed.
-
-1.6.0
-=====
-* After a successful open call, the SDK will pre-cache content template data in the background. Be sure to add the source in the Cache directory to your project.
-* CFNetwork.framework is now required.
-* Fixes memory leaks in reachability code.
 
 Integration
 -----------
@@ -26,15 +24,20 @@ If you are using Unity for your game, please integrate the Unity SDK located her
 
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
   * src directory 
-  * JSON directory
   * Cache directory
+1. **NEW** Unless you are already using SBJSON, also add the following to your project:
+  * JSON directory
+  If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
+1. **NEW** Unless you are already using OpenUDID, also add the following to your project:
+  * OpenUDID directory
+  If your project is already using OpenUDID, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. Ensure the following frameworks are included with your project, add any missing frameworks in the Build Phases tab for your application's target:
   * UIKit.framework
   * Foundation.framework
   * CoreGraphics.framework
-  * QuartzCore.framework
   * SystemConfiguration.framework
   * CFNetwork.framework
+  * StoreKit.framework
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
     \#import "PlayHavenSDK.h"
