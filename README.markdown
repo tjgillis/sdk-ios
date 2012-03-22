@@ -55,7 +55,12 @@ In order to better optimize your content units, it is necessary for your app to 
 
 The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following line will send a request:
 
-	[[PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET] send];
+	PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
+    request.customUDID = @"CUSTOM_UDID" //optional, see below.
+    [request send];
+
+**NEW**: If you are using an internal identifier to track individual devices in this game, you may use the customUDID
+parameter to pass this identifier along to PlayHaven with the open request.
 
 Where MYTOKEN and MYSECRET are the token and secret for your game. That's it!
 See "Recording game opens" in the API Reference section for more information about recording game opens.

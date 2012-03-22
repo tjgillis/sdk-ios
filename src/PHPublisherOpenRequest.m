@@ -11,6 +11,64 @@
 #import "SDURLCache.h"
 #import "PHURLPrefetchOperation.h"
 
+#if PH_USE_MAC_ADDRESS == 1
+#include <sys/socket.h>
+#include <sys/sysctl.h>
+#include <net/if.h>
+#include <net/if_dl.h>
+#include <mach-o/dyld.h>
+
+NSString* getMACAddress(){
+    int                 mib[6];
+    size_t              len;
+    char                *buf;
+    unsigned char       *ptr;
+    struct if_msghdr    *ifm;
+    struct sockaddr_dl  *sdl;
+
+    mib[0] = CTL_NET;
+    mib[1] = AF_ROUTE;
+    mib[2] = 0;
+    mib[3] = AF_LINK;
+    mib[4] = NET_RT_IFLIST;
+
+    if ((mib[5] = if_nametoindex("en0")) == 0) 
+    {
+        NSLog(@"Error: if_nametoindex error\n");
+        return NULL;
+    }
+
+    if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0)
+    {
+        NSLog(@"Error: sysctl, take 1\n");
+        return NULL;
+    }
+
+    if ((buf = malloc(len)) == NULL) 
+    {
+        NSLog(@"Could not allocate memory. error!\n");
+        return NULL;
+    }
+
+    if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) 
+    {
+        NSLog(@"Error: sysctl, take 2");
+        return NULL;
+    }
+
+    ifm = (struct if_msghdr *)buf;
+    sdl = (struct sockaddr_dl *)(ifm + 1);
+    ptr = (unsigned char *)LLADDR(sdl);
+    NSString *macAddress = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X", 
+                            *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)];
+    macAddress = [macAddress lowercaseString];
+    free(buf);
+
+    return macAddress;
+}
+#endif
+
+
 @interface PHAPIRequest(Private)
 -(void)finish;
 @end
@@ -36,6 +94,17 @@
     }
     
     return  self;
+}
+
+@synthesize customUDID = _customUDID;
+
+-(NSDictionary *)additionalParameters{
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+#if PH_USE_MAC_ADDRESS == 1
+            getMACAddress(), @"d_mac",
+#endif
+            self.customUDID, @"d_custom",
+            nil];
 }
 
 -(NSString *)urlPath{
@@ -130,6 +199,7 @@
     [self.prefetchOperations removeObserver:self forKeyPath:@"operations"];
     
     [_prefetchOperations release], _prefetchOperations = nil;
+    [_customUDID release], _customUDID = nil;
     [super dealloc];
 }
 
