@@ -82,18 +82,18 @@
 
 // PH_USE_UNIQUE_IDENTIFIER
 // This will lead to rejection from the app store very soon, but will help PlayHaven
-// correlate Apple UDIDs with OpenUDIDs. If you run into a rejection, set
-// PH_USE_UNIQUE_IDENTIFIER=0
+// correlate Apple UDIDs with OpenUDIDs. If you're feeling lucky set
+// PH_USE_UNIQUE_IDENTIFIER=1
 #ifndef PH_USE_UNIQUE_IDENTIFIER
-#define PH_USE_UNIQUE_IDENTIFIER 1
+#define PH_USE_UNIQUE_IDENTIFIER 0
 #endif
 
 // PH_USE_MAC_ADDRESS
 // This may lead to rejection from the app store very soon, but will help PlayHaven
-// reliably track devices and conversion. If you run into a rejection, set
-// PH_USE_UNIQUE_IDENTIFIER=0
+// reliably track devices and conversion. If you're feeling lucky set
+// PH_USE_MAC_ADDRESS=1
 #ifndef PH_USE_MAC_ADDRESS
-#define PH_USE_MAC_ADDRESS 1
+#define PH_USE_MAC_ADDRESS 0
 #endif
 
 // Macros
