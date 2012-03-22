@@ -55,7 +55,7 @@ In order to better optimize your content units, it is necessary for your app to 
 
 The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following will send a request:
 
-	PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
+    PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
     request.customUDID = @"CUSTOM_UDID" //optional, see below.
     [request send];
 
