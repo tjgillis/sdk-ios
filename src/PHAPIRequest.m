@@ -172,7 +172,7 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         *nonce = [PHStringUtil uuid],
         *odid = PH_DEVICE_IDENTIFIER,
         *gid = PHGID(),
-        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, PH_DEVICE_IDENTIFIER, nonce, self.secret, PHGID()],
+        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, PH_DEVICE_IDENTIFIER, PHGID(), nonce, self.secret],
         *signature = [PHAPIRequest base64SignatureWithString:signatureHash],
         *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
         *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
