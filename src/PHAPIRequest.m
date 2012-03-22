@@ -167,15 +167,17 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         *device = [[UIDevice currentDevice] uniqueIdentifier];
         [combinedParams setValue:device forKey:@"device"];
 #endif
-
+        //This allows for unit testing of request values!
+        NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+        
         NSString
         *nonce = [PHStringUtil uuid],
         *odid = PH_DEVICE_IDENTIFIER,
         *gid = PHGID(),
         *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, PH_DEVICE_IDENTIFIER, PHGID(), nonce, self.secret],
         *signature = [PHAPIRequest base64SignatureWithString:signatureHash],
-        *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
-        *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
+        *appId = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
+        *appVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
         *hardware = [[UIDevice currentDevice] hardware],
         *os = [NSString stringWithFormat:@"%@ %@",
                [[UIDevice currentDevice] systemName],

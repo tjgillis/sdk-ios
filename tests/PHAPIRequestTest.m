@@ -9,6 +9,9 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 #import "PHAPIRequest.h"
+#import "OpenUDID.h"
+#import "PHConstants.h"
+#import "PHStringUtil.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -46,11 +49,15 @@
     NSDictionary *signedParameters = [request signedParameters];
     
     //Test for existence of parameters
-    NSString 
+    NSString
+    *odid = [signedParameters valueForKey:@"odid"],
+    *gid = [signedParameters valueForKey:@"gid"],
     *token  = [signedParameters valueForKey:@"token"], 
     *signature = [signedParameters valueForKey:@"signature"],
     *nonce  = [signedParameters valueForKey:@"nonce"];
     
+    STAssertNotNil(odid ,@"Required odid param is missing!");
+    STAssertNotNil(gid ,@"Required gid param is missing!");
     STAssertNotNil(token ,@"Required token param is missing!");
     STAssertNotNil(signature,@"Required signature param is missing!");
     STAssertNotNil(nonce ,@"Required nonce param is missing!");
@@ -65,6 +72,11 @@
     NSString *signatureParam = [NSString stringWithFormat:@"signature=%@",signature];
     STAssertFalse([parameterString rangeOfString:signatureParam].location == NSNotFound,
                   @"Signature parameter not present!");
+    
+    NSString 
+    *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [OpenUDID value], PHGID(), nonce, PUBLISHER_SECRET],
+    *expectedSignature = [PHStringUtil b64DigestForString:expectedSignatureString];
+    STAssertTrue([signature isEqualToString:expectedSignature], @"signature did not match expected value!");
     
     NSString *nonceParam = [NSString stringWithFormat:@"nonce=%@",nonce];
     STAssertFalse([parameterString rangeOfString:nonceParam].location == NSNotFound,

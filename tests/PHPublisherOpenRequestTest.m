@@ -26,8 +26,6 @@
     NSString *requestURLString = [request.URL absoluteString];
     
     STAssertNotNil(requestURLString, @"Parameter string is nil?");
-    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound,
-                  @"Device parameter not present!");
     STAssertFalse([requestURLString rangeOfString:@"token="].location == NSNotFound,
                   @"Token parameter not present!");
     STAssertFalse([requestURLString rangeOfString:@"nonce="].location == NSNotFound,
