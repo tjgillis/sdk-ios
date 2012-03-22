@@ -53,7 +53,7 @@ Each game is pre-configured for our Cross-Promotion Widget, which will give your
 ### Record game opens
 In order to better optimize your content units, it is necessary for your app to report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your Cross-Promotion Widget to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following line will send a request:
+The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following will send a request:
 
 	PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
     request.customUDID = @"CUSTOM_UDID" //optional, see below.
