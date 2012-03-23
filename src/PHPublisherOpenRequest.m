@@ -34,25 +34,25 @@ NSString* getMACAddress(){
 
     if ((mib[5] = if_nametoindex("en0")) == 0) 
     {
-        NSLog(@"Error: if_nametoindex error\n");
+        PH_NOTE(@"Error: if_nametoindex error\n");
         return NULL;
     }
 
     if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0)
     {
-        NSLog(@"Error: sysctl, take 1\n");
+        PH_NOTE(@"Error: sysctl, take 1\n");
         return NULL;
     }
 
     if ((buf = malloc(len)) == NULL) 
     {
-        NSLog(@"Could not allocate memory. error!\n");
+        PH_NOTE(@"Could not allocate memory. error!\n");
         return NULL;
     }
 
     if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) 
     {
-        NSLog(@"Error: sysctl, take 2");
+        PH_NOTE(@"Error: sysctl, take 2");
         return NULL;
     }
 
