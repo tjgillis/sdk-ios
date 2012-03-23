@@ -37,9 +37,6 @@
 		EA06AA6A151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
 		EA06AA6B151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
 		EA06AA6C151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
-		EA06AA6D151A812B00C11220 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
-		EA06AA6E151A812B00C11220 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
-		EA06AA6F151A812B00C11220 /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
 		EA0BB5DF13463C00007F95FA /* PHContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB5DD13463C00007F95FA /* PHContentView.m */; };
 		EA12ABD51365DBB700CB2F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		EA12ABD61365DBB700CB2F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -119,7 +116,6 @@
 		EA328B79151BFAF500DE3CAD /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
 		EA328B7A151BFAF500DE3CAD /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA328B7B151BFAF500DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
-		EA328B7C151BFAF500DE3CAD /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
 		EA328B85151BFC9B00DE3CAD /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
 		EA328B86151BFC9B00DE3CAD /* PHUrlPrefetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D118AE5C14B78C3C00C76E2C /* PHUrlPrefetchOperation.m */; };
 		EA328B87151BFC9B00DE3CAD /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E15B7B14981C39001241EE /* SDURLCache.m */; };
@@ -166,7 +162,6 @@
 		EA328BB2151BFC9B00DE3CAD /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
 		EA328BB3151BFC9B00DE3CAD /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA328BB4151BFC9B00DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
-		EA328BB5151BFC9B00DE3CAD /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
 		EA328BBE151CF09200DE3CAD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
 		EA328BBF151CF09200DE3CAD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
 		EA328BC0151CF09200DE3CAD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44268134539F4000DA3E9 /* SBJsonWriter.m */; };
@@ -463,7 +458,6 @@
 		EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNotificationBadgeRenderer.m; sourceTree = "<group>"; };
 		EA06AA63151A812B00C11220 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		EA06AA64151A812B00C11220 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
-		EA06AA65151A812B00C11220 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		EA0BB5DC13463C00007F95FA /* PHContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHContentView.h; sourceTree = "<group>"; };
 		EA0BB5DD13463C00007F95FA /* PHContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHContentView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EA12ABD31365DBB700CB2F24 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -737,7 +731,6 @@
 			children = (
 				EA06AA63151A812B00C11220 /* OpenUDID.h */,
 				EA06AA64151A812B00C11220 /* OpenUDID.m */,
-				EA06AA65151A812B00C11220 /* README */,
 			);
 			path = OpenUDID;
 			sourceTree = "<group>";
@@ -1267,7 +1260,6 @@
 				EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */,
 				EA2B07A314E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
-				EA06AA6E151A812B00C11220 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1276,7 +1268,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */,
-				EA06AA6D151A812B00C11220 /* README in Resources */,
 				EA328B30151A9D4400DE3CAD /* README.markdown in Resources */,
 				EA328B47151BF68B00DE3CAD /* PublisherOpenViewController.xib in Resources */,
 			);
@@ -1294,7 +1285,6 @@
 				EA328B79151BFAF500DE3CAD /* ExampleViewController.xib in Resources */,
 				EA328B7A151BFAF500DE3CAD /* 512.png in Resources */,
 				EA328B7B151BFAF500DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */,
-				EA328B7C151BFAF500DE3CAD /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1310,7 +1300,6 @@
 				EA328BB2151BFC9B00DE3CAD /* ExampleViewController.xib in Resources */,
 				EA328BB3151BFC9B00DE3CAD /* 512.png in Resources */,
 				EA328BB4151BFC9B00DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */,
-				EA328BB5151BFC9B00DE3CAD /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1329,7 +1318,6 @@
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
-				EA06AA6F151A812B00C11220 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
