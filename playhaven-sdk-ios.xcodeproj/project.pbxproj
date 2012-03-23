@@ -70,6 +70,9 @@
 		EA2B07A314E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA2B07A614E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A214E9EBA60087A45F /* 512.png */; };
 		EA328B30151A9D4400DE3CAD /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = EA328B2F151A9D4400DE3CAD /* README.markdown */; };
+		EA328B47151BF68B00DE3CAD /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
+		EA328B48151BF99400DE3CAD /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
+		EA328B49151BF9A000DE3CAD /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
 		EA4ABA11135F859D0062AE77 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
 		EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
 		EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
@@ -294,6 +297,7 @@
 		EA2B07A014E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA2B07A214E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA328B2F151A9D4400DE3CAD /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
+		EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherOpenViewController.xib; sourceTree = "<group>"; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
 		EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+HardwareString.m"; sourceTree = "<group>"; };
 		EA4AC25C15019C230069D264 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
@@ -509,10 +513,11 @@
 				EA12ABD91365DBB700CB2F24 /* Supporting Files */,
 				EA12AC3A13662AD700CB2F24 /* ExampleViewController.h */,
 				EA12AC3B13662AD700CB2F24 /* ExampleViewController.m */,
+				EABC1CE6143A770000638B09 /* ExampleViewController.xib */,
 				EA12AC3D13662DC400CB2F24 /* PublisherOpenViewController.h */,
 				EA12AC3E13662DC400CB2F24 /* PublisherOpenViewController.m */,
-				EABC1CE6143A770000638B09 /* ExampleViewController.xib */,
 				EA12AC431366339D00CB2F24 /* PublisherContentViewController.h */,
+				EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */,
 				EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */,
 				EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */,
 				EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */,
@@ -878,6 +883,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA328B48151BF99400DE3CAD /* PublisherOpenViewController.xib in Resources */,
 				EA12ABDD1365DBB700CB2F24 /* InfoPlist.strings in Resources */,
 				EA12ABE61365DBB700CB2F24 /* MainWindow.xib in Resources */,
 				EA12ABEC1365DBB700CB2F24 /* RootViewController.xib in Resources */,
@@ -896,6 +902,7 @@
 				EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */,
 				EA06AA6D151A812B00C11220 /* README in Resources */,
 				EA328B30151A9D4400DE3CAD /* README.markdown in Resources */,
+				EA328B47151BF68B00DE3CAD /* PublisherOpenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +910,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA328B49151BF9A000DE3CAD /* PublisherOpenViewController.xib in Resources */,
 				EA837E9414EB3DF4001C8147 /* content-subcontent.json in Resources */,
 				EA837E9314EB349A001C8147 /* content-integration.json in Resources */,
 				EA86C7E414D9E75600CB1551 /* InfoPlist.strings in Resources */,
