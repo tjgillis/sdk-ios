@@ -46,6 +46,14 @@ Example App
 -----------
 Included with the SDK is an example implementation in its own XCode project. It features open and content request implementations including relevant delegate methods for each. You will need a PlayHaven API token and secret to make requests with the Example app.
 
+**NEW** Device tracking using OpenUDID
+--------------------------------------
+This release introduces the use of OpenUDID for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+
+Defining PH_USE_UNIQUE_IDENTIFIER=1 will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. However, this does come with a risk of App Store rejection.
+
+Defining PH_USE_MAC_ADDRESS=1 will send the device's wifi MAC address alongside these new tokens.
+
 Adding a Cross-Promotion Widget to Your Game
 --------------------------------------------
 Each game is pre-configured for our Cross-Promotion Widget, which will give your game the ability to deliver quality game recommendations to your users. To integrate the Cross-Promotion Widget, you'll need to do the following:

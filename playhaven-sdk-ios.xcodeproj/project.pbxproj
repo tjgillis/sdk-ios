@@ -167,6 +167,102 @@
 		EA328BB3151BFC9B00DE3CAD /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA328BB4151BFC9B00DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
 		EA328BB5151BFC9B00DE3CAD /* README in Resources */ = {isa = PBXBuildFile; fileRef = EA06AA65151A812B00C11220 /* README */; };
+		EA328BBE151CF09200DE3CAD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
+		EA328BBF151CF09200DE3CAD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
+		EA328BC0151CF09200DE3CAD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44268134539F4000DA3E9 /* SBJsonWriter.m */; };
+		EA328BC1151CF09200DE3CAD /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E15B7B14981C39001241EE /* SDURLCache.m */; };
+		EA328BC2151CF09200DE3CAD /* PHUrlPrefetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D118AE5C14B78C3C00C76E2C /* PHUrlPrefetchOperation.m */; };
+		EA328BC3151CF09200DE3CAD /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
+		EA328BC4151CF09200DE3CAD /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
+		EA328BC5151CF09200DE3CAD /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
+		EA328BC6151CF09200DE3CAD /* PHURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C1910134E84D300755983 /* PHURLLoader.m */; };
+		EA328BC7151CF09200DE3CAD /* PHAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523DB21343F7BA0057DEA5 /* PHAPIRequest.m */; };
+		EA328BC8151CF09200DE3CAD /* PHStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D901343EE790057DEA5 /* PHStringUtil.m */; };
+		EA328BC9151CF09200DE3CAD /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
+		EA328BCA151CF09200DE3CAD /* PHPublisherMetadataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03810E13B26A1A00A31FF7 /* PHPublisherMetadataRequest.m */; };
+		EA328BCB151CF09200DE3CAD /* PHNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811513B272C400A31FF7 /* PHNotificationView.m */; };
+		EA328BCC151CF09200DE3CAD /* PHNotificationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811A13B298AF00A31FF7 /* PHNotificationRenderer.m */; };
+		EA328BCD151CF09200DE3CAD /* PHNotificationBadgeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */; };
+		EA328BCE151CF09200DE3CAD /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
+		EA328BCF151CF09200DE3CAD /* PHContent.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4429513454F34000DA3E9 /* PHContent.m */; };
+		EA328BD0151CF09200DE3CAD /* PHContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB5DD13463C00007F95FA /* PHContentView.m */; };
+		EA328BD1151CF09200DE3CAD /* PHPublisherContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */; };
+		EA328BD2151CF09200DE3CAD /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
+		EA328BD3151CF09200DE3CAD /* PHPublisherOpenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D8E1343EE790057DEA5 /* PHPublisherOpenRequest.m */; };
+		EA328BD4151CF09200DE3CAD /* PHPublisherIAPTrackingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA019C8014C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m */; };
+		EA328BD5151CF09200DE3CAD /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA328BD7151CF09200DE3CAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		EA328BD9151CF09200DE3CAD /* NSObject+QueryComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = EAC53A91134E5F7A00F2F956 /* NSObject+QueryComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BDA151CF09200DE3CAD /* UIDevice+HardwareString.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BDB151CF09200DE3CAD /* PHURLLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4C190F134E84D300755983 /* PHURLLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BDC151CF09200DE3CAD /* PHAPIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523DB11343F7BA0057DEA5 /* PHAPIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BDD151CF09200DE3CAD /* PHStringUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8F1343EE790057DEA5 /* PHStringUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BDE151CF09200DE3CAD /* PHConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB19C8C1357BA390067F27A /* PHConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BDF151CF09200DE3CAD /* PlayHavenSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE0151CF09200DE3CAD /* PHPublisherMetadataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03810D13B26A1A00A31FF7 /* PHPublisherMetadataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE1151CF09200DE3CAD /* PHNotificationView.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03811413B272C400A31FF7 /* PHNotificationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE2151CF09200DE3CAD /* PHNotificationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03811913B298AF00A31FF7 /* PHNotificationRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE3151CF09200DE3CAD /* PHNotificationBadgeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03811D13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE4151CF09200DE3CAD /* PHPublisherSubContentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE5151CF09200DE3CAD /* PHContent.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB4429413454F34000DA3E9 /* PHContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE6151CF09200DE3CAD /* PHContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = EA0BB5DC13463C00007F95FA /* PHContentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE7151CF09200DE3CAD /* PHPublisherContentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EAED519D134B949D00D0DCB6 /* PHPublisherContentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE8151CF09200DE3CAD /* PHReward.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB2B44513CBD172006D2391 /* PHReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BE9151CF09200DE3CAD /* PHPublisherOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8D1343EE790057DEA5 /* PHPublisherOpenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BEA151CF09200DE3CAD /* SDURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D111108F14BBC54D0035B39E /* SDURLCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BEB151CF09200DE3CAD /* PHUrlPrefetchOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D118AE5B14B78C3C00C76E2C /* PHUrlPrefetchOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328BEC151CF09200DE3CAD /* PHPublisherIAPTrackingRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA019C7F14C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.h */; };
+		EA328BED151CF09200DE3CAD /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = EA06AA63151A812B00C11220 /* OpenUDID.h */; };
+		EA328BF4151CF15900DE3CAD /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E15B7B14981C39001241EE /* SDURLCache.m */; };
+		EA328BF5151CF15900DE3CAD /* PHUrlPrefetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D118AE5C14B78C3C00C76E2C /* PHUrlPrefetchOperation.m */; };
+		EA328BF6151CF15900DE3CAD /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
+		EA328BF7151CF15900DE3CAD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
+		EA328BF8151CF15900DE3CAD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
+		EA328BF9151CF15900DE3CAD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44268134539F4000DA3E9 /* SBJsonWriter.m */; };
+		EA328BFA151CF15900DE3CAD /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
+		EA328BFB151CF15900DE3CAD /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
+		EA328BFC151CF15900DE3CAD /* PHURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C1910134E84D300755983 /* PHURLLoader.m */; };
+		EA328BFD151CF15900DE3CAD /* PHAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523DB21343F7BA0057DEA5 /* PHAPIRequest.m */; };
+		EA328BFE151CF15900DE3CAD /* PHStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D901343EE790057DEA5 /* PHStringUtil.m */; };
+		EA328BFF151CF15900DE3CAD /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
+		EA328C00151CF15900DE3CAD /* PHPublisherMetadataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03810E13B26A1A00A31FF7 /* PHPublisherMetadataRequest.m */; };
+		EA328C01151CF15900DE3CAD /* PHNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811513B272C400A31FF7 /* PHNotificationView.m */; };
+		EA328C02151CF15900DE3CAD /* PHNotificationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811A13B298AF00A31FF7 /* PHNotificationRenderer.m */; };
+		EA328C03151CF15900DE3CAD /* PHNotificationBadgeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */; };
+		EA328C04151CF15900DE3CAD /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
+		EA328C05151CF15900DE3CAD /* PHContent.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4429513454F34000DA3E9 /* PHContent.m */; };
+		EA328C06151CF15900DE3CAD /* PHContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB5DD13463C00007F95FA /* PHContentView.m */; };
+		EA328C07151CF15900DE3CAD /* PHPublisherContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */; };
+		EA328C08151CF15900DE3CAD /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
+		EA328C09151CF15900DE3CAD /* PHPublisherOpenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D8E1343EE790057DEA5 /* PHPublisherOpenRequest.m */; };
+		EA328C0A151CF15900DE3CAD /* PHPublisherIAPTrackingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA019C8014C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m */; };
+		EA328C0B151CF15900DE3CAD /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA328C0D151CF15900DE3CAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		EA328C0F151CF15900DE3CAD /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB4425E134539F4000DA3E9 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C10151CF15900DE3CAD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB44263134539F4000DA3E9 /* SBJsonBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C11151CF15900DE3CAD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB44265134539F4000DA3E9 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C12151CF15900DE3CAD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB44267134539F4000DA3E9 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C13151CF15900DE3CAD /* NSObject+QueryComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = EAC53A91134E5F7A00F2F956 /* NSObject+QueryComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C14151CF15900DE3CAD /* UIDevice+HardwareString.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C15151CF15900DE3CAD /* PHURLLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4C190F134E84D300755983 /* PHURLLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C16151CF15900DE3CAD /* PHAPIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523DB11343F7BA0057DEA5 /* PHAPIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C17151CF15900DE3CAD /* PHStringUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8F1343EE790057DEA5 /* PHStringUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C18151CF15900DE3CAD /* PHConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB19C8C1357BA390067F27A /* PHConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C19151CF15900DE3CAD /* PlayHavenSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C1A151CF15900DE3CAD /* PHPublisherMetadataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03810D13B26A1A00A31FF7 /* PHPublisherMetadataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C1B151CF15900DE3CAD /* PHNotificationView.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03811413B272C400A31FF7 /* PHNotificationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C1C151CF15900DE3CAD /* PHNotificationRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03811913B298AF00A31FF7 /* PHNotificationRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C1D151CF15900DE3CAD /* PHNotificationBadgeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = EA03811D13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C1E151CF15900DE3CAD /* PHPublisherSubContentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C1F151CF15900DE3CAD /* PHContent.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB4429413454F34000DA3E9 /* PHContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C20151CF15900DE3CAD /* PHContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = EA0BB5DC13463C00007F95FA /* PHContentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C21151CF15900DE3CAD /* PHPublisherContentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EAED519D134B949D00D0DCB6 /* PHPublisherContentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C22151CF15900DE3CAD /* PHReward.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB2B44513CBD172006D2391 /* PHReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C23151CF15900DE3CAD /* PHPublisherOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8D1343EE790057DEA5 /* PHPublisherOpenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C24151CF15900DE3CAD /* SDURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D111108F14BBC54D0035B39E /* SDURLCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C25151CF15900DE3CAD /* PHUrlPrefetchOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D118AE5B14B78C3C00C76E2C /* PHUrlPrefetchOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA328C26151CF15900DE3CAD /* PHPublisherIAPTrackingRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA019C7F14C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.h */; };
+		EA328C27151CF15900DE3CAD /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = EA06AA63151A812B00C11220 /* OpenUDID.h */; };
 		EA4ABA11135F859D0062AE77 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
 		EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
 		EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
@@ -396,6 +492,8 @@
 		EA328B82151BFAF600DE3CAD /* Info-udid.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-udid.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-udid.plist"; sourceTree = "<absolute>"; };
 		EA328BB9151BFC9B00DE3CAD /* MACExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MACExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA328BBB151BFC9B00DE3CAD /* Info-mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-mac.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-mac.plist"; sourceTree = "<absolute>"; };
+		EA328BF1151CF09200DE3CAD /* libPlayHaven-UDID.MAC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPlayHaven-UDID.MAC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA328C2B151CF15900DE3CAD /* libPlayHaven-UDID.MAC.NoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPlayHaven-UDID.MAC.NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
 		EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+HardwareString.m"; sourceTree = "<group>"; };
 		EA4AC25C15019C230069D264 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
@@ -506,6 +604,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA328BD6151CF09200DE3CAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA328BD7151CF09200DE3CAD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA328C0C151CF15900DE3CAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA328C0D151CF15900DE3CAD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA86C7DC14D9E75600CB1551 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -548,6 +662,8 @@
 				EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */,
 				EA328B80151BFAF500DE3CAD /* UDIDExample.app */,
 				EA328BB9151BFC9B00DE3CAD /* MACExample.app */,
+				EA328BF1151CF09200DE3CAD /* libPlayHaven-UDID.MAC.a */,
+				EA328C2B151CF15900DE3CAD /* libPlayHaven-UDID.MAC.NoStoreKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -825,6 +941,66 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		EA328BD8151CF09200DE3CAD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA328BD9151CF09200DE3CAD /* NSObject+QueryComponents.h in Headers */,
+				EA328BDA151CF09200DE3CAD /* UIDevice+HardwareString.h in Headers */,
+				EA328BDB151CF09200DE3CAD /* PHURLLoader.h in Headers */,
+				EA328BDC151CF09200DE3CAD /* PHAPIRequest.h in Headers */,
+				EA328BDD151CF09200DE3CAD /* PHStringUtil.h in Headers */,
+				EA328BDE151CF09200DE3CAD /* PHConstants.h in Headers */,
+				EA328BDF151CF09200DE3CAD /* PlayHavenSDK.h in Headers */,
+				EA328BE0151CF09200DE3CAD /* PHPublisherMetadataRequest.h in Headers */,
+				EA328BE1151CF09200DE3CAD /* PHNotificationView.h in Headers */,
+				EA328BE2151CF09200DE3CAD /* PHNotificationRenderer.h in Headers */,
+				EA328BE3151CF09200DE3CAD /* PHNotificationBadgeRenderer.h in Headers */,
+				EA328BE4151CF09200DE3CAD /* PHPublisherSubContentRequest.h in Headers */,
+				EA328BE5151CF09200DE3CAD /* PHContent.h in Headers */,
+				EA328BE6151CF09200DE3CAD /* PHContentView.h in Headers */,
+				EA328BE7151CF09200DE3CAD /* PHPublisherContentRequest.h in Headers */,
+				EA328BE8151CF09200DE3CAD /* PHReward.h in Headers */,
+				EA328BE9151CF09200DE3CAD /* PHPublisherOpenRequest.h in Headers */,
+				EA328BEA151CF09200DE3CAD /* SDURLCache.h in Headers */,
+				EA328BEB151CF09200DE3CAD /* PHUrlPrefetchOperation.h in Headers */,
+				EA328BEC151CF09200DE3CAD /* PHPublisherIAPTrackingRequest.h in Headers */,
+				EA328BED151CF09200DE3CAD /* OpenUDID.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA328C0E151CF15900DE3CAD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA328C0F151CF15900DE3CAD /* JSON.h in Headers */,
+				EA328C10151CF15900DE3CAD /* SBJsonBase.h in Headers */,
+				EA328C11151CF15900DE3CAD /* SBJsonParser.h in Headers */,
+				EA328C12151CF15900DE3CAD /* SBJsonWriter.h in Headers */,
+				EA328C13151CF15900DE3CAD /* NSObject+QueryComponents.h in Headers */,
+				EA328C14151CF15900DE3CAD /* UIDevice+HardwareString.h in Headers */,
+				EA328C15151CF15900DE3CAD /* PHURLLoader.h in Headers */,
+				EA328C16151CF15900DE3CAD /* PHAPIRequest.h in Headers */,
+				EA328C17151CF15900DE3CAD /* PHStringUtil.h in Headers */,
+				EA328C18151CF15900DE3CAD /* PHConstants.h in Headers */,
+				EA328C19151CF15900DE3CAD /* PlayHavenSDK.h in Headers */,
+				EA328C1A151CF15900DE3CAD /* PHPublisherMetadataRequest.h in Headers */,
+				EA328C1B151CF15900DE3CAD /* PHNotificationView.h in Headers */,
+				EA328C1C151CF15900DE3CAD /* PHNotificationRenderer.h in Headers */,
+				EA328C1D151CF15900DE3CAD /* PHNotificationBadgeRenderer.h in Headers */,
+				EA328C1E151CF15900DE3CAD /* PHPublisherSubContentRequest.h in Headers */,
+				EA328C1F151CF15900DE3CAD /* PHContent.h in Headers */,
+				EA328C20151CF15900DE3CAD /* PHContentView.h in Headers */,
+				EA328C21151CF15900DE3CAD /* PHPublisherContentRequest.h in Headers */,
+				EA328C22151CF15900DE3CAD /* PHReward.h in Headers */,
+				EA328C23151CF15900DE3CAD /* PHPublisherOpenRequest.h in Headers */,
+				EA328C24151CF15900DE3CAD /* SDURLCache.h in Headers */,
+				EA328C25151CF15900DE3CAD /* PHUrlPrefetchOperation.h in Headers */,
+				EA328C26151CF15900DE3CAD /* PHPublisherIAPTrackingRequest.h in Headers */,
+				EA328C27151CF15900DE3CAD /* OpenUDID.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA9AB61D14A3B0AA00079704 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -957,6 +1133,40 @@
 			productReference = EA328BB9151BFC9B00DE3CAD /* MACExample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EA328BBC151CF09200DE3CAD /* PlayHaven UDID */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA328BEE151CF09200DE3CAD /* Build configuration list for PBXNativeTarget "PlayHaven UDID" */;
+			buildPhases = (
+				EA328BBD151CF09200DE3CAD /* Sources */,
+				EA328BD6151CF09200DE3CAD /* Frameworks */,
+				EA328BD8151CF09200DE3CAD /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PlayHaven UDID";
+			productName = PlayHaven;
+			productReference = EA328BF1151CF09200DE3CAD /* libPlayHaven-UDID.MAC.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EA328BF2151CF15900DE3CAD /* PlayHaven UDID NoStoreKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA328C28151CF15900DE3CAD /* Build configuration list for PBXNativeTarget "PlayHaven UDID NoStoreKit" */;
+			buildPhases = (
+				EA328BF3151CF15900DE3CAD /* Sources */,
+				EA328C0C151CF15900DE3CAD /* Frameworks */,
+				EA328C0E151CF15900DE3CAD /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PlayHaven UDID NoStoreKit";
+			productName = PlayHaven;
+			productReference = EA328C2B151CF15900DE3CAD /* libPlayHaven-UDID.MAC.NoStoreKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		EA86C7BD14D9E75600CB1551 /* Example (Fixtures) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA86C7E914D9E75600CB1551 /* Build configuration list for PBXNativeTarget "Example (Fixtures)" */;
@@ -1038,6 +1248,8 @@
 				EAB6A37814EED62D00EAC692 /* PlayHaven NoStoreKit */,
 				EA328B4A151BFAF500DE3CAD /* Example UDID */,
 				EA328B83151BFC9B00DE3CAD /* Example MAC */,
+				EA328BBC151CF09200DE3CAD /* PlayHaven UDID */,
+				EA328BF2151CF15900DE3CAD /* PlayHaven UDID NoStoreKit */,
 			);
 		};
 /* End PBXProject section */
@@ -1294,6 +1506,68 @@
 				EA328BA2151BFC9B00DE3CAD /* PublisherIAPTrackingViewController.m in Sources */,
 				EA328BA3151BFC9B00DE3CAD /* IAPHelper.m in Sources */,
 				EA328BA4151BFC9B00DE3CAD /* OpenUDID.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA328BBD151CF09200DE3CAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA328BBE151CF09200DE3CAD /* SBJsonBase.m in Sources */,
+				EA328BBF151CF09200DE3CAD /* SBJsonParser.m in Sources */,
+				EA328BC0151CF09200DE3CAD /* SBJsonWriter.m in Sources */,
+				EA328BC1151CF09200DE3CAD /* SDURLCache.m in Sources */,
+				EA328BC2151CF09200DE3CAD /* PHUrlPrefetchOperation.m in Sources */,
+				EA328BC3151CF09200DE3CAD /* PHPurchase.m in Sources */,
+				EA328BC4151CF09200DE3CAD /* NSObject+QueryComponents.m in Sources */,
+				EA328BC5151CF09200DE3CAD /* UIDevice+HardwareString.m in Sources */,
+				EA328BC6151CF09200DE3CAD /* PHURLLoader.m in Sources */,
+				EA328BC7151CF09200DE3CAD /* PHAPIRequest.m in Sources */,
+				EA328BC8151CF09200DE3CAD /* PHStringUtil.m in Sources */,
+				EA328BC9151CF09200DE3CAD /* PHConstants.m in Sources */,
+				EA328BCA151CF09200DE3CAD /* PHPublisherMetadataRequest.m in Sources */,
+				EA328BCB151CF09200DE3CAD /* PHNotificationView.m in Sources */,
+				EA328BCC151CF09200DE3CAD /* PHNotificationRenderer.m in Sources */,
+				EA328BCD151CF09200DE3CAD /* PHNotificationBadgeRenderer.m in Sources */,
+				EA328BCE151CF09200DE3CAD /* PHPublisherSubContentRequest.m in Sources */,
+				EA328BCF151CF09200DE3CAD /* PHContent.m in Sources */,
+				EA328BD0151CF09200DE3CAD /* PHContentView.m in Sources */,
+				EA328BD1151CF09200DE3CAD /* PHPublisherContentRequest.m in Sources */,
+				EA328BD2151CF09200DE3CAD /* PHReward.m in Sources */,
+				EA328BD3151CF09200DE3CAD /* PHPublisherOpenRequest.m in Sources */,
+				EA328BD4151CF09200DE3CAD /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EA328BD5151CF09200DE3CAD /* OpenUDID.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA328BF3151CF15900DE3CAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA328BF4151CF15900DE3CAD /* SDURLCache.m in Sources */,
+				EA328BF5151CF15900DE3CAD /* PHUrlPrefetchOperation.m in Sources */,
+				EA328BF6151CF15900DE3CAD /* PHPurchase.m in Sources */,
+				EA328BF7151CF15900DE3CAD /* SBJsonBase.m in Sources */,
+				EA328BF8151CF15900DE3CAD /* SBJsonParser.m in Sources */,
+				EA328BF9151CF15900DE3CAD /* SBJsonWriter.m in Sources */,
+				EA328BFA151CF15900DE3CAD /* NSObject+QueryComponents.m in Sources */,
+				EA328BFB151CF15900DE3CAD /* UIDevice+HardwareString.m in Sources */,
+				EA328BFC151CF15900DE3CAD /* PHURLLoader.m in Sources */,
+				EA328BFD151CF15900DE3CAD /* PHAPIRequest.m in Sources */,
+				EA328BFE151CF15900DE3CAD /* PHStringUtil.m in Sources */,
+				EA328BFF151CF15900DE3CAD /* PHConstants.m in Sources */,
+				EA328C00151CF15900DE3CAD /* PHPublisherMetadataRequest.m in Sources */,
+				EA328C01151CF15900DE3CAD /* PHNotificationView.m in Sources */,
+				EA328C02151CF15900DE3CAD /* PHNotificationRenderer.m in Sources */,
+				EA328C03151CF15900DE3CAD /* PHNotificationBadgeRenderer.m in Sources */,
+				EA328C04151CF15900DE3CAD /* PHPublisherSubContentRequest.m in Sources */,
+				EA328C05151CF15900DE3CAD /* PHContent.m in Sources */,
+				EA328C06151CF15900DE3CAD /* PHContentView.m in Sources */,
+				EA328C07151CF15900DE3CAD /* PHPublisherContentRequest.m in Sources */,
+				EA328C08151CF15900DE3CAD /* PHReward.m in Sources */,
+				EA328C09151CF15900DE3CAD /* PHPublisherOpenRequest.m in Sources */,
+				EA328C0A151CF15900DE3CAD /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EA328C0B151CF15900DE3CAD /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1669,6 +1943,102 @@
 			};
 			name = Release;
 		};
+		EA328BEF151CF09200DE3CAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/PlayHaven.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
+					"DEBUG=1",
+					"$(inherited)",
+					PH_NAMESPACE_SBJSON,
+					"PH_USE_UNIQUE_IDENTIFIER=1",
+					"PH_USE_MAC_ADDRESS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "PlayHaven-UDID.MAC";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EA328BF0151CF09200DE3CAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/PlayHaven.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PH_NAMESPACE_SBJSON,
+					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
+					"PH_USE_UNIQUE_IDENTIFIER=1",
+					"PH_USE_MAC_ADDRESS=1",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "PlayHaven-UDID.MAC";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		EA328C29151CF15900DE3CAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/PlayHaven.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PH_NAMESPACE_SBJSON,
+					"PH_USE_STOREKIT=0",
+					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
+					"DEBUG=1",
+					"$(inherited)",
+					"PH_USE_MAC_ADDRESS=1",
+					"PH_USE_UNIQUE_IDENTIFIER=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "PlayHaven-UDID.MAC.NoStoreKit";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EA328C2A151CF15900DE3CAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/PlayHaven.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PH_USE_STOREKIT=0",
+					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
+					PH_NAMESPACE_SBJSON,
+					"PH_USE_UNIQUE_IDENTIFIER=1",
+					"PH_USE_MAC_ADDRESS=1",
+				);
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "PlayHaven-UDID.MAC.NoStoreKit";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		EA86C7EA14D9E75600CB1551 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1837,6 +2207,24 @@
 			buildConfigurations = (
 				EA328BB7151BFC9B00DE3CAD /* Debug */,
 				EA328BB8151BFC9B00DE3CAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA328BEE151CF09200DE3CAD /* Build configuration list for PBXNativeTarget "PlayHaven UDID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA328BEF151CF09200DE3CAD /* Debug */,
+				EA328BF0151CF09200DE3CAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA328C28151CF15900DE3CAD /* Build configuration list for PBXNativeTarget "PlayHaven UDID NoStoreKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA328C29151CF15900DE3CAD /* Debug */,
+				EA328C2A151CF15900DE3CAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
