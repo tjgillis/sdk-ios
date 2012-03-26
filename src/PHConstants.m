@@ -10,6 +10,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #import "PHConstants.h"
+#import "PHStringUtil.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #include <sys/types.h>
@@ -24,6 +25,26 @@
 #endif
 
 BOOL _localWiFiAvailable(void);
+
+NSString *PHGID(){
+    //cache the value as a static variable to prevent
+    static NSString *cachedGID;
+    if (cachedGID == nil) {
+        //get the value from NSUserDefaults
+        NSString *defaultsGID = [[NSUserDefaults standardUserDefaults] valueForKey:@"PlayHavenGID"];
+        
+        //if missing, generate a new value and store in NSUserDefaults
+        if (defaultsGID == nil) {
+            defaultsGID = [PHStringUtil uuid];
+            [[NSUserDefaults standardUserDefaults] setValue:defaultsGID forKey:@"PlayHavenGID"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        cachedGID = [[NSString alloc] initWithString:defaultsGID];
+    }
+    
+    return cachedGID;
+}
 
 NSError *PHCreateError(PHErrorType errorType){
     static NSArray *errorArray;

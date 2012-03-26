@@ -9,6 +9,7 @@
 #import "PublisherOpenViewController.h"
 
 @implementation PublisherOpenViewController
+@synthesize customUDIDField;
 
 -(void)startRequest{
     [super startRequest];
@@ -19,12 +20,14 @@
      */
     
     PHPublisherOpenRequest * request = [PHPublisherOpenRequest requestForApp:self.token secret:self.secret];
+    request.customUDID = self.customUDIDField.text;
     request.delegate = self;
     [request send];
 }
 
 -(void)dealloc{
     [PHAPIRequest cancelAllRequestsWithDelegate:self];
+    [customUDIDField release];
     [super dealloc];
 }
 
@@ -48,4 +51,8 @@
     [self addElapsedTime];
 }
 
+- (void)viewDidUnload {
+    [self setCustomUDIDField:nil];
+    [super viewDidUnload];
+}
 @end

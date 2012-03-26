@@ -84,7 +84,7 @@ NSString *readLineAsNSString(FILE *file)
 
 #pragma mark -
 #pragma mark NSURLConnection substitution
-+(WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id<NSURLConnectionDataDelegate, NSURLConnectionDelegate>)delegate{
++(WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate{
     WWURLConnection *result = [WWURLConnection new];
     result.request = request;
     result.delegate = delegate;
