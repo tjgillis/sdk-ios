@@ -11,24 +11,27 @@ What's new in 1.10.0
 * In App Purchase tracking and Virtual Good Promotion support. See "Triggering in-app purchases" and "Tracking in-app purchases" in the API Reference section for information on how to integrate this into your app.
 * Adds documentation for disabling StoreKit-based features in the SDK.
 
+1.8.2
+=====
+* PlayHaven now uses OpenUDID for tracking conversions on the device while still allowing for user opt-out.
+
 1.8.1
 =====
 * Fixes orientation issues that impact games in landscape orientation.
-
-1.6.1
-=====
-* Fixes crash bug that occasionally appears after multiple content units have been displayed.
 
 Integration
 -----------
 If you are using Unity for your game, please integrate the Unity SDK located here: https://github.com/playhaven/sdk-unity/
 
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
-  * src directory
+  * src directory 
   * Cache directory
 1. **NEW** Unless you are already using SBJSON, also add the following to your project:
   * JSON directory
-  If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of this classes in the same project may cause build errors
+  If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
+1. **NEW** Unless you are already using OpenUDID, also add the following to your project:
+  * OpenUDID directory
+  If your project is already using OpenUDID, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. Ensure the following frameworks are included with your project, add any missing frameworks in the Build Phases tab for your application's target:
   * UIKit.framework
   * Foundation.framework
@@ -47,6 +50,14 @@ Example App
 -----------
 Included with the SDK is an example implementation in its own XCode project. It features open and content request implementations including relevant delegate methods for each. You will need a PlayHaven API token and secret to make requests with the Example app.
 
+**NEW** Device tracking using OpenUDID
+--------------------------------------
+This release introduces the use of OpenUDID for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+
+Defining PH_USE_UNIQUE_IDENTIFIER=1 will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. However, this does come with a risk of App Store rejection.
+
+Defining PH_USE_MAC_ADDRESS=1 will send the device's wifi MAC address alongside these new tokens.
+
 Adding a Cross-Promotion Widget to Your Game
 --------------------------------------------
 Each game is pre-configured for our Cross-Promotion Widget, which will give your game the ability to deliver quality game recommendations to your users. To integrate the Cross-Promotion Widget, you'll need to do the following:
@@ -54,9 +65,14 @@ Each game is pre-configured for our Cross-Promotion Widget, which will give your
 ### Record game opens
 In order to better optimize your content units, it is necessary for your app to report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your Cross-Promotion Widget to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following line will send a request:
+The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following will send a request:
 
-	[[PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET] send];
+    PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
+    request.customUDID = @"CUSTOM_UDID" //optional, see below.
+    [request send];
+
+**NEW**: If you are using an internal identifier to track individual devices in this game, you may use the customUDID
+parameter to pass this identifier along to PlayHaven with the open request.
 
 Where MYTOKEN and MYSECRET are the token and secret for your game. That's it!
 See "Recording game opens" in the API Reference section for more information about recording game opens.

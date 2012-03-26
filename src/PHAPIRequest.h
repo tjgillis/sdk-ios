@@ -13,7 +13,7 @@
 -(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error;
 @end
 
-@interface PHAPIRequest : NSObject<NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
+@interface PHAPIRequest : NSObject {
     NSURL *_URL;
     NSString *_token, *_secret;
     NSURLConnection *_connection;

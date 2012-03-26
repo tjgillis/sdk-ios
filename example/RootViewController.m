@@ -117,7 +117,7 @@
     if ( !( [self.tokenField.text isEqualToString:@""] || [self.secretField.text isEqualToString:@""] ) ) {
         [self saveTokenAndSecretToDefaults];
         if (indexPath.row == 0) {
-            PublisherOpenViewController *controller = [[PublisherOpenViewController alloc] initWithNibName:@"ExampleViewController" bundle:nil];
+            PublisherOpenViewController *controller = [[PublisherOpenViewController alloc] initWithNibName:@"PublisherOpenViewController" bundle:nil];
             controller.title = @"Open";
             controller.token = self.tokenField.text;
             controller.secret = self.secretField.text;

@@ -13,5 +13,6 @@
 @interface PublisherOpenViewController : ExampleViewController<PHAPIRequestDelegate> {
     
 }
+@property (retain, nonatomic) IBOutlet UITextField *customUDIDField;
 
 @end
