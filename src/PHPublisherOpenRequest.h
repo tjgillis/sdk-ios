@@ -10,9 +10,11 @@
 
 @interface PHPublisherOpenRequest : PHAPIRequest{
     NSOperationQueue *_prefetchOperations;
+    NSString *_customUDID;
 }
 
 @property (nonatomic, readonly) NSOperationQueue *prefetchOperations;
+@property (nonatomic, copy) NSString *customUDID;
 
 -(void) downloadPrefetchURLs;
 -(void) cancelPrefetchDownload;

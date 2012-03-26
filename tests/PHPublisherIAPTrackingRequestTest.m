@@ -32,11 +32,7 @@
                                                 resolution:PHPurchaseResolutionBuy];
     STAssertNotNil(request, @"Expected request to exist!");
     
-    NSError *error = PHCreateError(PHIAPTrackingSimulatorErrorType);
-    request = [PHPublisherIAPTrackingRequest requestForApp:@"APP" 
-                                                    secret:@"SECRET" 
-                                                     error:error
-                                                resolution:PHPurchaseResolutionError];
+    request = [PHPublisherIAPTrackingRequest requestForApp:@"APP" secret:@"SECRET" product:product quantity:quantity error:PHCreateError(PHIAPTrackingSimulatorErrorType)];
     STAssertNotNil(request, @"Expected request to exist!");
 }
 

@@ -9,6 +9,9 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 #import "PHAPIRequest.h"
+#import "OpenUDID.h"
+#import "PHConstants.h"
+#import "PHStringUtil.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -46,28 +49,21 @@
     NSDictionary *signedParameters = [request signedParameters];
     
     //Test for existence of parameters
-    NSString 
-    *device = [signedParameters valueForKey:@"device"], 
+    NSString
+    *odid = [signedParameters valueForKey:@"odid"],
+    *gid = [signedParameters valueForKey:@"gid"],
     *token  = [signedParameters valueForKey:@"token"], 
     *signature = [signedParameters valueForKey:@"signature"],
     *nonce  = [signedParameters valueForKey:@"nonce"];
     
-    STAssertNotNil(device,@"Required device param is missing!");
+    STAssertNotNil(odid ,@"Required odid param is missing!");
+    STAssertNotNil(gid ,@"Required gid param is missing!");
     STAssertNotNil(token ,@"Required token param is missing!");
     STAssertNotNil(signature,@"Required signature param is missing!");
     STAssertNotNil(nonce ,@"Required nonce param is missing!");
     
-    //Test for proper signature
-    NSString *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@", token, device, nonce, PUBLISHER_SECRET];
-    NSString *expectedHash = [PHAPIRequest base64SignatureWithString:signatureHash];
-    STAssertTrue([expectedHash isEqualToString:signature], @"Hash mismatch. Expected %@ got %@", expectedHash, signature);
-    
     NSString *parameterString = [request signedParameterString];
     STAssertNotNil(parameterString, @"Parameter string is nil?");
-    
-    NSString *deviceParam = [NSString stringWithFormat:@"device=%@",device];
-    STAssertFalse([parameterString rangeOfString:deviceParam].location == NSNotFound,
-                  @"Device parameter not present!");
     
     NSString *tokenParam = [NSString stringWithFormat:@"token=%@",token];
     STAssertFalse([parameterString rangeOfString:tokenParam].location == NSNotFound,
@@ -76,6 +72,11 @@
     NSString *signatureParam = [NSString stringWithFormat:@"signature=%@",signature];
     STAssertFalse([parameterString rangeOfString:signatureParam].location == NSNotFound,
                   @"Signature parameter not present!");
+    
+    NSString 
+    *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [OpenUDID value], PHGID(), nonce, PUBLISHER_SECRET],
+    *expectedSignature = [PHStringUtil b64DigestForString:expectedSignatureString];
+    STAssertTrue([signature isEqualToString:expectedSignature], @"signature did not match expected value!");
     
     NSString *nonceParam = [NSString stringWithFormat:@"nonce=%@",nonce];
     STAssertFalse([parameterString rangeOfString:nonceParam].location == NSNotFound,

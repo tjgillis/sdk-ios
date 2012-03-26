@@ -26,8 +26,6 @@
     NSString *requestURLString = [request.URL absoluteString];
     
     STAssertNotNil(requestURLString, @"Parameter string is nil?");
-    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound,
-                  @"Device parameter not present!");
     STAssertFalse([requestURLString rangeOfString:@"token="].location == NSNotFound,
                   @"Token parameter not present!");
     STAssertFalse([requestURLString rangeOfString:@"nonce="].location == NSNotFound,
@@ -36,6 +34,23 @@
                   @"Secret parameter not present!");
     
     STAssertTrue([request respondsToSelector:@selector(send)], @"Send method not implemented!");
+}
+
+-(void)testCustomUDID{
+    NSString *token = @"PUBLISHER_TOKEN", 
+    *secret = @"PUBLISHER_SECRET";
+    PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:token secret:secret];
+    NSString *requestURLString = [request.URL absoluteString];
+    
+    STAssertNotNil(requestURLString, @"Parameter string is nil?");
+    STAssertTrue([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                  @"Custom parameter exists when none is set.");
+    
+    PHPublisherOpenRequest *request2 = [PHPublisherOpenRequest requestForApp:token secret:secret];
+    request2.customUDID = @"CUSTOM_UDID";
+    requestURLString = [request2.URL absoluteString];
+    STAssertFalse([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                 @"Custom parameter missing when one is set.");
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "JSON.h"
 #import "UIDevice+HardwareString.h"
 #import "PHConstants.h"
+#import "OpenUDID.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
@@ -159,13 +160,24 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
 
 -(NSDictionary *) signedParameters{
     if (_signedParameters == nil) {
+        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
+        
+#if PH_USE_UNIQUE_IDENTIFIER==1
         NSString
-        *device = [[UIDevice currentDevice] uniqueIdentifier],
+        *device = [[UIDevice currentDevice] uniqueIdentifier];
+        [combinedParams setValue:device forKey:@"device"];
+#endif
+        //This allows for unit testing of request values!
+        NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+        
+        NSString
         *nonce = [PHStringUtil uuid],
-        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@", self.token, device, nonce, self.secret],
+        *odid = PH_DEVICE_IDENTIFIER,
+        *gid = PHGID(),
+        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, PH_DEVICE_IDENTIFIER, PHGID(), nonce, self.secret],
         *signature = [PHAPIRequest base64SignatureWithString:signatureHash],
-        *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
-        *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
+        *appId = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
+        *appVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
         *hardware = [[UIDevice currentDevice] hardware],
         *os = [NSString stringWithFormat:@"%@ %@",
                [[UIDevice currentDevice] systemName],
@@ -176,10 +188,8 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         *idiom = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
         *connection = [NSNumber numberWithInt:PHNetworkStatus()];
         
-        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
         [combinedParams addEntriesFromDictionary:self.additionalParameters];  
         NSDictionary *signatureParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         device, @"device",
                                          self.token, @"token",
                                          signature, @"signature",
                                          nonce, @"nonce",
@@ -190,6 +200,8 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
                                          appVersion, @"app_version",
                                          connection,@"connection",
                                          PH_SDK_VERSION, @"sdk-ios",
+                                         odid, @"odid",
+                                         gid, @"gid",
                                          nil];
         
         [combinedParams addEntriesFromDictionary:signatureParams];

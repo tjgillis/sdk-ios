@@ -15,6 +15,7 @@
 #import "PHPurchase.h"
 #import "PHPublisherIAPTrackingRequest.h"
 #import "JSON.h"
+#import "OpenUDID.h"
 
 NSString *const PHPublisherContentRequestRewardIDKey = @"reward";
 NSString *const PHPublisherContentRequestRewardQuantityKey = @"quantity";
@@ -590,7 +591,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     NSString *generatedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
                                           reward, 
                                           quantity, 
-                                          [[UIDevice currentDevice] uniqueIdentifier], 
+                                          PHGID(), 
                                           receipt, 
                                           self.secret];
     NSString *generatedSignature = [PHStringUtil hexDigestForString:generatedSignatureString];
@@ -628,7 +629,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
                                           productId,
                                           name,
                                           quantity, 
-                                          [[UIDevice currentDevice] uniqueIdentifier], 
+                                          PHGID(), 
                                           receipt, 
                                           self.secret];
     NSString *generatedSignature = [PHStringUtil hexDigestForString:generatedSignatureString];

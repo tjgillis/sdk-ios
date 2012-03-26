@@ -17,6 +17,7 @@
 #import "PHContentView.h"
 #import "PHPublisherContentRequest.h"
 #import "PHStringUtil.h"
+#import "OpenUDID.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -259,7 +260,7 @@
     NSNumber *quantity = [NSNumber numberWithInt:1234];
     NSNumber *receipt = [NSNumber numberWithInt:102930193];
     NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@",
-                                                            reward, quantity, [[UIDevice currentDevice] uniqueIdentifier], receipt, PUBLISHER_SECRET]];
+                                                            reward, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
     
     NSDictionary *rewardDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                 reward, @"reward",
@@ -290,7 +291,7 @@
     NSNumber *quantity = [NSNumber numberWithInt:1234];
     NSNumber *receipt = [NSNumber numberWithInt:102930193];
     NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
-                                                            product, name, quantity, [[UIDevice currentDevice] uniqueIdentifier], receipt, PUBLISHER_SECRET]];
+                                                            product, name, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
     NSNumber *cookie = [NSNumber numberWithInt:3423413];
     
     NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -315,7 +316,7 @@
     NSNumber *quantity = [NSNumber numberWithInt:1234];
     NSString *receipt = @"102930193";
     NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
-                                                            product, name, quantity, [[UIDevice currentDevice] uniqueIdentifier], receipt, PUBLISHER_SECRET]];
+                                                            product, name, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
     NSString *cookie = @"3423413";
     
     NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
