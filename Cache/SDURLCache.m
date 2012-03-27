@@ -524,6 +524,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
+                    PH_LOG(@"Loading URL from local cache: %@", request.URL);
                     return diskResponse;
                 }
             }
