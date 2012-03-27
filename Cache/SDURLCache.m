@@ -27,6 +27,13 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     return [dateFormatter autorelease];
 }
 
+// Suppresses warnings for XCode 4.3
+#pragma clang diagnostic push
+#if __clang_minor__ >=1
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
+#endif
+#pragma cland diagnostic pop
+
 @implementation NSCachedURLResponse(NSCoder)
 
 - (void)encodeWithCoder:(NSCoder *)coder
