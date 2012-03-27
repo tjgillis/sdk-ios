@@ -524,7 +524,6 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
-                    PH_LOG(@"Cache hit: %@", cacheKey);
                     return diskResponse;
                 }
             }
