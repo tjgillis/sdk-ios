@@ -77,9 +77,6 @@
 #define PH_SBJSONERRORDOMAIN_CONST SBJSONErrorDomainPH
 #endif
 
-// PH_DEVICE_IDENTIFIER
-#define PH_DEVICE_IDENTIFIER [OpenUDID value]
-
 // PH_USE_UNIQUE_IDENTIFIER
 // This will lead to rejection from the app store very soon, but will help PlayHaven
 // correlate Apple UDIDs with OpenUDIDs. If you're feeling lucky set
@@ -89,11 +86,18 @@
 #endif
 
 // PH_USE_MAC_ADDRESS
-// This may lead to rejection from the app store very soon, but will help PlayHaven
+// This may lead to rejection from the app store at some point, but will help PlayHaven
 // reliably track devices and conversion. If you're feeling lucky set
 // PH_USE_MAC_ADDRESS=1
 #ifndef PH_USE_MAC_ADDRESS
 #define PH_USE_MAC_ADDRESS 0
+#endif
+
+// PH_USE_OPEN_UDID
+// We support the use of OpenUDID as an optional supplemental device identifier.
+// To disable sending OpenUDIDs set PH_USE_OPEN_UDID=0
+#ifndef PH_USE_OPEN_UDID
+#define PH_USE_OPEN_UDID 1
 #endif
 
 // Macros

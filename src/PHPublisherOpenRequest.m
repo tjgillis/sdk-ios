@@ -11,6 +11,10 @@
 #import "SDURLCache.h"
 #import "PHURLPrefetchOperation.h"
 
+#if PH_USE_OPEN_UDID == 1
+#import "OpenUDID.h"
+#endif
+
 #if PH_USE_MAC_ADDRESS == 1
 #include <sys/socket.h>
 #include <sys/sysctl.h>
@@ -71,6 +75,7 @@ NSString* getMACAddress(){
 
 @interface PHAPIRequest(Private)
 -(void)finish;
++(void)setSession:(NSString *)session;
 @end
 
 @implementation PHPublisherOpenRequest
@@ -99,12 +104,17 @@ NSString* getMACAddress(){
 @synthesize customUDID = _customUDID;
 
 -(NSDictionary *)additionalParameters{
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-#if PH_USE_MAC_ADDRESS == 1
-            getMACAddress(), @"d_mac",
+    NSMutableDictionary *additionalParameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                 self.customUDID, @"d_custom",
+                                                 nil];
+#if PH_USE_OPENUDID == 1
+    [additionalParameters setValue:[OpenUDID value] forKey:@"d_odid"];
 #endif
-            self.customUDID, @"d_custom",
-            nil];
+#if PH_USE_MAC_ADDRESS == 1
+    [additionalParameters setValue:getMACAddress() forKey:@"d_mac"];
+#endif
+    
+    return  additionalParameters;
 }
 
 -(NSString *)urlPath{
@@ -134,13 +144,18 @@ NSString* getMACAddress(){
         }
         [responseData writeToFile:cachePlist atomically:YES];
         
-        NSArray *urlArray = (NSArray *)[responseData objectForKey:@"precache"];
+        NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
         for (NSString *urlString in urlArray){
             
             NSURL *url = [NSURL URLWithString:urlString];
             PHURLPrefetchOperation *urlpo = [[PHURLPrefetchOperation alloc] initWithURL:url];
             [self.prefetchOperations addOperation:urlpo];
             [urlpo release];
+        }
+        
+        NSString *session = (NSString *)[responseData valueForKey:@"session"];
+        if (!!session){
+            [PHAPIRequest setSession:session];
         }
         
         [fileManager release];

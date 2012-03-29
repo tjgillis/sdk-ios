@@ -50,13 +50,13 @@
     
     //Test for existence of parameters
     NSString
-    *odid = [signedParameters valueForKey:@"odid"],
+    *session = [signedParameters valueForKey:@"session"],
     *gid = [signedParameters valueForKey:@"gid"],
     *token  = [signedParameters valueForKey:@"token"], 
     *signature = [signedParameters valueForKey:@"signature"],
     *nonce  = [signedParameters valueForKey:@"nonce"];
     
-    STAssertNotNil(odid ,@"Required odid param is missing!");
+    STAssertNotNil(session ,@"Required session param is missing!");
     STAssertNotNil(gid ,@"Required gid param is missing!");
     STAssertNotNil(token ,@"Required token param is missing!");
     STAssertNotNil(signature,@"Required signature param is missing!");
@@ -74,7 +74,7 @@
                   @"Signature parameter not present!");
     
     NSString 
-    *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [OpenUDID value], PHGID(), nonce, PUBLISHER_SECRET],
+    *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [PHAPIRequest session], PHGID(), nonce, PUBLISHER_SECRET],
     *expectedSignature = [PHStringUtil b64DigestForString:expectedSignatureString];
     STAssertTrue([signature isEqualToString:expectedSignature], @"signature did not match expected value!");
     
