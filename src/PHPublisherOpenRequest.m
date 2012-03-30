@@ -11,7 +11,7 @@
 #import "SDURLCache.h"
 #import "PHURLPrefetchOperation.h"
 
-#if PH_USE_OPEN_UDID == 1
+#if PH_USE_OPENUDID == 1
 #import "OpenUDID.h"
 #endif
 
@@ -84,9 +84,9 @@ NSString* getMACAddress(){
     
     if  (self == [PHPublisherOpenRequest class]){
         // Initializes pre-fetching and webview caching
-        SDURLCachePH *urlCache = [[SDURLCachePH alloc] initWithMemoryCapacity:PH_MAX_SIZE_MEMORY_CACHE
+        PH_SDURLCACHE_CLASS *urlCache = [[PH_SDURLCACHE_CLASS alloc] initWithMemoryCapacity:PH_MAX_SIZE_MEMORY_CACHE
                                                                  diskCapacity:PH_MAX_SIZE_FILESYSTEM_CACHE
-                                                                     diskPath:[SDURLCachePH defaultCachePath]];
+                                                                     diskPath:[PH_SDURLCACHE_CLASS defaultCachePath]];
         [NSURLCache setSharedURLCache:urlCache];
         [urlCache release];
     }
@@ -108,7 +108,7 @@ NSString* getMACAddress(){
                                                  self.customUDID, @"d_custom",
                                                  nil];
 #if PH_USE_OPENUDID == 1
-    [additionalParameters setValue:[OpenUDID value] forKey:@"d_odid"];
+    [additionalParameters setValue:[PH_OPENUDID_CLASS value] forKey:@"d_odid"];
 #endif
 #if PH_USE_MAC_ADDRESS == 1
     [additionalParameters setValue:getMACAddress() forKey:@"d_mac"];
@@ -199,8 +199,8 @@ NSString* getMACAddress(){
     for (NSString *urlString in urlArray){
         
         NSURL *url = [NSURL URLWithString:urlString];
-        NSString *cacheKey = [SDURLCachePH cacheKeyForURL:url];
-        NSString *cacheFilePath = [[SDURLCachePH defaultCachePath] stringByAppendingPathComponent:cacheKey];
+        NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:url];
+        NSString *cacheFilePath = [[PH_SDURLCACHE_CLASS defaultCachePath] stringByAppendingPathComponent:cacheKey];
         if ([fileManager fileExistsAtPath:cacheFilePath]){
             
             [fileManager removeItemAtPath:cacheFilePath error:NULL];

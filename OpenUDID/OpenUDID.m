@@ -34,6 +34,7 @@
 */
 
 #import "OpenUDID.h"
+#import "PHConstants.h"
 #import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIPasteboard.h>
@@ -57,13 +58,13 @@ static NSString * const kOpenUDIDSlotPBPrefix = @"org.OpenUDID.slot.";
 static NSString * const kAppGUUID = @"app_guuid";
 static int const kOpenUDIDRedundancySlots = 100;
 
-@interface OpenUDID (Private)
+@interface PH_OPENUDID_CLASS (Private)
 + (void) _setDict:(id)dict forPasteboard:(id)pboard;
 + (NSMutableDictionary*) _getDictFromPasteboard:(id)pboard;
 + (NSString*) _getOpenUDID;
 @end
 
-@implementation OpenUDID
+@implementation PH_OPENUDID_CLASS
 
 // Archive a NSDictionary inside a pasteboard of a given type
 // Convenience method to support iOS & Mac OS X
@@ -150,7 +151,7 @@ static int const kOpenUDIDRedundancySlots = 100;
 // Otherwise, it will register the current app and return the OpenUDID
 //
 + (NSString*) value {
-    return [OpenUDID valueWithError:nil];
+    return [PH_OPENUDID_CLASS valueWithError:nil];
 }
 + (NSString*) valueWithError:(NSError **)error {
 
@@ -208,7 +209,7 @@ static int const kOpenUDIDRedundancySlots = 100;
             // assign availableSlotPBid to be the first one available
             if (availableSlotPBid==nil) availableSlotPBid = slotPBid;
         } else {
-            NSDictionary* dict = [OpenUDID _getDictFromPasteboard:slotPB];
+            NSDictionary* dict = [PH_OPENUDID_CLASS _getDictFromPasteboard:slotPB];
             NSString* oudid = [dict objectForKey:kOpenUDIDKey];
             OpenUDIDLog(@"SlotPB dict = %@",dict);
             if (oudid==nil) {
@@ -243,7 +244,7 @@ static int const kOpenUDIDRedundancySlots = 100;
             // this is the case where this app instance is likely to be the first one to use OpenUDID on this device
             // we create the OpenUDID, legacy or semi-random (i.e. most certainly unique)
             //
-            openUDID = [OpenUDID _getOpenUDID];
+            openUDID = [PH_OPENUDID_CLASS _getOpenUDID];
         } else {
             // or we leverage the OpenUDID shared by other apps that have already gone through the process
             // 
@@ -288,7 +289,7 @@ static int const kOpenUDIDRedundancySlots = 100;
         // Save the local dictionary to the corresponding UIPasteboard slot
         //
         if (openUDID && localDict)
-            [OpenUDID _setDict:localDict forPasteboard:slotPB];
+            [PH_OPENUDID_CLASS _setDict:localDict forPasteboard:slotPB];
     }
 
     // Save the dictionary locally if applicable
@@ -306,7 +307,7 @@ static int const kOpenUDIDRedundancySlots = 100;
                                                      code:kOpenUDIDErrorOptedOut
                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Application with GUUID %@ is opted-out from OpenUDID as of %@",guuid,optedOutDate],@"description", nil]];
             
-        kOpenUDIDSessionCache = RETAIN(([NSString stringWithFormat:@"%040x",0]));
+        kOpenUDIDSessionCache = OU_RETAIN(([NSString stringWithFormat:@"%040x",0]));
         return kOpenUDIDSessionCache;
     }
 
@@ -322,7 +323,7 @@ static int const kOpenUDIDRedundancySlots = 100;
                                          code:kOpenUDIDErrorNone
                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"OpenUDID succesfully retrieved",@"description", nil]];
     }
-    kOpenUDIDSessionCache = RETAIN(openUDID);
+    kOpenUDIDSessionCache = OU_RETAIN(openUDID);
     return kOpenUDIDSessionCache;
 }
 

@@ -34,6 +34,7 @@
 */
 
 #import <Foundation/Foundation.h>
+#import "PHConstants.h"
 
 //
 // Usage:
@@ -51,21 +52,21 @@
 
 #if __has_feature(objc_arc)
 
-#define HAS_ARC 1
-#define RETAIN(_o) (_o)
-#define RELEASE(_o) 
+#define OU_HAS_ARC 1
+#define OU_RETAIN(_o) (_o)
+#define OU_RELEASE(_o) 
 #define AUTORELEASE(_o) (_o)
 
 #else
 
-#define HAS_ARC 0
-#define RETAIN(_o) [(_o) retain]
-#define RELEASE(_o) [(_o) release]
-#define AUTORELEASE(_o) [(_o) autorelease]
+#define OU_HAS_ARC 0
+#define OU_RETAIN(_o) [(_o) retain]
+#define OU_RELEASE(_o) [(_o) release]
+#define OU_AUTORELEASE(_o) [(_o) autorelease]
 
 #endif
 
-@interface OpenUDID : NSObject {
+@interface PH_OPENUDID_CLASS : NSObject {
 }
 + (NSString*) value;
 + (NSString*) valueWithError:(NSError**)error;

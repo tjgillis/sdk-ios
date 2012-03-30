@@ -38,18 +38,18 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 }
 
 
-@implementation SDCachedURLResponse
+@implementation PH_SDCACHEDURLRESPONSE_CLASS
 @synthesize cached_response;
 
 + (id)cachedURLResponseWithNSCachedURLResponse:(NSCachedURLResponse *)url_response {
-    SDCachedURLResponse *response = [[SDCachedURLResponse alloc] init];
+    PH_SDCACHEDURLRESPONSE_CLASS *response = [[PH_SDCACHEDURLRESPONSE_CLASS alloc] init];
     response.cached_response = url_response;
     
     return [response autorelease];
 }
 #pragma mark NSCopying Methods
 - (id)copyWithZone:(NSZone *)zone {
-    SDCachedURLResponse *newResponse = [[[self class] allocWithZone:zone] init];
+    PH_SDCACHEDURLRESPONSE_CLASS *newResponse = [[[self class] allocWithZone:zone] init];
     if (newResponse) {
         newResponse.cached_response = [[self.cached_response copyWithZone:zone] autorelease];
     }
@@ -89,7 +89,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 @end
 
 
-@interface SDURLCachePH ()
+@interface PH_SDURLCACHE_CLASS ()
 @property (nonatomic, retain) NSString *diskCachePath;
 @property (nonatomic, readonly) NSMutableDictionary *diskCacheInfo;
 @property (nonatomic, retain) NSOperationQueue *ioQueue;
@@ -97,7 +97,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 - (void)periodicMaintenance;
 @end
 
-@implementation SDURLCachePH
+@implementation PH_SDURLCACHE_CLASS
 
 @synthesize diskCachePath, minCacheInterval, ioQueue, periodicMaintenanceOperation, ignoreMemoryOnlyStoragePolicy;
 @dynamic diskCacheInfo;
@@ -181,7 +181,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSDate *now;
     if (date)
     {
-        now = [SDURLCachePH dateFromHttpDateString:date];
+        now = [PH_SDURLCACHE_CLASS dateFromHttpDateString:date];
     }
     else
     {
@@ -225,7 +225,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     if (expires)
     {
         NSTimeInterval expirationInterval = 0;
-        NSDate *expirationDate = [SDURLCachePH dateFromHttpDateString:expires];
+        NSDate *expirationDate = [PH_SDURLCACHE_CLASS dateFromHttpDateString:expires];
         if (expirationDate)
         {
             expirationInterval = [expirationDate timeIntervalSinceDate:now];
@@ -253,7 +253,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     if (lastModified)
     {
         NSTimeInterval age = 0;
-        NSDate *lastModifiedDate = [SDURLCachePH dateFromHttpDateString:lastModified];
+        NSDate *lastModifiedDate = [PH_SDURLCACHE_CLASS dateFromHttpDateString:lastModified];
         if (lastModifiedDate)
         {
             // Define the age of the document by comparing the Date header with the Last-Modified header
@@ -402,10 +402,10 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSURLRequest *request = [context objectForKey:@"request"];
     
     // use wrapper to ensure we save appropriate fields..
-    SDCachedURLResponse *cachedResponse = [SDCachedURLResponse 
+    PH_SDCACHEDURLRESPONSE_CLASS *cachedResponse = [PH_SDCACHEDURLRESPONSE_CLASS 
                                                 cachedURLResponseWithNSCachedURLResponse:[context objectForKey:@"cachedResponse"]];
 
-    NSString *cacheKey = [SDURLCachePH cacheKeyForURL:request.URL];
+    NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:request.URL];
     NSString *cacheFilePath = [diskCachePath stringByAppendingPathComponent:cacheKey];
 
     [self createDiskCachePath];
@@ -485,7 +485,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
-    request = [SDURLCachePH canonicalRequestForRequest:request];
+    request = [PH_SDURLCACHE_CLASS canonicalRequestForRequest:request];
 
     if (request.cachePolicy == NSURLRequestReloadIgnoringLocalCacheData
         || request.cachePolicy == NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -508,7 +508,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         // RFC 2616 section 13.3.4 says clients MUST use Etag in any cache-conditional request if provided by server
         if (![headers objectForKey:@"Etag"])
         {
-            NSDate *expirationDate = [SDURLCachePH expirationDateFromHeaders:headers
+            NSDate *expirationDate = [PH_SDURLCACHE_CLASS expirationDateFromHeaders:headers
                                                             withStatusCode:((NSHTTPURLResponse *)cachedResponse.response).statusCode];
             if (!expirationDate || [expirationDate timeIntervalSinceNow] - minCacheInterval <= 0)
             {
@@ -526,13 +526,13 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
-    request = [SDURLCachePH canonicalRequestForRequest:request];
+    request = [PH_SDURLCACHE_CLASS canonicalRequestForRequest:request];
 
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
         return memoryResponse;
 
-    NSString *cacheKey = [SDURLCachePH cacheKeyForURL:request.URL];
+    NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:request.URL];
 
     // NOTE: We don't handle expiration here as even staled cache data is necessary for NSURLConnection to handle cache revalidation.
     //       Staled cache data is also needed for cachePolicies which force the use of the cache.
@@ -543,7 +543,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         {
             
             // load wrapper
-            SDCachedURLResponse *diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:
+            PH_SDCACHEDURLRESPONSE_CLASS *diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:
                                                         [diskCachePath stringByAppendingPathComponent:cacheKey]];
             
             NSCachedURLResponse *diskResponse = diskResponseWrapper.cached_response;
@@ -588,10 +588,10 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)removeCachedResponseForRequest:(NSURLRequest *)request
 {
-    request = [SDURLCachePH canonicalRequestForRequest:request];
+    request = [PH_SDURLCACHE_CLASS canonicalRequestForRequest:request];
 
     [super removeCachedResponseForRequest:request];
-    [self removeCachedResponseForCachedKeys:[NSArray arrayWithObject:[SDURLCachePH cacheKeyForURL:request.URL]]];
+    [self removeCachedResponseForCachedKeys:[NSArray arrayWithObject:[PH_SDURLCACHE_CLASS cacheKeyForURL:request.URL]]];
     [self saveCacheInfo];
 }
 
@@ -609,13 +609,13 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 - (BOOL)isCached:(NSURL *)url
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    request = [SDURLCachePH canonicalRequestForRequest:request];
+    request = [PH_SDURLCACHE_CLASS canonicalRequestForRequest:request];
 
     if ([super cachedResponseForRequest:request])
     {
         return YES;
     }
-    NSString *cacheKey = [SDURLCachePH cacheKeyForURL:url];
+    NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:url];
     NSString *cacheFile = [diskCachePath stringByAppendingPathComponent:cacheKey];
     if ([[[[NSFileManager alloc] init] autorelease] fileExistsAtPath:cacheFile])
     {
