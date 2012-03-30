@@ -50,9 +50,11 @@ Example App
 -----------
 Included with the SDK is an example implementation in its own XCode project. It features open and content request implementations including relevant delegate methods for each. You will need a PlayHaven API token and secret to make requests with the Example app.
 
-**NEW** Device tracking using OpenUDID
---------------------------------------
-This release introduces the use of OpenUDID for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+**NEW** Device tracking
+-----------------------
+This release introduces the use of OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+
+By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
 
 Defining PH_USE_UNIQUE_IDENTIFIER=1 will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. However, this does come with a risk of App Store rejection.
 
