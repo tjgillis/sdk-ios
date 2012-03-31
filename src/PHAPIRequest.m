@@ -84,10 +84,7 @@ static NSString *sPlayHavenSession;
     @synchronized(sPlayHavenSession){
         if (sPlayHavenSession == nil) {
             UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:YES];
-            id idValue = [pasteboard valueForPasteboardType:@"com.playhaven.session.id"];
-            if ([idValue isKindOfClass:[NSString class]]) {
-                sPlayHavenSession = [[NSString alloc] initWithString:idValue];
-            }
+            sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string]];
         }
     }
     
@@ -98,8 +95,9 @@ static NSString *sPlayHavenSession;
     @synchronized(sPlayHavenSession){
         if (![session isEqualToString:sPlayHavenSession]) {
             UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:YES];
-            [pasteboard setValue:session forPasteboardType:@"com.playhaven.session.id"];
-            [sPlayHavenSession release], sPlayHavenSession = (!!session)?[[NSString alloc] initWithString:session]: nil;
+            [pasteboard setString:session];
+            [sPlayHavenSession release];
+            sPlayHavenSession = (!!session)?[[NSString alloc] initWithString:session]: nil;
         }
     }
 }
