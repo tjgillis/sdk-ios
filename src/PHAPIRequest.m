@@ -84,7 +84,7 @@ static NSString *sPlayHavenSession;
     @synchronized(sPlayHavenSession){
         if (sPlayHavenSession == nil) {
             UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:NO];
-            sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string]];
+            sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string] == nil?@"":[pasteboard string]];
         }
     }
     
