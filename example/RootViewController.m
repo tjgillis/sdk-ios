@@ -17,6 +17,14 @@
 @end
 
 @implementation RootViewController
+
++(void)initialize{
+    if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]){
+        [[NSUserDefaults standardUserDefaults] setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 @synthesize tokenField;
 @synthesize secretField;
 
