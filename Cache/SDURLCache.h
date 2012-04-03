@@ -10,10 +10,8 @@
 #import "PHConstants.h"
 
 // wrapper pattern
-@interface PH_SDCACHEDURLRESPONSE_CLASS : NSObject <NSCoding, NSCopying>
+@interface PH_SDCACHEDURLRESPONSE_CLASS : NSCachedURLResponse
 + (id)cachedURLResponseWithNSCachedURLResponse:(NSCachedURLResponse*)url_response;
-
-@property (nonatomic, retain) NSCachedURLResponse *cached_response;
 @end
 
 @interface PH_SDURLCACHE_CLASS : NSURLCache

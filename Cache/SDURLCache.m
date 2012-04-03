@@ -16,15 +16,6 @@ static NSString *const kSDURLCacheInfoDiskUsageKey = @"diskUsage";
 static NSString *const kSDURLCacheInfoAccessesKey = @"accesses";
 static NSString *const kSDURLCacheInfoSizesKey = @"sizes";
 
-// The removal of the NSCachedURLResponse category means that NSKeyedArchiver 
-// will throw an EXC_BAD_ACCESS when attempting to load NSCachedURLResponse 
-// data.
-// This means that this change requires a cache refresh, and a new cache key
-// namespace that will prevent this from happening.
-// Old cache keys will eventually be evicted from the system as new keys are
-// populated.
-static NSString *const kSDURLCacheVersion = @"V2";
-
 static float const kSDURLCacheLastModFraction = 0.1f; // 10% since Last-Modified suggested by RFC2616 section 13.2.4
 static float const kSDURLCacheDefault = 3600; // Default cache expiration delay if none defined (1 hour)
 
@@ -39,53 +30,30 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 
 @implementation PH_SDCACHEDURLRESPONSE_CLASS
-@synthesize cached_response;
-
-+ (id)cachedURLResponseWithNSCachedURLResponse:(NSCachedURLResponse *)url_response {
-    PH_SDCACHEDURLRESPONSE_CLASS *response = [[PH_SDCACHEDURLRESPONSE_CLASS alloc] init];
-    response.cached_response = url_response;
-    
-    return [response autorelease];
-}
-#pragma mark NSCopying Methods
-- (id)copyWithZone:(NSZone *)zone {
-    PH_SDCACHEDURLRESPONSE_CLASS *newResponse = [[[self class] allocWithZone:zone] init];
-    if (newResponse) {
-        newResponse.cached_response = [[self.cached_response copyWithZone:zone] autorelease];
-    }
-    
-    return newResponse;
++(id)cachedURLResponseWithNSCachedURLResponse:(NSCachedURLResponse *)url_response{
+    return [[[self alloc] initWithResponse:url_response.response data:url_response.data userInfo:url_response.userInfo storagePolicy:url_response.storagePolicy] autorelease];
 }
 
 #pragma mark NSCoding Methods
 - (void)encodeWithCoder:(NSCoder *)coder
 {
     // force write the data of underlying cached response
-    [coder encodeDataObject:self.cached_response.data];
-    [coder encodeObject:self.cached_response.response forKey:@"response"];
-    [coder encodeObject:self.cached_response.userInfo forKey:@"userInfo"];
-    [coder encodeInt:self.cached_response.storagePolicy forKey:@"storagePolicy"];
+    [coder encodeDataObject:self.data];
+    [coder encodeObject:self.response forKey:@"response"];
+    [coder encodeObject:self.userInfo forKey:@"userInfo"];
+    [coder encodeInt:self.storagePolicy forKey:@"storagePolicy"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-    self = [super init];
-    
-    if (self) {
-        self.cached_response = [[[NSCachedURLResponse alloc] initWithResponse:[coder decodeObjectForKey:@"response"]
-                                                                         data:[coder decodeDataObject]
-                                                                     userInfo:[coder decodeObjectForKey:@"userInfo"]
-                                                                storagePolicy:[coder decodeIntForKey:@"storagePolicy"]] autorelease];
-    }
-    
-    return self;
-}
 
-- (void)dealloc {
-    [super dealloc];
-    [cached_response release], cached_response = nil;
+    NSURLResponse *response = [coder decodeObjectForKey:@"response"];
+    NSData *data = [coder decodeDataObject];
+    NSDictionary *userInfo = [coder decodeObjectForKey:@"userInfo"];
+    NSURLCacheStoragePolicy storagePolicy = (NSURLCacheStoragePolicy)[coder decodeIntForKey:@"storagePolicy"];
+    
+    return [self initWithResponse:response data:data userInfo:userInfo storagePolicy:storagePolicy];
 }
-
 @end
 
 
@@ -121,8 +89,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     const char *str = [url.absoluteString UTF8String];
     unsigned char r[CC_MD5_DIGEST_LENGTH];
     CC_MD5(str, strlen(str), r);
-    return [NSString stringWithFormat:@"%@_%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            kSDURLCacheVersion, r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15]];
+    return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15]];
 }
 
 /*
@@ -543,10 +511,14 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         {
             
             // load wrapper
-            PH_SDCACHEDURLRESPONSE_CLASS *diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:
-                                                        [diskCachePath stringByAppendingPathComponent:cacheKey]];
-            
-            NSCachedURLResponse *diskResponse = diskResponseWrapper.cached_response;
+            NSCachedURLResponse *diskResponse;
+            @try{
+                diskResponse = [NSKeyedUnarchiver unarchiveObjectWithFile:
+                                                                     [diskCachePath stringByAppendingPathComponent:cacheKey]];
+            } @catch(NSException* e) {
+                diskResponse = nil;
+            }
+
             
             if (diskResponse)
             {
