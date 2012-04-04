@@ -103,10 +103,13 @@ NSString* getMACAddress(){
 
 @synthesize customUDID = _customUDID;
 
--(NSDictionary *)additionalParameters{
-    NSMutableDictionary *additionalParameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                 self.customUDID, @"d_custom",
-                                                 nil];
+-(NSDictionary *)additionalParameters{    
+    NSMutableDictionary *additionalParameters = [NSMutableDictionary dictionary];
+
+    if (!!self.customUDID) {
+        [additionalParameters setValue:self.customUDID forKey:@"d_custom"];
+    }
+    
 #if PH_USE_OPENUDID == 1
     [additionalParameters setValue:[PH_OPENUDID_CLASS value] forKey:@"d_odid"];
 #endif

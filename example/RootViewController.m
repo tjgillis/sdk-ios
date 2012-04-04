@@ -12,6 +12,7 @@
 #import "PublisherIAPTrackingViewController.h"
 
 @interface RootViewController(Private)
+-(BOOL)isTokenAndSecretFilledIn;
 -(void)loadTokenAndSecretFromDefaults;
 -(void)saveTokenAndSecretToDefaults;
 @end
@@ -36,6 +37,12 @@
 
 #pragma mark -
 #pragma mark Private
+-(BOOL)isTokenAndSecretFilledIn{
+    BOOL notNil = (self.tokenField.text && self.secretField.text);
+    BOOL notEmpty = !( [self.tokenField.text isEqualToString:@""] || [self.secretField.text isEqualToString:@""] );
+    
+    return notNil && notEmpty;
+}
 
 -(void)loadTokenAndSecretFromDefaults{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -122,7 +129,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ( !( [self.tokenField.text isEqualToString:@""] || [self.secretField.text isEqualToString:@""] ) ) {
+    if ([self isTokenAndSecretFilledIn]) {
         [self saveTokenAndSecretToDefaults];
         if (indexPath.row == 0) {
             PublisherOpenViewController *controller = [[PublisherOpenViewController alloc] initWithNibName:@"PublisherOpenViewController" bundle:nil];
