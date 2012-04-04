@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ExampleViewController.h"
 #import "PlayHavenSDK.h"
+#import "PHAPIRequest.h"
 
 @interface PublisherOpenViewController : ExampleViewController<PHAPIRequestDelegate> {
     
 }
 @property (retain, nonatomic) IBOutlet UITextField *customUDIDField;
 
+- (IBAction)touchedClearGID:(id)sender;
+- (IBAction)touchedClearSession:(id)sender;
 @end

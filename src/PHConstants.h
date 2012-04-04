@@ -200,3 +200,4 @@ extern const playHavenImage close_image;
 extern const playHavenImage close_active_image;
 
 NSString *PHGID();
+void PHClearGID();

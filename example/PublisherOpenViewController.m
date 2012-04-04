@@ -8,6 +8,10 @@
 
 #import "PublisherOpenViewController.h"
 
+@interface PHAPIRequest(Private)
++(void)setSession:(NSString *)session;
+@end
+
 @implementation PublisherOpenViewController
 @synthesize customUDIDField;
 
@@ -54,5 +58,14 @@
 - (void)viewDidUnload {
     [self setCustomUDIDField:nil];
     [super viewDidUnload];
+}
+- (IBAction)touchedClearGID:(id)sender {
+    PHClearGID();
+    [self addMessage:@"GID cleared!"];
+}
+
+- (IBAction)touchedClearSession:(id)sender{ 
+    [PHAPIRequest setSession:nil];
+    [self addMessage:@"session cleared!"];
 }
 @end
