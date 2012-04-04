@@ -420,6 +420,8 @@
 		EABC0C77152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
 		EABC0C78152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
 		EABC0C79152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
+		EABC0C80152BC9E600441393 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C7F152BC9E600441393 /* LICENCE */; };
+		EABC0C81152BC9E600441393 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C7F152BC9E600441393 /* LICENCE */; };
 		EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
 		EAC53A94134E5F7A00F2F956 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
 		EACFC89E1500328E007EF54F /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC89D1500328E007EF54F /* 57.png */; };
@@ -539,6 +541,7 @@
 		EABAA6971450ED640040B937 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EABC0C75152B8A3200441393 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EABC0C7B152B8A6500441393 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		EABC0C7F152BC9E600441393 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		EABC1CE6143A770000638B09 /* ExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExampleViewController.xib; sourceTree = "<group>"; };
 		EAC53A91134E5F7A00F2F956 /* NSObject+QueryComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+QueryComponents.h"; sourceTree = "<group>"; };
 		EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+QueryComponents.m"; sourceTree = "<group>"; };
@@ -703,6 +706,7 @@
 		D1E15B7914981C39001241EE /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				EABC0C7F152BC9E600441393 /* LICENCE */,
 				D111108F14BBC54D0035B39E /* SDURLCache.h */,
 				D1E15B7B14981C39001241EE /* SDURLCache.m */,
 				D118AE5B14B78C3C00C76E2C /* PHUrlPrefetchOperation.h */,
@@ -1303,6 +1307,7 @@
 				EA328B7A151BFAF500DE3CAD /* 512.png in Resources */,
 				EA328B7B151BFAF500DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */,
 				EABC0C78152B8A3200441393 /* Settings.bundle in Resources */,
+				EABC0C80152BC9E600441393 /* LICENCE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1319,6 +1324,7 @@
 				EA328BB3151BFC9B00DE3CAD /* 512.png in Resources */,
 				EA328BB4151BFC9B00DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */,
 				EABC0C79152B8A3200441393 /* Settings.bundle in Resources */,
+				EABC0C81152BC9E600441393 /* LICENCE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
