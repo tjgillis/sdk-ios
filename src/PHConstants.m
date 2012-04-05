@@ -26,9 +26,10 @@
 
 BOOL _localWiFiAvailable(void);
 
+static NSString *cachedGID;
+
 NSString *PHGID(){
     //cache the value as a static variable to prevent
-    static NSString *cachedGID;
     if (cachedGID == nil) {
         //get the value from NSUserDefaults
         NSString *defaultsGID = [[NSUserDefaults standardUserDefaults] valueForKey:@"PlayHavenGID"];
@@ -44,6 +45,11 @@ NSString *PHGID(){
     }
     
     return cachedGID;
+}
+
+void PHClearGID(){
+    [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"PlayHavenGID"];
+    [cachedGID release], cachedGID = nil;
 }
 
 NSError *PHCreateError(PHErrorType errorType){

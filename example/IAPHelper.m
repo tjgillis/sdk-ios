@@ -114,7 +114,7 @@ static IAPHelper *sharedIAPHelper;
     NSString *key = [request hashString];
     PHPurchase *purchase = [self.pendingPurchases valueForKey:key];
     NSArray *products = response.products;
-    SKProduct *product = [products count] == 1 ? [[products objectAtIndex:0] retain] : nil;
+    SKProduct *product = [products count] == 1 ? [products objectAtIndex:0] : nil;
     
     if ([purchase.productIdentifier isEqualToString:product.productIdentifier]) {
         //ask the user to choose to purchase or not purchase an item

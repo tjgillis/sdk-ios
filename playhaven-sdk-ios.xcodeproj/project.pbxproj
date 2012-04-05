@@ -416,6 +416,12 @@
 		EAB6A3AA14EED62D00EAC692 /* PHUrlPrefetchOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D118AE5B14B78C3C00C76E2C /* PHUrlPrefetchOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB6A3AB14EED62D00EAC692 /* PHPublisherIAPTrackingRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA019C7F14C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.h */; };
 		EABAA6981450ED640040B937 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
+		EABC0C76152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
+		EABC0C77152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
+		EABC0C78152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
+		EABC0C79152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
+		EABC0C80152BC9E600441393 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C7F152BC9E600441393 /* LICENCE */; };
+		EABC0C81152BC9E600441393 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C7F152BC9E600441393 /* LICENCE */; };
 		EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
 		EAC53A94134E5F7A00F2F956 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
 		EACFC89E1500328E007EF54F /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC89D1500328E007EF54F /* 57.png */; };
@@ -533,6 +539,10 @@
 		EAB442A113455467000DA3E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHavenNoStoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABAA6971450ED640040B937 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EABC0C75152B8A3200441393 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		EABC0C7B152B8A6500441393 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		EABC0C7F152BC9E600441393 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
+		EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = PlayHaven_SDK_Agreement.rtf; sourceTree = "<group>"; };
 		EABC1CE6143A770000638B09 /* ExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExampleViewController.xib; sourceTree = "<group>"; };
 		EAC53A91134E5F7A00F2F956 /* NSObject+QueryComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+QueryComponents.h"; sourceTree = "<group>"; };
 		EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+QueryComponents.m"; sourceTree = "<group>"; };
@@ -670,7 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				EA328B2F151A9D4400DE3CAD /* README.markdown */,
-				EA06AA62151A812B00C11220 /* OpenUDID */,
+				EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */,
 				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
 				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
 				EA523D891343EE670057DEA5 /* tests */,
@@ -698,6 +708,7 @@
 		D1E15B7914981C39001241EE /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				EABC0C7F152BC9E600441393 /* LICENCE */,
 				D111108F14BBC54D0035B39E /* SDURLCache.h */,
 				D1E15B7B14981C39001241EE /* SDURLCache.m */,
 				D118AE5B14B78C3C00C76E2C /* PHUrlPrefetchOperation.h */,
@@ -755,8 +766,8 @@
 				EABC1CE6143A770000638B09 /* ExampleViewController.xib */,
 				EA12AC3D13662DC400CB2F24 /* PublisherOpenViewController.h */,
 				EA12AC3E13662DC400CB2F24 /* PublisherOpenViewController.m */,
-				EA12AC431366339D00CB2F24 /* PublisherContentViewController.h */,
 				EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */,
+				EA12AC431366339D00CB2F24 /* PublisherContentViewController.h */,
 				EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */,
 				EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */,
 				EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */,
@@ -771,6 +782,8 @@
 		EA12ABD91365DBB700CB2F24 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EABC0C7B152B8A6500441393 /* Prefix.pch */,
+				EABC0C75152B8A3200441393 /* Settings.bundle */,
 				EA8C313614DC9F710075B473 /* Info-fixtures.plist */,
 				EA328B82151BFAF600DE3CAD /* Info-udid.plist */,
 				EA328BBB151BFC9B00DE3CAD /* Info-mac.plist */,
@@ -872,6 +885,7 @@
 		EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */ = {
 			isa = PBXGroup;
 			children = (
+				EA06AA62151A812B00C11220 /* OpenUDID */,
 				D1E15B7914981C39001241EE /* Cache */,
 				EAB4425D134539F4000DA3E9 /* JSON */,
 				EA523D8C1343EE790057DEA5 /* src */,
@@ -1223,7 +1237,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "playhaven-sdk-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1268,6 +1282,7 @@
 				EAFF5E7A14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
 				EACFC89E1500328E007EF54F /* 57.png in Resources */,
 				EACFC8A1150033A6007EF54F /* 72.png in Resources */,
+				EABC0C76152B8A3200441393 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,6 +1308,8 @@
 				EA328B79151BFAF500DE3CAD /* ExampleViewController.xib in Resources */,
 				EA328B7A151BFAF500DE3CAD /* 512.png in Resources */,
 				EA328B7B151BFAF500DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */,
+				EABC0C78152B8A3200441393 /* Settings.bundle in Resources */,
+				EABC0C80152BC9E600441393 /* LICENCE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1308,6 +1325,8 @@
 				EA328BB2151BFC9B00DE3CAD /* ExampleViewController.xib in Resources */,
 				EA328BB3151BFC9B00DE3CAD /* 512.png in Resources */,
 				EA328BB4151BFC9B00DE3CAD /* PublisherIAPTrackingViewController.xib in Resources */,
+				EABC0C79152B8A3200441393 /* Settings.bundle in Resources */,
+				EABC0C81152BC9E600441393 /* LICENCE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1326,6 +1345,7 @@
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
+				EABC0C77152B8A3200441393 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1711,6 +1731,7 @@
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1731,6 +1752,7 @@
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1751,8 +1773,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_STOREKIT=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					Cache,
@@ -1774,7 +1798,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_STOREKIT=1";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					Cache,
@@ -1804,6 +1830,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_UNIT_TESTING=1";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = tests/Info.plist;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1832,6 +1859,7 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_UNIT_TESTING=1";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = tests/Info.plist;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1857,8 +1885,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_UNIQUE_IDENTIFIER=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					Cache,
@@ -1880,7 +1910,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_UNIQUE_IDENTIFIER=1";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					Cache,
@@ -1905,8 +1937,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_MAC_ADDRESS=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					Cache,
@@ -1928,7 +1962,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_MAC_ADDRESS=1";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					Cache,
@@ -1958,11 +1994,12 @@
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"DEBUG=1",
 					"$(inherited)",
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					"PH_USE_UNIQUE_IDENTIFIER=1",
 					"PH_USE_MAC_ADDRESS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-UDID.MAC";
@@ -1979,11 +2016,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"PH_USE_UNIQUE_IDENTIFIER=1",
 					"PH_USE_MAC_ADDRESS=1",
 				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-UDID.MAC";
@@ -2002,7 +2040,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					"PH_USE_STOREKIT=0",
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"DEBUG=1",
@@ -2011,6 +2049,7 @@
 					"PH_USE_UNIQUE_IDENTIFIER=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-UDID.MAC.NoStoreKit";
@@ -2029,10 +2068,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_USE_STOREKIT=0",
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					"PH_USE_UNIQUE_IDENTIFIER=1",
 					"PH_USE_MAC_ADDRESS=1",
 				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-UDID.MAC.NoStoreKit";
@@ -2049,8 +2089,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_NETWORK_FIXTURES=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "example/Info-fixtures.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -2066,7 +2108,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_USE_NETWORK_FIXTURES=1";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "example/Info-fixtures.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -2090,10 +2134,11 @@
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"DEBUG=1",
 					"$(inherited)",
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					"PH_USE_STOREKIT=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2110,10 +2155,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"PH_USE_STOREKIT=1",
 				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2132,13 +2178,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 					"PH_USE_STOREKIT=0",
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = PlayHavenNoStoreKit;
@@ -2157,8 +2204,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_USE_STOREKIT=0",
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
-					PH_NAMESPACE_SBJSON,
+					PH_NAMESPACE_LIBS,
 				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = PlayHavenNoStoreKit;

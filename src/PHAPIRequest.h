@@ -27,6 +27,7 @@
 }
 
 +(NSString *) base64SignatureWithString:(NSString *)string;
++(NSString *) session;
 
 +(id)requestForApp:(NSString *)token secret:(NSString *)secret;
 +(id)requestWithHashCode:(int)hashCode;

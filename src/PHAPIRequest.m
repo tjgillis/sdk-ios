@@ -19,12 +19,15 @@
 #import "WWURLConnection.h"
 #endif
 
+static NSString *sPlayHavenSession;
+
 @interface PHAPIRequest(Private)
 -(id)initWithApp:(NSString *)token secret:(NSString *)secret;
 +(NSMutableSet *)allRequests;
 -(void)finish;
 -(void)afterConnectionDidFinishLoading;
-+(void) checkDNSResolutionForURLPath:(NSString *)urlPath;
++(void)checkDNSResolutionForURLPath:(NSString *)urlPath;
++(void)setSession:(NSString *)session;
 @end
 
 @implementation PHAPIRequest
@@ -75,6 +78,28 @@
 
 +(NSString *) base64SignatureWithString:(NSString *)string{
     return [PHStringUtil b64DigestForString:string];
+}
+
++(NSString *)session{
+    @synchronized(self){
+        if (sPlayHavenSession == nil) {
+            UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:NO];
+            sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string] == nil?@"":[pasteboard string]];
+        }
+    }
+    
+    return (!!sPlayHavenSession)? sPlayHavenSession : @"";
+}
+
++(void)setSession:(NSString *)session{
+    @synchronized(self){
+        if (![session isEqualToString:sPlayHavenSession]) {
+            UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:YES];
+            [pasteboard setString:session];
+            [sPlayHavenSession release];
+            sPlayHavenSession = (!!session)?[[NSString alloc] initWithString:session]: nil;
+        }
+    }
 }
 
 +(id) requestForApp:(NSString *)token secret:(NSString *)secret{
@@ -180,9 +205,9 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         
         NSString
         *nonce = [PHStringUtil uuid],
-        *odid = PH_DEVICE_IDENTIFIER,
+        *session = [PHAPIRequest session],
         *gid = PHGID(),
-        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, PH_DEVICE_IDENTIFIER, PHGID(), nonce, self.secret],
+        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, [PHAPIRequest session], PHGID(), nonce, self.secret],
         *signature = [PHAPIRequest base64SignatureWithString:signatureHash],
         *appId = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
         *appVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
@@ -210,7 +235,7 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
                                          connection,@"connection",
                                          PH_SDK_VERSION, @"sdk-ios",
                                          languages,@"languages",
-                                         odid, @"odid",
+                                         session, @"session",
                                          gid, @"gid",
                                          nil];
         
