@@ -19,16 +19,16 @@
 
     // Make sure directory exists
     NSFileManager *fileManager = [[NSFileManager alloc] init];
-    if (![fileManager fileExistsAtPath:[SDURLCachePH defaultCachePath]])
+    if (![fileManager fileExistsAtPath:[PH_SDURLCACHE_CLASS defaultCachePath]])
     {
-        [fileManager createDirectoryAtPath:[SDURLCachePH defaultCachePath]
+        [fileManager createDirectoryAtPath:[PH_SDURLCACHE_CLASS defaultCachePath]
                withIntermediateDirectories:YES
                                 attributes:nil
                                      error:NULL];
     }
     [fileManager release];
     
-    return [[SDURLCachePH defaultCachePath] stringByAppendingPathComponent:PH_PREFETCH_URL_PLIST];
+    return [[PH_SDURLCACHE_CLASS defaultCachePath] stringByAppendingPathComponent:PH_PREFETCH_URL_PLIST];
 }
 
 - (id)initWithURL:(NSURL*)url {

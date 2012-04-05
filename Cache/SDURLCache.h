@@ -7,8 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PHConstants.h"
 
-@interface SDURLCachePH : NSURLCache
+// wrapper pattern
+@interface PH_SDCACHEDURLRESPONSE_CLASS : NSCachedURLResponse
++ (id)cachedURLResponseWithNSCachedURLResponse:(NSCachedURLResponse*)url_response;
+@end
+
+@interface PH_SDURLCACHE_CLASS : NSURLCache
 {
     @private
     NSString *diskCachePath;
