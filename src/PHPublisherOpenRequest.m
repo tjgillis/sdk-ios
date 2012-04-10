@@ -22,7 +22,9 @@
 #include <net/if_dl.h>
 #include <mach-o/dyld.h>
 
-NSString* getMACAddress(){
+NSString *getMACAddress(void);
+
+NSString *getMACAddress(){
     int                 mib[6];
     size_t              len;
     char                *buf;
@@ -111,10 +113,12 @@ NSString* getMACAddress(){
     }
     
 #if PH_USE_OPENUDID == 1
-    [additionalParameters setValue:[PH_OPENUDID_CLASS value] forKey:@"d_odid"];
+        [additionalParameters setValue:[PH_OPENUDID_CLASS value] forKey:@"d_odid"];
 #endif
 #if PH_USE_MAC_ADDRESS == 1
-    [additionalParameters setValue:getMACAddress() forKey:@"d_mac"];
+    if (![PHAPIRequest optOutStatus]) {
+        [additionalParameters setValue:getMACAddress() forKey:@"d_mac"];
+    }
 #endif
     
     return  additionalParameters;

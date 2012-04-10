@@ -6,8 +6,12 @@ Acquire, retain, re-engage, and monetize your players with the help of PlayHaven
 
 An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the PlayHaven developer dashboard at https://dashboard.playhaven.com
 
-What's new in 1.10.0
+What's new in 1.10.1
 ====================
+* Ability to opt out of user data collection at runtime.
+
+1.10.0
+======
 * In App Purchase tracking and Virtual Good Promotion support. See "Triggering in-app purchases" and "Tracking in-app purchases" in the API Reference section for information on how to integrate this into your app.
 * Adds documentation for disabling StoreKit-based features in the SDK.
 
@@ -56,9 +60,18 @@ This release introduces the use of OpenUDID in addition to our own proprietary i
 
 By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
 
-Defining PH_USE_UNIQUE_IDENTIFIER=1 will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. However, this does come with a risk of App Store rejection.
+By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. However, this does come with a risk of App Store rejection.
 
-Defining PH_USE_MAC_ADDRESS=1 will send the device's wifi MAC address alongside these new tokens.
+By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address
+  alongside these new tokens.
+  
+### **New** User Opt-Out
+To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of UDID and MAC addresses. To set the opt out status for your app, use the following method:
+
+    [PHAPIRequest setOptOutStatus:(BOOL)yesOrNo];
+
+You are responsible for providing an appropriate UI for user opt-out. User data is sent by default.
+
 
 Adding a Cross-Promotion Widget to Your Game
 --------------------------------------------

@@ -29,6 +29,9 @@
 +(NSString *) base64SignatureWithString:(NSString *)string;
 +(NSString *) session;
 
++(BOOL)optOutStatus;
++(void)setOptOutStatus:(BOOL)yesOrNo;
+
 +(id)requestForApp:(NSString *)token secret:(NSString *)secret;
 +(id)requestWithHashCode:(int)hashCode;
 +(void)cancelAllRequestsWithDelegate:(id) delegate;
