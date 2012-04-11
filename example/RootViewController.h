@@ -16,7 +16,9 @@
 
 @property (nonatomic, retain) IBOutlet UITextField *tokenField;
 @property (nonatomic, retain) IBOutlet UITextField *secretField;
+@property (retain, nonatomic) IBOutlet UISwitch *optOutStatusSlider;
 
 -(void)touchedToggleStatusBar:(id)sender;
+-(IBAction)touchedOptOutStatusSlider:(id)sender;
 
 @end

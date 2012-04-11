@@ -9,7 +9,7 @@
 #import <UIKit/UIImage.h>
 
 // Constants
-#define PH_SDK_VERSION @"1.10.0"
+#define PH_SDK_VERSION @"1.10.1"
 
 #ifndef PH_BASE_URL
 #define PH_BASE_URL @"http://api2.playhaven.com"
@@ -106,18 +106,16 @@
 
 // PH_USE_UNIQUE_IDENTIFIER
 // This will lead to rejection from the app store very soon, but will help PlayHaven
-// correlate Apple UDIDs with OpenUDIDs. If you're feeling lucky set
-// PH_USE_UNIQUE_IDENTIFIER=1
+// correlate Apple UDIDs with OpenUDIDs. To disable, set to 0.
 #ifndef PH_USE_UNIQUE_IDENTIFIER
-#define PH_USE_UNIQUE_IDENTIFIER 0
+#define PH_USE_UNIQUE_IDENTIFIER 1
 #endif
 
 // PH_USE_MAC_ADDRESS
 // This may lead to rejection from the app store at some point, but will help PlayHaven
-// reliably track devices and conversion. If you're feeling lucky set
-// PH_USE_MAC_ADDRESS=1
+// reliably track devices and conversion. To disable, set to 0.
 #ifndef PH_USE_MAC_ADDRESS
-#define PH_USE_MAC_ADDRESS 0
+#define PH_USE_MAC_ADDRESS 1
 #endif
 
 // PH_USE_OPENUDID
@@ -142,6 +140,7 @@
 #define PH_MULTITASKING_SUPPORTED [[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)] && [[UIDevice currentDevice] isMultitaskingSupported]
 
 NSString *PHGID(void);
+void PHClearGID(void);
 
 // Errors
 typedef enum{
