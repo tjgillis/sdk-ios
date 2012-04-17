@@ -10,6 +10,7 @@
 #import "PublisherOpenViewController.h"
 #import "PublisherContentViewController.h"
 #import "PublisherIAPTrackingViewController.h"
+#import "PHAPIRequest.h"
 
 @interface RootViewController(Private)
 -(BOOL)isTokenAndSecretFilledIn;
@@ -28,10 +29,12 @@
 
 @synthesize tokenField;
 @synthesize secretField;
+@synthesize optOutStatusSlider;
 
 - (void)dealloc {
     [tokenField release];
     [secretField release];
+    [optOutStatusSlider release];
     [super dealloc];
 }
 
@@ -49,6 +52,8 @@
     
     self.tokenField.text = [defaults valueForKey:@"ExampleToken"];
     self.secretField.text = [defaults valueForKey:@"ExampleSecret"];
+    
+    self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
 }
 
 -(void)saveTokenAndSecretToDefaults{
@@ -86,6 +91,10 @@
     
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:NO];
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:NO];
+}
+
+- (IBAction)touchedOptOutStatusSlider:(id)sender {
+    [PHAPIRequest setOptOutStatus:self.optOutStatusSlider.on];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -164,6 +173,7 @@
 - (void)viewDidUnload {
     [self setTokenField:nil];
     [self setSecretField:nil];
+    [self setOptOutStatusSlider:nil];
     [super viewDidUnload];
 }
 @end
