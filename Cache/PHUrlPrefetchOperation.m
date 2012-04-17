@@ -50,7 +50,7 @@
 
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSURLRequest *request = [NSURLRequest requestWithURL:self.prefetchURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
-    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    [NSURLConnection sendSynchronousRequest:request returningResponse:NULL error:NULL];
     [pool drain];
 }
 
