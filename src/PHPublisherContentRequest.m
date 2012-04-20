@@ -286,6 +286,21 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             nil];
 }
 
+-(void)cancel{
+    if ([self.contentViews count] > 0) {
+        NSArray *contentViews = [self.contentViews copy];
+        for (PHContentView *contentView in contentViews) {
+            contentView.delegate = nil;
+            [contentView dismiss:NO];
+            
+            [self removeContentView:contentView];
+        }
+        [contentViews release];
+    }
+    
+    [super cancel];
+}
+
 -(void)finish{
     if ([self setState:PHPublisherContentRequestDone]) {
         [PHAPIRequest cancelAllRequestsWithDelegate:self];
