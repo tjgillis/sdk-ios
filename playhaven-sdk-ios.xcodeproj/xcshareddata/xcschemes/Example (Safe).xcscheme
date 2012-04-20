@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA328B83151BFC9B00DE3CAD"
-               BuildableName = "MACExample.app"
-               BlueprintName = "Example MAC"
+               BlueprintIdentifier = "EAF168A31534E59C006B6993"
+               BuildableName = "SafeExample.app"
+               BlueprintName = "Example (Safe)"
                ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,9 +31,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA328B83151BFC9B00DE3CAD"
-            BuildableName = "MACExample.app"
-            BlueprintName = "Example MAC"
+            BlueprintIdentifier = "EAF168A31534E59C006B6993"
+            BuildableName = "SafeExample.app"
+            BlueprintName = "Example (Safe)"
             ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -50,9 +50,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA328B83151BFC9B00DE3CAD"
-            BuildableName = "MACExample.app"
-            BlueprintName = "Example MAC"
+            BlueprintIdentifier = "EAF168A31534E59C006B6993"
+            BuildableName = "SafeExample.app"
+            BlueprintName = "Example (Safe)"
             ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -68,9 +68,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA328B83151BFC9B00DE3CAD"
-            BuildableName = "MACExample.app"
-            BlueprintName = "Example MAC"
+            BlueprintIdentifier = "EAF168A31534E59C006B6993"
+            BuildableName = "SafeExample.app"
+            BlueprintName = "Example (Safe)"
             ReferencedContainer = "container:playhaven-sdk-ios.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

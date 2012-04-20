@@ -102,6 +102,14 @@ static NSString *sPlayHavenSession;
     }
 }
 
++(BOOL)optOutStatus{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"PlayHavenOptOutStatus"];
+}
+
++(void)setOptOutStatus:(BOOL)yesOrNo{
+    [[NSUserDefaults standardUserDefaults] setBool:yesOrNo forKey:@"PlayHavenOptOutStatus"];
+}
+
 +(id) requestForApp:(NSString *)token secret:(NSString *)secret{
     return [[[[self class] alloc] initWithApp:token secret:secret] autorelease];
 }
@@ -196,9 +204,10 @@ static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const 
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
         
 #if PH_USE_UNIQUE_IDENTIFIER==1
-        NSString
-        *device = [[UIDevice currentDevice] uniqueIdentifier];
-        [combinedParams setValue:device forKey:@"device"];
+        if (![PHAPIRequest optOutStatus]) {
+            NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
+            [combinedParams setValue:device forKey:@"device"];
+        }
 #endif
         //This allows for unit testing of request values!
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
