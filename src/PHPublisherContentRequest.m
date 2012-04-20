@@ -59,7 +59,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 -(void)pushContent:(PHContent *)content;
 -(void)removeContentView:(PHContentView *)contentView;
 @property (nonatomic, readonly) UIButton *closeButton;
-@property (nonatomic, assign) PHPublisherContentRequestState state;
+@property (nonatomic, readonly) PHPublisherContentRequestState state;
+-(BOOL)setState:(PHPublisherContentRequestState)state;
 @end
 
 @implementation PHPublisherContentRequest
@@ -116,11 +117,15 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     return _state;
 }
 
--(void)setState:(PHPublisherContentRequestState)state{
+-(BOOL)setState:(PHPublisherContentRequestState)state{
     //state may only be set ahead!
     if (_state < state) {
+        [self willChangeValueForKey:@"state"];
         _state = state;
+        [self didChangeValueForKey:@"state"];
+        return YES;
     }
+    return NO;
 }
 
 -(NSMutableArray *)contentViews{
@@ -282,13 +287,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 }
 
 -(void)finish{
-    self.state = PHPublisherContentRequestDone;
-    [PHAPIRequest cancelAllRequestsWithDelegate:self];
-    
-    [self hideOverlayWindow];
-    [self hideCloseButton];
-    
-    [super finish];
+    if ([self setState:PHPublisherContentRequestDone]) {
+        [PHAPIRequest cancelAllRequestsWithDelegate:self];
+        
+        [self hideOverlayWindow];
+        [self hideCloseButton];
+        
+        [super finish];
+    }
 }
 
 -(void)afterConnectionDidFinishLoading{
@@ -302,8 +308,9 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             [self.delegate performSelector:@selector(requestDidGetContent:) withObject:self];
         }
         
-        self.state = PHPublisherContentRequestPreloaded;
-        [self continueLoadingIfNeeded];
+        if ([self setState:PHPublisherContentRequestPreloaded]) {
+            [self continueLoadingIfNeeded];
+        }
     } else {
         PH_NOTE(@"This request was successful but did not contain any displayable content. Dismissing now.");
         if ([self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
@@ -358,14 +365,16 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 }
 
 -(void)getContent{
-    self.state = PHPublisherContentRequestPreloading;
-    [super send];
-    
-    if ([self.delegate respondsToSelector:@selector(requestWillGetContent:)]) {
-        [self.delegate performSelector:@selector(requestWillGetContent:) withObject:self];
+    if ([self setState:PHPublisherContentRequestPreloading]) {
+        [super send];
+        
+        if ([self.delegate respondsToSelector:@selector(requestWillGetContent:)]) {
+            [self.delegate performSelector:@selector(requestWillGetContent:) withObject:self];
+        }
+        
+        [self placeCloseButton];
     }
-    
-    [self placeCloseButton];
+
 }
 
 -(void)showContentIfReady{    
@@ -374,9 +383,10 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             [self.delegate performSelector:@selector(request:contentWillDisplay:) withObject:self withObject:_content];
         }
         
-        self.state = PHPublisherContentRequestDisplayingContent;
-        [self showOverlayWindow];
-        [self pushContent:_content];
+        if ([self setState:PHPublisherContentRequestDisplayingContent]) {
+            [self showOverlayWindow];
+            [self pushContent:_content];
+        }
     }
 }
 

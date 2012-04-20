@@ -16,5 +16,9 @@
     }
     
     [request cancel];
+    [self addMessage:@"Content Canceled!"];
+    [self addElapsedTime];
+    
+    [self finishRequest];
 }
 @end
