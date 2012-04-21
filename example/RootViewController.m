@@ -10,6 +10,7 @@
 #import "PublisherOpenViewController.h"
 #import "PublisherContentViewController.h"
 #import "PublisherIAPTrackingViewController.h"
+#import "PublisherCancelContentViewController.h"
 #import "PHAPIRequest.h"
 
 @interface RootViewController(Private)
@@ -106,7 +107,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -130,6 +131,10 @@
         case 2:
             cell.textLabel.text = @"IAP Tracking";
             cell.detailTextLabel.text = @"";
+            break;
+        case 3:
+            cell.textLabel.text = @"Cancelled Content";
+            cell.detailTextLabel.text = @"This content will be cancelled at an awkward time.";
         default:
             break;
     }
@@ -157,6 +162,13 @@
         } else if (indexPath.row == 2){
             PublisherIAPTrackingViewController *controller = [[PublisherIAPTrackingViewController alloc] initWithNibName:@"PublisherIAPTrackingViewController" bundle:nil];
             controller.title = @"IAP Tracking";
+            controller.token = self.tokenField.text;
+            controller.secret = self.secretField.text;
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
+        } else if (indexPath.row == 3){
+            PublisherCancelContentViewController *controller = [[PublisherCancelContentViewController alloc] initWithNibName:@"PublisherContentViewController" bundle:nil];
+            controller.title = @"Content";
             controller.token = self.tokenField.text;
             controller.secret = self.secretField.text;
             [self.navigationController pushViewController:controller animated:YES];
