@@ -1,4 +1,4 @@
-PlayHaven SDK 1.10.0
+PlayHaven SDK 1.10.2
 ====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -8,8 +8,12 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-What's new in 1.10.1
+What's new in 1.10.2
 ====================
+* Bugfixes for issues with canceling requests and a rare crash involving precaching.
+
+1.10.1
+======
 * Ability to opt out of user data collection at runtime.
 
 1.10.0
@@ -20,10 +24,6 @@ What's new in 1.10.1
 1.8.2
 =====
 * PlayHaven now uses OpenUDID for tracking conversions on the device while still allowing for user opt-out.
-
-1.8.1
-=====
-* Fixes orientation issues that impact games in landscape orientation.
 
 Integration
 -----------
@@ -224,8 +224,7 @@ Add the notification view as a subview somewhere in your view controller's view.
 
 The notification view will query and update itself when its -(void)refresh method is called.
 
-    [notificationView refresh];
-    
+    [notificationView refresh];  
 
 We recommend refreshing the notification view each time it will appear in your UI. See examples/PublisherContentViewController.m for an example.
 
@@ -248,4 +247,3 @@ This method will be called inside of the PHNotificationView instance -(void)draw
 	-(CGSize)sizeForNotification:(NSDictionary *)notificationData;
 
 This method will be called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of notificationData, you will need to calculate an appropriate size.
-
