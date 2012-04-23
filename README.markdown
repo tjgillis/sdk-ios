@@ -53,7 +53,7 @@ If you are using Unity for your game, please integrate the Unity SDK located her
     \#import "PlayHavenSDK.h"
 1. In your app delegate's -(void)applicationDidBecomeActive:(UIApplication *)application method, record a game open. See the "Recording game opens" section of the API Reference
 1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
-1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve conversions. See the "Add a Notification View (Notifier Badge)" of the API Reference
+1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve chart opens by up to 300%! See the "Add a Notification View (Notifier Badge)" of the API Reference
 
 API Reference
 -------------
