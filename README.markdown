@@ -1,10 +1,12 @@
 PlayHaven SDK 1.10.0
 ====================
-PlayHaven is a real-time mobile game marketing platform to help you take control of the business of your games.
+PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
 Acquire, retain, re-engage, and monetize your players with the help of PlayHaven's powerful marketing platform. Integrate once and embrace the flexibility of the web as you build, schedule, deploy, and analyze your in-game promotions and monetization in real-time through PlayHaven's easy-to-use, web-based dashboard. 
 
-An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the PlayHaven developer dashboard at https://dashboard.playhaven.com
+An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the [PlayHaven Dashboard](https://dashboard.playhaven.com).
+
+If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
 What's new in 1.10.1
 ====================
@@ -49,85 +51,44 @@ If you are using Unity for your game, please integrate the Unity SDK located her
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
     \#import "PlayHavenSDK.h"
+1. In your app delegate's -(void)applicationDidBecomeActive:(UIApplication *)application method, record a game open. See the "Recording game opens" section of the API Reference
+1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
+1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve conversions. See the "Add a Notification View (Notifier Badge)" of the API Reference
 
-Example App
------------
-Included with the SDK is an example implementation in its own XCode project. It features open and content request implementations including relevant delegate methods for each. You will need a PlayHaven API token and secret to make requests with the Example app.
-
-**NEW** Device tracking
------------------------
+API Reference
+-------------
+### Device tracking
 This release introduces the use of OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+
+NOTE: The "test device" feature of the PlayHaven Dashboard will only work with games that send either OpenUDID or UDIDs.
 
 By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
 
-By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. However, this does come with a risk of App Store rejection.
+By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. Your app may get rejected by Apple if it does not appropriately implement user opt out, see the "User Opt Out" section below.
 
-By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address
-  alongside these new tokens.
+By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address alongside these new tokens.
   
-### **New** User Opt-Out
+#### User Opt-Out
 To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of UDID and MAC addresses. To set the opt out status for your app, use the following method:
 
     [PHAPIRequest setOptOutStatus:(BOOL)yesOrNo];
 
 You are responsible for providing an appropriate UI for user opt-out. User data is sent by default.
 
+### Recording game opens
+Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-Adding a Cross-Promotion Widget to Your Game
---------------------------------------------
-Each game is pre-configured for our Cross-Promotion Widget, which will give your game the ability to deliver quality game recommendations to your users. To integrate the Cross-Promotion Widget, you'll need to do the following:
+The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
 
-### Record game opens
-In order to better optimize your content units, it is necessary for your app to report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your Cross-Promotion Widget to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
+	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is launched. The following will send a request:
+**NEW**: If you are using an internal identifier to track individual devices in this game, you may use the customUDID
+parameter to pass this identifier along to PlayHaven with the open request.
+Asynchronously reports a game open to PlayHaven. 
 
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
     request.customUDID = @"CUSTOM_UDID" //optional, see below.
     [request send];
-
-**NEW**: If you are using an internal identifier to track individual devices in this game, you may use the customUDID
-parameter to pass this identifier along to PlayHaven with the open request.
-
-Where MYTOKEN and MYSECRET are the token and secret for your game. That's it!
-See "Recording game opens" in the API Reference section for more information about recording game opens.
-
-### Request the Cross-Promotion Widget
-We recommend adding the Cross-Promotion Widget to an attractive "More Games" button in a prominent part of your game's UI. The most popular place to add this button is in the main menu, but we have seen great results from buttons on game over or level complete screens as well. Be creative and find places in your game where it is natural for users to want to jump to a new game.
-
-Inside your button's event handler, use the following code to request the pre-configured Cross-Promotion Widget:
-
-	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:MYTOKEN secret:MYSECRET placement:@"more_games" delegate:self];
-	request.showsOverlayImmediately = YES;
-	[request send];
-	
-*NOTE:* The Cross-Promotion Widget only supports the "more_games" placement tag.  Please ensure that this tag is used for any location you wish to integrate the Cross-Promotion Widget.  Support for custom placements is coming soon!
-
-You will need to implement PHPublisherContentRequestDelegate methods if you would like to know when the Cross-Promotion Widget has loaded or dismissed. See "Requesting content for your placements" in the API Reference section for more information about these delegate methods as well as other things you can do with PHPublisherContentRequest.
-
-### Add a Notification View (Notifier Badge)
-Adding a notification view to your "More Games" button will greatly increase the number of Cross-Promotion Widget opens for your game, by up to 300%. To create a notification view:
-
-    PHNotificationView *notificationView = [[PHNotificationView alloc] initWithApp:MYTOKEN secret:MYSECRET placement:@"more_games"];
-    [myView addSubview:notificationView];
-    [notificationView release];
-    
-Add the notification view as a subview somewhere in your view controller's view. Adjust the position of the badge by setting the notificationView's center property. 
-
-    notificationView.center = CGPointMake(10,10);
-
-The notification view will query and update itself when its -(void)refresh method is called.
-
-    [notificationView refresh];
-
-See "Notifications with PHNotificationView" in the API Reference section for more information about customizing the presentation of your PHNotificationView instances.
-
-API Reference
--------------
-### Recording game opens
-Asynchronously reports a game open to PlayHaven. A delegate is not needed for this request, but if you would like to receive a callback when this request succeeds or fails refer to the implementation found in *example/PublisherOpenViewController.m*.
-
-	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
 #### Precaching content templates
 PlayHaven will automatically download and store a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
@@ -216,7 +177,7 @@ The PHReward object passed through this method has the following helpful propert
   * __quantity__: if there is a quantity associated with the reward, it will be an integer value here
   * __receipt__: a unique identifier that is used to detect duplicate reward unlocks, your app should ensure that each receipt is only unlocked once
 
-### **NEW** Triggering in-app purchases
+### Triggering in-app purchases
 Using the Virtual Goods Promotion content unit, PlayHaven can now be used to trigger in app purchase requests in your app. You will need to support the new 
 
 > \-(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
@@ -227,7 +188,7 @@ The PHPurchase object passed through this method has the following properties:
   * __quantity__: if there is a quantity associated with this purchase, it will be an integer value here
   * __receipt__: a unique identifier
   
-You will have to keep track of this purchase object throughout your IAP process. You are responsible for making a SKProduct request before initiating the purchase of this item so as to comply with IAP requirements. Once the item has been purchased you will need to inform the content unit of that purchase using the following:
+**Note:** You must retain this purchase object throughout your IAP process. You are responsible for making a SKProduct request before initiating the purchase of this item so as to comply with IAP requirements. Once the item has been purchased you will need to inform the content unit of that purchase using the following:
 
     [purchase reportResolution:(PHPurchaseResolution)resolution];
 
@@ -237,7 +198,7 @@ You will have to keep track of this purchase object throughout your IAP process.
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
   
-### **NEW** Tracking in-app purchases
+### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
 
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY resolution:PHPurchaseResolutionBuy];
@@ -250,14 +211,23 @@ Purchases that are canceled or encounter errors should be reported using the fol
     
 If the error comes from an SKPaymentTransaction instance's error property, the SDK will automatically select the correct resolution (buy/cancel) based on the NSError object passed in.
 
-### Notifications with PHNotificationView
-PHNotificationView provides a fully encapsulated notification view that automatically fetches an appropriate notification from the API and renders it into your view heirarchy. It is a UIView subclass that you may place in your UI where it should appear and supply it with your app token, secret, and a placement id.
+### Add a Notification View (Notifier Badge)
+Adding a notification view to your "More Games" button will greatly increase the number of More Games Widget opens for your game, by up to 300%. To create a notification view:
 
-	-(id)initWithApp:(NSString *)app secret:(NSString *)secret placement:(NSString *)placement;
+    PHNotificationView *notificationView = [[PHNotificationView alloc] initWithApp:MYTOKEN secret:MYSECRET placement:@"more_games"];
+    [myView addSubview:notificationView];
+    [notificationView release];
+    
+Add the notification view as a subview somewhere in your view controller's view. Notification views will remain anchored to the center of the position they are placed in the view, even as the size of the badge changes. Adjust the position of the badge by setting the notificationView's center property. 
 
-*NOTE:* You may set up placement_ids through the PlayHaven Developer Dashboard.
+    notificationView.center = CGPointMake(10,10);
 
-Notification view will remain anchored to the center of the position they are placed in the view, even as the size of the badge changes. You may refresh your notification view from the network using the -(void)refresh method on an instance. We recommend refreshing the notification view each time it will appear in your UI. See examples/PublisherContentViewController.m for an example.
+The notification view will query and update itself when its -(void)refresh method is called.
+
+    [notificationView refresh];
+    
+
+We recommend refreshing the notification view each time it will appear in your UI. See examples/PublisherContentViewController.m for an example.
 
 You will also need to clear any notification view instances when you successfully launch a content unit. You may do this using the -(void)clear method on any notification views you wish to clear.
 
