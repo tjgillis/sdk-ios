@@ -32,10 +32,10 @@ If you are using Unity for your game, please integrate the Unity SDK located her
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
   * src directory 
   * Cache directory
-1. **NEW** Unless you are already using SBJSON, also add the following to your project:
+1. (optional) Unless you are already using SBJSON, also add the following to your project:
   * JSON directory
   If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
-1. **NEW** Unless you are already using OpenUDID, also add the following to your project:
+1. (optional) Unless you are already using OpenUDID, also add the following to your project:
   * OpenUDID directory
   If your project is already using OpenUDID, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. Ensure the following frameworks are included with your project, add any missing frameworks in the Build Phases tab for your application's target:
@@ -45,7 +45,7 @@ If you are using Unity for your game, please integrate the Unity SDK located her
   * SystemConfiguration.framework
   * CFNetwork.framework
   * StoreKit.framework (**see next bullet**)
-1. If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings.
+1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings.
     PH_USE_STOREKIT=0
     This will make it possible to build the SDK without StoreKit linked to your project.
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
