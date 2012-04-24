@@ -23,13 +23,8 @@
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
 
 @interface PHPublisherContentRequest(TestMethods)
--(PHPublisherContentRequestState) state;
-@end
-
-@implementation PHPublisherContentRequest(TestMethods)
--(PHPublisherContentRequestState)state{
-    return _state;
-}
+@property (nonatomic, readonly) PHPublisherContentRequestState state;
+-(BOOL)setState:(PHPublisherContentRequestState)state;
 @end
 
 
@@ -53,9 +48,8 @@
     BOOL _didPreload;
 }
 @end
-
 @interface PHPublisherContentPreloadParameterTest : SenTestCase @end
-
+@interface PHPublisherContentStateTest : SenTestCase @end
 
 @implementation PHContentTest
 
@@ -399,6 +393,22 @@
     
     NSString *parameters = [request.URL absoluteString];
     STAssertFalse([parameters rangeOfString:@"preload=0"].location == NSNotFound, @"Expected 'preload=0' in parameter string, did not find it!");
+    [request cancel];
+}
+
+@end
+
+@implementation PHPublisherContentStateTest
+
+-(void)testStateChanges{
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
+    
+    STAssertTrue(request.state == PHPublisherContentRequestInitialized,@"Expected initialized state, got %d", request.state);
+    
+    STAssertTrue([request setState:PHPublisherContentRequestPreloaded], @"Expected to be able to advance state!");
+    
+    STAssertFalse([request setState: PHPublisherContentRequestPreloading], @"Expected not to be able to regress state!");
+    
     [request cancel];
 }
 
