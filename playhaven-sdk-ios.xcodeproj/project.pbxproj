@@ -84,6 +84,9 @@
 		EA5E5C5714C60D570026B3E0 /* PHUrlPrefetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D118AE5C14B78C3C00C76E2C /* PHUrlPrefetchOperation.m */; };
 		EA5E5C5914C60D660026B3E0 /* SDURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D111108F14BBC54D0035B39E /* SDURLCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA5E5C5A14C60D660026B3E0 /* PHUrlPrefetchOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D118AE5B14B78C3C00C76E2C /* PHUrlPrefetchOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA5FA4771542120600F1517A /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
+		EA5FA4781542120600F1517A /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
+		EA5FA4791542120600F1517A /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
 		EA6ADFC51475CF3A00DBE60B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
 		EA6ADFC81475F22C00DBE60B /* PHPublisherContentRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */; };
 		EA7BC61A13537F8700B4518D /* PHURLLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */; };
@@ -459,6 +462,8 @@
 		EA523D901343EE790057DEA5 /* PHStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHStringUtil.m; sourceTree = "<group>"; };
 		EA523DB11343F7BA0057DEA5 /* PHAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAPIRequest.h; sourceTree = "<group>"; };
 		EA523DB21343F7BA0057DEA5 /* PHAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAPIRequest.m; sourceTree = "<group>"; };
+		EA5FA4751542120600F1517A /* PublisherCancelContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherCancelContentViewController.h; sourceTree = "<group>"; };
+		EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherCancelContentViewController.m; sourceTree = "<group>"; };
 		EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenSDK.h; sourceTree = "<group>"; };
 		EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequestTest.m; sourceTree = "<group>"; };
 		EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHURLLoaderTest.m; sourceTree = "<group>"; };
@@ -486,7 +491,7 @@
 		EAB4429413454F34000DA3E9 /* PHContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PHContent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EAB4429513454F34000DA3E9 /* PHContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHContent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EAB442A113455467000DA3E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHavenNoStoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPlayHavenNoStoreKit.a; path = "libPlayHaven-NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABAA6971450ED640040B937 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EABC0C75152B8A3200441393 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EABC0C7B152B8A6500441393 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -714,6 +719,8 @@
 				EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */,
 				EA4AC25C15019C230069D264 /* IAPHelper.h */,
 				EA4AC25D15019C230069D264 /* IAPHelper.m */,
+				EA5FA4751542120600F1517A /* PublisherCancelContentViewController.h */,
+				EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */,
 			);
 			path = example;
 			sourceTree = "<group>";
@@ -1310,6 +1317,7 @@
 				EAFF5E7714F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
 				EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */,
 				EA06AA69151A812B00C11220 /* OpenUDID.m in Sources */,
+				EA5FA4771542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1391,6 +1399,7 @@
 				EAFF5E7814F707A400E96C2C /* PublisherIAPTrackingViewController.m in Sources */,
 				EA4AC26015019C230069D264 /* IAPHelper.m in Sources */,
 				EA06AA6A151A812B00C11220 /* OpenUDID.m in Sources */,
+				EA5FA4781542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1554,6 +1563,7 @@
 				EAF168C21534E59C006B6993 /* PublisherIAPTrackingViewController.m in Sources */,
 				EAF168C31534E59C006B6993 /* IAPHelper.m in Sources */,
 				EAF168C41534E59C006B6993 /* OpenUDID.m in Sources */,
+				EA5FA4791542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1615,7 +1625,7 @@
 					armv6,
 					armv7,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";

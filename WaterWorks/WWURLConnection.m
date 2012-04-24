@@ -85,11 +85,11 @@ NSString *readLineAsNSString(FILE *file)
 #pragma mark -
 #pragma mark NSURLConnection substitution
 +(WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate{
-    WWURLConnection *result = [WWURLConnection new];
+    WWURLConnection *result = [[[WWURLConnection alloc] init] autorelease];
     result.request = request;
     result.delegate = delegate;
     
-    return [result autorelease];
+    return result;
 }
 
 #pragma mark -
@@ -124,7 +124,7 @@ NSString *readLineAsNSString(FILE *file)
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     const char *routesPath = [[resourcePath stringByAppendingPathComponent:fileName] UTF8String];
     FILE *file;
-    if((file = fopen(routesPath, "r+")) != NULL){
+    if((file = fopen(routesPath, "r")) != NULL){
         while (!feof(file)) {
             //Read the next line ignoring comments
             NSString *line = readLineAsNSString(file);
@@ -184,18 +184,27 @@ NSString *readLineAsNSString(FILE *file)
     _delegate = nil;
     [_request release], _request = nil;
     
-    [super dealloc];
+    //[super dealloc];
 }
 
 -(void)start{
     [self performSelector:@selector(startInBackground) withObject:nil afterDelay:0.0];
 }
 
+-(void)cancel{
+    
+}
+
 -(void)startInBackground{
     NSData *responseData = [WWURLConnection bestResponseForURL:self.request.URL];
     if ([self.delegate respondsToSelector:@selector(connection:didReceiveResponse:)]) {
         NSInteger statusCode = (!!responseData)? 200: 404;
-        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:self.request.URL statusCode:statusCode HTTPVersion:nil headerFields:nil];
+        
+        NSHTTPURLResponse *response = nil;
+        if ([[NSHTTPURLResponse class] instancesRespondToSelector:@selector(initWithURL:statusCode:HTTPVersion:headerFields:)]) {
+            response = [[NSHTTPURLResponse alloc] initWithURL:self.request.URL statusCode:statusCode HTTPVersion:nil headerFields:nil];
+        }
+        
         [self.delegate connection:nil didReceiveResponse:response];
         [response release];
     }
