@@ -143,7 +143,7 @@ int PHNetworkStatus(){
 }
 
 NSString *PHAgnosticStringValue(id object){
-    return [NSString stringWithFormat:@"%@",object];
+    return (!!object)?[NSString stringWithFormat:@"%@",object]:nil;
 }
 
 //
