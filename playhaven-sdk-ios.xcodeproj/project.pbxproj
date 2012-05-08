@@ -64,6 +64,12 @@
 		EA12AC451366339D00CB2F24 /* PublisherContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */; };
 		EA1799E014200FAE005F286F /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
 		EA21F69D14215EAD00A4177E /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
+		EA24FCAB1554510D0074FC13 /* PHNetworkUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */; };
+		EA24FCAC1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
+		EA24FCAD1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
+		EA24FCAE1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
+		EA24FCAF1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
+		EA24FCB01554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
 		EA2B07A314E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
 		EA2B07A614E9EBA60087A45F /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A214E9EBA60087A45F /* 512.png */; };
 		EA328B30151A9D4400DE3CAD /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = EA328B2F151A9D4400DE3CAD /* README.markdown */; };
@@ -442,6 +448,8 @@
 		EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherContentViewController.m; sourceTree = "<group>"; };
 		EA14C6611342604000E228E0 /* Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1799DF14200FAE005F286F /* PHConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConstants.m; sourceTree = "<group>"; };
+		EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHNetworkUtil.h; sourceTree = "<group>"; };
+		EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNetworkUtil.m; sourceTree = "<group>"; };
 		EA2B07A014E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA2B07A214E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA328B2F151A9D4400DE3CAD /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
@@ -805,6 +813,8 @@
 				EAB19C8C1357BA390067F27A /* PHConstants.h */,
 				EA1799DF14200FAE005F286F /* PHConstants.m */,
 				EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */,
+				EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */,
+				EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -926,6 +936,7 @@
 				EA5E5C5A14C60D660026B3E0 /* PHUrlPrefetchOperation.h in Headers */,
 				EA019C8114C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.h in Headers */,
 				EA06AA66151A812B00C11220 /* OpenUDID.h in Headers */,
+				EA24FCAB1554510D0074FC13 /* PHNetworkUtil.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1318,6 +1329,7 @@
 				EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */,
 				EA06AA69151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA5FA4771542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
+				EA24FCAD1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1358,6 +1370,7 @@
 				EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */,
 				EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */,
 				EA06AA68151A812B00C11220 /* OpenUDID.m in Sources */,
+				EA24FCAC1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1400,6 +1413,7 @@
 				EA4AC26015019C230069D264 /* IAPHelper.m in Sources */,
 				EA06AA6A151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA5FA4781542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
+				EA24FCAE1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1431,6 +1445,7 @@
 				EA9AB65414A3B0D500079704 /* PHPublisherOpenRequest.m in Sources */,
 				EA019C8414C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EA06AA6B151A812B00C11220 /* OpenUDID.m in Sources */,
+				EA24FCB01554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1564,6 +1579,7 @@
 				EAF168C31534E59C006B6993 /* IAPHelper.m in Sources */,
 				EAF168C41534E59C006B6993 /* OpenUDID.m in Sources */,
 				EA5FA4791542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
+				EA24FCAF1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,7 +1628,7 @@
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1633,7 +1649,7 @@
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1662,7 +1678,6 @@
 					src,
 				);
 				INFOPLIST_FILE = example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1686,7 +1701,6 @@
 					src,
 				);
 				INFOPLIST_FILE = example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1768,7 +1782,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "example/Info-fixtures.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "Example (Fixtures)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1786,7 +1799,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "example/Info-fixtures.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "Example (Fixtures)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -2014,7 +2026,6 @@
 					src,
 				);
 				INFOPLIST_FILE = "Info-safe.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = SafeExample;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2042,7 +2053,6 @@
 					src,
 				);
 				INFOPLIST_FILE = "Info-safe.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = SafeExample;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
