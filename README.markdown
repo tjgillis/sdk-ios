@@ -78,7 +78,7 @@ You are responsible for providing an appropriate UI for user opt-out. User data 
 ### Recording game opens
 Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
+The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidEnterForeground:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
