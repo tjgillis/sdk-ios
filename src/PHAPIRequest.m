@@ -14,6 +14,7 @@
 #import "UIDevice+HardwareString.h"
 #import "PHConstants.h"
 #import "OpenUDID.h"
+#import "PHNetworkUtil.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
@@ -26,16 +27,15 @@ static NSString *sPlayHavenSession;
 +(NSMutableSet *)allRequests;
 -(void)finish;
 -(void)afterConnectionDidFinishLoading;
-+(void)checkDNSResolutionForURLPath:(NSString *)urlPath;
 +(void)setSession:(NSString *)session;
 @end
 
 @implementation PHAPIRequest
 
 +(void)initialize{
-    if  (self == [PHAPIRequest class]){
-        [PHAPIRequest checkDNSResolutionForURLPath:PH_BASE_URL];
-        [PHAPIRequest checkDNSResolutionForURLPath:PH_CONTENT_ADDRESS];
+    if  (self == [PHAPIRequest class]){        
+        [[PHNetworkUtil sharedInstance] checkDNSResolutionForURLPath:PH_BASE_URL];
+        [[PHNetworkUtil sharedInstance] checkDNSResolutionForURLPath:PH_CONTENT_ADDRESS];
 #ifdef PH_USE_NETWORK_FIXTURES
         [WWURLConnection setResponsesFromFileNamed:@"dev.wwfixtures"];
 #endif
@@ -129,41 +129,6 @@ static NSString *sPlayHavenSession;
     
     return self;
 }
-
-static void cfHostClientCallBack(CFHostRef host, CFHostInfoType typeInfo, const CFStreamError *error, void *info){
-    // Do nothing but cleanup
-    CFHostUnscheduleFromRunLoop(host, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-    CFHostSetClient(host, NULL, NULL);
-    CFRelease(host);
-    CFRunLoopStop(CFRunLoopGetCurrent());
-}
-
-+(void) checkDNSResolutionForURLPath:(NSString *)urlPath{
-    // HACK: Ignoring the potential leak of api_host in because cleanup
-    // is handled by cfHostClientCallBack
-    
-#ifndef __clang_analyzer__
-    
-    NSString *server_address  = [urlPath substringFromIndex:7];
-    CFHostClientContext api_context = { 0, (void *)(CFStringRef)server_address, CFRetain, CFRelease, NULL };
-    CFHostRef api_host = CFHostCreateWithName(kCFAllocatorDefault, (CFStringRef)server_address);
-    if (!CFHostSetClient(api_host, cfHostClientCallBack, &api_context))
-    {
-        CFRelease(api_host);
-        return;
-    }
-    
-    CFHostScheduleWithRunLoop(api_host, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-    if (!CFHostStartInfoResolution(api_host, kCFHostReachability, nil)){
-        CFHostUnscheduleFromRunLoop(api_host, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
-        CFHostSetClient(api_host, NULL, NULL);
-        CFRelease(api_host);
-    }
-    
-#endif
-}
-
-
 
 -(id)init{
     self = [super init];

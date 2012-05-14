@@ -36,4 +36,24 @@
     STAssertNotNil(request, @"Expected request to exist!");
 }
 
+-(void)testCookie{
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:@"APP" secret:@"SECRET" product:@"PRODUCT" quantity:1 resolution:PHPurchaseResolutionBuy];
+    [request send];
+    STAssertTrue([[request signedParameterString] rangeOfString:@"cookie"].location == NSNotFound, @"expected no cookie string parameterString: %@", [request signedParameterString]);
+    [request cancel];
+    
+    
+    [PHPublisherIAPTrackingRequest setConversionCookie:@"COOKIE" forProduct:@"PRODUCT"];
+    PHPublisherIAPTrackingRequest *request2 = [PHPublisherIAPTrackingRequest requestForApp:@"APP" secret:@"SECRET" product:@"PRODUCT" quantity:1 resolution:PHPurchaseResolutionBuy];
+    
+    [request2 send];
+    STAssertTrue([[request2 signedParameterString] rangeOfString:@"cookie"].location != NSNotFound, @"expected cookie string parameterString: %@", [request2 signedParameterString]);
+    [request2 cancel];
+    
+    PHPublisherIAPTrackingRequest *request3 = [PHPublisherIAPTrackingRequest requestForApp:@"APP" secret:@"SECRET" product:@"PRODUCT" quantity:1 resolution:PHPurchaseResolutionBuy];
+    [request3 send];
+    STAssertTrue([[request3 signedParameterString] rangeOfString:@"cookie"].location == NSNotFound, @"cookie should only exist once! parameterString: %@", [request3 signedParameterString]);
+    [request3 cancel];
+}
+
 @end
