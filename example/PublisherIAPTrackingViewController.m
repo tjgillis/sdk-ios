@@ -22,8 +22,8 @@
      */
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:self.token secret:self.secret];
     request.delegate = self;
-    request.product = self.productField.text;
-    request.quantity = [self.quantityField.text integerValue];
+    request.product = ([self.productField.text isEqualToString:@""])?@"com.playhaven.example.candy":self.productField.text;
+    request.quantity =([self.quantityField.text isEqualToString:@""])?1:[self.quantityField.text integerValue];
     request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
     request.error = PHCreateError(PHIAPTrackingSimulatorErrorType);
     [request send];
@@ -39,6 +39,9 @@
 
 #pragma mark - PHAPIRequestDelegate
 -(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
+    NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
+    [self addMessage:urlMessage];
+    
     NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@",responseData];
     [self addMessage:message];
     
@@ -46,6 +49,9 @@
 }
 
 -(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
+    NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
+    [self addMessage:urlMessage];
+    
     NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];
     
