@@ -27,6 +27,9 @@
     request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
     request.error = PHCreateError(PHIAPTrackingSimulatorErrorType);
     [request send];
+    
+    [self.productField resignFirstResponder];
+    [self.quantityField resignFirstResponder];
 }
 
 -(void)dealloc{
