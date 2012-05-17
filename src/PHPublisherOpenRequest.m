@@ -199,20 +199,6 @@ NSString *getMACAddress(){
 
 -(void) clearPrefetchCache{
     
-    NSString *cachePlist = [PHURLPrefetchOperation getCachePlistFile];
-    NSMutableDictionary *prefetchUrlDictionary = [[[NSMutableDictionary alloc] initWithContentsOfFile:cachePlist] autorelease];
-    NSArray *urlArray = (NSArray *)[prefetchUrlDictionary objectForKey:@"precache"];
-    NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
-    for (NSString *urlString in urlArray){
-        
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:url];
-        NSString *cacheFilePath = [[PH_SDURLCACHE_CLASS defaultCachePath] stringByAppendingPathComponent:cacheKey];
-        if ([fileManager fileExistsAtPath:cacheFilePath]){
-            
-            [fileManager removeItemAtPath:cacheFilePath error:NULL];
-        }
-    }
 }
 
 #pragma mark - NSObject

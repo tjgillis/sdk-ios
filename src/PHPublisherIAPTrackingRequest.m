@@ -115,7 +115,7 @@
     switch (self.resolution) {
         case PHPurchaseResolutionBuy:
         case PHPurchaseResolutionCancel:
-#ifdef TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR
             // IAP requests don't work from the simulator, but it would 
             // be helpful to allow testing the request itself.
             [self sendWithPrice:[NSDecimalNumber decimalNumberWithString:@"0.0"] andLocale:[NSLocale currentLocale]];
@@ -151,6 +151,7 @@
         SKProduct *productInfo = [response.products objectAtIndex:0];
         [self sendWithPrice:productInfo.price andLocale:productInfo.priceLocale];
     } else {
+        PH_LOG(@"Invalid products: %@", [response.invalidProductIdentifiers componentsJoinedByString:@" "]);
         [self sendWithFailure];
     }
 }

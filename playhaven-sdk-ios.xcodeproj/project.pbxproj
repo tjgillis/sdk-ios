@@ -76,6 +76,18 @@
 		EA328B47151BF68B00DE3CAD /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
 		EA328B48151BF99400DE3CAD /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
 		EA328B49151BF9A000DE3CAD /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
+		EA45102B156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA45102C156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA45102D156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA45102E156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA45102F156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA451030156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA451031156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA451032156298E80095538E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA451033156298E80095538E /* SDCachedURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EA45102A156298E80095538E /* SDCachedURLResponse.h */; };
+		EA451034156298E80095538E /* SDCachedURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EA45102A156298E80095538E /* SDCachedURLResponse.h */; };
+		EA451035156298E80095538E /* SDCachedURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EA45102A156298E80095538E /* SDCachedURLResponse.h */; };
+		EA451036156298E80095538E /* SDCachedURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EA45102A156298E80095538E /* SDCachedURLResponse.h */; };
 		EA4ABA11135F859D0062AE77 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
 		EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
 		EA4AC25F15019C230069D264 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
@@ -456,6 +468,8 @@
 		EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherOpenViewController.xib; sourceTree = "<group>"; };
 		EA328B82151BFAF600DE3CAD /* Info-udid.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-udid.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-udid.plist"; sourceTree = "<absolute>"; };
 		EA328BBB151BFC9B00DE3CAD /* Info-mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-mac.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-mac.plist"; sourceTree = "<absolute>"; };
+		EA451029156298E80095538E /* SDCachedURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCachedURLResponse.m; sourceTree = "<group>"; };
+		EA45102A156298E80095538E /* SDCachedURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCachedURLResponse.h; sourceTree = "<group>"; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
 		EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+HardwareString.m"; sourceTree = "<group>"; };
 		EA4AC25C15019C230069D264 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
@@ -660,6 +674,8 @@
 		D1E15B7914981C39001241EE /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				EA451029156298E80095538E /* SDCachedURLResponse.m */,
+				EA45102A156298E80095538E /* SDCachedURLResponse.h */,
 				EABC0C7F152BC9E600441393 /* LICENCE */,
 				D111108F14BBC54D0035B39E /* SDURLCache.h */,
 				D1E15B7B14981C39001241EE /* SDURLCache.m */,
@@ -937,6 +953,7 @@
 				EA019C8114C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.h in Headers */,
 				EA06AA66151A812B00C11220 /* OpenUDID.h in Headers */,
 				EA24FCAB1554510D0074FC13 /* PHNetworkUtil.h in Headers */,
+				EA451033156298E80095538E /* SDCachedURLResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +986,7 @@
 				EAB6A3AA14EED62D00EAC692 /* PHUrlPrefetchOperation.h in Headers */,
 				EAB6A3AB14EED62D00EAC692 /* PHPublisherIAPTrackingRequest.h in Headers */,
 				EA06AA67151A812B00C11220 /* OpenUDID.h in Headers */,
+				EA451034156298E80095538E /* SDCachedURLResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,6 +1015,7 @@
 				EAF168611534E2DE006B6993 /* PHUrlPrefetchOperation.h in Headers */,
 				EAF168621534E2DE006B6993 /* PHPublisherIAPTrackingRequest.h in Headers */,
 				EAF168631534E2DE006B6993 /* OpenUDID.h in Headers */,
+				EA451035156298E80095538E /* SDCachedURLResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,6 +1048,7 @@
 				EAF1689C1534E34F006B6993 /* PHUrlPrefetchOperation.h in Headers */,
 				EAF1689D1534E34F006B6993 /* PHPublisherIAPTrackingRequest.h in Headers */,
 				EAF1689E1534E34F006B6993 /* OpenUDID.h in Headers */,
+				EA451036156298E80095538E /* SDCachedURLResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,6 +1350,7 @@
 				EA06AA69151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA5FA4771542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 				EA24FCAD1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
+				EA45102C156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1371,6 +1392,7 @@
 				EA4AC25E15019C230069D264 /* IAPHelper.m in Sources */,
 				EA06AA68151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA24FCAC1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
+				EA45102B156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1414,6 +1436,7 @@
 				EA06AA6A151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA5FA4781542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 				EA24FCAE1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
+				EA45102D156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1446,6 +1469,7 @@
 				EA019C8414C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EA06AA6B151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA24FCB01554510D0074FC13 /* PHNetworkUtil.m in Sources */,
+				EA45102F156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1477,6 +1501,7 @@
 				EAB6A38F14EED62D00EAC692 /* PHPublisherOpenRequest.m in Sources */,
 				EAB6A39014EED62D00EAC692 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EA06AA6C151A812B00C11220 /* OpenUDID.m in Sources */,
+				EA451030156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1508,6 +1533,7 @@
 				EAF168491534E2DE006B6993 /* PHPublisherOpenRequest.m in Sources */,
 				EAF1684A1534E2DE006B6993 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EAF1684B1534E2DE006B6993 /* OpenUDID.m in Sources */,
+				EA451031156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1539,6 +1565,7 @@
 				EAF168801534E34F006B6993 /* PHPublisherOpenRequest.m in Sources */,
 				EAF168811534E34F006B6993 /* PHPublisherIAPTrackingRequest.m in Sources */,
 				EAF168821534E34F006B6993 /* OpenUDID.m in Sources */,
+				EA451032156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1580,6 +1607,7 @@
 				EAF168C41534E59C006B6993 /* OpenUDID.m in Sources */,
 				EA5FA4791542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 				EA24FCAF1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
+				EA45102E156298E80095538E /* SDCachedURLResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1629,6 +1657,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

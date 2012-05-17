@@ -1,4 +1,4 @@
-PlayHaven SDK 1.10.3
+PlayHaven SDK 1.10.4
 ====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -8,8 +8,12 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-What's new in 1.10.3
+What's new in 1.10.4
 ====================
+* IAP tracking requests now report accurate price information
+
+1.10.3
+======
 * DNS resolution for API servers happens in a background thread
 
 1.10.2

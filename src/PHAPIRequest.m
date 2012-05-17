@@ -21,6 +21,7 @@
 #endif
 
 static NSString *sPlayHavenSession;
+static NSString *const kSessionPasteboard = @"com.playhaven.session"; 
 
 @interface PHAPIRequest(Private)
 -(id)initWithApp:(NSString *)token secret:(NSString *)secret;
@@ -83,7 +84,7 @@ static NSString *sPlayHavenSession;
 +(NSString *)session{
     @synchronized(self){
         if (sPlayHavenSession == nil) {
-            UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:NO];
+            UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:kSessionPasteboard create:NO];
             sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string] == nil?@"":[pasteboard string]];
         }
     }
@@ -94,7 +95,7 @@ static NSString *sPlayHavenSession;
 +(void)setSession:(NSString *)session{
     @synchronized(self){
         if (![session isEqualToString:sPlayHavenSession]) {
-            UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playhaven.session" create:YES];
+            UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:kSessionPasteboard create:YES];
             [pasteboard setString:session];
             [sPlayHavenSession release];
             sPlayHavenSession = (!!session)?[[NSString alloc] initWithString:session]: nil;
