@@ -27,6 +27,8 @@
     request.customUDID = self.customUDIDField.text;
     request.delegate = self;
     [request send];
+    
+    [self.customUDIDField resignFirstResponder];
 }
 
 -(void)dealloc{

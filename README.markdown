@@ -1,4 +1,4 @@
-PlayHaven SDK 1.10.3
+PlayHaven SDK 1.10.4
 ====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -8,8 +8,12 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-What's new in 1.10.3
+What's new in 1.10.4
 ====================
+* IAP tracking requests now report accurate price information
+
+1.10.3
+======
 * DNS resolution for API servers happens in a background thread
 
 1.10.2
@@ -78,7 +82,7 @@ You are responsible for providing an appropriate UI for user opt-out. User data 
 ### Recording game opens
 Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidBecomeActive:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
+The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidEnterForeground:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 

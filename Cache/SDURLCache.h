@@ -8,18 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "PHConstants.h"
-
-// wrapper pattern
-@interface PH_SDCACHEDURLRESPONSE_CLASS : NSCachedURLResponse
-+ (id)cachedURLResponseWithNSCachedURLResponse:(NSCachedURLResponse*)url_response;
-@end
-
 @interface PH_SDURLCACHE_CLASS : NSURLCache
 {
     @private
     NSString *diskCachePath;
     NSMutableDictionary *diskCacheInfo;
-    BOOL diskCacheInfoDirty, ignoreMemoryOnlyStoragePolicy;
+    BOOL diskCacheInfoDirty, ignoreMemoryOnlyStoragePolicy, disabled;
     NSUInteger diskCacheUsage;
     NSTimeInterval minCacheInterval;
     NSOperationQueue *ioQueue;
@@ -55,10 +49,5 @@
  * Checks if the provided URL exists in cache.
  */
 - (BOOL)isCached:(NSURL *)url;
-
-/*
- * Returns the hash key for the url
-*/
-+ (NSString *)cacheKeyForURL:(NSURL *)url;
 
 @end
