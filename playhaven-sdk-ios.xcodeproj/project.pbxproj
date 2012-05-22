@@ -108,6 +108,7 @@
 		EA6ADFC51475CF3A00DBE60B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
 		EA6ADFC81475F22C00DBE60B /* PHPublisherContentRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */; };
 		EA7BC61A13537F8700B4518D /* PHURLLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */; };
+		EA7CF59D156C365C0095572E /* PlayHavenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7CF59C156C365C0095572E /* PlayHavenTest.m */; };
 		EA837E9314EB349A001C8147 /* content-integration.json in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F914D9EB8600CB1551 /* content-integration.json */; };
 		EA837E9414EB3DF4001C8147 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
 		EA86C7BF14D9E75600CB1551 /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
@@ -489,6 +490,7 @@
 		EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenSDK.h; sourceTree = "<group>"; };
 		EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequestTest.m; sourceTree = "<group>"; };
 		EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHURLLoaderTest.m; sourceTree = "<group>"; };
+		EA7CF59C156C365C0095572E /* PlayHavenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHavenTest.m; sourceTree = "<group>"; };
 		EA86C7EC14D9E75600CB1551 /* Example (Fixtures).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example (Fixtures).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA86C7F114D9E77D00CB1551 /* WWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWURLConnection.h; sourceTree = "<group>"; };
 		EA86C7F214D9E77D00CB1551 /* WWURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWURLConnection.m; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				EA03810913B25F4300A31FF7 /* PHPublisherMetadataRequestTest.m */,
 				EAFF5E7C14F8154E00E96C2C /* PHPurchaseTest.m */,
 				EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */,
+				EA7CF59C156C365C0095572E /* PlayHavenTest.m */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -1393,6 +1396,7 @@
 				EA06AA68151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA24FCAC1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 				EA45102B156298E80095538E /* SDCachedURLResponse.m in Sources */,
+				EA7CF59D156C365C0095572E /* PlayHavenTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1748,6 +1752,8 @@
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_UNIT_TESTING=1";
 				GCC_THUMB_SUPPORT = NO;
@@ -1778,6 +1784,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PH_UNIT_TESTING=1";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = tests/Info.plist;
