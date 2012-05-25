@@ -68,7 +68,7 @@ NOTE: The "test device" feature of the PlayHaven Dashboard will only work with g
 
 By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
 
-By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. Your app may get rejected by Apple if it does not appropriately implement user opt out, see the "User Opt Out" section below.
+By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens.  It is highly recommended that UDID reporting is enabled to maximize advertising revenue and help map historical device identifiers to new identification methods.  To optionally include an opt out message, view the "User Opt Out" section below.
 
 By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address alongside these new tokens.
   
