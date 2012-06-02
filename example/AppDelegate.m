@@ -8,6 +8,11 @@
 
 #import "AppDelegate.h"
 #import "IAPHelper.h"
+
+#if RUN_KIF_TESTS
+#import "PHTestController.h"
+#endif
+
 @implementation AppDelegate
 
 
@@ -19,16 +24,18 @@
 {
     // Override point for customization after application launch.
     // Add the navigation controller's view to the window and display.
-    if ([self.window respondsToSelector:@selector(setRootViewController:)]) {
-        //iOS >=4.0
-        self.window.rootViewController = self.navigationController;
-    } else {
-        //iOS <4.0
-        [self.window addSubview:self.navigationController.view];
-    }
+    self.window.rootViewController = self.navigationController;
     
     [self.window makeKeyAndVisible];
     [[IAPHelper sharedIAPHelper] restorePurchases];
+
+#if RUN_KIF_TESTS
+    [[PHTestController sharedInstance] startTestingWithCompletionBlock:^{
+        // Exit after the tests complete so that CI knows we're done
+        exit([[PHTestController sharedInstance] failureCount]);
+    }];
+#endif
+    
     return YES;
 }
 

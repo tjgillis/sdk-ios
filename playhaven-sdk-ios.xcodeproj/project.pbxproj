@@ -105,6 +105,61 @@
 		EA5FA4771542120600F1517A /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
 		EA5FA4781542120600F1517A /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
 		EA5FA4791542120600F1517A /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
+		EA62D65C1579925300B31E62 /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
+		EA62D65D1579925300B31E62 /* PHUrlPrefetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D118AE5C14B78C3C00C76E2C /* PHUrlPrefetchOperation.m */; };
+		EA62D65E1579925300B31E62 /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E15B7B14981C39001241EE /* SDURLCache.m */; };
+		EA62D65F1579925300B31E62 /* PHPublisherMetadataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03810E13B26A1A00A31FF7 /* PHPublisherMetadataRequest.m */; };
+		EA62D6601579925300B31E62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12ABDF1365DBB700CB2F24 /* main.m */; };
+		EA62D6611579925300B31E62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12ABE21365DBB700CB2F24 /* AppDelegate.m */; };
+		EA62D6621579925300B31E62 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12ABE81365DBB700CB2F24 /* RootViewController.m */; };
+		EA62D6631579925300B31E62 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
+		EA62D6641579925300B31E62 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44266134539F4000DA3E9 /* SBJsonParser.m */; };
+		EA62D6651579925300B31E62 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44268134539F4000DA3E9 /* SBJsonWriter.m */; };
+		EA62D6661579925300B31E62 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
+		EA62D6671579925300B31E62 /* UIDevice+HardwareString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */; };
+		EA62D6681579925300B31E62 /* PHURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C1910134E84D300755983 /* PHURLLoader.m */; };
+		EA62D6691579925300B31E62 /* PHAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523DB21343F7BA0057DEA5 /* PHAPIRequest.m */; };
+		EA62D66A1579925300B31E62 /* PHStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D901343EE790057DEA5 /* PHStringUtil.m */; };
+		EA62D66B1579925300B31E62 /* PHContent.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4429513454F34000DA3E9 /* PHContent.m */; };
+		EA62D66C1579925300B31E62 /* PHContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB5DD13463C00007F95FA /* PHContentView.m */; };
+		EA62D66D1579925300B31E62 /* PHPublisherContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */; };
+		EA62D66E1579925300B31E62 /* PHPublisherOpenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA523D8E1343EE790057DEA5 /* PHPublisherOpenRequest.m */; };
+		EA62D66F1579925300B31E62 /* ExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC3B13662AD700CB2F24 /* ExampleViewController.m */; };
+		EA62D6701579925300B31E62 /* PublisherOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC3E13662DC400CB2F24 /* PublisherOpenViewController.m */; };
+		EA62D6711579925300B31E62 /* PublisherContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */; };
+		EA62D6721579925300B31E62 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
+		EA62D6731579925300B31E62 /* PHNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811513B272C400A31FF7 /* PHNotificationView.m */; };
+		EA62D6741579925300B31E62 /* PHNotificationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811A13B298AF00A31FF7 /* PHNotificationRenderer.m */; };
+		EA62D6751579925300B31E62 /* PHNotificationBadgeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA03811E13B2A0F200A31FF7 /* PHNotificationBadgeRenderer.m */; };
+		EA62D6761579925300B31E62 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
+		EA62D6771579925300B31E62 /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
+		EA62D6781579925300B31E62 /* PHPublisherIAPTrackingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA019C8014C0FCE5008FBCB1 /* PHPublisherIAPTrackingRequest.m */; };
+		EA62D6791579925300B31E62 /* PublisherIAPTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */; };
+		EA62D67A1579925300B31E62 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC25D15019C230069D264 /* IAPHelper.m */; };
+		EA62D67B1579925300B31E62 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
+		EA62D67C1579925300B31E62 /* PublisherCancelContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */; };
+		EA62D67D1579925300B31E62 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
+		EA62D67E1579925300B31E62 /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA451029156298E80095538E /* SDCachedURLResponse.m */; };
+		EA62D6801579925300B31E62 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA019C8514C102D4008FBCB1 /* StoreKit.framework */; };
+		EA62D6811579925300B31E62 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D175008D149193790037A036 /* CFNetwork.framework */; };
+		EA62D6821579925300B31E62 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
+		EA62D6831579925300B31E62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		EA62D6841579925300B31E62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		EA62D6851579925300B31E62 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		EA62D6871579925300B31E62 /* PublisherOpenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */; };
+		EA62D6881579925300B31E62 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA12ABDB1365DBB700CB2F24 /* InfoPlist.strings */; };
+		EA62D6891579925300B31E62 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA12ABE41365DBB700CB2F24 /* MainWindow.xib */; };
+		EA62D68A1579925300B31E62 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA12ABEA1365DBB700CB2F24 /* RootViewController.xib */; };
+		EA62D68B1579925300B31E62 /* PublisherContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA50F3D21436426F0055EB3A /* PublisherContentViewController.xib */; };
+		EA62D68C1579925300B31E62 /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
+		EA62D68D1579925300B31E62 /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2B07A014E9EBA60087A45F /* 512.png */; };
+		EA62D68E1579925300B31E62 /* PublisherIAPTrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */; };
+		EA62D68F1579925300B31E62 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC89D1500328E007EF54F /* 57.png */; };
+		EA62D6901579925300B31E62 /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC8A0150033A6007EF54F /* 72.png */; };
+		EA62D6911579925300B31E62 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
+		EA62D698157992BE00B31E62 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA62D6581579922300B31E62 /* libKIF.a */; };
+		EA62D69E1579946200B31E62 /* PHTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62D69D1579946200B31E62 /* PHTestController.m */; };
+		EA62D6A1157994E600B31E62 /* KIFTestScenario+PHAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */; };
 		EA6ADFC51475CF3A00DBE60B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
 		EA6ADFC81475F22C00DBE60B /* PHPublisherContentRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */; };
 		EA7BC61A13537F8700B4518D /* PHURLLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */; };
@@ -415,6 +470,23 @@
 		EAFF5E7D14F8154E00E96C2C /* PHPurchaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFF5E7C14F8154E00E96C2C /* PHPurchaseTest.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EA62D6571579922300B31E62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA62D6501579922300B31E62 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AAB07268139719AC008AF393;
+			remoteInfo = KIF;
+		};
+		EA62D699157992CD00B31E62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA62D6501579922300B31E62 /* KIF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AAB07267139719AC008AF393;
+			remoteInfo = KIF;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -488,6 +560,13 @@
 		EA5FA4751542120600F1517A /* PublisherCancelContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherCancelContentViewController.h; sourceTree = "<group>"; };
 		EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherCancelContentViewController.m; sourceTree = "<group>"; };
 		EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenSDK.h; sourceTree = "<group>"; };
+		EA62D6501579922300B31E62 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
+		EA62D6951579925300B31E62 /* KIFExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIFExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA62D6971579925300B31E62 /* Info-KIF.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-KIF.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-KIF.plist"; sourceTree = "<absolute>"; };
+		EA62D69D1579946200B31E62 /* PHTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTestController.m; sourceTree = "<group>"; };
+		EA62D69F157994E600B31E62 /* KIFTestScenario+PHAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+PHAdditions.h"; sourceTree = "<group>"; };
+		EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+PHAdditions.m"; sourceTree = "<group>"; };
+		EA62D6A2157996E300B31E62 /* PHTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTestController.h; sourceTree = "<group>"; };
 		EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequestTest.m; sourceTree = "<group>"; };
 		EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHURLLoaderTest.m; sourceTree = "<group>"; };
 		EA7CF59C156C365C0095572E /* PlayHavenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHavenTest.m; sourceTree = "<group>"; };
@@ -568,6 +647,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA62D67F1579925300B31E62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA62D698157992BE00B31E62 /* libKIF.a in Frameworks */,
+				EA62D6801579925300B31E62 /* StoreKit.framework in Frameworks */,
+				EA62D6811579925300B31E62 /* CFNetwork.framework in Frameworks */,
+				EA62D6821579925300B31E62 /* SystemConfiguration.framework in Frameworks */,
+				EA62D6831579925300B31E62 /* UIKit.framework in Frameworks */,
+				EA62D6841579925300B31E62 /* Foundation.framework in Frameworks */,
+				EA62D6851579925300B31E62 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA86C7DC14D9E75600CB1551 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -640,6 +733,7 @@
 				EAF168671534E2DE006B6993 /* libPlayHaven-Safe.a */,
 				EAF168A21534E34F006B6993 /* libPlayHaven-Safe_NoStoreKit.a */,
 				EAF168DB1534E59C006B6993 /* SafeExample.app */,
+				EA62D6951579925300B31E62 /* KIFExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -647,6 +741,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				EA62D69B1579937200B31E62 /* Integration Tests */,
+				EA62D6501579922300B31E62 /* KIF.xcodeproj */,
 				EA328B2F151A9D4400DE3CAD /* README.markdown */,
 				EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */,
 				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
@@ -760,6 +856,7 @@
 				EAF168DD1534E59C006B6993 /* Info-safe.plist */,
 				EA328B82151BFAF600DE3CAD /* Info-udid.plist */,
 				EA328BBB151BFC9B00DE3CAD /* Info-mac.plist */,
+				EA62D6971579925300B31E62 /* Info-KIF.plist */,
 				EA12ABDA1365DBB700CB2F24 /* Info.plist */,
 				EA12ABDB1365DBB700CB2F24 /* InfoPlist.strings */,
 				EA12ABDF1365DBB700CB2F24 /* main.m */,
@@ -867,6 +964,25 @@
 				EA523D8C1343EE790057DEA5 /* src */,
 			);
 			name = "PlayHaven SDK";
+			sourceTree = "<group>";
+		};
+		EA62D6511579922300B31E62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA62D6581579922300B31E62 /* libKIF.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA62D69B1579937200B31E62 /* Integration Tests */ = {
+			isa = PBXGroup;
+			children = (
+				EA62D6A2157996E300B31E62 /* PHTestController.h */,
+				EA62D69D1579946200B31E62 /* PHTestController.m */,
+				EA62D69F157994E600B31E62 /* KIFTestScenario+PHAdditions.h */,
+				EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */,
+			);
+			name = "Integration Tests";
 			sourceTree = "<group>";
 		};
 		EA86C7F014D9E77D00CB1551 /* WaterWorks */ = {
@@ -1093,6 +1209,24 @@
 			productReference = EA14C6611342604000E228E0 /* Unit Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		EA62D65A1579925300B31E62 /* Example (KIF) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA62D6921579925300B31E62 /* Build configuration list for PBXNativeTarget "Example (KIF)" */;
+			buildPhases = (
+				EA62D65B1579925300B31E62 /* Sources */,
+				EA62D67F1579925300B31E62 /* Frameworks */,
+				EA62D6861579925300B31E62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA62D69A157992CD00B31E62 /* PBXTargetDependency */,
+			);
+			name = "Example (KIF)";
+			productName = example;
+			productReference = EA62D6951579925300B31E62 /* KIFExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		EA86C7BD14D9E75600CB1551 /* Example (Fixtures) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA86C7E914D9E75600CB1551 /* Build configuration list for PBXNativeTarget "Example (Fixtures)" */;
@@ -1216,10 +1350,17 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EA62D6511579922300B31E62 /* Products */;
+					ProjectRef = EA62D6501579922300B31E62 /* KIF.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EA14C6601342604000E228E0 /* Unit Tests */,
 				EA12ABD21365DBB700CB2F24 /* Example */,
+				EA62D65A1579925300B31E62 /* Example (KIF) */,
 				EA86C7BD14D9E75600CB1551 /* Example (Fixtures) */,
 				EAF168A31534E59C006B6993 /* Example (Safe) */,
 				EA9AB61E14A3B0AA00079704 /* PlayHaven */,
@@ -1229,6 +1370,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EA62D6581579922300B31E62 /* libKIF.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKIF.a;
+			remoteRef = EA62D6571579922300B31E62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EA12ABD11365DBB700CB2F24 /* Resources */ = {
@@ -1256,6 +1407,24 @@
 				EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */,
 				EA328B30151A9D4400DE3CAD /* README.markdown in Resources */,
 				EA328B47151BF68B00DE3CAD /* PublisherOpenViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA62D6861579925300B31E62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA62D6871579925300B31E62 /* PublisherOpenViewController.xib in Resources */,
+				EA62D6881579925300B31E62 /* InfoPlist.strings in Resources */,
+				EA62D6891579925300B31E62 /* MainWindow.xib in Resources */,
+				EA62D68A1579925300B31E62 /* RootViewController.xib in Resources */,
+				EA62D68B1579925300B31E62 /* PublisherContentViewController.xib in Resources */,
+				EA62D68C1579925300B31E62 /* ExampleViewController.xib in Resources */,
+				EA62D68D1579925300B31E62 /* 512.png in Resources */,
+				EA62D68E1579925300B31E62 /* PublisherIAPTrackingViewController.xib in Resources */,
+				EA62D68F1579925300B31E62 /* 57.png in Resources */,
+				EA62D6901579925300B31E62 /* 72.png in Resources */,
+				EA62D6911579925300B31E62 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1397,6 +1566,50 @@
 				EA24FCAC1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 				EA45102B156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				EA7CF59D156C365C0095572E /* PlayHavenTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA62D65B1579925300B31E62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA62D65C1579925300B31E62 /* PHPurchase.m in Sources */,
+				EA62D65D1579925300B31E62 /* PHUrlPrefetchOperation.m in Sources */,
+				EA62D65E1579925300B31E62 /* SDURLCache.m in Sources */,
+				EA62D65F1579925300B31E62 /* PHPublisherMetadataRequest.m in Sources */,
+				EA62D6601579925300B31E62 /* main.m in Sources */,
+				EA62D6611579925300B31E62 /* AppDelegate.m in Sources */,
+				EA62D6621579925300B31E62 /* RootViewController.m in Sources */,
+				EA62D6631579925300B31E62 /* SBJsonBase.m in Sources */,
+				EA62D6641579925300B31E62 /* SBJsonParser.m in Sources */,
+				EA62D6651579925300B31E62 /* SBJsonWriter.m in Sources */,
+				EA62D6661579925300B31E62 /* NSObject+QueryComponents.m in Sources */,
+				EA62D6671579925300B31E62 /* UIDevice+HardwareString.m in Sources */,
+				EA62D6681579925300B31E62 /* PHURLLoader.m in Sources */,
+				EA62D6691579925300B31E62 /* PHAPIRequest.m in Sources */,
+				EA62D66A1579925300B31E62 /* PHStringUtil.m in Sources */,
+				EA62D66B1579925300B31E62 /* PHContent.m in Sources */,
+				EA62D66C1579925300B31E62 /* PHContentView.m in Sources */,
+				EA62D66D1579925300B31E62 /* PHPublisherContentRequest.m in Sources */,
+				EA62D66E1579925300B31E62 /* PHPublisherOpenRequest.m in Sources */,
+				EA62D66F1579925300B31E62 /* ExampleViewController.m in Sources */,
+				EA62D6701579925300B31E62 /* PublisherOpenViewController.m in Sources */,
+				EA62D6711579925300B31E62 /* PublisherContentViewController.m in Sources */,
+				EA62D6721579925300B31E62 /* PHPublisherSubContentRequest.m in Sources */,
+				EA62D6731579925300B31E62 /* PHNotificationView.m in Sources */,
+				EA62D6741579925300B31E62 /* PHNotificationRenderer.m in Sources */,
+				EA62D6751579925300B31E62 /* PHNotificationBadgeRenderer.m in Sources */,
+				EA62D6761579925300B31E62 /* PHReward.m in Sources */,
+				EA62D6771579925300B31E62 /* PHConstants.m in Sources */,
+				EA62D6781579925300B31E62 /* PHPublisherIAPTrackingRequest.m in Sources */,
+				EA62D6791579925300B31E62 /* PublisherIAPTrackingViewController.m in Sources */,
+				EA62D67A1579925300B31E62 /* IAPHelper.m in Sources */,
+				EA62D67B1579925300B31E62 /* OpenUDID.m in Sources */,
+				EA62D67C1579925300B31E62 /* PublisherCancelContentViewController.m in Sources */,
+				EA62D67D1579925300B31E62 /* PHNetworkUtil.m in Sources */,
+				EA62D67E1579925300B31E62 /* SDCachedURLResponse.m in Sources */,
+				EA62D69E1579946200B31E62 /* PHTestController.m in Sources */,
+				EA62D6A1157994E600B31E62 /* KIFTestScenario+PHAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1617,6 +1830,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		EA62D69A157992CD00B31E62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KIF;
+			targetProxy = EA62D699157992CD00B31E62 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		EA12ABDB1365DBB700CB2F24 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -1648,10 +1869,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1670,10 +1888,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1801,6 +2016,72 @@
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		EA62D6931579925300B31E62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PH_USE_STOREKIT=1",
+					"RUN_KIF_TESTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					Cache,
+					example,
+					JSON,
+					src,
+					"$(SRCROOT)/KIF/**",
+				);
+				INFOPLIST_FILE = "Info-KIF.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = KIFExample;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EA62D6941579925300B31E62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = example/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PH_USE_STOREKIT=1",
+					"RUN_KIF_TESTS=1",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					Cache,
+					example,
+					JSON,
+					src,
+					"$(SRCROOT)/KIF/**",
+				);
+				INFOPLIST_FILE = "Info-KIF.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = KIFExample;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -2122,6 +2403,15 @@
 			buildConfigurations = (
 				EA14C6631342604000E228E0 /* Debug */,
 				EA14C6641342604000E228E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA62D6921579925300B31E62 /* Build configuration list for PBXNativeTarget "Example (KIF)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA62D6931579925300B31E62 /* Debug */,
+				EA62D6941579925300B31E62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
