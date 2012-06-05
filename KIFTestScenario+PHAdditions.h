@@ -10,5 +10,8 @@
 #import "KIFTestScenario.h"
 
 @interface KIFTestScenario(PHAdditions)
-+(id)scenarioToFillInTokenAndSecret;
++(id)scenarioToTestFieldManipulation;
++(id)scenarioToSendOpenRequest;
++(id)scenarioToSendOpenRequestWithCustomDeviceId;
++(id)scenarioToSendContentRequest;
 @end

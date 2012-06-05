@@ -246,6 +246,7 @@
 		EA9AB66914A3B2EE00079704 /* PHReward.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB2B44513CBD172006D2391 /* PHReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA9AB66B14A3B2EE00079704 /* PHPublisherOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8D1343EE790057DEA5 /* PHPublisherOpenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA547D714BF62AC00254A54 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D175008D149193790037A036 /* CFNetwork.framework */; };
+		EAABE1FB157D7DA8008286A3 /* KIFTestStep+PHAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */; };
 		EAB2B44713CBD172006D2391 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
 		EAB2B44813CBD172006D2391 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
 		EAB4423313452026000DA3E9 /* PHAPIRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4423213452026000DA3E9 /* PHAPIRequestTest.m */; };
@@ -580,6 +581,8 @@
 		EA8C313214DC791B0075B473 /* content-subcontent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-subcontent.json"; sourceTree = "<group>"; };
 		EA8C313614DC9F710075B473 /* Info-fixtures.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-fixtures.plist"; sourceTree = "<group>"; };
 		EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHaven.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAABE1F9157D7DA8008286A3 /* KIFTestStep+PHAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestStep+PHAdditions.h"; sourceTree = "<group>"; };
+		EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestStep+PHAdditions.m"; sourceTree = "<group>"; };
 		EAB19C8C1357BA390067F27A /* PHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConstants.h; sourceTree = "<group>"; };
 		EAB2B44513CBD172006D2391 /* PHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHReward.h; sourceTree = "<group>"; };
 		EAB2B44613CBD172006D2391 /* PHReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHReward.m; sourceTree = "<group>"; };
@@ -741,8 +744,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				EA62D69B1579937200B31E62 /* Integration Tests */,
 				EA62D6501579922300B31E62 /* KIF.xcodeproj */,
+				EA62D69B1579937200B31E62 /* Integration Tests */,
 				EA328B2F151A9D4400DE3CAD /* README.markdown */,
 				EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */,
 				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
@@ -981,6 +984,8 @@
 				EA62D69D1579946200B31E62 /* PHTestController.m */,
 				EA62D69F157994E600B31E62 /* KIFTestScenario+PHAdditions.h */,
 				EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */,
+				EAABE1F9157D7DA8008286A3 /* KIFTestStep+PHAdditions.h */,
+				EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */,
 			);
 			name = "Integration Tests";
 			sourceTree = "<group>";
@@ -1610,6 +1615,7 @@
 				EA62D67E1579925300B31E62 /* SDCachedURLResponse.m in Sources */,
 				EA62D69E1579946200B31E62 /* PHTestController.m in Sources */,
 				EA62D6A1157994E600B31E62 /* KIFTestScenario+PHAdditions.m in Sources */,
+				EAABE1FB157D7DA8008286A3 /* KIFTestStep+PHAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,9 @@
 @implementation PHTestController
 
 -(void)initializeScenarios{
-    [self addScenario:[KIFTestScenario scenarioToFillInTokenAndSecret]];
+    [self addScenario:[KIFTestScenario scenarioToSendOpenRequest]];
+    [self addScenario:[KIFTestScenario scenarioToSendOpenRequestWithCustomDeviceId]];
+    [self addScenario:[KIFTestScenario scenarioToSendContentRequest]];
 }
 
 @end

@@ -118,6 +118,7 @@ static NSMutableSet *allContentViews = nil;
                       nil];
 #ifndef PH_UNIT_TESTING         
         _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        _webView.accessibilityLabel = @"content view";
         [self addSubview:_webView];
 #endif
         self.content = content;
@@ -188,7 +189,6 @@ static NSMutableSet *allContentViews = nil;
             _webView.frame = contentFrame;
             
         }
-        
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:duration];

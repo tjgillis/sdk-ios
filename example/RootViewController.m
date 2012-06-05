@@ -121,10 +121,12 @@
         case 0:
             cell.textLabel.text = @"Open";
             cell.detailTextLabel.text = @"/publisher/open/";
+            cell.accessibilityLabel = @"open";
             break;
         case 1:
             cell.textLabel.text = @"Content";
             cell.detailTextLabel.text = @"/publisher/content/";
+            cell.accessibilityLabel = @"content";
             break;
         case 2:
             cell.textLabel.text = @"IAP Tracking";
