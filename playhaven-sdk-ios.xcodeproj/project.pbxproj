@@ -745,7 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				EA62D6501579922300B31E62 /* KIF.xcodeproj */,
-				EA62D69B1579937200B31E62 /* Integration Tests */,
+				EA62D69B1579937200B31E62 /* Automated Tests */,
 				EA328B2F151A9D4400DE3CAD /* README.markdown */,
 				EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */,
 				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
@@ -977,7 +977,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EA62D69B1579937200B31E62 /* Integration Tests */ = {
+		EA62D69B1579937200B31E62 /* Automated Tests */ = {
 			isa = PBXGroup;
 			children = (
 				EA62D6A2157996E300B31E62 /* PHTestController.h */,
@@ -987,7 +987,7 @@
 				EAABE1F9157D7DA8008286A3 /* KIFTestStep+PHAdditions.h */,
 				EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */,
 			);
-			name = "Integration Tests";
+			name = "Automated Tests";
 			sourceTree = "<group>";
 		};
 		EA86C7F014D9E77D00CB1551 /* WaterWorks */ = {

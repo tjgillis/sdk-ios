@@ -46,6 +46,7 @@
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request..."];
     [result addStep:[KIFTestStep stepToResetWithToken:@"zombie1" secret:@"haven1"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
+    [result addStep:[KIFTestStep stepToEnterText:@"more_games" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
     [result addStep:[KIFTestStep stepToWaitForWebViewWithAccessibilityLabelToFinishLoading:@"content view"]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:5.0 description:@"Five second timeout for context load."]];

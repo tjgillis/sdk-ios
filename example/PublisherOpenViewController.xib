@@ -48,7 +48,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUITextField" id="441513440">
 								<reference key="NSNextResponder" ref="1038656081"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{20, 6}, {280, 31}}</string>
 								<reference key="NSSuperview" ref="1038656081"/>
 								<reference key="NSWindow"/>
@@ -124,11 +124,10 @@
 							</object>
 							<object class="IBUIButton" id="271980813">
 								<reference key="NSNextResponder" ref="1038656081"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{166, 45}, {134, 37}}</string>
 								<reference key="NSSuperview" ref="1038656081"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
