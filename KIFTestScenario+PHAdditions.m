@@ -13,19 +13,9 @@
 
 
 @implementation KIFTestScenario(PHAdditions)
-
-+(id)scenarioToTestFieldManipulation{
-    KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Testing fields..."];
-    [result addStep:[KIFTestStep stepToResetWithToken:@"" secret:@""]];
-    [result addStep:[KIFTestStep stepToEnterText:@"token" intoViewWithAccessibilityLabel:@"token"]];
-    [result addStep:[KIFTestStep stepToEnterText:@"secret" intoViewWithAccessibilityLabel:@"secret"]];
-    
-    return result;
-}
-
 +(id)scenarioToSendOpenRequest{
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request..."];
-    [result addStep:[KIFTestStep stepToResetWithToken:@"zombie1" secret:@"haven1"]];
+    [result addStepsFromArray:[KIFTestStep stepsToResetAppWithToken:@"zombie1" secret:@"haven1"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"open"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
     [result addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"Request success message"]];
@@ -34,7 +24,7 @@
 
 +(id)scenarioToSendOpenRequestWithCustomDeviceId{
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request with a custom device id..."];
-    [result addStep:[KIFTestStep stepToResetWithToken:@"zombie1" secret:@"haven1"]];
+    [result addStepsFromArray:[KIFTestStep stepsToResetAppWithToken:@"zombie1" secret:@"haven1"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"open"]];
     [result addStep:[KIFTestStep stepToEnterText:@"test_id" intoViewWithAccessibilityLabel:@"custom"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
@@ -44,7 +34,7 @@
 
 +(id)scenarioToSendContentRequest{
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request..."];
-    [result addStep:[KIFTestStep stepToResetWithToken:@"zombie1" secret:@"haven1"]];
+    [result addStepsFromArray:[KIFTestStep stepsToResetAppWithToken:@"zombie1" secret:@"haven1"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
     [result addStep:[KIFTestStep stepToEnterText:@"more_games" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
