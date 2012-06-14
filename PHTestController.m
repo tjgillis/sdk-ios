@@ -15,7 +15,9 @@
 -(void)initializeScenarios{
     [self addScenario:[KIFTestScenario scenarioToSendOpenRequest]];
     [self addScenario:[KIFTestScenario scenarioToSendOpenRequestWithCustomDeviceId]];
-    [self addScenario:[KIFTestScenario scenarioToSendContentRequest]];
+//    [self addScenario:[KIFTestScenario scenarioToSendContentRequest]];
+    [self addScenario:[KIFTestScenario scenarioToSendContentRequestTestingReward]];
+    [self addScenario:[KIFTestScenario scenarioToSendContentRequestTestingAnnouncementLaunch]];
 }
 
 @end

@@ -37,6 +37,10 @@
 -(void)resetRedirects;
 -(void)bounceOut;
 -(void)bounceIn;
+
+//used for automation, does nothing in this context
+-(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback;
+-(void)_logCallbackForAutomation:(NSString *)callback;
 @end
 
 static NSMutableSet *allContentViews = nil;
@@ -437,10 +441,13 @@ static NSMutableSet *allContentViews = nil;
     NSInvocation *redirect = [_redirects valueForKey:urlPath];
     
     if (redirect) {
+        
         NSDictionary *queryComponents = [url queryComponents];
         NSString *callback = [queryComponents valueForKey:@"callback"];
-        
         NSString *contextString = [queryComponents valueForKey:@"context"];
+    
+        //Logging for automation, this is a no-op when not automating
+        [self _logRedirectForAutomation:urlPath callback:callback];
         
         PH_SBJSONPARSER_CLASS *parser = [PH_SBJSONPARSER_CLASS new];
         id parserObject = [parser objectWithString:contextString];
@@ -554,6 +561,10 @@ static NSMutableSet *allContentViews = nil;
     
     NSString *callbackCommand = [NSString stringWithFormat:@"var PlayHavenAPICallback = (window[\"PlayHavenAPICallback\"])? PlayHavenAPICallback : function(c,r,e){try{PlayHaven.nativeAPI.callback(c,r,e);return \"OK\";}catch(err){ return JSON.stringify(err);}}; PlayHavenAPICallback(\"%@\",%@,%@)", _callback, _response, _error];
     NSString *callbackResponse = [_webView stringByEvaluatingJavaScriptFromString:callbackCommand];
+    
+    
+    //log callback for automation, this is no-op outside of automation
+    [self _logCallbackForAutomation:callback];
     
     if ([callbackResponse isEqualToString:@"OK"]) {
         return YES;
@@ -671,5 +682,15 @@ static NSMutableSet *allContentViews = nil;
     _webView.alpha = ALPHA_OUT;
     
     [self viewDidDismiss];
+}
+
+
+#pragma mark - Automation Helpers
+-(void)_logRedirectForAutomation:(NSString *)urlPath{
+    
+}
+
+-(void)_logCallbackForAutomation:(NSString *)callback{
+    
 }
 @end

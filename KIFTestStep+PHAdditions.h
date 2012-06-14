@@ -9,12 +9,20 @@
 #import "KIFTestStep.h"
 
 @interface KIFTestStep (PHAdditions)
-+ (NSArray *)stepsToResetAppWithToken:(NSString *)token secret:(NSString *)secret;
++ (NSArray *)stepsToResetApp;
 
 // Runs arbitrary javascript in webviews. This means we can
 + (id)stepToWaitForWebViewWithAccessibilityLabelToFinishLoading:(NSString *)label;
 + (id)stepToRunJavascript:(NSString *)javascript inWebViewWithAccessibilityLabel:(NSString *)label;
++ (id)stepToRunJavascript:(NSString *)javascript inWebViewWithAccessibilityLabel:(NSString *)label expectedResult:(NSString *)expectedResult;
 
++ (id)stepToTapElementWithSelector:(NSString *)selector inWebViewWithAccessibilityLabel:(NSString *)label;
 
 + (id)stepToClearTextFromViewWithAccessibilityLabel:(NSString *)label;
+
+// SDK specific steps
++ (id)stepToVerifyRewardUnlocked:(NSString *)reward quantity:(NSInteger)quantity;
++ (id)stepToVerifyLaunchURL:(NSString *)urlPath;
++ (id)stepToWaitForDispatch:(NSString *)dispatch;
++ (id)stepToWaitForDispatch:(NSString *)dispatch andCallback:(BOOL)waitForCallback;
 @end

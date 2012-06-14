@@ -28,6 +28,42 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 		</dict>
+		<dict>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>DefaultValue</key>
+			<string>cdc09283a68d44939be5b739d2f590fa</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>Key</key>
+			<string>ExampleToken</string>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>Title</key>
+			<string>Token</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+		</dict>
+		<dict>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>DefaultValue</key>
+			<string>ec563121cba5439593fd05025f22c9b2</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>Key</key>
+			<string>ExampleSecret</string>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>Title</key>
+			<string>Secret</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

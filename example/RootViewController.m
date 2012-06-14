@@ -31,11 +31,13 @@
 @synthesize tokenField;
 @synthesize secretField;
 @synthesize optOutStatusSlider;
+@synthesize serviceURLField;
 
 - (void)dealloc {
     [tokenField release];
     [secretField release];
     [optOutStatusSlider release];
+    [serviceURLField release];
     [super dealloc];
 }
 
@@ -53,6 +55,7 @@
     
     self.tokenField.text = [defaults valueForKey:@"ExampleToken"];
     self.secretField.text = [defaults valueForKey:@"ExampleSecret"];
+    self.serviceURLField.text = PH_BASE_URL;
     
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
 }
@@ -186,6 +189,7 @@
     [self setTokenField:nil];
     [self setSecretField:nil];
     [self setOptOutStatusSlider:nil];
+    [self setServiceURLField:nil];
     [super viewDidUnload];
 }
 @end
