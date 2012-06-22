@@ -66,7 +66,7 @@
     
     //reward content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
-    [result addStep:[KIFTestStep stepToVerifyRewardUnlocked:@"_2345601" quantity:1]];
+    [result addStep:[KIFTestStep stepToVerifyRewardUnlocked:@"delicious_cake" quantity:1]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#button" inWebViewWithAccessibilityLabel:@"content view"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://dismiss"]];
