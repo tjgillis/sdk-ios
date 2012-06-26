@@ -12,4 +12,7 @@ set -o verbose
 xcodebuild -target "Example (KIF)" -configuration Release clean build
 
 # install and run the app on a device connected by USB
-fruitstrap install -d --bundle "build/Release-iphoneos/KIFExample.app"
+fruitstrap install -d --bundle "build/Release-iphoneos/KIFExample.app" > console.log 2>&1
+
+# now show the output to the console
+cat console.log
