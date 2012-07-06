@@ -46,6 +46,7 @@ static PHTimeInGame * shared = nil;
     CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + sessionStartTime] forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    sessionStartTime = currentTime;
 }
 
 /*
@@ -81,6 +82,7 @@ static PHTimeInGame * shared = nil;
     CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + sessionStartTime] forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    sessionStartTime = currentTime;
     return differenceTime;
 }
 
