@@ -10,6 +10,7 @@
 #import "PHConstants.h"
 #import "SDURLCache.h"
 #import "PHURLPrefetchOperation.h"
+#import "PHTimeInGame.h"
 
 #if PH_USE_OPENUDID == 1
 #import "OpenUDID.h"
@@ -121,6 +122,11 @@ NSString *getMACAddress(){
     }
 #endif
     
+    [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]] forKey:@"scount"];
+    [additionalParameters setValue:[NSNumber numberWithDouble:[[PHTimeInGame getInstance] getSumSessionDuration]] forKey:@"ssum"];
+
+    [[PHTimeInGame getInstance] gameSessionRestart];
+
     return  additionalParameters;
 }
 
