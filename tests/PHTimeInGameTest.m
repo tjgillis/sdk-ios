@@ -21,20 +21,24 @@
     [[PHTimeInGame getInstance] gameSessionStarted];
     
     NSNumber *sessionCount = [NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]];
-    STAssertFalse([sessionCount intValue] == 1, @"Session count should be a value of 1");
+    STAssertTrue([sessionCount intValue] == 1, @"Session count should be a value of 1");
 
     CFAbsoluteTime diffTime = [[PHTimeInGame getInstance] getCurrentSessionDuration];
-    STAssertFalse(diffTime > 0, @"Session MUST be greater than 0");
+    STAssertTrue(diffTime > 0, @"Session MUST be greater than 0");
 
     [[PHTimeInGame getInstance] gameSessionStopped];
     int firstCount = [[PHTimeInGame getInstance] getCountSessions];
-    STAssertFalse(firstCount == 1, @"Session count should be 1");
+    STAssertTrue(firstCount == 1, @"Session count should be 1");
+
+    [[PHTimeInGame getInstance] gameSessionStarted];
+    sessionCount = [NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]];
+    STAssertTrue([sessionCount intValue] == 2, @"Session count should be a value of 2");
 
     [[PHTimeInGame getInstance] gameSessionRestart];
     CFAbsoluteTime time = [[PHTimeInGame getInstance] getSumSessionDuration];
-    STAssertFalse(time == 0, @"Session should be 0 since reset");
+    STAssertTrue(time > 0, @"Session should be > 0 since reset");
     int lastCount = [[PHTimeInGame getInstance] getCountSessions];
-    STAssertFalse(lastCount == 0, @"Session count should be 0 since reset");
+    STAssertTrue(lastCount == 0, @"Session count should be 0 since reset");
 }
 
 @end
