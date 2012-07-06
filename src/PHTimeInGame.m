@@ -43,9 +43,8 @@ static PHTimeInGame * shared = nil;
     
     // Add the time of the session to the duration
     CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
-    CFAbsoluteTime lastSessionTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionDuration"] doubleValue];
-    CFAbsoluteTime differenceTime = currentTime - lastSessionTime;
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + lastSessionTime] forKey:@"PHSessionDuration"];
+    CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + sessionStartTime] forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -79,9 +78,8 @@ static PHTimeInGame * shared = nil;
 -(CFAbsoluteTime) getCurrentSessionDuration {
 
     CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
-    CFAbsoluteTime lastSessionTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionDuration"] doubleValue];
-    CFAbsoluteTime differenceTime = currentTime - lastSessionTime;
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + lastSessionTime] forKey:@"PHSessionDuration"];
+    CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + sessionStartTime] forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     return differenceTime;
 }
