@@ -1875,6 +1875,10 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-mno-thumb",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1922,6 +1926,10 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-mno-thumb",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-NoStoreKit";
 				SKIP_INSTALL = YES;
@@ -1973,6 +1981,10 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-mno-thumb",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-Safe";
 				SKIP_INSTALL = YES;
@@ -2024,6 +2036,10 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-mno-thumb",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PlayHaven-Safe_NoStoreKit";
 				SKIP_INSTALL = YES;
