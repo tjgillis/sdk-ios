@@ -158,11 +158,8 @@
 		EA62D6901579925300B31E62 /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC8A0150033A6007EF54F /* 72.png */; };
 		EA62D6911579925300B31E62 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
 		EA62D698157992BE00B31E62 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA62D6581579922300B31E62 /* libKIF.a */; };
-		EA62D69E1579946200B31E62 /* PHTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62D69D1579946200B31E62 /* PHTestController.m */; };
-		EA62D6A1157994E600B31E62 /* KIFTestScenario+PHAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */; };
 		EA6ADFC51475CF3A00DBE60B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABAA6971450ED640040B937 /* SystemConfiguration.framework */; };
 		EA6ADFC81475F22C00DBE60B /* PHPublisherContentRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */; };
-		EA6F4443158009A2004B68CB /* PHURLLoader+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F4442158009A2004B68CB /* PHURLLoader+Automation.m */; };
 		EA7BC61A13537F8700B4518D /* PHURLLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */; };
 		EA7CF59D156C365C0095572E /* PlayHavenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7CF59C156C365C0095572E /* PlayHavenTest.m */; };
 		EA837E9314EB349A001C8147 /* content-integration.json in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F914D9EB8600CB1551 /* content-integration.json */; };
@@ -247,9 +244,6 @@
 		EA9AB66914A3B2EE00079704 /* PHReward.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB2B44513CBD172006D2391 /* PHReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA9AB66B14A3B2EE00079704 /* PHPublisherOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8D1343EE790057DEA5 /* PHPublisherOpenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA547D714BF62AC00254A54 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D175008D149193790037A036 /* CFNetwork.framework */; };
-		EAABE1FB157D7DA8008286A3 /* KIFTestStep+PHAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */; };
-		EAB10F1C158146A8003C10F1 /* PHReward+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB10F1B158146A8003C10F1 /* PHReward+Automation.m */; };
-		EAB10F1F158149FB003C10F1 /* PHContentView+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB10F1E158149FA003C10F1 /* PHContentView+Automation.m */; };
 		EAB2B44713CBD172006D2391 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
 		EAB2B44813CBD172006D2391 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
 		EAB4423313452026000DA3E9 /* PHAPIRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4423213452026000DA3E9 /* PHAPIRequestTest.m */; };
@@ -312,10 +306,16 @@
 		EABC0C76152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
 		EABC0C77152B8A3200441393 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EABC0C75152B8A3200441393 /* Settings.bundle */; };
 		EABC1CE7143A770000638B09 /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABC1CE6143A770000638B09 /* ExampleViewController.xib */; };
-		EAC11EC4158A914C00EBD02D /* zepto.viewportposition.js in Resources */ = {isa = PBXBuildFile; fileRef = EAC11EC2158A7E0600EBD02D /* zepto.viewportposition.js */; };
 		EAC53A94134E5F7A00F2F956 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
 		EACFC89E1500328E007EF54F /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC89D1500328E007EF54F /* 57.png */; };
 		EACFC8A1150033A6007EF54F /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = EACFC8A0150033A6007EF54F /* 72.png */; };
+		EAD610F015AC9212001D3E90 /* KIFTestScenario+PHAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610E415AC9212001D3E90 /* KIFTestScenario+PHAdditions.m */; };
+		EAD610F115AC9212001D3E90 /* KIFTestStep+PHAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610E615AC9212001D3E90 /* KIFTestStep+PHAdditions.m */; };
+		EAD610F215AC9212001D3E90 /* PHContentView+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610E815AC9212001D3E90 /* PHContentView+Automation.m */; };
+		EAD610F315AC9212001D3E90 /* PHReward+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EA15AC9212001D3E90 /* PHReward+Automation.m */; };
+		EAD610F415AC9212001D3E90 /* PHTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EC15AC9212001D3E90 /* PHTestController.m */; };
+		EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */; };
+		EAD610F715AC949C001D3E90 /* zepto.viewportposition.js in Resources */ = {isa = PBXBuildFile; fileRef = EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */; };
@@ -544,8 +544,6 @@
 		EA2B07A214E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		EA328B2F151A9D4400DE3CAD /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherOpenViewController.xib; sourceTree = "<group>"; };
-		EA328B82151BFAF600DE3CAD /* Info-udid.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-udid.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-udid.plist"; sourceTree = "<absolute>"; };
-		EA328BBB151BFC9B00DE3CAD /* Info-mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-mac.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-mac.plist"; sourceTree = "<absolute>"; };
 		EA451029156298E80095538E /* SDCachedURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCachedURLResponse.m; sourceTree = "<group>"; };
 		EA45102A156298E80095538E /* SDCachedURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCachedURLResponse.h; sourceTree = "<group>"; };
 		EA4ABA0E135F859D0062AE77 /* UIDevice+HardwareString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+HardwareString.h"; sourceTree = "<group>"; };
@@ -567,14 +565,7 @@
 		EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenSDK.h; sourceTree = "<group>"; };
 		EA62D6501579922300B31E62 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		EA62D6951579925300B31E62 /* KIFExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIFExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA62D6971579925300B31E62 /* Info-KIF.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-KIF.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-KIF.plist"; sourceTree = "<absolute>"; };
-		EA62D69D1579946200B31E62 /* PHTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTestController.m; sourceTree = "<group>"; };
-		EA62D69F157994E600B31E62 /* KIFTestScenario+PHAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+PHAdditions.h"; sourceTree = "<group>"; };
-		EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+PHAdditions.m"; sourceTree = "<group>"; };
-		EA62D6A2157996E300B31E62 /* PHTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTestController.h; sourceTree = "<group>"; };
 		EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequestTest.m; sourceTree = "<group>"; };
-		EA6F4441158009A2004B68CB /* PHURLLoader+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHURLLoader+Automation.h"; sourceTree = "<group>"; };
-		EA6F4442158009A2004B68CB /* PHURLLoader+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHURLLoader+Automation.m"; sourceTree = "<group>"; };
 		EA7BC61813537F8700B4518D /* PHURLLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHURLLoaderTest.m; sourceTree = "<group>"; };
 		EA7CF59C156C365C0095572E /* PlayHavenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHavenTest.m; sourceTree = "<group>"; };
 		EA86C7EC14D9E75600CB1551 /* Example (Fixtures).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example (Fixtures).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -587,12 +578,6 @@
 		EA8C313214DC791B0075B473 /* content-subcontent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-subcontent.json"; sourceTree = "<group>"; };
 		EA8C313614DC9F710075B473 /* Info-fixtures.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-fixtures.plist"; sourceTree = "<group>"; };
 		EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHaven.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAABE1F9157D7DA8008286A3 /* KIFTestStep+PHAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestStep+PHAdditions.h"; sourceTree = "<group>"; };
-		EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestStep+PHAdditions.m"; sourceTree = "<group>"; };
-		EAB10F1A158146A8003C10F1 /* PHReward+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHReward+Automation.h"; sourceTree = "<group>"; };
-		EAB10F1B158146A8003C10F1 /* PHReward+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHReward+Automation.m"; sourceTree = "<group>"; };
-		EAB10F1D158149FA003C10F1 /* PHContentView+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHContentView+Automation.h"; sourceTree = "<group>"; };
-		EAB10F1E158149FA003C10F1 /* PHContentView+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHContentView+Automation.m"; sourceTree = "<group>"; };
 		EAB19C8C1357BA390067F27A /* PHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConstants.h; sourceTree = "<group>"; };
 		EAB2B44513CBD172006D2391 /* PHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHReward.h; sourceTree = "<group>"; };
 		EAB2B44613CBD172006D2391 /* PHReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHReward.m; sourceTree = "<group>"; };
@@ -614,11 +599,27 @@
 		EABC0C7F152BC9E600441393 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = PlayHaven_SDK_Agreement.rtf; sourceTree = "<group>"; };
 		EABC1CE6143A770000638B09 /* ExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExampleViewController.xib; sourceTree = "<group>"; };
-		EAC11EC2158A7E0600EBD02D /* zepto.viewportposition.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.viewportposition.js; sourceTree = "<group>"; };
 		EAC53A91134E5F7A00F2F956 /* NSObject+QueryComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+QueryComponents.h"; sourceTree = "<group>"; };
 		EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+QueryComponents.m"; sourceTree = "<group>"; };
 		EACFC89D1500328E007EF54F /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
 		EACFC8A0150033A6007EF54F /* 72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72.png; sourceTree = "<group>"; };
+		EAD610DE15AC91F6001D3E90 /* Info-KIF.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-KIF.plist"; sourceTree = "<group>"; };
+		EAD610DF15AC91F6001D3E90 /* Info-mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-mac.plist"; sourceTree = "<group>"; };
+		EAD610E015AC91F6001D3E90 /* Info-safe.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-safe.plist"; sourceTree = "<group>"; };
+		EAD610E115AC91F6001D3E90 /* Info-udid.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-udid.plist"; sourceTree = "<group>"; };
+		EAD610E315AC9212001D3E90 /* KIFTestScenario+PHAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+PHAdditions.h"; sourceTree = "<group>"; };
+		EAD610E415AC9212001D3E90 /* KIFTestScenario+PHAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+PHAdditions.m"; sourceTree = "<group>"; };
+		EAD610E515AC9212001D3E90 /* KIFTestStep+PHAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestStep+PHAdditions.h"; sourceTree = "<group>"; };
+		EAD610E615AC9212001D3E90 /* KIFTestStep+PHAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestStep+PHAdditions.m"; sourceTree = "<group>"; };
+		EAD610E715AC9212001D3E90 /* PHContentView+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHContentView+Automation.h"; sourceTree = "<group>"; };
+		EAD610E815AC9212001D3E90 /* PHContentView+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHContentView+Automation.m"; sourceTree = "<group>"; };
+		EAD610E915AC9212001D3E90 /* PHReward+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHReward+Automation.h"; sourceTree = "<group>"; };
+		EAD610EA15AC9212001D3E90 /* PHReward+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHReward+Automation.m"; sourceTree = "<group>"; };
+		EAD610EB15AC9212001D3E90 /* PHTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTestController.h; sourceTree = "<group>"; };
+		EAD610EC15AC9212001D3E90 /* PHTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTestController.m; sourceTree = "<group>"; };
+		EAD610ED15AC9212001D3E90 /* PHURLLoader+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHURLLoader+Automation.h"; sourceTree = "<group>"; };
+		EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHURLLoader+Automation.m"; sourceTree = "<group>"; };
+		EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.viewportposition.js; sourceTree = "<group>"; };
 		EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherSubContentRequest.h; sourceTree = "<group>"; };
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
 		EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherIAPTrackingRequestTest.m; sourceTree = "<group>"; };
@@ -627,7 +628,6 @@
 		EAF168671534E2DE006B6993 /* libPlayHaven-Safe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPlayHaven-Safe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF168A21534E34F006B6993 /* libPlayHaven-Safe_NoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPlayHaven-Safe_NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF168DB1534E59C006B6993 /* SafeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAF168DD1534E59C006B6993 /* Info-safe.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-safe.plist"; path = "/Users/jesus/Workspace/playhaven/sdk-ios/Info-safe.plist"; sourceTree = "<absolute>"; };
 		EAFF5E7514F707A300E96C2C /* PublisherIAPTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublisherIAPTrackingViewController.h; sourceTree = "<group>"; };
 		EAFF5E7614F707A300E96C2C /* PublisherIAPTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherIAPTrackingViewController.m; sourceTree = "<group>"; };
 		EAFF5E7914F7082800E96C2C /* PublisherIAPTrackingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublisherIAPTrackingViewController.xib; sourceTree = "<group>"; };
@@ -755,14 +755,14 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				EA62D6501579922300B31E62 /* KIF.xcodeproj */,
-				EA62D69B1579937200B31E62 /* Automated Tests */,
+				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
 				EA328B2F151A9D4400DE3CAD /* README.markdown */,
 				EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */,
+				EA62D6501579922300B31E62 /* KIF.xcodeproj */,
 				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
-				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
-				EA523D891343EE670057DEA5 /* tests */,
-				EA12ABD81365DBB700CB2F24 /* example */,
+				EAD610E215AC9212001D3E90 /* Automated Testing */,
+				EA523D891343EE670057DEA5 /* Unit Testing */,
+				EA12ABD81365DBB700CB2F24 /* Example/Debug App */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -830,7 +830,7 @@
 			path = OpenUDID;
 			sourceTree = "<group>";
 		};
-		EA12ABD81365DBB700CB2F24 /* example */ = {
+		EA12ABD81365DBB700CB2F24 /* Example/Debug App */ = {
 			isa = PBXGroup;
 			children = (
 				EA2B079E14E9EBA60087A45F /* Icons */,
@@ -858,19 +858,20 @@
 				EA5FA4751542120600F1517A /* PublisherCancelContentViewController.h */,
 				EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */,
 			);
+			name = "Example/Debug App";
 			path = example;
 			sourceTree = "<group>";
 		};
 		EA12ABD91365DBB700CB2F24 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EAD610DE15AC91F6001D3E90 /* Info-KIF.plist */,
+				EAD610DF15AC91F6001D3E90 /* Info-mac.plist */,
+				EAD610E015AC91F6001D3E90 /* Info-safe.plist */,
+				EAD610E115AC91F6001D3E90 /* Info-udid.plist */,
 				EABC0C7B152B8A6500441393 /* Prefix.pch */,
 				EABC0C75152B8A3200441393 /* Settings.bundle */,
 				EA8C313614DC9F710075B473 /* Info-fixtures.plist */,
-				EAF168DD1534E59C006B6993 /* Info-safe.plist */,
-				EA328B82151BFAF600DE3CAD /* Info-udid.plist */,
-				EA328BBB151BFC9B00DE3CAD /* Info-mac.plist */,
-				EA62D6971579925300B31E62 /* Info-KIF.plist */,
 				EA12ABDA1365DBB700CB2F24 /* Info.plist */,
 				EA12ABDB1365DBB700CB2F24 /* InfoPlist.strings */,
 				EA12ABDF1365DBB700CB2F24 /* main.m */,
@@ -905,7 +906,7 @@
 			path = light;
 			sourceTree = "<group>";
 		};
-		EA523D891343EE670057DEA5 /* tests */ = {
+		EA523D891343EE670057DEA5 /* Unit Testing */ = {
 			isa = PBXGroup;
 			children = (
 				EA6ADFC71475F22C00DBE60B /* PHPublisherContentRequestTest.m */,
@@ -918,6 +919,7 @@
 				EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */,
 				EA7CF59C156C365C0095572E /* PlayHavenTest.m */,
 			);
+			name = "Unit Testing";
 			path = tests;
 			sourceTree = "<group>";
 		};
@@ -988,26 +990,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EA62D69B1579937200B31E62 /* Automated Tests */ = {
-			isa = PBXGroup;
-			children = (
-				EA62D6A2157996E300B31E62 /* PHTestController.h */,
-				EA62D69D1579946200B31E62 /* PHTestController.m */,
-				EA62D69F157994E600B31E62 /* KIFTestScenario+PHAdditions.h */,
-				EA62D6A0157994E600B31E62 /* KIFTestScenario+PHAdditions.m */,
-				EAABE1F9157D7DA8008286A3 /* KIFTestStep+PHAdditions.h */,
-				EAABE1FA157D7DA8008286A3 /* KIFTestStep+PHAdditions.m */,
-				EA6F4441158009A2004B68CB /* PHURLLoader+Automation.h */,
-				EA6F4442158009A2004B68CB /* PHURLLoader+Automation.m */,
-				EAB10F1A158146A8003C10F1 /* PHReward+Automation.h */,
-				EAB10F1B158146A8003C10F1 /* PHReward+Automation.m */,
-				EAB10F1D158149FA003C10F1 /* PHContentView+Automation.h */,
-				EAB10F1E158149FA003C10F1 /* PHContentView+Automation.m */,
-				EAC11EC2158A7E0600EBD02D /* zepto.viewportposition.js */,
-			);
-			name = "Automated Tests";
-			sourceTree = "<group>";
-		};
 		EA86C7F014D9E77D00CB1551 /* WaterWorks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1064,6 +1046,27 @@
 				EA4ABA0F135F859D0062AE77 /* UIDevice+HardwareString.m */,
 			);
 			name = Additions;
+			sourceTree = "<group>";
+		};
+		EAD610E215AC9212001D3E90 /* Automated Testing */ = {
+			isa = PBXGroup;
+			children = (
+				EAD610E315AC9212001D3E90 /* KIFTestScenario+PHAdditions.h */,
+				EAD610E415AC9212001D3E90 /* KIFTestScenario+PHAdditions.m */,
+				EAD610E515AC9212001D3E90 /* KIFTestStep+PHAdditions.h */,
+				EAD610E615AC9212001D3E90 /* KIFTestStep+PHAdditions.m */,
+				EAD610E715AC9212001D3E90 /* PHContentView+Automation.h */,
+				EAD610E815AC9212001D3E90 /* PHContentView+Automation.m */,
+				EAD610E915AC9212001D3E90 /* PHReward+Automation.h */,
+				EAD610EA15AC9212001D3E90 /* PHReward+Automation.m */,
+				EAD610EB15AC9212001D3E90 /* PHTestController.h */,
+				EAD610EC15AC9212001D3E90 /* PHTestController.m */,
+				EAD610ED15AC9212001D3E90 /* PHURLLoader+Automation.h */,
+				EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */,
+				EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */,
+			);
+			name = "Automated Testing";
+			path = automation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1437,7 +1440,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC11EC4158A914C00EBD02D /* zepto.viewportposition.js in Resources */,
+				EAD610F715AC949C001D3E90 /* zepto.viewportposition.js in Resources */,
 				EA62D6871579925300B31E62 /* PublisherOpenViewController.xib in Resources */,
 				EA62D6881579925300B31E62 /* InfoPlist.strings in Resources */,
 				EA62D6891579925300B31E62 /* MainWindow.xib in Resources */,
@@ -1632,12 +1635,12 @@
 				EA62D67C1579925300B31E62 /* PublisherCancelContentViewController.m in Sources */,
 				EA62D67D1579925300B31E62 /* PHNetworkUtil.m in Sources */,
 				EA62D67E1579925300B31E62 /* SDCachedURLResponse.m in Sources */,
-				EA62D69E1579946200B31E62 /* PHTestController.m in Sources */,
-				EA62D6A1157994E600B31E62 /* KIFTestScenario+PHAdditions.m in Sources */,
-				EAABE1FB157D7DA8008286A3 /* KIFTestStep+PHAdditions.m in Sources */,
-				EA6F4443158009A2004B68CB /* PHURLLoader+Automation.m in Sources */,
-				EAB10F1C158146A8003C10F1 /* PHReward+Automation.m in Sources */,
-				EAB10F1F158149FB003C10F1 /* PHContentView+Automation.m in Sources */,
+				EAD610F015AC9212001D3E90 /* KIFTestScenario+PHAdditions.m in Sources */,
+				EAD610F115AC9212001D3E90 /* KIFTestStep+PHAdditions.m in Sources */,
+				EAD610F215AC9212001D3E90 /* PHContentView+Automation.m in Sources */,
+				EAD610F315AC9212001D3E90 /* PHReward+Automation.m in Sources */,
+				EAD610F415AC9212001D3E90 /* PHTestController.m in Sources */,
+				EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2071,7 +2074,7 @@
 					src,
 					"$(SRCROOT)/KIF/**",
 				);
-				INFOPLIST_FILE = "Info-KIF.plist";
+				INFOPLIST_FILE = "example/Info-KIF.plist";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -2102,7 +2105,7 @@
 					src,
 					"$(SRCROOT)/KIF/**",
 				);
-				INFOPLIST_FILE = "Info-KIF.plist";
+				INFOPLIST_FILE = "example/Info-KIF.plist";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -2371,7 +2374,7 @@
 					JSON,
 					src,
 				);
-				INFOPLIST_FILE = "Info-safe.plist";
+				INFOPLIST_FILE = "example/Info-safe.plist";
 				PRODUCT_NAME = SafeExample;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2398,7 +2401,7 @@
 					JSON,
 					src,
 				);
-				INFOPLIST_FILE = "Info-safe.plist";
+				INFOPLIST_FILE = "example/Info-safe.plist";
 				PRODUCT_NAME = SafeExample;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
