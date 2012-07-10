@@ -22,20 +22,37 @@
 @implementation RootViewController
 
 +(void)initialize{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:@"ExampleToken"];
+    NSString *secret = [defaults valueForKey:@"ExampleSecret"];
+    
     if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]){
-        [[NSUserDefaults standardUserDefaults] setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [defaults setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
     }
+
+    if (token == nil || [token isEqualToString:@""]) {
+        [defaults setValue:@"8ae979ddcdaf450996e897322169d26c" forKey:@"ExampleToken"];
+    }
+    
+    if (secret == nil || [secret isEqualToString:@""]) {
+        [defaults setValue:@"080d853e433a4468ba3315953b22615e" forKey:@"ExampleSecret"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+
 
 @synthesize tokenField;
 @synthesize secretField;
 @synthesize optOutStatusSlider;
+@synthesize serviceURLField;
 
 - (void)dealloc {
     [tokenField release];
     [secretField release];
     [optOutStatusSlider release];
+    [serviceURLField release];
     [super dealloc];
 }
 
@@ -50,9 +67,11 @@
 
 -(void)loadTokenAndSecretFromDefaults{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
     
     self.tokenField.text = [defaults valueForKey:@"ExampleToken"];
     self.secretField.text = [defaults valueForKey:@"ExampleSecret"];
+    self.serviceURLField.text = PH_BASE_URL;
     
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
 }
@@ -73,12 +92,15 @@
 {
     [super viewDidLoad];
     self.title = @"PlayHaven";
-    [self loadTokenAndSecretFromDefaults];
-    
     
     UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithTitle:@"Toggle" style:UIBarButtonItemStyleBordered target:self action:@selector(touchedToggleStatusBar:)];
     self.navigationItem.rightBarButtonItem = toggleButton;
     [toggleButton release];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self loadTokenAndSecretFromDefaults];
 }
 
 -(void)touchedToggleStatusBar:(id)sender{
@@ -121,10 +143,12 @@
         case 0:
             cell.textLabel.text = @"Open";
             cell.detailTextLabel.text = @"/publisher/open/";
+            cell.accessibilityLabel = @"open";
             break;
         case 1:
             cell.textLabel.text = @"Content";
             cell.detailTextLabel.text = @"/publisher/content/";
+            cell.accessibilityLabel = @"content";
             break;
         case 2:
             cell.textLabel.text = @"IAP Tracking";
@@ -184,6 +208,7 @@
     [self setTokenField:nil];
     [self setSecretField:nil];
     [self setOptOutStatusSlider:nil];
+    [self setServiceURLField:nil];
     [super viewDidUnload];
 }
 @end

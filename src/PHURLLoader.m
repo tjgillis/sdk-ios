@@ -8,12 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "PHURLLoader.h"
 #import "PHConstants.h"
+
 #define MAXIMUM_REDIRECTS 10
 
 @interface PHURLLoader(Private)
 +(NSMutableSet *)allLoaders;
 -(void)finish;
 -(void)fail;
+-(void)_launchURL:(NSURL *)targetURL;
 @end
 
 @implementation PHURLLoader
@@ -116,7 +118,7 @@
         [self invalidate];
         
         if (self.opensFinalURLOnDevice) {
-            [[UIApplication sharedApplication] openURL:self.targetURL];
+            [self _launchURL:self.targetURL];
         }
     } else {
         [self fail];
@@ -159,6 +161,11 @@
         PH_LOG(@"failing with URL %@", self.targetURL);
         [self fail];
     }
+}
+
+#pragma mark - hidden methods
+-(void)_launchURL:(NSURL *)targetURL{
+    [[UIApplication sharedApplication] openURL:targetURL];
 }
 
 @end

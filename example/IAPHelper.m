@@ -42,37 +42,17 @@
 -(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error;
 @end
 
-static IAPHelper *sharedIAPHelper;
-
 @implementation IAPHelper
 
 +(IAPHelper *)sharedIAPHelper{
-    @synchronized(self){
-        if  (sharedIAPHelper == nil){
-            sharedIAPHelper = [[super allocWithZone:NULL] init];
-        }
-    }
-    return sharedIAPHelper;
+    static dispatch_once_t once;
+    static id sharedInstance;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
 }
 
-+ (id)allocWithZone:(NSZone *)zone {
-    return [[self sharedIAPHelper] retain];
-}
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-- (id)retain {
-    return self;
-}
-- (unsigned)retainCount {
-    return UINT_MAX; //denotes an object that cannot be released
-}
-- (oneway void)release {
-    // never release
-}
-- (id)autorelease {
-    return self;
-}
 - (void)dealloc {
     // Should never be called, but just here for clarity really.
     [_pendingPurchases release], _pendingPurchases = nil;
