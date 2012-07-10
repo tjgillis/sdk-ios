@@ -38,7 +38,7 @@
 -(void)bounceOut;
 -(void)bounceIn;
 
-//used for automation, does nothing in this context
+#pragma mark - Automation Helpers
 -(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback;
 -(void)_logCallbackForAutomation:(NSString *)callback;
 @end
@@ -686,11 +686,11 @@ static NSMutableSet *allContentViews = nil;
 
 
 #pragma mark - Automation Helpers
--(void)_logRedirectForAutomation:(NSString *)urlPath{
-    
-}
+/*------------------------------------------------------------------------------
+ NOTE: These methods are used for recording redirects and callbacks for 
+ automated SDK testing. They have no use in the live SDK.
+------------------------------------------------------------------------------*/
+-(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback{ }
+-(void)_logCallbackForAutomation:(NSString *)callback{ }
 
--(void)_logCallbackForAutomation:(NSString *)callback{
-    
-}
 @end
