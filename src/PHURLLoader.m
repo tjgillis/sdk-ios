@@ -138,7 +138,11 @@
 #pragma mark NSURLConnection
 -(NSURLRequest *) connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response{
     self.targetURL = [request URL];
-    if (++_totalRedirects < MAXIMUM_REDIRECTS) {
+    if (NO &&[self.targetURL.host hasSuffix:@"itunes.apple.com"]){
+        PH_LOG(@"detected app store URL: %@", self.targetURL);
+        [self finish];
+        return nil;
+    } if (++_totalRedirects < MAXIMUM_REDIRECTS) {
         return request;
     } else {
         PH_LOG(@"max redirects with URL %@", self.targetURL);
