@@ -15,4 +15,5 @@
 +(id)scenarioToSendContentRequest;
 +(id)scenarioToSendContentRequestTestingReward;
 +(id)scenarioToSendContentRequestTestingAnnouncementLaunch;
++(id)scenarioToLoadiTunesAndVerifyReferral;
 @end

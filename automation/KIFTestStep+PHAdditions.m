@@ -223,6 +223,32 @@
     }];
 }
 
++(id)steptoVerifyLaunchURLContainsHost:(NSString *)host{
+    NSString *description = [NSString stringWithFormat:@"Verifying the last URL launched contains host: %@ ",host];
+    return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
+        
+        NSURL *url = [PHURLLoader lastLaunchedURL];
+        NSString *hostString = [url host];
+        KIFTestWaitCondition([hostString rangeOfString:host].location != NSNotFound,error,@"Expected launch URL to contain host: %@, but it was not present", host);
+        
+        return KIFTestStepResultSuccess;
+    }];
+}
+
++(id)stepToVerifyLaunchURLContainsParameter:(NSString *)parameter{
+    NSString *description = [NSString stringWithFormat:@"Verifying the last URL launched contains parameter: %@ ",parameter];
+    return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
+        
+        NSURL *url = [PHURLLoader lastLaunchedURL];
+        NSString *parameterString = [url parameterString];
+        KIFTestWaitCondition([parameterString rangeOfString:parameter].location != NSNotFound,error,@"Expected launch URL to contain parameter: %@ but it was not present", parameter);
+        
+        return KIFTestStepResultSuccess;
+    }];
+}
+
+
+
 +(id)stepToWaitForDispatch:(NSString *)dispatch{
     return [self stepToWaitForDispatch:dispatch andCallback:NO];
 }

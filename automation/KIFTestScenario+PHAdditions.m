@@ -90,4 +90,21 @@
     [result addStep:[KIFTestStep stepToWaitForAbsenceOfViewWithAccessibilityLabel:@"content view"]];
     return result;
 }
+
++(id)scenarioToLoadiTunesAndVerifyReferral{
+    KIFTestScenario *result =[KIFTestScenario scenarioWithDescription:@"Loading itunes and verifying referral."];
+    [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
+    [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"url loader"]];
+    
+    // This is a GeoRiot short link that points to the iTunes version of
+    // Justin Bieber's seminal album, My World.
+    // We are testing to see if the launched URL contains the partnerId and siteID
+    // parameters that are needed for recording affiliate referrals.
+    [result addStep:[KIFTestStep stepToEnterText:@"http://glob.ly/2yWE/iso2/EN" intoViewWithAccessibilityLabel:@"URL"]];
+    [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
+    [result addStep:[KIFTestStep steptoVerifyLaunchURLContainsHost:@"itunes.apple.com"]];
+    [result addStep:[KIFTestStep stepToVerifyLaunchURLContainsParameter:@"partnerId"]];
+    [result addStep:[KIFTestStep stepToVerifyLaunchURLContainsParameter:@"siteID"]];
+    return  result;
+}
 @end

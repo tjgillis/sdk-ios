@@ -207,6 +207,14 @@
 		EA86C7F514D9E77D00CB1551 /* WWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86C7F214D9E77D00CB1551 /* WWURLConnection.m */; };
 		EA86C7F614D9E77D00CB1551 /* WWURLMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86C7F414D9E77D00CB1551 /* WWURLMatching.m */; };
 		EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */ = {isa = PBXBuildFile; fileRef = EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */; };
+		EA8A531515B0918B00E7B3ED /* URLLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */; };
+		EA8A531615B0918B00E7B3ED /* URLLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */; };
+		EA8A531715B0918B00E7B3ED /* URLLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */; };
+		EA8A531815B0918B00E7B3ED /* URLLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */; };
+		EA8A531A15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */; };
+		EA8A531B15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */; };
+		EA8A531C15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */; };
+		EA8A531D15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */; };
 		EA8A6D3414C8C5CA000B86A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA019C8514C102D4008FBCB1 /* StoreKit.framework */; };
 		EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
 		EA9AB62014A3B0AA00079704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -575,6 +583,9 @@
 		EA86C7F414D9E77D00CB1551 /* WWURLMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWURLMatching.m; sourceTree = "<group>"; };
 		EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dev.wwfixtures; sourceTree = "<group>"; };
 		EA86C7F914D9EB8600CB1551 /* content-integration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-integration.json"; sourceTree = "<group>"; };
+		EA8A531315B0918B00E7B3ED /* URLLoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLLoaderViewController.h; sourceTree = "<group>"; };
+		EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLLoaderViewController.m; sourceTree = "<group>"; };
+		EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = URLLoaderViewController.xib; sourceTree = "<group>"; };
 		EA8C313214DC791B0075B473 /* content-subcontent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-subcontent.json"; sourceTree = "<group>"; };
 		EA8C313614DC9F710075B473 /* Info-fixtures.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-fixtures.plist"; sourceTree = "<group>"; };
 		EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHaven.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -844,6 +855,9 @@
 				EA12AC3A13662AD700CB2F24 /* ExampleViewController.h */,
 				EA12AC3B13662AD700CB2F24 /* ExampleViewController.m */,
 				EABC1CE6143A770000638B09 /* ExampleViewController.xib */,
+				EA8A531315B0918B00E7B3ED /* URLLoaderViewController.h */,
+				EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */,
+				EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */,
 				EA12AC3D13662DC400CB2F24 /* PublisherOpenViewController.h */,
 				EA12AC3E13662DC400CB2F24 /* PublisherOpenViewController.m */,
 				EA328B46151BF68B00DE3CAD /* PublisherOpenViewController.xib */,
@@ -1423,6 +1437,7 @@
 				EACFC89E1500328E007EF54F /* 57.png in Resources */,
 				EACFC8A1150033A6007EF54F /* 72.png in Resources */,
 				EABC0C76152B8A3200441393 /* Settings.bundle in Resources */,
+				EA8A531A15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1452,6 +1467,7 @@
 				EA62D68F1579925300B31E62 /* 57.png in Resources */,
 				EA62D6901579925300B31E62 /* 72.png in Resources */,
 				EA62D6911579925300B31E62 /* Settings.bundle in Resources */,
+				EA8A531B15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1471,6 +1487,7 @@
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
 				EABC0C77152B8A3200441393 /* Settings.bundle in Resources */,
+				EA8A531C15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1489,6 +1506,7 @@
 				EAF168D51534E59C006B6993 /* 57.png in Resources */,
 				EAF168D61534E59C006B6993 /* 72.png in Resources */,
 				EAF168D71534E59C006B6993 /* Settings.bundle in Resources */,
+				EA8A531D15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1550,6 +1568,7 @@
 				EA5FA4771542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 				EA24FCAD1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 				EA45102C156298E80095538E /* SDCachedURLResponse.m in Sources */,
+				EA8A531515B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1641,6 +1660,7 @@
 				EAD610F315AC9212001D3E90 /* PHReward+Automation.m in Sources */,
 				EAD610F415AC9212001D3E90 /* PHTestController.m in Sources */,
 				EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */,
+				EA8A531615B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1685,6 +1705,7 @@
 				EA5FA4781542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 				EA24FCAE1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 				EA45102D156298E80095538E /* SDCachedURLResponse.m in Sources */,
+				EA8A531715B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1856,6 +1877,7 @@
 				EA5FA4791542120600F1517A /* PublisherCancelContentViewController.m in Sources */,
 				EA24FCAF1554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 				EA45102E156298E80095538E /* SDCachedURLResponse.m in Sources */,
+				EA8A531815B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
