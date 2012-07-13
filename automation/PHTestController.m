@@ -18,6 +18,7 @@
 //    [self addScenario:[KIFTestScenario scenarioToSendContentRequest]];
     [self addScenario:[KIFTestScenario scenarioToSendContentRequestTestingReward]];
     [self addScenario:[KIFTestScenario scenarioToSendContentRequestTestingAnnouncementLaunch]];
+    [self addScenario:[KIFTestScenario scenarioToLoadiTunesAndVerifyReferral]];
 }
 
 @end

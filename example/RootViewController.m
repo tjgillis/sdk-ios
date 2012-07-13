@@ -11,6 +11,7 @@
 #import "PublisherContentViewController.h"
 #import "PublisherIAPTrackingViewController.h"
 #import "PublisherCancelContentViewController.h"
+#import "URLLoaderViewController.h"
 #import "PHAPIRequest.h"
 
 @interface RootViewController(Private)
@@ -127,7 +128,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -157,6 +158,12 @@
         case 3:
             cell.textLabel.text = @"Cancelled Content";
             cell.detailTextLabel.text = @"This content will be cancelled at an awkward time.";
+            break;
+        case 4:
+            cell.textLabel.text = @"URL Loader";
+            cell.detailTextLabel.text = @"Test loading device URLs";
+            cell.accessibilityLabel = @"url loader";
+            break;
         default:
             break;
     }
@@ -193,6 +200,11 @@
             controller.title = @"Content";
             controller.token = self.tokenField.text;
             controller.secret = self.secretField.text;
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
+        } else if (indexPath.row == 4){
+            URLLoaderViewController *controller = [[URLLoaderViewController alloc] initWithNibName:@"URLLoaderViewController" bundle:nil];
+            controller.title = @"URL Loader";
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
         }

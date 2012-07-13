@@ -138,7 +138,7 @@
 #pragma mark NSURLConnection
 -(NSURLRequest *) connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response{
     self.targetURL = [request URL];
-    if (NO &&[self.targetURL.host hasSuffix:@"itunes.apple.com"]){
+    if ([self.targetURL.host hasSuffix:@"itunes.apple.com"]){
         PH_LOG(@"detected app store URL: %@", self.targetURL);
         [self finish];
         return nil;
