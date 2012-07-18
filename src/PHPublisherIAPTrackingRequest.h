@@ -18,19 +18,25 @@
     PHPurchaseResolutionType _resolution;
     SKProductsRequest *_request;
     NSError *_error;
+    NSData *_receiptData;
 }
 
 +(void)setConversionCookie:(NSString *)cookie forProduct:(NSString *)product;
 +(NSString *)getConversionCookieForProduct:(NSString *)product;
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution;
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution DEPRECATED_ATTRIBUTE;
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error;
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error DEPRECATED_ATTRIBUTE;
+
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
+
++(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error receiptData:(NSData *)receiptData;
 
 @property (nonatomic, copy) NSString *product;
 @property (nonatomic, assign) NSInteger quantity;
 @property (nonatomic, retain) NSError *error;
 @property (nonatomic, assign) PHPurchaseResolutionType resolution;
+@property (nonatomic, retain) NSData *receiptData;
 
 @end
 #endif
