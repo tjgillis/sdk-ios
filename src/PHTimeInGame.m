@@ -18,6 +18,12 @@ static PHTimeInGame * shared = nil;
         if (shared == nil) {
             shared = [PHTimeInGame new];
             shared->sessionStartTime = 0;
+
+            // UIApplicationDidBecomeActiveNotification - use instead of UIApplicationWillEnterForegroundNotification
+            // UIApplicationWillResignActiveNotification - use instead of UIApplicationDidEnterBackgroundNotification (NO)
+            [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStopped) name:UIApplicationWillTerminateNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStopped) name:UIApplicationDidEnterBackgroundNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStarted) name:UIApplicationWillEnterForegroundNotification object:nil];
         }
     });
 	

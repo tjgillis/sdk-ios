@@ -11,6 +11,7 @@
 #import "SDURLCache.h"
 #import "PHURLPrefetchOperation.h"
 #import "PHTimeInGame.h"
+#import "PHTimeInGame.h"
 
 #if PH_USE_OPENUDID == 1
 #import "OpenUDID.h"
@@ -98,6 +99,9 @@ NSString *getMACAddress(){
 -(id)init{
     self = [super init];
     if (self) {
+
+        [[PHTimeInGame getInstance] gameSessionStarted];
+
         [self.prefetchOperations addObserver:self forKeyPath:@"operations" options:0 context:NULL];
     }
     
