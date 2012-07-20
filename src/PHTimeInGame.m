@@ -37,7 +37,7 @@ static PHTimeInGame * shared = nil;
     // UIApplicationDidBecomeActiveNotification - use instead of UIApplicationWillEnterForegroundNotification
     // UIApplicationWillResignActiveNotification - use instead of UIApplicationDidEnterBackgroundNotification (NO)
     
-    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStopped) name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionRestart) name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStopped) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStarted) name:UIApplicationWillEnterForegroundNotification object:nil];
 
