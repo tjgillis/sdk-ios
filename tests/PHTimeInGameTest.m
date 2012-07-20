@@ -8,6 +8,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
+#import "PHPublisherOpenRequest.h"
 #import "PHTimeInGame.h"
 
 @interface PHTimeInGameTest : SenTestCase
@@ -18,7 +19,12 @@
 
 -(void)testTimeInGame{
 
-    [[PHTimeInGame getInstance] gameSessionStarted];
+    int sCount = [[PHTimeInGame getInstance] getCountSessions];
+    STAssertTrue(sCount == 0, @"Session MUST be 0");
+
+    NSString *token = @"PUBLISHER_TOKEN", 
+    *secret = @"PUBLISHER_SECRET";
+    PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret];
     
     NSNumber *sessionCount = [NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]];
     STAssertTrue([sessionCount intValue] == 1, @"Session count should be a value of 1");
