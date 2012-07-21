@@ -11,6 +11,7 @@
 #import "PublisherContentViewController.h"
 #import "PublisherIAPTrackingViewController.h"
 #import "PublisherCancelContentViewController.h"
+#import "URLLoaderViewController.h"
 #import "PHAPIRequest.h"
 
 @interface RootViewController(Private)
@@ -22,20 +23,37 @@
 @implementation RootViewController
 
 +(void)initialize{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:@"ExampleToken"];
+    NSString *secret = [defaults valueForKey:@"ExampleSecret"];
+    
     if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]){
-        [[NSUserDefaults standardUserDefaults] setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [defaults setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
     }
+
+    if (token == nil || [token isEqualToString:@""]) {
+        [defaults setValue:@"8ae979ddcdaf450996e897322169d26c" forKey:@"ExampleToken"];
+    }
+    
+    if (secret == nil || [secret isEqualToString:@""]) {
+        [defaults setValue:@"080d853e433a4468ba3315953b22615e" forKey:@"ExampleSecret"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+
 
 @synthesize tokenField;
 @synthesize secretField;
 @synthesize optOutStatusSlider;
+@synthesize serviceURLField;
 
 - (void)dealloc {
     [tokenField release];
     [secretField release];
     [optOutStatusSlider release];
+    [serviceURLField release];
     [super dealloc];
 }
 
@@ -50,9 +68,11 @@
 
 -(void)loadTokenAndSecretFromDefaults{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
     
     self.tokenField.text = [defaults valueForKey:@"ExampleToken"];
     self.secretField.text = [defaults valueForKey:@"ExampleSecret"];
+    self.serviceURLField.text = PH_BASE_URL;
     
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
 }
@@ -73,12 +93,15 @@
 {
     [super viewDidLoad];
     self.title = @"PlayHaven";
-    [self loadTokenAndSecretFromDefaults];
-    
     
     UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithTitle:@"Toggle" style:UIBarButtonItemStyleBordered target:self action:@selector(touchedToggleStatusBar:)];
     self.navigationItem.rightBarButtonItem = toggleButton;
     [toggleButton release];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self loadTokenAndSecretFromDefaults];
 }
 
 -(void)touchedToggleStatusBar:(id)sender{
@@ -105,7 +128,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -121,10 +144,12 @@
         case 0:
             cell.textLabel.text = @"Open";
             cell.detailTextLabel.text = @"/publisher/open/";
+            cell.accessibilityLabel = @"open";
             break;
         case 1:
             cell.textLabel.text = @"Content";
             cell.detailTextLabel.text = @"/publisher/content/";
+            cell.accessibilityLabel = @"content";
             break;
         case 2:
             cell.textLabel.text = @"IAP Tracking";
@@ -133,6 +158,12 @@
         case 3:
             cell.textLabel.text = @"Cancelled Content";
             cell.detailTextLabel.text = @"This content will be cancelled at an awkward time.";
+            break;
+        case 4:
+            cell.textLabel.text = @"URL Loader";
+            cell.detailTextLabel.text = @"Test loading device URLs";
+            cell.accessibilityLabel = @"url loader";
+            break;
         default:
             break;
     }
@@ -171,6 +202,11 @@
             controller.secret = self.secretField.text;
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
+        } else if (indexPath.row == 4){
+            URLLoaderViewController *controller = [[URLLoaderViewController alloc] initWithNibName:@"URLLoaderViewController" bundle:nil];
+            controller.title = @"URL Loader";
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
         }
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Credentials" message:@"You must supply a PlayHaven API token and secret to use this app. To get a token and secret, please visit http://playhaven.com on your computer and sign up." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -184,6 +220,7 @@
     [self setTokenField:nil];
     [self setSecretField:nil];
     [self setOptOutStatusSlider:nil];
+    [self setServiceURLField:nil];
     [super viewDidUnload];
 }
 @end

@@ -8,12 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "PHURLLoader.h"
 #import "PHConstants.h"
+
 #define MAXIMUM_REDIRECTS 10
 
 @interface PHURLLoader(Private)
 +(NSMutableSet *)allLoaders;
 -(void)finish;
 -(void)fail;
+-(void)_launchURL:(NSURL *)targetURL;
 @end
 
 @implementation PHURLLoader
@@ -116,7 +118,7 @@
         [self invalidate];
         
         if (self.opensFinalURLOnDevice) {
-            [[UIApplication sharedApplication] openURL:self.targetURL];
+            [self _launchURL:self.targetURL];
         }
     } else {
         [self fail];
@@ -136,7 +138,11 @@
 #pragma mark NSURLConnection
 -(NSURLRequest *) connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response{
     self.targetURL = [request URL];
-    if (++_totalRedirects < MAXIMUM_REDIRECTS) {
+    if ([self.targetURL.host hasSuffix:@"itunes.apple.com"]){
+        PH_LOG(@"detected app store URL: %@", self.targetURL);
+        [self finish];
+        return nil;
+    } if (++_totalRedirects < MAXIMUM_REDIRECTS) {
         return request;
     } else {
         PH_LOG(@"max redirects with URL %@", self.targetURL);
@@ -159,6 +165,11 @@
         PH_LOG(@"failing with URL %@", self.targetURL);
         [self fail];
     }
+}
+
+#pragma mark - hidden methods
+-(void)_launchURL:(NSURL *)targetURL{
+    [[UIApplication sharedApplication] openURL:targetURL];
 }
 
 @end
