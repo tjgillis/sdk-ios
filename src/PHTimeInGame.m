@@ -34,7 +34,7 @@ static PHTimeInGame * shared = nil;
 
     sessionStartTime = CFAbsoluteTimeGetCurrent();
 
-    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionRestart) name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionEnd) name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStopped) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame class] selector:@selector(gameSessionStarted) name:UIApplicationWillEnterForegroundNotification object:nil];
 
@@ -103,6 +103,16 @@ static PHTimeInGame * shared = nil;
     [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionCurrent"];
     [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionCount"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void) gameSessionEnd {
+    
+    if (sessionStartTime == 0)
+        return;
+    
+    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionCurrent"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

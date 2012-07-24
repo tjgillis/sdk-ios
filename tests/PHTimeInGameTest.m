@@ -40,6 +40,9 @@
     sessionCount = [NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]];
     STAssertTrue([sessionCount intValue] == 2, @"Session count should be a value of 2");
 
+    [[PHTimeInGame getInstance] gameSessionEnd];
+    STAssertTrue([sessionCount intValue] == 2, @"Session count should be a value of 2");
+
     [[PHTimeInGame getInstance] gameSessionRestart];
     CFAbsoluteTime time = [[PHTimeInGame getInstance] getSumSessionDuration];
     STAssertTrue(time > 0, @"Session should be > 0 since reset");

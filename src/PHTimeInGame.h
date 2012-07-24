@@ -19,6 +19,7 @@
 -(void) gameSessionStarted;
 -(void) gameSessionStopped;
 -(void) gameSessionRestart;
+-(void) gameSessionEnd;
 
 // These should only be called with-in the PH SDK
 -(CFAbsoluteTime) getSumSessionDuration;
