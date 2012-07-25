@@ -12,6 +12,7 @@
 #import "PublisherIAPTrackingViewController.h"
 #import "PublisherCancelContentViewController.h"
 #import "URLLoaderViewController.h"
+#import "IAPViewController.h"
 #import "PHAPIRequest.h"
 
 @interface RootViewController(Private)
@@ -128,7 +129,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -163,6 +164,11 @@
             cell.textLabel.text = @"URL Loader";
             cell.detailTextLabel.text = @"Test loading device URLs";
             cell.accessibilityLabel = @"url loader";
+            break;
+        case 5:
+            cell.textLabel.text = @"IAP";
+            cell.detailTextLabel.text = @"Test In-App Purchases";
+            cell.accessibilityLabel = @"iap";
             break;
         default:
             break;
@@ -205,6 +211,11 @@
         } else if (indexPath.row == 4){
             URLLoaderViewController *controller = [[URLLoaderViewController alloc] initWithNibName:@"URLLoaderViewController" bundle:nil];
             controller.title = @"URL Loader";
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
+        } else if (indexPath.row == 5){
+            IAPViewController *controller = [[IAPViewController alloc] initWithNibName:@"IAPViewController" bundle:nil];
+            controller.title = @"IAP";
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
         }

@@ -38,8 +38,8 @@
 
 
 @interface IAPHelper(Private)
--(void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution;
--(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error;
+-(void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
+-(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error receiptData:(NSData *)receiptData;
 @end
 
 @implementation IAPHelper
@@ -106,7 +106,7 @@
         [purchaseAlert release];
     } else {
         //either the purchase or the product request is invalid, report as an error
-        [self reportPurchase:purchase withResolution:PHPurchaseResolutionError];
+        [self reportPurchase:purchase withResolution:PHPurchaseResolutionError receiptData:nil];
     }
     
     //either way clean up the stored purchase and request
@@ -119,7 +119,7 @@
     PHPurchase *purchase = (PHPurchase *)[self.pendingPurchases objectForKey:key];
     if (buttonIndex == 0) {
         //the user has canceled the request
-        [self reportPurchase:purchase withResolution:PHPurchaseResolutionCancel];
+        [self reportPurchase:purchase withResolution:PHPurchaseResolutionCancel receiptData:nil];
     } else if (buttonIndex == 1) {
         //start an app store request
         SKPayment *payment = [SKPayment paymentWithProductIdentifier:purchase.productIdentifier];

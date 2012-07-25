@@ -74,11 +74,13 @@
 @synthesize quantity = _quantity;
 @synthesize resolution = _resolution;
 @synthesize error = _error;
+@synthesize receiptData = _receiptData;
 
 -(void)dealloc{
     [_product release], _product = nil;
     [_request release], _request = nil;
     [_error release], _error = nil;
+    [_receiptData release], _receiptData = nil;
     [super dealloc];
 }
 
