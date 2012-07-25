@@ -75,6 +75,7 @@
                                                                     style:UIBarButtonItemStyleBordered 
                                                                    target:self 
                                                                    action:@selector(startRequest)];
+    startButton.accessibilityLabel = @"start";
     self.navigationItem.rightBarButtonItem = startButton;
     [startButton release];
 }
@@ -114,6 +115,15 @@
     
     NSString *message = [_messages objectAtIndex:indexPath.row];
     cell.textLabel.text = message;
+    
+    if ([message rangeOfString:@"Success"].location != NSNotFound) {
+        cell.accessibilityLabel = @"Request success message";
+    }
+    
+    if ([message rangeOfString:@"dismissed"].location != NSNotFound) {
+        cell.accessibilityLabel = @"Request dismiss message";
+    }
+    
     return cell;
 }
 

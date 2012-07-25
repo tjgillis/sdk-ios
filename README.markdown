@@ -1,4 +1,4 @@
-PlayHaven SDK 1.10.4
+PlayHaven SDK 1.11.0
 ====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -8,8 +8,13 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-What's new in 1.10.4
+What's new in 1.11.0
 ====================
+* App Store launches now properly preserve affiliate link tokens 
+* A change in build settings to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin.
+
+1.10.4
+======
 * IAP tracking requests now report accurate price information
 
 1.10.3
@@ -68,7 +73,7 @@ NOTE: The "test device" feature of the PlayHaven Dashboard will only work with g
 
 By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
 
-By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens, which will greatly help us preserve device histories throughout this transitional period. Your app may get rejected by Apple if it does not appropriately implement user opt out, see the "User Opt Out" section below.
+By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens.  It is highly recommended that UDID reporting is enabled to maximize advertising revenue and help map historical device identifiers to new identification methods.  To optionally include an opt out message, view the "User Opt Out" section below.
 
 By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address alongside these new tokens.
   
