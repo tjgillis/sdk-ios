@@ -60,7 +60,7 @@ If you are using Unity for your game, please integrate the Unity SDK located her
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
     \#import "PlayHavenSDK.h"
-1. In your app delegate's -(void)applicationDidBecomeActive:(UIApplication *)application method, record a game open. See the "Recording game opens" section of the API Reference
+1. In your app delegate's -(void)applicationWillEnterForeground:(UIApplication *)application method, record a game open. See the "Recording game opens" section of the API Reference
 1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
 1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve chart opens by up to 300%! See the "Add a Notification View (Notifier Badge)" of the API Reference
 
@@ -87,7 +87,7 @@ You are responsible for providing an appropriate UI for user opt-out. User data 
 ### Recording game opens
 Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationDidEnterForeground:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
+The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationWillEnterForeground:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
