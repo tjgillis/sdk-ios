@@ -127,7 +127,7 @@ NSString *getMACAddress(){
 #endif
     
     [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]] forKey:@"scount"];
-    [additionalParameters setValue:[NSNumber numberWithDouble:[[PHTimeInGame getInstance] getSumSessionDuration]] forKey:@"ssum"];
+    [additionalParameters setValue:[NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])] forKey:@"ssum"];
 
     [[PHTimeInGame getInstance] gameSessionRestart];
 

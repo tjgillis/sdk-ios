@@ -283,7 +283,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 -(NSDictionary *)additionalParameters{
     return [NSDictionary dictionaryWithObjectsAndKeys:
             self.placement, @"placement_id",
-            [NSNumber numberWithDouble:[[PHTimeInGame getInstance] getCurrentSessionDuration]], @"stime",
+            [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])], @"stime",
             [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)], @"preload",
             nil];
 }
