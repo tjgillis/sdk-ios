@@ -182,8 +182,8 @@ NSString *getMACAddress(){
         [self.delegate performSelector:@selector(request:didSucceedWithResponse:) withObject:self withObject:responseData];
     }
     
-    // Reset time in game counter;
-    [[PHTimeInGame getInstance] resetLastSumSessionDuration];
+    // Reset time in game counters;
+    [[PHTimeInGame getInstance] resetCounters];
     
 }
 
