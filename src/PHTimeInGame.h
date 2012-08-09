@@ -12,6 +12,7 @@
 @interface PHTimeInGame : NSObject {
 
     CFAbsoluteTime sessionStartTime;
+    CFAbsoluteTime lastSumSessionDuration;
 }
 
 +(PHTimeInGame *) getInstance;
@@ -19,6 +20,8 @@
 -(void) gameSessionStarted;
 -(void) gameSessionStopped;
 -(void) gameSessionRestart;
+
+-(void) resetLastSumSessionDuration;
 
 // These should only be called with-in the PH SDK
 -(CFAbsoluteTime) getSumSessionDuration;

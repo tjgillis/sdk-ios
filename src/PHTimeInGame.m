@@ -17,51 +17,47 @@ static PHTimeInGame * shared = nil;
     dispatch_once(&onceToken, ^{
         if (shared == nil) {
             shared = [PHTimeInGame new];
-            shared->sessionStartTime = 0;
         }
     });
 	
 	return shared;
 }
 
--(void) dealloc {
-	// should never be called since we're using a singleton pattern
-    // calling [super dealloc] here to suppress a compiler warning
-    [super dealloc];
+-(id)init{
+    self = [super init];
+    if (self) {
+        sessionStartTime = 0;
+        lastSumSessionDuration = 0;
+    }
+    
+    return self;
 }
 
 -(void) gameSessionStarted {
 
     sessionStartTime = CFAbsoluteTimeGetCurrent();
 
-    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionRestart) name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStarted) name:UIApplicationWillEnterForegroundNotification object:nil];
-
-    int currentSessionCount = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionCount"] intValue];
-    currentSessionCount++;
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInt:currentSessionCount] forKey:@"PHSessionCount"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionDuration"];
+    
+    int currentSessionCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"PHSessionCount"] + 1;
+    [[NSUserDefaults standardUserDefaults] setInteger:currentSessionCount forKey:@"PHSessionCount"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void) gameSessionStopped {
-    
+
     if (sessionStartTime == 0)
         return;
     
-    // Add the time of the session to the duration
-    CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
-    CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
-    CFAbsoluteTime totalDurationTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionDuration"] doubleValue];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + totalDurationTime] forKey:@"PHSessionDuration"];
+    // Record elapsed time for this session
+    [[NSUserDefaults standardUserDefaults] setDouble:[self getSumSessionDuration] forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    sessionStartTime = currentTime;
-
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    sessionStartTime = 0;
 }
 
 /*
@@ -75,32 +71,25 @@ static PHTimeInGame * shared = nil;
 
 -(CFAbsoluteTime) getSumSessionDuration {
     
-    if (sessionStartTime == 0)
-        return 0;
+    CFAbsoluteTime totalDurationTime = [[NSUserDefaults standardUserDefaults] doubleForKey:@"PHSessionDuration"] + [self getCurrentSessionDuration];
+
+    //record last reported sumSessionDuration;
+    lastSumSessionDuration = totalDurationTime;
     
-    CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
-    CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
-    CFAbsoluteTime totalDurationTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionDuration"] doubleValue];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + totalDurationTime] forKey:@"PHSessionDuration"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    sessionStartTime = currentTime;
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionDuration"] doubleValue];
+    return totalDurationTime;
 }
 
--(int) getCountSessions {
-    
-    if (sessionStartTime == 0)
-        return 0;
-    
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionCount"] intValue];
+-(int) getCountSessions {    
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"PHSessionCount"];
 }
 
+/*
+This method should only be invoked for testing purposes as it will destroy session data.
+*/
 -(void) gameSessionRestart {
-    
-    if (sessionStartTime == 0)
-        return;
-    
-    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionCurrent"];
+    sessionStartTime = 0;
+    lastSumSessionDuration = 0;
+
     [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"PHSessionCount"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -113,11 +102,20 @@ static PHTimeInGame * shared = nil;
     
     CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
     CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
-    CFAbsoluteTime totalDurationTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PHSessionDuration"] doubleValue];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:differenceTime + totalDurationTime] forKey:@"PHSessionDuration"];
+    return differenceTime;
+}
+
+/*
+
+After time in game data has been reported to the API, we will purge that amount of time from the stored session duration.
+ 
+*/
+-(void)resetLastSumSessionDuration{
+    CFAbsoluteTime newTotalDuration = [self getSumSessionDuration] - lastSumSessionDuration;
+    [[NSUserDefaults standardUserDefaults] setDouble:newTotalDuration forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    sessionStartTime = currentTime;
-    return differenceTime + totalDurationTime;
+    
+    lastSumSessionDuration = 0;
 }
 
 @end

@@ -99,9 +99,6 @@ NSString *getMACAddress(){
 -(id)init{
     self = [super init];
     if (self) {
-
-        [[PHTimeInGame getInstance] gameSessionStarted];
-
         [self.prefetchOperations addObserver:self forKeyPath:@"operations" options:0 context:NULL];
     }
     
@@ -129,8 +126,6 @@ NSString *getMACAddress(){
     [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]] forKey:@"scount"];
     [additionalParameters setValue:[NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])] forKey:@"ssum"];
 
-    [[PHTimeInGame getInstance] gameSessionRestart];
-
     return  additionalParameters;
 }
 
@@ -148,6 +143,10 @@ NSString *getMACAddress(){
 }
 
 #pragma mark - PHAPIRequest response delegate
+-(void)send{
+    [super send];
+    [[PHTimeInGame getInstance] gameSessionStarted];
+}
 
 -(void)didSucceedWithResponse:(NSDictionary *)responseData{
     
@@ -182,6 +181,10 @@ NSString *getMACAddress(){
     if ([self.delegate respondsToSelector:@selector(request:didSucceedWithResponse:)]) {
         [self.delegate performSelector:@selector(request:didSucceedWithResponse:) withObject:self withObject:responseData];
     }
+    
+    // Reset time in game counter;
+    [[PHTimeInGame getInstance] resetLastSumSessionDuration];
+    
 }
 
 #pragma mark - Precache URL selectors
