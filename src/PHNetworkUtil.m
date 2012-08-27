@@ -34,8 +34,8 @@
 -(void)_backgroundCheckDNSResolutionForURLPath:(NSString *)urlPath{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    Boolean result;
-    CFHostRef hostRef;
+    Boolean result = FALSE;
+    CFHostRef hostRef = NULL;
     NSArray *addresses;
     NSString *hostname = [urlPath substringFromIndex:7];
     hostRef = CFHostCreateWithName(kCFAllocatorDefault, (CFStringRef)hostname);
@@ -55,7 +55,10 @@
         NSLog(@"Could not resolve %@", hostname);
     }
     
-    CFRelease(hostRef);
+    if(hostRef)
+    {
+        CFRelease(hostRef);
+    }
     
     [pool release];
 }
