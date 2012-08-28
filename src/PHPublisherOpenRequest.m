@@ -10,6 +10,8 @@
 #import "PHConstants.h"
 #import "SDURLCache.h"
 #import "PHURLPrefetchOperation.h"
+#import "PHTimeInGame.h"
+#import "PHTimeInGame.h"
 
 #if PH_USE_OPENUDID == 1
 #import "OpenUDID.h"
@@ -121,6 +123,9 @@ NSString *getMACAddress(){
     }
 #endif
     
+    [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]] forKey:@"scount"];
+    [additionalParameters setValue:[NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])] forKey:@"ssum"];
+
     return  additionalParameters;
 }
 
@@ -138,6 +143,10 @@ NSString *getMACAddress(){
 }
 
 #pragma mark - PHAPIRequest response delegate
+-(void)send{
+    [super send];
+    [[PHTimeInGame getInstance] gameSessionStarted];
+}
 
 -(void)didSucceedWithResponse:(NSDictionary *)responseData{
     
@@ -172,6 +181,10 @@ NSString *getMACAddress(){
     if ([self.delegate respondsToSelector:@selector(request:didSucceedWithResponse:)]) {
         [self.delegate performSelector:@selector(request:didSucceedWithResponse:) withObject:self withObject:responseData];
     }
+    
+    // Reset time in game counters;
+    [[PHTimeInGame getInstance] resetCounters];
+    
 }
 
 #pragma mark - Precache URL selectors

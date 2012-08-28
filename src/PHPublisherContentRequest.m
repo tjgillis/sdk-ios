@@ -16,6 +16,7 @@
 #import "PHPublisherIAPTrackingRequest.h"
 #import "JSON.h"
 #import "OpenUDID.h"
+#import "PHTimeInGame.h"
 
 NSString *const PHPublisherContentRequestRewardIDKey = @"reward";
 NSString *const PHPublisherContentRequestRewardQuantityKey = @"quantity";
@@ -282,6 +283,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 -(NSDictionary *)additionalParameters{
     return [NSDictionary dictionaryWithObjectsAndKeys:
             self.placement, @"placement_id",
+            [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])], @"stime",
             [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)], @"preload",
             nil];
 }
