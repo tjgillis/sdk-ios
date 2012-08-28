@@ -747,15 +747,15 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
 				EA328B2F151A9D4400DE3CAD /* README.markdown */,
 				EABC0C87152BD08200441393 /* PlayHaven_SDK_Agreement.rtf */,
-				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
-				EAD610E215AC9212001D3E90 /* Automated Testing */,
-				EA523D891343EE670057DEA5 /* Unit Testing */,
+				EA6031CC1361FEE7007B2BF5 /* PlayHaven SDK */,
 				EA12ABD81365DBB700CB2F24 /* Example/Debug App */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				EA86C7F014D9E77D00CB1551 /* WaterWorks */,
+				EAD610E215AC9212001D3E90 /* Automated Testing */,
+				EA523D891343EE670057DEA5 /* Unit Testing */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
