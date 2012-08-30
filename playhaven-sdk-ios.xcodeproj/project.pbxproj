@@ -51,6 +51,7 @@
 		EA06AA6B151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
 		EA06AA6C151A812B00C11220 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = EA06AA64151A812B00C11220 /* OpenUDID.m */; };
 		EA0BB5DF13463C00007F95FA /* PHContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB5DD13463C00007F95FA /* PHContentView.m */; };
+		EA1146DC15EEAD2100EDB469 /* content-datacollection.json in Resources */ = {isa = PBXBuildFile; fileRef = EA1146DB15EEAD2100EDB469 /* content-datacollection.json */; };
 		EA12ABD51365DBB700CB2F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		EA12ABD61365DBB700CB2F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		EA12ABD71365DBB700CB2F24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
@@ -544,6 +545,7 @@
 		EA06AA64151A812B00C11220 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		EA0BB5DC13463C00007F95FA /* PHContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHContentView.h; sourceTree = "<group>"; };
 		EA0BB5DD13463C00007F95FA /* PHContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHContentView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EA1146DB15EEAD2100EDB469 /* content-datacollection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-datacollection.json"; sourceTree = "<group>"; };
 		EA12ABD31365DBB700CB2F24 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA12ABDA1365DBB700CB2F24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA12ABDC1365DBB700CB2F24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1041,6 +1043,7 @@
 				EA86C7F714D9EAC800CB1551 /* dev.wwfixtures */,
 				EA8C313214DC791B0075B473 /* content-subcontent.json */,
 				EA86C7F914D9EB8600CB1551 /* content-integration.json */,
+				EA1146DB15EEAD2100EDB469 /* content-datacollection.json */,
 			);
 			path = WaterWorks;
 			sourceTree = "<group>";
@@ -1519,6 +1522,7 @@
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
 				EABC0C77152B8A3200441393 /* Settings.bundle in Resources */,
 				EA8A531C15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
+				EA1146DC15EEAD2100EDB469 /* content-datacollection.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
