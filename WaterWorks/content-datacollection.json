@@ -10,7 +10,8 @@
             },
             "fields":[
                       {"id":"email"},
-                      {"id":"phone"}
+                      {"id":"phone"},
+                      {"id":"gender"}
                       ],
             "image":{
                 "PH_LANDSCAPE":{
@@ -60,5 +61,5 @@
         }
     },
     "close_ping":"http://api2.playhaven.com/v3/publisher/dismiss?ordinal=0&nonce=57693632&ad_game_id=2553&ts=1320703178.85&placement_tag=promo&content_type=interstitial_ad&signature=4304dcf1311ef355004578159bc5315b9b00a7e2&device=10C7FA06-DF29-567A-B47C-DA5CE04BE09B&game_id=1506&content_id=1000435&resolution=dismiss",
-    "url":"http://192.168.2.247/~jesus/templates/src/html/data-collection.html"
+    "url":"http://media.playhaven.com/content-templates/7e060ae7f05e344c9c83796d3cfe1a7145922026/html/data-collection.html"
 }}
