@@ -1,4 +1,4 @@
-PlayHaven SDK 1.11.0
+PlayHaven SDK 1.12.0
 ====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -8,8 +8,12 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-What's new in 1.11.0
+What's new in 1.12.0
 ====================
+* The SDK will now automatically record the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
+
+1.11.0
+======
 * App Store launches now properly preserve affiliate link tokens 
 * A change in build settings to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin.
 
@@ -60,7 +64,7 @@ If you are using Unity for your game, please integrate the Unity SDK located her
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
     \#import "PlayHavenSDK.h"
-1. In your app delegate's -(void)applicationWillEnterForeground:(UIApplication *)application method, record a game open. See the "Recording game opens" section of the API Reference
+1. Send a game open each time a game session starts: when your game is first launched as well as each time it is foregrounded. See the "Recording game opens" section of the API Reference
 1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
 1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve chart opens by up to 300%! See the "Add a Notification View (Notifier Badge)" of the API Reference
 
@@ -72,8 +76,6 @@ This release introduces the use of OpenUDID in addition to our own proprietary i
 NOTE: The "test device" feature of the PlayHaven Dashboard will only work with games that send either OpenUDID or UDIDs.
 
 By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
-
-By default PH_USE_UNIQUE_IDENTIFIER=1 is set, which will send the Apple UDID alongside these new tokens.  It is highly recommended that UDID reporting is enabled to maximize advertising revenue and help map historical device identifiers to new identification methods.  To optionally include an opt out message, view the "User Opt Out" section below.
 
 By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address alongside these new tokens.
   
@@ -87,7 +89,11 @@ You are responsible for providing an appropriate UI for user opt-out. User data 
 ### Recording game opens
 Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-The best place to run this code in your app is in the implementation of the UIApplicationDelegate's -(void)applicationWillEnterForeground:(UIApplication *)application method. This will record a game open each time the app is foregrounded. The following will send a request:
+Consider putting an open request in _both_ of these application delegate methods:
+    * -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions This will record a game open when the application is first launched
+    * -(void)applicationWillEnterForeground:(UIApplication *)application This will record a game open each time the app is foregrounded after being launched
+    
+An open request may be sent using the following code:
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
