@@ -175,6 +175,17 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
             [combinedParams setValue:device forKey:@"device"];
         }
 #endif
+
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForAdvertising)]) {
+            NSUUID *uuid = [[UIDevice currentDevice] identifierForAdvertising];
+            NSString *uuidString = [uuid UUIDString];
+            [combinedParams setValue:uuidString forKey:@"ifa"];
+        }
+#endif
+#endif
+        
         //This allows for unit testing of request values!
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
         
