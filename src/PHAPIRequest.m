@@ -160,13 +160,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
 -(NSDictionary *) signedParameters{
     if (_signedParameters == nil) {
 
-        //limits the number of preferred languages to 5.
-        NSArray *preferredLanguages = [NSLocale preferredLanguages];
-        if ([preferredLanguages count] > 5) {
-            NSRange range = NSMakeRange(0, 5);
-            preferredLanguages = [preferredLanguages subarrayWithRange:range];
-        }
-
+        NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0)?[[NSLocale preferredLanguages] objectAtIndex:0]:nil;
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
         
 #if PH_USE_UNIQUE_IDENTIFIER==1
@@ -190,7 +184,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
         *os = [NSString stringWithFormat:@"%@ %@",
                [[UIDevice currentDevice] systemName],
                [[UIDevice currentDevice] systemVersion]],
-        *languages = [preferredLanguages componentsJoinedByString:@","];
+        *languages = preferredLanguage;
         if(!appVersion) appVersion = @"NA";
         
         NSNumber 
