@@ -159,7 +159,8 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
 
 -(NSDictionary *) signedParameters{
     if (_signedParameters == nil) {
-
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        
         NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0)?[[NSLocale preferredLanguages] objectAtIndex:0]:nil;
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
         
@@ -189,7 +190,9 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
         
         NSNumber 
         *idiom = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
-        *connection = [NSNumber numberWithInt:PHNetworkStatus()];
+        *connection = [NSNumber numberWithInt:PHNetworkStatus()],
+        *width = [NSNumber numberWithFloat:CGRectGetWidth(screenBounds)],
+        *height = [NSNumber numberWithFloat:CGRectGetHeight(screenBounds)];
         
         [combinedParams addEntriesFromDictionary:self.additionalParameters];  
         NSDictionary *signatureParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -206,6 +209,8 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
                                          languages,@"languages",
                                          session, @"session",
                                          gid, @"gid",
+                                         width, @"width",
+                                         height,@"height",
                                          nil];
         
         [combinedParams addEntriesFromDictionary:signatureParams];
