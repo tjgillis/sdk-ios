@@ -57,6 +57,7 @@ If you are using Unity for your game, please integrate the Unity SDK located her
   * CoreGraphics.framework
   * SystemConfiguration.framework
   * CFNetwork.framework
+  * AdSupport.framework
   * StoreKit.framework (**see next bullet**)
 1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings.
     PH_USE_STOREKIT=0
