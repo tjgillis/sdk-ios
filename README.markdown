@@ -62,6 +62,7 @@ If you are using Unity for your game, please integrate the Unity SDK located her
 1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings.
     PH_USE_STOREKIT=0
     This will make it possible to build the SDK without StoreKit linked to your project.
+1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
     \#import "PlayHavenSDK.h"
