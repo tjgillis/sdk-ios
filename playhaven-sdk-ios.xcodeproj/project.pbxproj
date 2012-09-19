@@ -337,6 +337,11 @@
 		EAD610F415AC9212001D3E90 /* PHTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EC15AC9212001D3E90 /* PHTestController.m */; };
 		EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */; };
 		EAD610F715AC949C001D3E90 /* zepto.viewportposition.js in Resources */ = {isa = PBXBuildFile; fileRef = EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */; };
+		EADB57BA16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
+		EADB57BB16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
+		EADB57BC16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
+		EADB57BD16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
+		EADB57BE16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */; };
@@ -641,6 +646,8 @@
 		EAD610ED15AC9212001D3E90 /* PHURLLoader+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHURLLoader+Automation.h"; sourceTree = "<group>"; };
 		EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHURLLoader+Automation.m"; sourceTree = "<group>"; };
 		EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.viewportposition.js; sourceTree = "<group>"; };
+		EADB57B816094C7F000433D8 /* PHStoreProductViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHStoreProductViewControllerDelegate.h; sourceTree = "<group>"; };
+		EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHStoreProductViewControllerDelegate.m; sourceTree = "<group>"; };
 		EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherSubContentRequest.h; sourceTree = "<group>"; };
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
 		EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherIAPTrackingRequestTest.m; sourceTree = "<group>"; };
@@ -986,6 +993,7 @@
 		EA523D941343EE9D0057DEA5 /* Publisher SDK */ = {
 			isa = PBXGroup;
 			children = (
+				EADB57B716094C16000433D8 /* iTunes */,
 				D108A82C15A654FA00082388 /* TimeInGame */,
 				EA019C7E14C0FC16008FBCB1 /* Purchases */,
 				EA03810C13B2630200A31FF7 /* Metadata */,
@@ -1102,6 +1110,15 @@
 			);
 			name = "Automated Testing";
 			path = automation;
+			sourceTree = "<group>";
+		};
+		EADB57B716094C16000433D8 /* iTunes */ = {
+			isa = PBXGroup;
+			children = (
+				EADB57B816094C7F000433D8 /* PHStoreProductViewControllerDelegate.h */,
+				EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */,
+			);
+			name = iTunes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1595,6 +1612,7 @@
 				EA45102C156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				D108A83515A6553700082388 /* PHTimeInGame.m in Sources */,
 				EA8A531515B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
+				EADB57BB16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1640,6 +1658,7 @@
 				EA7CF59D156C365C0095572E /* PlayHavenTest.m in Sources */,
 				D108A83415A6553700082388 /* PHTimeInGame.m in Sources */,
 				D108A83E15A6B68600082388 /* PHTimeInGameTest.m in Sources */,
+				EADB57BA16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1689,6 +1708,7 @@
 				EAD610F415AC9212001D3E90 /* PHTestController.m in Sources */,
 				EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */,
 				EA8A531615B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
+				EADB57BC16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1735,6 +1755,7 @@
 				EA45102D156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				D108A83615A6553700082388 /* PHTimeInGame.m in Sources */,
 				EA8A531715B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
+				EADB57BD16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1912,6 +1933,7 @@
 				EA45102E156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				D108A83715A6553700082388 /* PHTimeInGame.m in Sources */,
 				EA8A531815B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
+				EADB57BE16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
