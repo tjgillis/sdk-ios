@@ -123,9 +123,23 @@ static NSMutableSet *allContentViews = nil;
 #ifndef PH_UNIT_TESTING         
         _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
         _webView.accessibilityLabel = @"content view";
+        
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+        if ([_webView respondsToSelector:@selector(setSuppressesIncrementalRendering:)])
+            [_webView setSuppressesIncrementalRendering:YES];
+        if ([_webView respondsToSelector:@selector(setKeyboardDisplayRequiresUserAction:)])
+            [_webView setKeyboardDisplayRequiresUserAction:NO];
+#endif
+#endif
+        
         [self addSubview:_webView];
 #endif
+
+
+        
         self.content = content;
+        
     }
     
     return self;
