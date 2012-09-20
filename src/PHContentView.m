@@ -14,6 +14,7 @@
 #import "SDURLCache.h"
 #import "PHUrlPrefetchOperation.h"
 #import "PHPurchase.h"
+#import "PHStoreProductViewControllerDelegate.h"
 
 #define MAX_MARGIN 20
 
@@ -528,7 +529,14 @@ static NSMutableSet *allContentViews = nil;
         PHURLLoader *loader = [[PHURLLoader alloc] init];
         loader.targetURL = [NSURL URLWithString:urlPath];
         loader.delegate = self;
-        loader.context = [NSDictionary dictionaryWithObject:callback forKey:@"callback"];
+        loader.context = [NSDictionary dictionaryWithObjectsAndKeys:
+                          callback,@"callback",
+                          queryComponents,@"queryComponents",
+                          nil];
+        
+        BOOL shouldUseInternal = [[queryComponents valueForKey:@"internal"] boolValue] && ([SKStoreProductViewController class] != nil);
+        loader.opensFinalURLOnDevice = !shouldUseInternal;
+        
         [loader open];
         [loader release];
     }
@@ -592,10 +600,19 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark PHURLLoaderDelegate
 -(void)loaderFinished:(PHURLLoader *)loader{
     NSDictionary *contextData = (NSDictionary *)loader.context;
+    NSString *callback = [contextData valueForKey:@"callback"];
+    NSDictionary *queryComponents = [contextData valueForKey:@"queryComponents"];
+    
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [loader.targetURL absoluteString], @"url",
                                   nil];
-    [self sendCallback:[contextData valueForKey:@"callback"]
+    
+    BOOL shouldUseInternal = [[queryComponents valueForKey:@"internal"] boolValue] && ([SKStoreProductViewController class] != nil);
+    if (shouldUseInternal) {
+        [[PHStoreProductViewControllerDelegate getDelegate] showProductId:[queryComponents valueForKey:@"iTunesID"]];
+    }
+    
+    [self sendCallback:callback
           withResponse:responseDict 
                  error:nil];
 }
