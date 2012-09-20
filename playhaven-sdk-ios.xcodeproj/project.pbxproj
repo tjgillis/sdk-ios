@@ -339,6 +339,8 @@
 		EAD610F715AC949C001D3E90 /* zepto.viewportposition.js in Resources */ = {isa = PBXBuildFile; fileRef = EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
+		EAE3A134160BD2990004E563 /* PHTimeInGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D108A82F15A6553700082388 /* PHTimeInGame.m */; };
+		EAE3A135160BD29F0004E563 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5E12D115ED4087002E1AA6 /* libKIF.a */; };
 		EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */; };
 		EAED51A0134B949D00D0DCB6 /* PHPublisherContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */; };
 		EAF168341534E2DE006B6993 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB44264134539F4000DA3E9 /* SBJsonBase.m */; };
@@ -502,6 +504,13 @@
 			containerPortal = EA62D6501579922300B31E62 /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = AAB07268139719AC008AF393;
+			remoteInfo = KIF;
+		};
+		EAE3A132160BD2830004E563 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA62D6501579922300B31E62 /* KIF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AAB07267139719AC008AF393;
 			remoteInfo = KIF;
 		};
 /* End PBXContainerItemProxy section */
@@ -686,6 +695,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE3A135160BD29F0004E563 /* libKIF.a in Frameworks */,
 				EA62D6801579925300B31E62 /* StoreKit.framework in Frameworks */,
 				EA62D6811579925300B31E62 /* CFNetwork.framework in Frameworks */,
 				EA62D6821579925300B31E62 /* SystemConfiguration.framework in Frameworks */,
@@ -1285,6 +1295,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EAE3A133160BD2830004E563 /* PBXTargetDependency */,
 			);
 			name = "Example (KIF)";
 			productName = example;
@@ -1647,6 +1658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE3A134160BD2990004E563 /* PHTimeInGame.m in Sources */,
 				EA62D65C1579925300B31E62 /* PHPurchase.m in Sources */,
 				EA62D65D1579925300B31E62 /* PHUrlPrefetchOperation.m in Sources */,
 				EA62D65E1579925300B31E62 /* SDURLCache.m in Sources */,
@@ -1916,6 +1928,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EAE3A133160BD2830004E563 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KIF;
+			targetProxy = EAE3A132160BD2830004E563 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EA12ABDB1365DBB700CB2F24 /* InfoPlist.strings */ = {
