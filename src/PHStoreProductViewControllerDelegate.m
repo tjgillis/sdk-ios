@@ -14,6 +14,10 @@
 
 static PHStoreProductViewControllerDelegate *_delegate = nil;
 
+@interface PHStoreProductViewControllerDelegate()
+-(UIViewController *)visibleViewController;
+@end
+
 @implementation PHStoreProductViewControllerDelegate
 +(PHStoreProductViewControllerDelegate *)getDelegate{
 	static dispatch_once_t onceToken;
@@ -26,8 +30,16 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 	return _delegate;
 }
 
-@synthesize targetViewController = _targetViewController;
-
+-(UIViewController *)visibleViewController{
+    if (_visibleViewController == nil) {
+        _visibleViewController = [[UIViewController alloc] init];
+    }
+    
+    UIWindow *applicationWindow = [[[UIApplication sharedApplication]windows] objectAtIndex:0];
+    [applicationWindow addSubview:_visibleViewController.view];
+    
+    return _visibleViewController;
+}
 
 -(BOOL)showProductId:(NSString *)productId{
     if ([SKStoreProductViewController class]){
@@ -36,7 +48,7 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
         controller.delegate = self;
         [controller loadProductWithParameters:parameters completionBlock:nil];
         
-        [[self getVisibleViewController] presentModalViewController:controller animated:YES];
+        [[self visibleViewController] presentModalViewController:controller animated:YES];
         [controller release];
         return true;
     }
@@ -45,45 +57,9 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 }
 
 -(void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{
-    [viewController dismissModalViewControllerAnimated:YES];
-}
-
-
-- (UIViewController *)getVisibleViewController {
-    if (self.targetViewController != nil) {
-        return self.targetViewController;
-    }    
-    
-    UIViewController *viewController = nil;
-    UIViewController *visibleViewController = nil;
-    UIWindow *applicationWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
-    
-    
-    if ([applicationWindow.rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navigationController = (UINavigationController *)applicationWindow.rootViewController;
-        viewController = navigationController.visibleViewController;
-    }
-    else {
-        viewController = applicationWindow.rootViewController;
-    }
-    
-    while (visibleViewController == nil) {
-        
-        if (viewController.modalViewController == nil) {
-            visibleViewController = viewController;
-        } else {
-            
-            if ([viewController.modalViewController isKindOfClass:[UINavigationController class]]) {
-                UINavigationController *navigationController = (UINavigationController *)viewController.modalViewController;
-                viewController = navigationController.visibleViewController;
-            } else {
-                viewController = viewController.modalViewController;
-            }
-        }
-        
-    }
-    
-    return visibleViewController;
+    [viewController dismissViewControllerAnimated:YES completion:^(void){
+        [_visibleViewController.view removeFromSuperview];
+    }];
 }
 
 @end

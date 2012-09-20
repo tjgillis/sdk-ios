@@ -11,12 +11,13 @@
 
 @class SKStoreProductViewController;
 @protocol SKStoreProductViewControllerDelegate;
-@interface PHStoreProductViewControllerDelegate : NSObject<SKStoreProductViewControllerDelegate>
+@interface PHStoreProductViewControllerDelegate : NSObject<SKStoreProductViewControllerDelegate>{
+    UIViewController *_visibleViewController;
+}
+
 +(PHStoreProductViewControllerDelegate *)getDelegate;
-
-@property(nonatomic, assign)UIViewController *targetViewController;
-
 -(BOOL)showProductId:(NSString *)productId;
+
 @end
 
 #endif
