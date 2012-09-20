@@ -6,6 +6,10 @@
 //
 //
 
+//  This will ensure the PH_USE_STOREKIT macro is properly set.
+#import "PHConstants.h"
+
+#if PH_USE_STOREKIT!=0
 #import "PHStoreProductViewControllerDelegate.h"
 
 static PHStoreProductViewControllerDelegate *_delegate = nil;
@@ -22,17 +26,22 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 	return _delegate;
 }
 
+@synthesize targetViewController = _targetViewController;
 
--(void)showProductId:(NSString *)productId{
-    SKStoreProductViewController *controller = [SKStoreProductViewController new];
-    NSDictionary *parameters = [NSDictionary dictionaryWithObject:productId forKey:SKStoreProductParameterITunesItemIdentifier];
-    controller.delegate = self;
-    [controller loadProductWithParameters:parameters completionBlock:^(BOOL result, NSError *error) {
-        //do nothing here.
-    }];
+
+-(BOOL)showProductId:(NSString *)productId{
+    if ([SKStoreProductViewController class]){
+        SKStoreProductViewController *controller = [SKStoreProductViewController new];
+        NSDictionary *parameters = [NSDictionary dictionaryWithObject:productId forKey:SKStoreProductParameterITunesItemIdentifier];
+        controller.delegate = self;
+        [controller loadProductWithParameters:parameters completionBlock:nil];
+        
+        [[self getVisibleViewController] presentModalViewController:controller animated:YES];
+        [controller release];
+        return true;
+    }
     
-    [[self getVisibleViewController] presentModalViewController:controller animated:YES];
-    [controller release];
+    return false;
 }
 
 -(void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{
@@ -41,6 +50,9 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 
 
 - (UIViewController *)getVisibleViewController {
+    if (self.targetViewController != nil) {
+        return self.targetViewController;
+    }    
     
     UIViewController *viewController = nil;
     UIViewController *visibleViewController = nil;
@@ -75,3 +87,4 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 }
 
 @end
+#endif
