@@ -609,7 +609,7 @@ static NSMutableSet *allContentViews = nil;
     
     BOOL shouldUseInternal = [[queryComponents valueForKey:@"internal"] boolValue] && ([SKStoreProductViewController class] != nil);
     if (shouldUseInternal) {
-        [[PHStoreProductViewControllerDelegate getDelegate] showProductId:[queryComponents valueForKey:@"iTunesID"]];
+        [[PHStoreProductViewControllerDelegate getDelegate] showProductId:[queryComponents valueForKey:@"itunes_id"]];
     }
     
     [self sendCallback:callback
