@@ -173,6 +173,19 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
             [combinedParams setValue:device forKey:@"device"];
         }
 #endif
+
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+        if ([ASIdentifierManager class]) {
+            NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+            NSString *uuidString = [uuid UUIDString];
+            NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
+            [combinedParams setValue:uuidString forKey:@"ifa"];
+            [combinedParams setValue:trackingEnabled forKey:@"tracking"];
+        }
+#endif
+#endif
+        
         //This allows for unit testing of request values!
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
         

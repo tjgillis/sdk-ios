@@ -337,6 +337,10 @@
 		EAD610F415AC9212001D3E90 /* PHTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EC15AC9212001D3E90 /* PHTestController.m */; };
 		EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */; };
 		EAD610F715AC949C001D3E90 /* zepto.viewportposition.js in Resources */ = {isa = PBXBuildFile; fileRef = EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */; };
+		EAD8CFDE1607CCA60027F1D5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EAD8CFDF1607CCB30027F1D5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EAD8CFE01607CCBD0027F1D5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EAD8CFE11607CCC70027F1D5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE3A134160BD2990004E563 /* PHTimeInGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D108A82F15A6553700082388 /* PHTimeInGame.m */; };
@@ -650,6 +654,7 @@
 		EAD610ED15AC9212001D3E90 /* PHURLLoader+Automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHURLLoader+Automation.h"; sourceTree = "<group>"; };
 		EAD610EE15AC9212001D3E90 /* PHURLLoader+Automation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHURLLoader+Automation.m"; sourceTree = "<group>"; };
 		EAD610EF15AC9212001D3E90 /* zepto.viewportposition.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.viewportposition.js; sourceTree = "<group>"; };
+		EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherSubContentRequest.h; sourceTree = "<group>"; };
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
 		EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherIAPTrackingRequestTest.m; sourceTree = "<group>"; };
@@ -669,6 +674,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD8CFDE1607CCA60027F1D5 /* AdSupport.framework in Frameworks */,
 				EA019C8614C102D4008FBCB1 /* StoreKit.framework in Frameworks */,
 				D175008E149193790037A036 /* CFNetwork.framework in Frameworks */,
 				EABAA6981450ED640040B937 /* SystemConfiguration.framework in Frameworks */,
@@ -696,6 +702,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAE3A135160BD29F0004E563 /* libKIF.a in Frameworks */,
+				EAD8CFDF1607CCB30027F1D5 /* AdSupport.framework in Frameworks */,
 				EA62D6801579925300B31E62 /* StoreKit.framework in Frameworks */,
 				EA62D6811579925300B31E62 /* CFNetwork.framework in Frameworks */,
 				EA62D6821579925300B31E62 /* SystemConfiguration.framework in Frameworks */,
@@ -709,6 +716,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD8CFE01607CCBD0027F1D5 /* AdSupport.framework in Frameworks */,
 				EA86C7DD14D9E75600CB1551 /* StoreKit.framework in Frameworks */,
 				EA86C7DE14D9E75600CB1551 /* CFNetwork.framework in Frameworks */,
 				EA86C7DF14D9E75600CB1551 /* SystemConfiguration.framework in Frameworks */,
@@ -754,6 +762,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD8CFE11607CCC70027F1D5 /* AdSupport.framework in Frameworks */,
 				EAF168C61534E59C006B6993 /* StoreKit.framework in Frameworks */,
 				EAF168C71534E59C006B6993 /* CFNetwork.framework in Frameworks */,
 				EAF168C81534E59C006B6993 /* SystemConfiguration.framework in Frameworks */,
@@ -801,6 +810,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */,
 				EA019C8514C102D4008FBCB1 /* StoreKit.framework */,
 				D175008D149193790037A036 /* CFNetwork.framework */,
 				EABAA6971450ED640040B937 /* SystemConfiguration.framework */,
@@ -1359,7 +1369,7 @@
 			buildPhases = (
 				EAF168331534E2DE006B6993 /* Sources */,
 				EAF1684C1534E2DE006B6993 /* Frameworks */,
-				EAF1684E1534E2DE006B6993 /* Headers */,
+				EAF1684E1534E2DE006B6993 /* FFers */,
 			);
 			buildRules = (
 			);
