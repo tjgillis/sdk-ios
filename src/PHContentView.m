@@ -37,10 +37,6 @@
 -(void)resetRedirects;
 -(void)bounceOut;
 -(void)bounceIn;
-
-#pragma mark - Automation Helpers
--(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback;
--(void)_logCallbackForAutomation:(NSString *)callback;
 @end
 
 static NSMutableSet *allContentViews = nil;
@@ -461,7 +457,9 @@ static NSMutableSet *allContentViews = nil;
         NSString *contextString = [queryComponents valueForKey:@"context"];
     
         //Logging for automation, this is a no-op when not automating
-        [self _logRedirectForAutomation:urlPath callback:callback];
+        if ([self respondsToSelector:@selector(_logRedirectForAutomation:callback:)]) {
+            [self performSelector:@selector(_logRedirectForAutomation:callback:) withObject:urlPath withObject:callback];
+        }
         
         PH_SBJSONPARSER_CLASS *parser = [PH_SBJSONPARSER_CLASS new];
         id parserObject = [parser objectWithString:contextString];
@@ -578,7 +576,9 @@ static NSMutableSet *allContentViews = nil;
     
     
     //log callback for automation, this is no-op outside of automation
-    [self _logCallbackForAutomation:callback];
+    if ([self respondsToSelector:@selector(_logCallbackForAutomation:)]) {
+        [self performSelector:@selector(_logCallbackForAutomation:) withObject:callback];
+    }
     
     if ([callbackResponse isEqualToString:@"OK"]) {
         return YES;
@@ -697,14 +697,4 @@ static NSMutableSet *allContentViews = nil;
     
     [self viewDidDismiss];
 }
-
-
-#pragma mark - Automation Helpers
-/*------------------------------------------------------------------------------
- NOTE: These methods are used for recording redirects and callbacks for 
- automated SDK testing. They have no use in the live SDK.
-------------------------------------------------------------------------------*/
--(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback{ }
--(void)_logCallbackForAutomation:(NSString *)callback{ }
-
 @end
