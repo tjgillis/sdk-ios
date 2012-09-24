@@ -133,9 +133,7 @@ NSString *getMACAddress(){
     NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
     if (!!urlArray) {
 
-        for (NSString *urlString in urlArray){
-            PH_LOG(@"Precaching content at URL: %@", urlString);
-            
+        for (NSString *urlString in urlArray){            
             NSURL *url = [NSURL URLWithString:urlString];
             NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
             
