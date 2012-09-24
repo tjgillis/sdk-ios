@@ -9,7 +9,6 @@
 #import "PHPublisherOpenRequest.h"
 #import "PHConstants.h"
 #import "SDURLCache.h"
-#import "PHURLPrefetchOperation.h"
 #import "PHTimeInGame.h"
 #import "PHTimeInGame.h"
 
@@ -96,15 +95,6 @@ NSString *getMACAddress(){
     }
 }
 
--(id)init{
-    self = [super init];
-    if (self) {
-        [self.prefetchOperations addObserver:self forKeyPath:@"operations" options:0 context:NULL];
-    }
-    
-    return  self;
-}
-
 @synthesize customUDID = _customUDID;
 
 -(NSDictionary *)additionalParameters{    
@@ -133,15 +123,6 @@ NSString *getMACAddress(){
     return PH_URL(/v3/publisher/open/);
 }
 
--(NSOperationQueue *)prefetchOperations{
-    if (_prefetchOperations == nil) {
-        _prefetchOperations = [[NSOperationQueue alloc] init];
-        [_prefetchOperations setMaxConcurrentOperationCount:PH_MAX_CONCURRENT_OPERATIONS];
-    }
-    
-    return _prefetchOperations;
-}
-
 #pragma mark - PHAPIRequest response delegate
 -(void)send{
     [super send];
@@ -149,35 +130,27 @@ NSString *getMACAddress(){
 }
 
 -(void)didSucceedWithResponse:(NSDictionary *)responseData{
-    
-    if ([responseData count] > 0){
-        
-        NSString *cachePlist = [PHURLPrefetchOperation getCachePlistFile];
-        NSFileManager *fileManager = [[NSFileManager alloc] init];
-        if ([fileManager fileExistsAtPath:cachePlist]){
-            
-            [fileManager removeItemAtPath:cachePlist error:NULL];
-        }
-        [responseData writeToFile:cachePlist atomically:YES];
-        
-        NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
+    NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
+    if (!!urlArray) {
+
         for (NSString *urlString in urlArray){
+            PH_LOG(@"Precaching content at URL: %@", urlString);
             
             NSURL *url = [NSURL URLWithString:urlString];
-            PHURLPrefetchOperation *urlpo = [[PHURLPrefetchOperation alloc] initWithURL:url];
-            [self.prefetchOperations addOperation:urlpo];
-            [urlpo release];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
+            
+            NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:nil];
+            
+            [connection start];
+            
         }
-        
-        NSString *session = (NSString *)[responseData valueForKey:@"session"];
-        if (!!session){
-            [PHAPIRequest setSession:session];
-        }
-        
-        [fileManager release];
     }
     
-    // Don't finish the request before prefetching has completed!
+    NSString *session = (NSString *)[responseData valueForKey:@"session"];
+    if (!!session){
+        [PHAPIRequest setSession:session];
+    }
+    
     if ([self.delegate respondsToSelector:@selector(request:didSucceedWithResponse:)]) {
         [self.delegate performSelector:@selector(request:didSucceedWithResponse:) withObject:self withObject:responseData];
     }
@@ -185,58 +158,16 @@ NSString *getMACAddress(){
     // Reset time in game counters;
     [[PHTimeInGame getInstance] resetCounters];
     
-}
-
-#pragma mark - Precache URL selectors
-
--(void) downloadPrefetchURLs{
-    
-    NSString *cachePlist = [PHURLPrefetchOperation getCachePlistFile];
-    if ([[[[NSFileManager alloc] init] autorelease] fileExistsAtPath:cachePlist]){
-        
-        NSMutableDictionary *prefetchUrlDictionary = [[[NSMutableDictionary alloc] initWithContentsOfFile:cachePlist] autorelease];
-        NSArray *urlArray = (NSArray *)[prefetchUrlDictionary objectForKey:@"precache"];
-        for (NSString *urlString in urlArray){
-            
-            NSURL *url = [NSURL URLWithString:urlString];
-            PHURLPrefetchOperation *urlpo = [[PHURLPrefetchOperation alloc] initWithURL:url];
-            [self.prefetchOperations addOperation:urlpo];
-            [urlpo release];
-        }
-    }
-}
-
--(void) cancelPrefetchDownload{
-    [self.prefetchOperations cancelAllOperations];
-}
-
--(void) clearPrefetchCache{
+    [self finish];
     
 }
 
 #pragma mark - NSObject
 
 - (void)dealloc{
-    [self.prefetchOperations removeObserver:self forKeyPath:@"operations"];
-    
-    [_prefetchOperations release], _prefetchOperations = nil;
     [_customUDID release], _customUDID = nil;
     [super dealloc];
 }
 
 #pragma mark - NSOperationQueue observer
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)operation change:(NSDictionary *)change context:(void *)context{
-    
-    if ([keyPath isEqualToString:@"operations"]){
-        
-        if ([self.prefetchOperations.operations count] == 0){
-            if ([self.delegate respondsToSelector:@selector(requestFinishedPrefetching:)]){
-                [self.delegate performSelector:@selector(requestFinishedPrefetching:) withObject:self];
-            }
-            //REQUEST_RELEASE see REQUEST_RETAIN
-            [self finish];
-        }
-    }
-}
 @end

@@ -1369,7 +1369,7 @@
 			buildPhases = (
 				EAF168331534E2DE006B6993 /* Sources */,
 				EAF1684C1534E2DE006B6993 /* Frameworks */,
-				EAF1684E1534E2DE006B6993 /* FFers */,
+				EAF1684E1534E2DE006B6993 /* Headers */,
 			);
 			buildRules = (
 			);
