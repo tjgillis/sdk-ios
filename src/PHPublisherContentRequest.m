@@ -285,6 +285,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             self.placement, @"placement_id",
             [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])], @"stime",
             [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)], @"preload",
+            [NSNumber numberWithBool:([SKStoreProductViewController class] != nil)], @"isa",
             nil];
 }
 

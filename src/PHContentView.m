@@ -533,9 +533,10 @@ static NSMutableSet *allContentViews = nil;
                           callback,@"callback",
                           queryComponents,@"queryComponents",
                           nil];
-        
-        BOOL shouldUseInternal = [[queryComponents valueForKey:@"internal"] boolValue] && ([SKStoreProductViewController class] != nil);
+#if PH_USE_STOREKIT!=0
+        BOOL shouldUseInternal = [[queryComponents valueForKey:@"in_app_store_enabled"] boolValue] && ([SKStoreProductViewController class] != nil);
         loader.opensFinalURLOnDevice = !shouldUseInternal;
+#endif  
         
         [loader open];
         [loader release];
@@ -601,16 +602,18 @@ static NSMutableSet *allContentViews = nil;
 -(void)loaderFinished:(PHURLLoader *)loader{
     NSDictionary *contextData = (NSDictionary *)loader.context;
     NSString *callback = [contextData valueForKey:@"callback"];
-    NSDictionary *queryComponents = [contextData valueForKey:@"queryComponents"];
     
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [loader.targetURL absoluteString], @"url",
                                   nil];
-    
-    BOOL shouldUseInternal = [[queryComponents valueForKey:@"internal"] boolValue] && ([SKStoreProductViewController class] != nil);
+
+#if PH_USE_STOREKIT!=0
+    NSDictionary *queryComponents = [contextData valueForKey:@"queryComponents"];
+    BOOL shouldUseInternal = [[queryComponents valueForKey:@"in_app_store_enabled"] boolValue] && ([SKStoreProductViewController class] != nil);
     if (shouldUseInternal) {
-        [[PHStoreProductViewControllerDelegate getDelegate] showProductId:[queryComponents valueForKey:@"itunes_id"]];
+        [[PHStoreProductViewControllerDelegate getDelegate] showProductId:[queryComponents valueForKey:@"application_id"]];
     }
+#endif
     
     [self sendCallback:callback
           withResponse:responseDict 
