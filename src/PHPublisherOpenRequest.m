@@ -132,15 +132,11 @@ NSString *getMACAddress(){
 -(void)didSucceedWithResponse:(NSDictionary *)responseData{
     NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
     if (!!urlArray) {
-
         for (NSString *urlString in urlArray){            
             NSURL *url = [NSURL URLWithString:urlString];
             NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
-            
             NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:nil];
-            
             [connection start];
-            
         }
     }
     

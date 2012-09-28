@@ -511,6 +511,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
     {
+        //NSLog(@"Memory hit for URL: %@", request.URL);
         return memoryResponse;
     }
 
@@ -524,9 +525,21 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         if ([accesses objectForKey:cacheKey]) // OPTI: Check for cache-hit in a in-memory dictionary before hitting the file system
         {
             // load wrapper
-            PH_SDCACHEDURLRESPONSE_CLASS *diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:[diskCachePath stringByAppendingPathComponent:cacheKey]];
-            NSCachedURLResponse *diskResponse = diskResponseWrapper.response;
-
+            PH_SDCACHEDURLRESPONSE_CLASS *diskResponseWrapper = nil;
+            NSCachedURLResponse *diskResponse = nil;
+            
+            @try {
+                diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:[diskCachePath stringByAppendingPathComponent:cacheKey]];
+                diskResponse = diskResponseWrapper.response;
+            } @catch (NSException *exception) {
+                //catch NSInvalidUnarchiveOperationException
+                diskResponseWrapper = nil;
+                diskResponse = nil;
+                
+                //TODO: remove invalid cache entry?
+                //[self removeCachedResponseForRequest:request];
+            }
+            
             if (diskResponse)
             {
                 // OPTI: Log the entry last access time for LRU cache eviction algorithm but don't save the dictionary
@@ -545,6 +558,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
+                    //NSLog(@"Disk hit for URL: %@", request.URL);
                     return diskResponse;
                 }
             }
