@@ -163,6 +163,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
         BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
         CGFloat screenWidth = (isLandscape)? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
         CGFloat screenHeight = (!isLandscape)? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
+        CGFloat screenScale = [[UIScreen mainScreen] scale];
         
         NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0)?[[NSLocale preferredLanguages] objectAtIndex:0]:nil;
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
@@ -208,7 +209,8 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
         *idiom = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
         *connection = [NSNumber numberWithInt:PHNetworkStatus()],
         *width = [NSNumber numberWithFloat:screenWidth],
-        *height = [NSNumber numberWithFloat:screenHeight];
+        *height = [NSNumber numberWithFloat:screenHeight],
+        *scale = [NSNumber numberWithFloat:screenScale];
         
         [combinedParams addEntriesFromDictionary:self.additionalParameters];  
         NSDictionary *signatureParams = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -227,6 +229,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
                                          gid, @"gid",
                                          width, @"width",
                                          height,@"height",
+                                         scale, @"scale",
                                          nil];
         
         [combinedParams addEntriesFromDictionary:signatureParams];
