@@ -668,7 +668,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAD8CFDE1607CCA60027F1D5 /* AdSupport.framework in Frameworks */,
-				EA019C8614C102D4008FBCB1 /* StoreKit.framework in Frameworks */,
 				EA2B81AE1613BFE3008D7788 /* StoreKit.framework in Frameworks */,
 				D175008E149193790037A036 /* CFNetwork.framework in Frameworks */,
 				EABAA6981450ED640040B937 /* SystemConfiguration.framework in Frameworks */,
