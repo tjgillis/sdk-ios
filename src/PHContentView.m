@@ -12,7 +12,6 @@
 #import "JSON.h"
 #import "PHConstants.h"
 #import "SDURLCache.h"
-#import "PHUrlPrefetchOperation.h"
 #import "PHPurchase.h"
 #import "PHStoreProductViewControllerDelegate.h"
 
@@ -417,7 +416,7 @@ static NSMutableSet *allContentViews = nil;
     
     PH_LOG(@"Loading content unit template: %@", self.content.URL);
     [_webView loadRequest:[NSURLRequest requestWithURL:self.content.URL
-                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                        timeoutInterval:PH_REQUEST_TIMEOUT]];
 }
 
