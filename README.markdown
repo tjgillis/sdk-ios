@@ -10,20 +10,20 @@ If you have any questions, visit the [Help Center](http://help.playhaven.com) or
 
 What's new in 1.12.0
 ====================
-* The SDK will now automatically record the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
+* The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
 
 1.11.0
 ======
-* App Store launches now properly preserve affiliate link tokens 
+* App Store launches now properly preserve affiliate link tokens.
 * A change in build settings to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin.
 
 1.10.4
 ======
-* IAP tracking requests now report accurate price information
+* IAP tracking requests now report accurate price information.
 
 1.10.3
 ======
-* DNS resolution for API servers happens in a background thread
+* DNS resolution for API servers happens in a background thread.
 
 1.10.2
 ======
