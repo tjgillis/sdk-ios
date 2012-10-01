@@ -414,10 +414,19 @@ static NSMutableSet *allContentViews = nil;
 -(void)loadTemplate {
     [_webView stopLoading];
     
-    PH_LOG(@"Loading content unit template: %@", self.content.URL);
-    [_webView loadRequest:[NSURLRequest requestWithURL:self.content.URL
-                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                       timeoutInterval:PH_REQUEST_TIMEOUT]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.content.URL
+                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                         timeoutInterval:PH_REQUEST_TIMEOUT];
+    
+    NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+    if (response) {
+        PH_NOTE(@"Found local copy of template!");
+        [_webView loadData:response.data MIMEType:response.response.MIMEType textEncodingName:response.response.textEncodingName baseURL:response.response.URL];
+    } else {
+        PH_LOG(@"Loading template from network: %@", self.content.URL);
+        [_webView loadRequest:request];
+    }
+
 }
 
 -(void)viewDidShow{
