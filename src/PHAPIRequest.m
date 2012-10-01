@@ -181,7 +181,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
             NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
             NSString *uuidString = [uuid UUIDString];
             NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
-            [combinedParams setValue:uuidString forKey:@"ifa"];
+            [combinedParams setValue:uuidString forKey:@"d_ifa"];
             [combinedParams setValue:trackingEnabled forKey:@"tracking"];
         }
 #endif
