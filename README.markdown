@@ -11,7 +11,7 @@ If you have any questions, visit the [Help Center](http://help.playhaven.com) or
 What's new in 1.12.1
 ====================
 * iOS 6 compatibility improvements
-* in-app iTunes purchases support for content units
+* In-app iTunes purchases support for content units, see (See note about this feature in the "Links to the App Store" section below.)
 * fixes for crashes affecting devices running iOS versions below 5.0
 
 1.12.0
@@ -220,6 +220,12 @@ The PHPurchase object passed through this method has the following properties:
   * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
+  
+### Links to the App Store
+As of 1.12.1, links that open in the App Store will instead launch Apple's in-app iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
+
+NOTE: As in-app iTunes purchases follow the same paths as other in-app purchases, you will not be able to test these in-app purchases in non-App Store signed builds. 
+
   
 ### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
