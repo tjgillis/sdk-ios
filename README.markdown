@@ -95,35 +95,41 @@ You are responsible for providing an appropriate UI for user opt-out. User data 
 
 <a id="recording"></a>
 ### Recording game opens
-Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
+Your application must report each time that it comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
-Consider putting an open request in _both_ of these application delegate methods:
-    * -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions This will record a game open when the application is first launched.
-    * -(void)applicationWillEnterForeground:(UIApplication *)application This will record a game open each time the app is foregrounded after being launched.
+Consider putting an open request in _both_ of these application delegate methods.
+
+The first method records a game open when the application is first launched:
+
+    -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
+
+The second method records a game open each time the app moves to the foreground after being launched.
+
+     -(void)applicationWillEnterForeground:(UIApplication *)application 
     
-An open request may be sent using the following code:
+The game open request is sent using the following code:
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
-**NEW**: If you are using an internal identifier to track individual devices in this game, you may use the customUDID
+If you are using an internal identifier to track individual devices in this game, you may use the customUDID
 parameter to pass this identifier along to PlayHaven with the open request.
-Asynchronously reports a game open to PlayHaven. 
+This asynchronously reports a game open to PlayHaven. 
 
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
     request.customUDID = @"CUSTOM_UDID" //optional, see below.
     [request send];
 
 #### Precaching content templates
-PlayHaven will automatically download and store a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
+PlayHave automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
 ### Requesting content for your placements
-You may request content for your app using your API token, secret, as well as a placement tag to identify the placement you are requesting content for. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the section below as well as *example/PublisherContentViewController.m* for a sample implementation.
+You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the section below as well as *example/PublisherContentViewController.m* for a sample implementation.
 
 	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
 	request.showsOverlayImmediately = YES; //optional, see below.
 	[request send];
 
-*NOTE:* You may set placement_ids through the PlayHaven Developer Dashboard.
+The placement_ids are set by using the PlayHaven Developer Dashboard.
 
 Optionally, you may choose to show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
