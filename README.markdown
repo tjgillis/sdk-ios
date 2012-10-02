@@ -8,6 +8,8 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
+Also see the [Integration](#integration) and [API](#api_ref) sections in this document.
+
 What's new in 1.12.0
 ====================
 * The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording).
@@ -19,7 +21,7 @@ What's new in 1.12.0
 
 1.10.4
 ======
-* IAP tracking requests now report accurate price information.
+* In-App Purchase (IAP) tracking requests now report accurate price information.
 
 1.10.3
 ======
@@ -35,12 +37,13 @@ What's new in 1.12.0
 
 1.10.0
 ======
-* In App Purchase tracking and Virtual Good Promotion support. See [Triggering in-app purchases](#trigger-in-app) and [Tracking in-app purchases](#track-in-app) for information on how to integrate this into your app.
+* In-App Purchase tracking and virtual goods promotion support. See [Triggering in-app purchases](#trigger-in-app) and [Tracking in-app purchases](#track-in-app) for information on how to integrate this into your app.
 * New documentation on how to disable StoreKit-based features in the SDK.
 
+<a id="integration"></a>
 Integration
 -----------
-If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/).
+If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/) instead of the iOS SDK..
 
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
   * src directory 
@@ -68,6 +71,7 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
 1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve chart opens by up to 300%! See the "Add a Notification View (Notifier Badge)" of the API Reference
 
+<a id="api_ref"></a>
 API Reference
 -------------
 ### Device tracking
