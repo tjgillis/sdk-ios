@@ -1,17 +1,20 @@
-PlayHaven SDK 1.12.0
-====================
+PlayHaven SDK for iOS
+=====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
 Acquire, retain, re-engage, and monetize your players with the help of PlayHaven's powerful marketing platform. Integrate once and embrace the flexibility of the web as you build, schedule, deploy, and analyze your in-game promotions and monetization in real-time through PlayHaven's easy-to-use, web-based dashboard. 
 
 An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the [PlayHaven Dashboard](https://dashboard.playhaven.com).
 
-If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
+For more information, see the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
 Also see the [Integration](#integration) and [API](#api_ref) sections in this document.
 
-What's new in 1.12.0
-====================
+Version History
+===============
+
+1.12.0
+======
 * The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording).
 
 1.11.0
@@ -42,8 +45,8 @@ What's new in 1.12.0
 
 <a id="integration"></a>
 Integration
------------
-If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/) instead of the iOS SDK..
+===========
+If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/) instead of the iOS SDK.
 
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
   * src directory 
@@ -73,7 +76,7 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 
 <a id="api_ref"></a>
 API Reference
--------------
+=============
 ### Device tracking
 This release introduces the use of OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
 
