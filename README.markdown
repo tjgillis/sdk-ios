@@ -123,13 +123,13 @@ This asynchronously reports a game open to PlayHaven.
 PlayHave automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
 ### Requesting content for your placements
-You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the section below as well as *example/PublisherContentViewController.m* for a sample implementation.
+You request content for your app using your API token, secret, and a placement ID to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the section below as well as *example/PublisherContentViewController.m* for a sample implementation.
 
 	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
 	request.showsOverlayImmediately = YES; //optional, see below.
 	[request send];
 
-The placement_ids are set by using the PlayHaven Developer Dashboard.
+The placement IDs are set using the PlayHaven Developer Dashboard.
 
 Optionally, you may choose to show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
@@ -228,7 +228,7 @@ The PHPurchase object passed through this method has the following properties:
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
 
-<a id="track-in-app"></a  
+<a id="track-in-app"></a> 
 ### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
 
