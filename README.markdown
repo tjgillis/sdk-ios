@@ -17,8 +17,8 @@ Version History
 1.12.1
 ======
 * iOS 6 compatibility improvements.
-* In-app iTunes purchases support for content units, see (See note about this feature in the "Links to the App Store" section below.)
-* fixes for crashes affecting devices running iOS versions below 5.0
+* In-app iTunes purchases support for content units, See [Links to the App Store](#in-app_links).
+* Fixes for crashes affecting devices running iOS versions below 5.0.
 
 1.12.0
 ======
@@ -91,7 +91,7 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 API Reference
 =============
 ### Device tracking
-This release introduces the use of OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as allow for user-initiared opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+This release introduces the use of OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as to allow for user-initiated opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
 
 NOTE: The "test device" feature of the PlayHaven Dashboard will only work with games that send either OpenUDID or UDIDs.
 
@@ -195,7 +195,7 @@ If for any reason the content request does not successfully return some content 
 
 NOTE: -(void)request:contentDidFailWithError: is now deprecated in favor of request:didFailWithError: please update implementations accordingly.
 
-### Cancelling requests
+### Canceling requests
 You may now cancel any API request at any time using the -(void)cancel method. This will also cancel any open network connections and clean up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
 
 Additionally you may cancel all open API requests for a given delegate. This can be useful if you are not keeping references to API request instances you may have created. As with the -(void)cancel method, canceled requests will not send any more messages to delegates. To cancel all requests:
@@ -240,16 +240,14 @@ The PHPurchase object passed through this method has the following properties:
   * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
-<<<<<<< HEAD
-
-<a id="track-in-app"></a> 
-=======
   
+<a id="in-app_links"></a> 
 ### Links to the App Store
 As of 1.12.1, links that open in the App Store will instead launch Apple's in-app iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
 
 As in-app iTunes purchases follow the same paths as other in-app purchases, you will not be able to test these in-app purchases in non-App Store signed builds. 
 
+<a id="track-in-app"></a> 
 ### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
 
