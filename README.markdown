@@ -1,4 +1,4 @@
-PlayHaven SDK 1.12.0
+PlayHaven SDK 1.12.1
 ====================
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -8,8 +8,14 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 If you have any questions, visit the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-What's new in 1.12.0
+What's new in 1.12.1
 ====================
+* iOS 6 compatibility improvements
+* In-app iTunes purchases support for content units, see (See note about this feature in the "Links to the App Store" section below.)
+* fixes for crashes affecting devices running iOS versions below 5.0
+
+1.12.0
+======
 * The SDK will now automatically record the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
 
 1.11.0
@@ -214,6 +220,12 @@ The PHPurchase object passed through this method has the following properties:
   * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
+  
+### Links to the App Store
+As of 1.12.1, links that open in the App Store will instead launch Apple's in-app iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
+
+NOTE: As in-app iTunes purchases follow the same paths as other in-app purchases, you will not be able to test these in-app purchases in non-App Store signed builds. 
+
   
 ### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 

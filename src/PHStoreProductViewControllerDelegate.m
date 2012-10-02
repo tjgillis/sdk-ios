@@ -24,6 +24,7 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     dispatch_once(&onceToken, ^{
         if (_delegate == nil) {
             _delegate = [PHStoreProductViewControllerDelegate new];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
         }
     });
 	
@@ -60,6 +61,15 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     [viewController dismissViewControllerAnimated:YES completion:^(void){
         [_visibleViewController.view removeFromSuperview];
     }];
+}
+
+#pragma mark -
+#pragma NSNotification Observers
+-(void)appDidEnterBackground{
+    //This will automatically dismiss the view controller when the app is backgrounded 
+    if (_visibleViewController.modalViewController)
+        [_visibleViewController dismissModalViewControllerAnimated:NO];
+    [_visibleViewController.view removeFromSuperview];
 }
 
 @end
