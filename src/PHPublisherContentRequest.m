@@ -265,6 +265,10 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 -(void)showOverlayWindow{
     UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
     [window addSubview:self.overlayWindow];
+    
+    //This should keep UIKeyboard instances from blocking the content view.
+    //It should be fine if this runs more than once.
+    [window endEditing:YES];
 }
 
 -(void)hideOverlayWindow{
@@ -285,6 +289,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             self.placement, @"placement_id",
             [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])], @"stime",
             [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)], @"preload",
+            [NSNumber numberWithBool:([SKStoreProductViewController class] != nil)], @"isa",
             nil];
 }
 

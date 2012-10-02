@@ -1,5 +1,6 @@
 PlayHaven SDK for iOS
 =====================
+
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
 Acquire, retain, re-engage, and monetize your players with the help of PlayHaven's powerful marketing platform. Integrate once and embrace the flexibility of the web as you build, schedule, deploy, and analyze your in-game promotions and monetization in real-time through PlayHaven's easy-to-use, web-based dashboard. 
@@ -13,9 +14,19 @@ Also see the [Integration](#integration) and [API](#api_ref) sections in this do
 Version History
 ===============
 
+1.12.1
+======
+* iOS 6 compatibility improvements.
+* In-app iTunes purchases support for content units, see (See note about this feature in the "Links to the App Store" section below.)
+* fixes for crashes affecting devices running iOS versions below 5.0
+
 1.12.0
 ======
 * The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording).
+
+1.12.0
+======
+* The SDK will now automatically record the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
 
 1.11.0
 ======
@@ -63,10 +74,12 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
   * CoreGraphics.framework
   * SystemConfiguration.framework
   * CFNetwork.framework
+  * AdSupport.framework
   * StoreKit.framework (**see next bullet**)
 1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings.
     PH_USE_STOREKIT=0
     This will make it possible to build the SDK without StoreKit linked to your project.
+1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
 1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
     \#import "PlayHavenSDK.h"
@@ -180,7 +193,7 @@ If for any reason the content request does not successfully return some content 
 
 	-(void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
 
-NOTE: -(void)request:contentDidFailWithError: is now deprecared in favor of request:didFailWithError: please update implementations accordingly.
+NOTE: -(void)request:contentDidFailWithError: is now deprecated in favor of request:didFailWithError: please update implementations accordingly.
 
 ### Cancelling requests
 You may now cancel any API request at any time using the -(void)cancel method. This will also cancel any open network connections and clean up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
@@ -227,8 +240,16 @@ The PHPurchase object passed through this method has the following properties:
   * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
+<<<<<<< HEAD
 
 <a id="track-in-app"></a> 
+=======
+  
+### Links to the App Store
+As of 1.12.1, links that open in the App Store will instead launch Apple's in-app iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
+
+As in-app iTunes purchases follow the same paths as other in-app purchases, you will not be able to test these in-app purchases in non-App Store signed builds. 
+
 ### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
 
