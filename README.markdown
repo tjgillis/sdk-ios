@@ -10,12 +10,12 @@ If you have any questions, visit the [Help Center](http://help.playhaven.com) or
 
 What's new in 1.12.0
 ====================
-* The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
+* The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording).
 
 1.11.0
 ======
 * App Store launches now properly preserve affiliate link tokens.
-* A change in build settings to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin.
+* Build settings changed to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin.
 
 1.10.4
 ======
@@ -35,12 +35,12 @@ What's new in 1.12.0
 
 1.10.0
 ======
-* In App Purchase tracking and Virtual Good Promotion support. See "Triggering in-app purchases" and "Tracking in-app purchases" in the API Reference section for information on how to integrate this into your app.
-* Adds documentation for disabling StoreKit-based features in the SDK.
+* In App Purchase tracking and Virtual Good Promotion support. See [Triggering in-app purchases](#trigger-in-app) and [Tracking in-app purchases](#track-in-app) for information on how to integrate this into your app.
+* New documentation on how to disable StoreKit-based features in the SDK.
 
 Integration
 -----------
-If you are using Unity for your game, please integrate the Unity SDK located here: https://github.com/playhaven/sdk-unity/
+If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/).
 
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
   * src directory 
@@ -86,12 +86,13 @@ To comply with Apple policies for the use of device information, we've provided 
 
 You are responsible for providing an appropriate UI for user opt-out. User data is sent by default.
 
+<a id="recording"></a>
 ### Recording game opens
 Your app must report each time your application comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
 Consider putting an open request in _both_ of these application delegate methods:
-    * -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions This will record a game open when the application is first launched
-    * -(void)applicationWillEnterForeground:(UIApplication *)application This will record a game open each time the app is foregrounded after being launched
+    * -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions This will record a game open when the application is first launched.
+    * -(void)applicationWillEnterForeground:(UIApplication *)application This will record a game open each time the app is foregrounded after being launched.
     
 An open request may be sent using the following code:
 
@@ -192,6 +193,7 @@ The PHReward object passed through this method has the following helpful propert
   * __quantity__: if there is a quantity associated with the reward, it will be an integer value here
   * __receipt__: a unique identifier that is used to detect duplicate reward unlocks, your app should ensure that each receipt is only unlocked once
 
+<a id="trigger-in-app"></a>
 ### Triggering in-app purchases
 Using the Virtual Goods Promotion content unit, PlayHaven can now be used to trigger in app purchase requests in your app. You will need to support the new 
 
@@ -212,7 +214,8 @@ The PHPurchase object passed through this method has the following properties:
   * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
   * PHPurchaseResolutionError - an error prevented the purchase or delivery of the item
-  
+
+<a id="track-in-app"></a  
 ### Tracking in-app purchases
 By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
 
