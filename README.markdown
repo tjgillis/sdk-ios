@@ -123,7 +123,7 @@ This asynchronously reports a game open to PlayHaven.
 PlayHave automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
 ### Requesting content for your placements
-You request content for your app using your API token, secret, and a placement ID to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the section below as well as *example/PublisherContentViewController.m* for a sample implementation.
+You request content for your app using your API token, secret, and a placement ID to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the following section as well as *example/PublisherContentViewController.m* for a sample implementation.
 
 	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
 	request.showsOverlayImmediately = YES; //optional, see below.
@@ -131,7 +131,7 @@ You request content for your app using your API token, secret, and a placement I
 
 The placement IDs are set using the PlayHaven Developer Dashboard.
 
-Optionally, you may choose to show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
+Optionally, you can show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
 #### Preloading requests (optional)
 To make content requests more responsive, you may choose to preload a content unit for a given placement. This will start a request for a content unit without displaying it, preserving the content unit until you call -(void)send on a  content request for the same placement in your app.
@@ -170,10 +170,10 @@ The content has successfully dismissed and control is being returned to your app
 
 Type may be one of the following constants:
 
-1. PHPublisherContentUnitTriggeredDismiss: a user or a content unit dismissed the content request
-1. PHPublisherNativeCloseButtonTriggeredDismiss: the user used the native close button to dismiss the view
-1. PHPublisherApplicationBackgroundTriggeredDismiss: iOS 4.0+ only, the content unit was dismissed because the app was sent to the background
-1. PHPublisherNoContentTriggeredDismiss: the content unit was dismissed because there was no content assigned to this placement id
+* PHPublisherContentUnitTriggeredDismiss: A user or a content unit dismissed the content request.
+* PHPublisherNativeCloseButtonTriggeredDismiss: The user used the native close button to dismiss the view.
+* PHPublisherApplicationBackgroundTriggeredDismiss: iOS 4.0+ only, The content unit was dismissed because the app was sent to the background.
+* PHPublisherNoContentTriggeredDismiss: The content unit was dismissed because there was no content assigned to this placement ID.
 
 #### Content request failing
 If for any reason the content request does not successfully return some content to display or fails to load after the overlay view has appears, the request will stop any any visible overlays will be removed.
