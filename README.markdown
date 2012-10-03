@@ -89,15 +89,16 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
     * AdSupport.framework
     * StoreKit.framework (see next)
 1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings:
-    PH_USE_STOREKIT=0
+
+		PH_USE_STOREKIT=0
 
     This makes it possible to build the SDK without StoreKit linked to your project.
 1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
 1. Include the PlayHavenSDK headers in your code wherever you are using PlayHaven request classes:
     
-		\#import "PlayHavenSDK.h"
-1. Send a game open each time a game session starts: when your game is first launched as well as each time it is foregrounded. See the "Recording game opens" section of the API Reference
-1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
+		#import "PlayHavenSDK.h"
+1. Send a game open each time a game session starts: when your game is first launched as well as each time it is foregrounded. See [Recording game opens](#recording).  
+1. For each placement, you need to send a content request and implement content request delegate methods. See [Requesting content for your placements](#request_placements).
 1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that use this widget. This can improve chart opens performance by up to 300%. See [Add a Notification View (Notifier Badge)](#notification_view). 
 
 <a id="api_ref"></a>
@@ -148,6 +149,7 @@ This asynchronously reports a game open to PlayHaven.
 #### Precaching content templates
 PlayHave automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
+<a id="request_placements"></a>
 ### Requesting content for your placements
 You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the following section as well as *example/PublisherContentViewController.m* for a sample implementation.
 
