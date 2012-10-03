@@ -189,7 +189,7 @@ Type may be one of the following constants:
 * PHPublisherNoContentTriggeredDismiss: The content unit was dismissed because there was no content assigned to this placement ID.
 
 #### Content request failing
-If for any reason the content request does not successfully return some content to display or fails to load after the overlay view has appears, the request will stop any any visible overlays will be removed.
+If for any reason the content request does not successfully return some content to display or fails to load after the overlay view has appeared, the request stops and any visible overlays are removed.
 
 	-(void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
 
@@ -245,7 +245,7 @@ The PHPurchase object passed through this method has the following properties:
 ### Links to the App Store
 As of 1.12.1, links that open in the App Store will instead launch Apple's in-app iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
 
-As in-app iTunes purchases follow the same paths as other in-app purchases, you will not be able to test these in-app purchases in non-App Store signed builds. 
+In-app iTunes purchases are like other in-app purchases in that when launched from an app that is being debugged (through XCode), or distributed using an Ad-Hoc profile, they interact with Apple's sandbox iTunes environment. Thus, purchases won't seem to work unless they're tested with a sandbox iTunes account, which is set up through iTunes Connect. The purchases will work as expected from a version of the app downloaded from the App Store, which is signed by Apple.
 
 <a id="track-in-app"></a> 
 ### Tracking in-app purchases
