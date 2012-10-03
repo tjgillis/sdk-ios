@@ -1,5 +1,16 @@
-PlayHaven SDK for iOS
-=====================
+PlayHaven SDK for iOS User and Reference Guide
+==============================================
+
+This guide has the following sections:
+
+* [Overview](#overview) 
+* [Version History](#version) 
+* [Integration](#integration) 
+* [API Reference](#api_ref)
+
+<a id="overview"></a>
+Overview
+========
 
 PlayHaven is a mobile game LTV-maximization platform to help you take control of the business of your games.
 
@@ -9,8 +20,9 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 For more information, see the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
-Also see the [Integration](#integration) and [API](#api_ref) sections in this document.
+Also see the [Integration](#integration) and [API Reference](#api_ref) sections in this document.
 
+<a id="version"></a>
 Version History
 ===============
 
@@ -60,44 +72,45 @@ Integration
 If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/) instead of the iOS SDK.
 
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
-  * src directory 
-  * Cache directory
+    * src directory 
+    * Cache directory
 1. (optional) Unless you are already using SBJSON, also add the following to your project:
-  * JSON directory
+    * JSON directory.
   If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. (optional) Unless you are already using OpenUDID, also add the following to your project:
-  * OpenUDID directory
+     * OpenUDID directory
   If your project is already using OpenUDID, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. Ensure the following frameworks are included with your project, add any missing frameworks in the Build Phases tab for your application's target:
-  * UIKit.framework
-  * Foundation.framework
-  * CoreGraphics.framework
-  * SystemConfiguration.framework
-  * CFNetwork.framework
-  * AdSupport.framework
-  * StoreKit.framework (**see next bullet**)
-1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings.
+    * UIKit.framework
+    * Foundation.framework
+    * CoreGraphics.framework
+    * SystemConfiguration.framework
+    * CFNetwork.framework
+    * AdSupport.framework
+    * StoreKit.framework (see next)
+1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings:
     PH_USE_STOREKIT=0
-    This will make it possible to build the SDK without StoreKit linked to your project.
-1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
-1. Include the PlayHavenSDK headers in your code wherever you will be using PlayHaven request classes.
 
-    \#import "PlayHavenSDK.h"
+    This makes it possible to build the SDK without StoreKit linked to your project.
+1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
+1. Include the PlayHavenSDK headers in your code wherever you are using PlayHaven request classes:
+    
+		\#import "PlayHavenSDK.h"
 1. Send a game open each time a game session starts: when your game is first launched as well as each time it is foregrounded. See the "Recording game opens" section of the API Reference
 1. For each of your placements, you will need to send a content request and implement content request delegate methods. See the "Requesting content for your placements" section of the API Reference
-1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that you plan on using More Games Widgets with to improve chart opens by up to 300%! See the "Add a Notification View (Notifier Badge)" of the API Reference
+1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that use this widget. This can improve chart opens performance by up to 300%. See [Add a Notification View (Notifier Badge)](#notification_view). 
 
 <a id="api_ref"></a>
 API Reference
 =============
 ### Device tracking
-This release introduces the use of OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as to allow for user-initiated opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+You can use the OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as to allow for user-initiated opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
 
 NOTE: The "test device" feature of the PlayHaven Dashboard will only work with games that send either OpenUDID or UDIDs.
 
-By default PH_USE_OPENUDID=1 is set, which will send the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set PH_USE_OPENUDID=0 instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
+By default `PH_USE_OPENUDID=1` is set, which sends the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set `PH_USE_OPENUDID=0` instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
 
-By default PH_USE_MAC_ADDRESS=1 is set, which will send the device's wifi MAC address alongside these new tokens.
+By default `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address along with these new tokens.
   
 #### User Opt-Out
 To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of UDID and MAC addresses. To set the opt out status for your app, use the following method:
@@ -136,13 +149,13 @@ This asynchronously reports a game open to PlayHaven.
 PlayHave automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
 ### Requesting content for your placements
-You request content for your app using your API token, secret, and a placement ID to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the following section as well as *example/PublisherContentViewController.m* for a sample implementation.
+You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the following section as well as *example/PublisherContentViewController.m* for a sample implementation.
 
 	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
 	request.showsOverlayImmediately = YES; //optional, see below.
 	[request send];
 
-The placement IDs are set using the PlayHaven Developer Dashboard.
+The placement tags are set using the PlayHaven Developer Dashboard.
 
 Optionally, you can show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
@@ -261,6 +274,7 @@ Purchases that are canceled or encounter errors should be reported using the fol
     
 If the error comes from an SKPaymentTransaction instance's error property, the SDK will automatically select the correct resolution (buy/cancel) based on the NSError object passed in.
 
+<a id="notification_view"></a> 
 ### Add a Notification View (Notifier Badge)
 Adding a notification view to your "More Games" button will greatly increase the number of More Games Widget opens for your game, by up to 300%. To create a notification view:
 
