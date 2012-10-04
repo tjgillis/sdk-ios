@@ -36,9 +36,6 @@ Version History
 ======
 * The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording).
 
-1.12.0
-======
-* The SDK will now automatically record the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See "Recording game opens" in the "API Reference"
 
 1.11.0
 ======
@@ -118,7 +115,7 @@ To comply with Apple policies for the use of device information, we've provided 
 
     [PHAPIRequest setOptOutStatus:(BOOL)yesOrNo];
 
-You are responsible for providing an appropriate UI for user opt-out. User data is sent by default.
+You are responsible for providing an appropriate user interface for user opt-out. User data is sent by default.
 
 <a id="recording"></a>
 ### Recording game opens
@@ -147,26 +144,26 @@ This asynchronously reports a game open to PlayHaven.
     [request send];
 
 #### Precaching content templates
-PlayHave automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
+PlayHaven automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
 <a id="request_placements"></a>
 ### Requesting content for your placements
-You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement PHPublisherContentRequestDelegate methods to receive callbacks from this request. Refer to the following section as well as *example/PublisherContentViewController.m* for a sample implementation.
+You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement `PHPublisherContentRequestDelegate` methods to receive callbacks from this request. Refer to the following section as well as the *example/PublisherContentViewController.m* file for a sample implementation.
 
 	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
-	request.showsOverlayImmediately = YES; //optional, see below.
+	request.showsOverlayImmediately = YES; //optional, see next.
 	[request send];
 
 The placement tags are set using the PlayHaven Developer Dashboard.
 
-Optionally, you can show the loading overlay immediately by setting the request object's *showsOverlayImmediately* property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
+Optionally, you can show the loading overlay immediately by setting the request object's `showsOverlayImmediately` property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
 #### Preloading requests (optional)
-To make content requests more responsive, you may choose to preload a content unit for a given placement. This will start a request for a content unit without displaying it, preserving the content unit until you call -(void)send on a  content request for the same placement in your app.
+To make content requests more responsive, you may choose to preload a content unit for a given placement. This will start a request for a content unit without displaying it, preserving the content unit until you call `-(void)send` on a  content request for the same placement in your app.
 
     [[PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate] preload];
 
-You may set a delegate for your preload if you would like to be informed when a content request is ready to display. See the sections below for more details.
+You may set a delegate for your preload if you would like to be informed when a content request is ready to display. See the next sections for more details.
 
 *NOTE:* Preloading only affects the next content request for a given placement. If you are showing the same placement multiple times in your app, you will need to make additional preload requests after displaying that placement's content unit for the first time.
 
@@ -182,7 +179,7 @@ The request received some valid content from the PlayHaven API. This will be the
 
 
 #### Preparing to show a content view
-If there is content for this placement, it will be loaded at this point. An overlay view will appear over your app and a spinner will indicate that the content is loading. Depending on the transition type for your content your view may or may not be visible at this time. If you haven't before, you should mute any sounds and pause any animations in your app. 
+If there is content for this placement, it is be loaded at this point. An overlay view appears over your app and a spinner indicates that the content is loading. Depending on the transition type for your content, your view may or may not be visible at this time. If you haven't done this, you should mute any sounds and pause any animations in your app. 
 
 	-(void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content;
 
@@ -198,22 +195,22 @@ The content has successfully dismissed and control is being returned to your app
 
 Type may be one of the following constants:
 
-* PHPublisherContentUnitTriggeredDismiss: A user or a content unit dismissed the content request.
-* PHPublisherNativeCloseButtonTriggeredDismiss: The user used the native close button to dismiss the view.
-* PHPublisherApplicationBackgroundTriggeredDismiss: iOS 4.0+ only, The content unit was dismissed because the app was sent to the background.
-* PHPublisherNoContentTriggeredDismiss: The content unit was dismissed because there was no content assigned to this placement ID.
+* PHPublisherContentUnitTriggeredDismiss - A user or a content unit dismissed the content request.
+* PHPublisherNativeCloseButtonTriggeredDismiss - The user used the native close button to dismiss the view.
+* PHPublisherApplicationBackgroundTriggeredDismiss - For iOS 4.0 and above only, The content unit was dismissed because the app was sent to the background.
+* PHPublisherNoContentTriggeredDismiss - The content unit was dismissed because there was no content assigned to this placement ID.
 
 #### Content request failing
 If for any reason the content request does not successfully return some content to display or fails to load after the overlay view has appeared, the request stops and any visible overlays are removed.
 
 	-(void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
 
-NOTE: -(void)request:contentDidFailWithError: is now deprecated in favor of request:didFailWithError: please update implementations accordingly.
+NOTE: `-(void)request:contentDidFailWithError:` is deprecated in favor of `request:didFailWithError:`. Please update any previous uses of the this method accordingly.
 
 ### Canceling requests
-You may now cancel any API request at any time using the -(void)cancel method. This will also cancel any open network connections and clean up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
+You can cancel any API request at any time using the `-(void)cancel` method. This also cancels any open network connections and cleans up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
 
-Additionally you may cancel all open API requests for a given delegate. This can be useful if you are not keeping references to API request instances you may have created. As with the -(void)cancel method, canceled requests will not send any more messages to delegates. To cancel all requests:
+You can also cancel all open API requests for a given delegate. This can be useful if you are not keeping references to API request instances you may have created. As with the `-(void)cancel` method, canceled requests will not send any more messages to delegates. To cancel all requests:
 
     [PHAPIRequest cancelAllRequestsWithDelegate:(id)delegate];
 
@@ -230,13 +227,13 @@ PlayHaven allows you to reward users with virtual currency, in-game items, or an
 
 The PHReward object passed through this method has the following helpful properties:
 
-  * __name__: the name of your reward as configured on the dashboard
-  * __quantity__: if there is a quantity associated with the reward, it will be an integer value here
-  * __receipt__: a unique identifier that is used to detect duplicate reward unlocks, your app should ensure that each receipt is only unlocked once
+  * __name__: The name of your reward as configured on the dashboard.
+  * __quantity__: An integer representing quantity associated with the reward,
+  * __receipt__: A unique identifier that is used to detect duplicate reward unlocks. Your app should ensure that each receipt is only unlocked once.
 
 <a id="trigger-in-app"></a>
 ### Triggering in-app purchases
-Using the Virtual Goods Promotion content unit, PlayHaven can now be used to trigger in app purchase requests in your app. You will need to support the new 
+Using the Virtual Goods Promotion content unit, PlayHaven can be used to trigger in app purchase requests in your app using the following:
 
 > \-(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
   
@@ -250,7 +247,7 @@ The PHPurchase object passed through this method has the following properties:
 
     [purchase reportResolution:(PHPurchaseResolution)resolution];
 
-**This step is important!** Without a call to reportResolution: the content unit will stall, and your users may not be able to come back to your game. Resolution **must** be one of the following values:
+**This step is important.** Unless you call `reportResolution:` the content unit will stall, and your users may not be able to come back to your game. Resolution **must** be one of the following values:
 
   * PHPurchaseResolutionBuy - the item was purchased and delivered successfully
   * PHPurchaseResolutionCancel - the user was prompted for an item, but the user elected to not buy it
