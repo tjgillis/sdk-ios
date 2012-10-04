@@ -81,6 +81,38 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
     return [PHStringUtil b64DigestForString:string];
 }
 
++(NSString *)expectedSignatureValueForResponse:(NSString *)responseString nonce:(NSString *)nonce secret:(NSString *)secret{
+    const char *cKey  = [secret cStringUsingEncoding:NSUTF8StringEncoding];
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    
+    CCHmacContext context;
+    CCHmacInit(&context, kCCHmacAlgSHA1, cKey, strlen(cKey));
+    
+    if (nonce){
+        const char *cNonce = [nonce cStringUsingEncoding:NSUTF8StringEncoding];
+        CCHmacUpdate(&context, cNonce, strlen(cNonce));
+    }
+    
+    const char *cResponse = [responseString cStringUsingEncoding:NSUTF8StringEncoding];
+    CCHmacUpdate(&context, cResponse, strlen(cResponse));
+    
+    CCHmacFinal(&context, &cHMAC);
+    
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)];
+    
+    NSString *localSignature = [PHStringUtil base64EncodedStringForData:HMAC];
+    
+    //figure out if we need to pad to multiple of 4 length
+    NSInteger length = [localSignature length];
+    NSInteger modulo = [localSignature length] % 4;
+    if (modulo != 0) {
+        length = length + (4 - modulo);
+    }
+    
+    return [localSignature stringByPaddingToLength:length withString:@"=" startingAtIndex:0];
+}
+
 +(NSString *)session{
     @synchronized(self){
         if (sPlayHavenSession == nil) {
@@ -300,7 +332,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
     
     /* We want to get response objects for everything */
     [_connectionData release], _connectionData = [[NSMutableData alloc] init];
-    [_response release], _response = nil;
+    [_response release], _response = [response retain];
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
@@ -314,7 +346,21 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
         [self.delegate performSelector:@selector(requestDidFinishLoading:) withObject:self withObject:nil];
     }
     
-    NSString *responseString = [[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding];    
+    NSString *responseString = [[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding];
+    
+    if ([_response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)_response;
+        NSString *requestSignature = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
+        PH_LOG(@"Request has signature: %@", requestSignature);
+        if (requestSignature != nil) {
+            NSString *nonce = [self.signedParameters valueForKey:@"nonce"];
+            PH_LOG(@"Expected signature: %@", [PHAPIRequest expectedSignatureValueForResponse:responseString
+                                                                                       nonce:nonce
+                                                                                      secret:self.secret]);
+        }
+    }
+    
+    
     PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
     NSDictionary* resultDictionary = [parser objectWithString:responseString];
     [parser release];
