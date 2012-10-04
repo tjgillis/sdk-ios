@@ -148,6 +148,7 @@ typedef enum{
     PHLoadContextErrorType,
     PHWindowErrorType,
     PHIAPTrackingSimulatorErrorType,
+    PHRequestDigestErrorType,
 } PHErrorType;
 
 NSError *PHCreateError(PHErrorType errorType);

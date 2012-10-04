@@ -63,6 +63,7 @@ NSError *PHCreateError(PHErrorType errorType){
                       @"PlayHaven was not able to create the content unit overlay",
                       @"PlayHaven was not able to get product information from Apple",
                       @"This error is for simulating an IAP error in the simulator",
+                      @"Signed response did not have valid signature."
                       nil];
     }
     
