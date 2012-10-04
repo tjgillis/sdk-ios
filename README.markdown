@@ -61,7 +61,7 @@ Version History
 1.10.0
 ======
 * In-App Purchase tracking and virtual goods promotion support. See [Triggering in-app purchases](#trigger-in-app) and [Tracking in-app purchases](#track-in-app) for information on how to integrate this into your app.
-* New documentation on how to disable StoreKit-based features in the SDK.
+* New documentation on how to disable Store Kit-based features in the SDK.
 
 <a id="integration"></a>
 Integration
@@ -89,7 +89,7 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 
 		PH_USE_STOREKIT=0
 
-    This makes it possible to build the SDK without StoreKit linked to your project.
+    This makes it possible to build the SDK without Store Kit linked to your project.
 1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
 1. Include the PlayHavenSDK headers in your code wherever you are using PlayHaven request classes:
     
@@ -227,9 +227,9 @@ PlayHaven allows you to reward users with virtual currency, in-game items, or an
 
 The PHReward object passed through this method has the following helpful properties:
 
-  * __name__: The name of your reward as configured on the dashboard.
-  * __quantity__: An integer representing quantity associated with the reward,
-  * __receipt__: A unique identifier that is used to detect duplicate reward unlocks. Your app should ensure that each receipt is only unlocked once.
+  * name - The name of your reward as configured on the dashboard.
+  * quantity - An integer representing quantity associated with the reward,
+  * receipt - A unique identifier that is used to detect duplicate reward unlocks. Your app should ensure that each receipt is only unlocked once.
 
 <a id="trigger-in-app"></a>
 ### Triggering in-app purchases
@@ -239,9 +239,9 @@ Using the Virtual Goods Promotion content unit, PlayHaven can be used to trigger
   
 The PHPurchase object passed through this method has the following properties:
 
-  * __productIdentifier__: the product identifier for your purchase, used for making a 
-  * __quantity__: if there is a quantity associated with this purchase, it will be an integer value here
-  * __receipt__: a unique identifier
+  * productIdentifier - The product identifier for your purchase.  This is a unique string used for Store Kit requests.
+  * quantity - An integer representing the quantity associated with the purchase. 
+  * receipt - A unique identifier.
   
 **Note:** You must retain this purchase object throughout your IAP process. You are responsible for making a SKProduct request before initiating the purchase of this item so as to comply with IAP requirements. Once the item has been purchased you will need to inform the content unit of that purchase using the following:
 
@@ -261,7 +261,7 @@ In-app iTunes purchases are like other in-app purchases in that when launched fr
 
 <a id="track-in-app"></a> 
 ### Tracking in-app purchases
-By providing data on your In App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the PHPublisherIAPTrackingRequest class. To report successful purchases use the following either in your SKPaymentQueueObserver instance or after a purchase has been successfully delivered. 
+By providing data on your In-App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the `PHPublisherIAPTrackingRequest` class. To report successful purchases use the following either in your `SKPaymentQueueObserver` instance or after a purchase has been successfully delivered:
 
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY resolution:PHPurchaseResolutionBuy];
     [request send]; 
@@ -271,33 +271,33 @@ Purchases that are canceled or encounter errors should be reported using the fol
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY error:ERROR_OBJECT];
     [request send];
     
-If the error comes from an SKPaymentTransaction instance's error property, the SDK will automatically select the correct resolution (buy/cancel) based on the NSError object passed in.
+If the error comes from an `SKPaymentTransaction` instance's `error` property, the SDK will automatically select the correct resolution (buy/cancel) based on the `NSError` object that is passed in.
 
 <a id="notification_view"></a> 
 ### Add a Notification View (Notifier Badge)
-Adding a notification view to your "More Games" button will greatly increase the number of More Games Widget opens for your game, by up to 300%. To create a notification view:
+Adding a notification view to your More Games button can increase the number of More Games Widget opens for your game by up to 300%. To create a notification view:
 
     PHNotificationView *notificationView = [[PHNotificationView alloc] initWithApp:MYTOKEN secret:MYSECRET placement:@"more_games"];
     [myView addSubview:notificationView];
     [notificationView release];
     
-Add the notification view as a subview somewhere in your view controller's view. Notification views will remain anchored to the center of the position they are placed in the view, even as the size of the badge changes. Adjust the position of the badge by setting the notificationView's center property. 
+Add the notification view as a subview somewhere in your view controller's view. Notification views will remain anchored to the center of the position they are placed in the view, even as the size of the badge changes. You can adjust the position of the badge by setting the `center` property: 
 
     notificationView.center = CGPointMake(10,10);
 
-The notification view will query and update itself when its -(void)refresh method is called.
+The notification view will query and update itself when its `-(void)refresh` method is called:
 
     [notificationView refresh];  
 
-We recommend refreshing the notification view each time it will appear in your UI. See examples/PublisherContentViewController.m for an example.
+We recommend refreshing the notification view each time it appears in your UI. See `examples/PublisherContentViewController.m` for an example.
 
-You will also need to clear any notification view instances when you successfully launch a content unit. You may do this using the -(void)clear method on any notification views you wish to clear.
+You also need to clear any notification view instances when you successfully launch a content unit. You do this by using the `-(void)clear` method on any notification views that you wish to clear.
 
 #### Testing PHNotificationView
-Most of the time the API will return an empty response, which means a notification view will not be shown. You can see a sample notification by using -(void)test; wherever you would use -(void)refresh. It has been marked as deprecated to remind you to switch all instances of -(void)test in your code to -(void)refresh;
+Most of the time the API returns an empty response, which means a notification is not shown. You can see a sample notification by using `-(void)test;` wherever you would use `-(void)refresh`. It is listed as deprecated to remind you to switch all instances of `-(void)test` in your code to `-(void)refresh;`.
 
 #### Customizing notification rendering with PHNotificationRenderer
-PHNotificationRenderer is a base class that draws a notification view for a given notification data. The base class implements a blank notification view used for unknown notification types. PHNotificationBadgeRenderer renders a iOS default-style notification badge with a given "value" string. You may customize existing notification renderers and register new ones at runtime using the following method on PHNotificationView
+`PHNotificationRenderer` is a base class that draws a notification view for the given notification data. The base class implements a blank notification view used for unknown notification types. `PHNotificationBadgeRenderer` renders a iOS default-style notification badge with a given "value" string. You can customize existing notification renderers and register new ones at runtime using the following method on PHNotificationView:
 
 	+(void)setRendererClass:(Class)class forType:(NSString *)type;
 
@@ -305,8 +305,8 @@ Your PHNotificationRenderer subclass needs to implement the following methods to
 
 	-(void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect;
 
-This method will be called inside of the PHNotificationView instance -(void)drawRect: method whenever the view needs to be drawn. You will use specific keys inside of notificationData to draw your badge in the view. If you need access to the graphics context you may use the UIGraphicsGetCurrentContext() function.
+This method is called inside of the `PHNotificationView` instance `-(void)drawRect:` method whenever the view needs to be drawn. You use specific keys inside of `notificationData` to draw your badge in the view. If you need access to the graphics context you may use the `UIGraphicsGetCurrentContext()` function.
 
 	-(CGSize)sizeForNotification:(NSDictionary *)notificationData;
 
-This method will be called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of notificationData, you will need to calculate an appropriate size.
+This method is called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of `notificationData`, you need to calculate an appropriate size.
