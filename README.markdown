@@ -197,7 +197,7 @@ Type may be one of the following constants:
 
 * PHPublisherContentUnitTriggeredDismiss - A user or a content unit dismissed the content request.
 * PHPublisherNativeCloseButtonTriggeredDismiss - The user used the native close button to dismiss the view.
-* PHPublisherApplicationBackgroundTriggeredDismiss - For iOS 4.0 and above only, The content unit was dismissed because the app was sent to the background.
+* PHPublisherApplicationBackgroundTriggeredDismiss - For iOS 4.0 and higher only, The content unit was dismissed because the app was sent to the background.
 * PHPublisherNoContentTriggeredDismiss - The content unit was dismissed because there was no content assigned to this placement ID.
 
 #### Content request failing
