@@ -24,7 +24,7 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     dispatch_once(&onceToken, ^{
         if (_delegate == nil) {
             _delegate = [PHStoreProductViewControllerDelegate new];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:_delegate selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
         }
     });
 	

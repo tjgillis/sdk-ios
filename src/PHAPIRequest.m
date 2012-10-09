@@ -96,7 +96,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
     @synchronized(self){
         if (![session isEqualToString:sPlayHavenSession]) {
             UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:kSessionPasteboard create:YES];
-            [pasteboard setString:session];
+            [pasteboard setString:(session!= nil)?session:@""];
             [sPlayHavenSession release];
             sPlayHavenSession = (!!session)?[[NSString alloc] initWithString:session]: nil;
         }
