@@ -74,6 +74,10 @@
 		EA12AC3F13662DC400CB2F24 /* PublisherOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC3E13662DC400CB2F24 /* PublisherOpenViewController.m */; };
 		EA12AC451366339D00CB2F24 /* PublisherContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */; };
 		EA1799E014200FAE005F286F /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
+		EA2163B815BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
+		EA2163B915BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
+		EA2163BA15BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
+		EA2163BB15BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
 		EA21F69D14215EAD00A4177E /* PHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
 		EA24FCAB1554510D0074FC13 /* PHNetworkUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */; };
 		EA24FCAC1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
@@ -341,6 +345,10 @@
 		EADB57BE16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
 		EAE0F5FC1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
 		EAE0F5FD1385D1120062B950 /* PHPublisherSubContentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */; };
+		EAE36A6115BF70CE00892B81 /* IAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE36A5F15BF70CE00892B81 /* IAPViewController.m */; };
+		EAE36A6215BF70CE00892B81 /* IAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE36A5F15BF70CE00892B81 /* IAPViewController.m */; };
+		EAE36A6315BF70CE00892B81 /* IAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE36A5F15BF70CE00892B81 /* IAPViewController.m */; };
+		EAE36A6415BF70CE00892B81 /* IAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE36A5F15BF70CE00892B81 /* IAPViewController.m */; };
 		EAE3A134160BD2990004E563 /* PHTimeInGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D108A82F15A6553700082388 /* PHTimeInGame.m */; };
 		EAE3A135160BD29F0004E563 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5E12D115ED4087002E1AA6 /* libKIF.a */; };
 		EAE5598614F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */; };
@@ -560,6 +568,7 @@
 		EA12AC441366339D00CB2F24 /* PublisherContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublisherContentViewController.m; sourceTree = "<group>"; };
 		EA14C6611342604000E228E0 /* Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1799DF14200FAE005F286F /* PHConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConstants.m; sourceTree = "<group>"; };
+		EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IAPViewController.xib; sourceTree = "<group>"; };
 		EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHNetworkUtil.h; sourceTree = "<group>"; };
 		EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNetworkUtil.m; sourceTree = "<group>"; };
 		EA2B07A014E9EBA60087A45F /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
@@ -650,6 +659,8 @@
 		EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHStoreProductViewControllerDelegate.m; sourceTree = "<group>"; };
 		EAE0F5FA1385D1120062B950 /* PHPublisherSubContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherSubContentRequest.h; sourceTree = "<group>"; };
 		EAE0F5FB1385D1120062B950 /* PHPublisherSubContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherSubContentRequest.m; sourceTree = "<group>"; };
+		EAE36A5E15BF70CE00892B81 /* IAPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPViewController.h; sourceTree = "<group>"; };
+		EAE36A5F15BF70CE00892B81 /* IAPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPViewController.m; sourceTree = "<group>"; };
 		EAE5598514F866CA0023BBEF /* PHPublisherIAPTrackingRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherIAPTrackingRequestTest.m; sourceTree = "<group>"; };
 		EAED519D134B949D00D0DCB6 /* PHPublisherContentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPublisherContentRequest.h; sourceTree = "<group>"; };
 		EAED519E134B949D00D0DCB6 /* PHPublisherContentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPublisherContentRequest.m; sourceTree = "<group>"; };
@@ -884,6 +895,9 @@
 				EA12AC3A13662AD700CB2F24 /* ExampleViewController.h */,
 				EA12AC3B13662AD700CB2F24 /* ExampleViewController.m */,
 				EABC1CE6143A770000638B09 /* ExampleViewController.xib */,
+				EAE36A5E15BF70CE00892B81 /* IAPViewController.h */,
+				EAE36A5F15BF70CE00892B81 /* IAPViewController.m */,
+				EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */,
 				EA8A531315B0918B00E7B3ED /* URLLoaderViewController.h */,
 				EA8A531415B0918B00E7B3ED /* URLLoaderViewController.m */,
 				EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */,
@@ -1481,6 +1495,7 @@
 				EACFC8A1150033A6007EF54F /* 72.png in Resources */,
 				EABC0C76152B8A3200441393 /* Settings.bundle in Resources */,
 				EA8A531A15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
+				EA2163B815BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1511,6 +1526,7 @@
 				EA62D6901579925300B31E62 /* 72.png in Resources */,
 				EA62D6911579925300B31E62 /* Settings.bundle in Resources */,
 				EA8A531B15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
+				EA2163B915BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1532,6 +1548,7 @@
 				EABC0C77152B8A3200441393 /* Settings.bundle in Resources */,
 				EA8A531C15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 				EA1146DC15EEAD2100EDB469 /* content-datacollection.json in Resources */,
+				EA2163BA15BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1551,6 +1568,7 @@
 				EAF168D61534E59C006B6993 /* 72.png in Resources */,
 				EAF168D71534E59C006B6993 /* Settings.bundle in Resources */,
 				EA8A531D15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
+				EA2163BB15BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1614,6 +1632,7 @@
 				D108A83515A6553700082388 /* PHTimeInGame.m in Sources */,
 				EA8A531515B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BB16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
+				EAE36A6115BF70CE00892B81 /* IAPViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1709,6 +1728,7 @@
 				EAD610F515AC9212001D3E90 /* PHURLLoader+Automation.m in Sources */,
 				EA8A531615B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BC16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
+				EAE36A6215BF70CE00892B81 /* IAPViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1755,6 +1775,7 @@
 				D108A83615A6553700082388 /* PHTimeInGame.m in Sources */,
 				EA8A531715B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BD16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
+				EAE36A6315BF70CE00892B81 /* IAPViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1928,6 +1949,7 @@
 				D108A83715A6553700082388 /* PHTimeInGame.m in Sources */,
 				EA8A531815B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BE16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
+				EAE36A6415BF70CE00892B81 /* IAPViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
