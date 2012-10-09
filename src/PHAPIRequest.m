@@ -351,12 +351,13 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
     if ([_response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)_response;
         NSString *requestSignature = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
-        PH_LOG(@"Request has signature: %@", requestSignature);
-        if (requestSignature != nil) {
-            NSString *nonce = [self.signedParameters valueForKey:@"nonce"];
-            PH_LOG(@"Expected signature: %@", [PHAPIRequest expectedSignatureValueForResponse:responseString
-                                                                                       nonce:nonce
-                                                                                      secret:self.secret]);
+        NSString *nonce = [self.signedParameters valueForKey:@"nonce"];
+        NSString *expectedSignature = [PHAPIRequest expectedSignatureValueForResponse:responseString
+                                                                               nonce:nonce
+                                                                               secret:self.secret];
+        if (![expectedSignature isEqualToString:requestSignature]) {
+            [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
+            return;
         }
     }
     
