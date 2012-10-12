@@ -62,7 +62,7 @@ NSError *PHCreateError(PHErrorType errorType){
                       @"The content you requested has been dismissed because PlayHaven was not able to load content data.",
                       @"PlayHaven was not able to create the content unit overlay",
                       @"This error is for simulating an IAP error in the simulator",
-                      @"Signed response did not have valid signature."
+                      @"Signed response did not have valid signature.",
                       nil];
     }
     
