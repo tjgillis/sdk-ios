@@ -16,7 +16,7 @@ PlayHaven is a mobile game LTV-maximization platform to help you take control of
 
 Acquire, retain, re-engage, and monetize your players with the help of PlayHaven's powerful marketing platform. Integrate once and embrace the flexibility of the web as you build, schedule, deploy, and analyze your in-game promotions and monetization in real-time through PlayHaven's easy-to-use, web-based dashboard. 
 
-An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the [PlayHaven Dashboard](https://dashboard.playhaven.com).
+An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the [PlayHaven dashboard](https://dashboard.playhaven.com).
 
 For more information, see the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
 
@@ -127,7 +127,7 @@ The first method records a game open when the application is first launched:
 
 	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 
-The second method records a game open each time the app moves to the foreground after being launched.
+The second method records a game open each time the app moves to the foreground after being launched:
 
 	-(void)applicationWillEnterForeground:(UIApplication *)application 
     
@@ -140,21 +140,21 @@ parameter to pass this identifier along to PlayHaven with the open request.
 This asynchronously reports a game open to PlayHaven. 
 
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
-    request.customUDID = @"CUSTOM_UDID" //optional, see below.
+    request.customUDID = @"CUSTOM_UDID" //optional
     [request send];
 
 #### Precaching content templates
-PlayHaven automatically downloads and stores a number of content templates after a successful PHPublisherOpenRequest. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
+PlayHaven automatically downloads and stores a number of content templates after a successful `PHPublisherOpenRequest`. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
 
 <a id="request_placements"></a>
 ### Requesting content for your placements
-You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement `PHPublisherContentRequestDelegate` methods to receive callbacks from this request. Refer to the following section as well as the *example/PublisherContentViewController.m* file for a sample implementation.
+You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement `PHPublisherContentRequestDelegate` methods to receive callbacks from this request. Refer to the following section as well as the `example/PublisherContentViewController.m` file for a sample implementation.
 
 	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
 	request.showsOverlayImmediately = YES; //optional, see next.
 	[request send];
 
-The placement tags are set using the PlayHaven Dashboard.
+The placement tags are set using the PlayHaven dashboard.
 
 Optionally, you can show the loading overlay immediately by setting the request object's `showsOverlayImmediately` property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
@@ -165,7 +165,7 @@ To make content requests more responsive, you may choose to preload a content un
 
 You may set a delegate for your preload if you would like to be informed when a content request is ready to display. See the next sections for more details.
 
-*NOTE:* Preloading only affects the next content request for a given placement. If you are showing the same placement multiple times in your app, you will need to make additional preload requests after displaying that placement's content unit for the first time.
+Preloading only works for the next content request for a given placement. If you are showing the same placement multiple times in your app, you will need to make additional preload requests after displaying that placement's content unit for the first time.
 
 #### Starting a content request
 The request is about to attempt to get content from the PlayHaven API. 
@@ -178,7 +178,7 @@ The request received some valid content from the PlayHaven API. This will be the
 	-(void)requestDidGetContent:(PHPublisherContentRequest *)request;
 
 #### Preparing to show a content view
-If there is content for this placement, it is be loaded at this point. An overlay view appears over your app and a spinner indicates that the content is loading. Depending on the transition type for your content, your view may or may not be visible at this time. If you haven't done this, you should mute any sounds and pause any animations in your app. 
+If there is content for this placement, it is loaded at this point. An overlay view appears over your app and a spinner indicates that the content is loading. Depending on the transition type for your content, your view may or may not be visible at this time. If you haven't done this, you should mute any sounds and pause any animations in your app. 
 
 	-(void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content;
 
@@ -213,8 +213,8 @@ You can also cancel all open API requests for a given delegate. This can be usef
 
     [PHAPIRequest cancelAllRequestsWithDelegate:(id)delegate];
 
-### Customizing content display
-#### Replace close button graphics
+###Customizing content display
+####Replace close button graphics
 Use the following request method to replace the close button image with something that more closely matches your app. Images will be scaled to a maximum size of 40x40.
 
 	-(UIImage *)request:(PHPublisherContentRequest *)request closeButtonImageForControlState:(UIControlState)state content:(PHContent *)content;
@@ -224,10 +224,10 @@ PlayHaven allows you to reward users with virtual currency, in-game items, or an
 
 	-(void)request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward;
 
-The PHReward object passed through this method has the following helpful properties:
+The `PHReward` object passed through this method has the following helpful properties:
 
   * name - The name of your reward as configured on the dashboard.
-  * quantity - An integer representing quantity associated with the reward.
+  * quantity - An integer representing the quantity associated with the reward.
   * receipt - A unique identifier that is used to detect duplicate reward unlocks. Your app should ensure that each receipt is only unlocked once.
 
 <a id="trigger-in-app"></a>
@@ -236,7 +236,7 @@ Using the Virtual Goods Promotion content unit, PlayHaven can be used to trigger
 
 	-(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
   
-The PHPurchase object passed through this method has the following properties:
+The `PHPurchase` object passed through this method has the following properties:
 
   * productIdentifier - The product identifier for your purchase.  This is a unique string used for Store Kit requests.
   * quantity - An integer representing the quantity associated with the purchase. 
@@ -256,7 +256,7 @@ The PHPurchase object passed through this method has the following properties:
 ### Links to the App Store
 As of 1.12.1, links that open in the App Store will instead launch Apple's In-App iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
 
-In-app iTunes purchases are like other in-app purchases in that when launched from an app that is being debugged (through XCode), or distributed using an Ad-Hoc profile, they interact with Apple's sandbox iTunes environment. Thus, purchases won't seem to work unless they're tested with a sandbox iTunes account, which is set up through iTunes Connect. The purchases will work as expected from a version of the app downloaded from the App Store, which is signed by Apple.
+In-App iTunes purchases are like other in-app purchases in that when launched from an app that is being debugged (through XCode), or distributed using an Ad-Hoc profile, they interact with Apple's sandbox iTunes environment. Thus, purchases won't seem to work unless they're tested with a sandbox iTunes account, which is set up through iTunes Connect. The purchases will work as expected from a version of the app downloaded from the App Store, which is signed by Apple.
 
 <a id="track-in-app"></a> 
 ### Tracking in-app purchases
@@ -296,11 +296,11 @@ You also need to clear any notification view instances when you successfully lau
 Most of the time the API returns an empty response, which means a notification is not shown. You can see a sample notification by using `-(void)test;` wherever you would use `-(void)refresh`. It is listed as deprecated to remind you to switch all instances of `-(void)test` in your code to `-(void)refresh;`.
 
 #### Customizing notification rendering with PHNotificationRenderer
-`PHNotificationRenderer` is a base class that draws a notification view for the given notification data. The base class implements a blank notification view used for unknown notification types. `PHNotificationBadgeRenderer` renders a iOS default-style notification badge with a given "value" string. You can customize existing notification renderers and register new ones at runtime using the following method on PHNotificationView:
+`PHNotificationRenderer` is a base class that draws a notification view for the given notification data. The base class implements a blank notification view used for unknown notification types. `PHNotificationBadgeRenderer` renders an iOS default-style notification badge with a given value string. You can customize existing notification renderers and register new ones at runtime using the following method on `PHNotificationView`:
 
 	+(void)setRendererClass:(Class)class forType:(NSString *)type;
 
-Your PHNotificationRenderer subclass needs to implement the following methods to draw and size your notification view appropriately:
+Your `PHNotificationRenderer` subclass needs to implement the following methods to draw and size your notification view appropriately:
 
 	-(void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect;
 
