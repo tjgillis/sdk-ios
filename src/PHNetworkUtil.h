@@ -11,4 +11,7 @@
 @interface PHNetworkUtil : NSObject
 +(id)sharedInstance;
 -(void)checkDNSResolutionForURLPath:(NSString *)urlPath;
+-(CFDataRef)newMACBytes;
+-(NSString *)stringForMACBytes:(CFDataRef)macBytes;
+-(NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes;
 @end
