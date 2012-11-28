@@ -21,7 +21,8 @@
 #endif
 
 static NSString *sPlayHavenSession;
-static NSString *const kSessionPasteboard = @"com.playhaven.session"; 
+static NSString *const kSessionPasteboard = @"com.playhaven.session";
+static NSString *sPlayHavenPluginIdentifier;
 
 @interface PHAPIRequest(Private)
 -(id)initWithApp:(NSString *)token secret:(NSString *)secret;
@@ -107,6 +108,22 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"PlayHavenOptOutStatus"];
 }
 
++(NSString *)pluginIdentifier{
+    @synchronized(self){
+        if (sPlayHavenPluginIdentifier == nil) {
+            sPlayHavenPluginIdentifier = [[NSString alloc] initWithFormat:@"ios-%@", PH_SDK_VERSION];
+        }
+    }
+    
+    return sPlayHavenPluginIdentifier;
+}
+
++(void)setPluginIdentifier:(NSString *)identifier{
+    @synchronized(self){
+        [sPlayHavenPluginIdentifier release], sPlayHavenPluginIdentifier = [identifier copy];
+    }
+}
+
 +(void)setOptOutStatus:(BOOL)yesOrNo{
     [[NSUserDefaults standardUserDefaults] setBool:yesOrNo forKey:@"PlayHavenOptOutStatus"];
 }
@@ -186,6 +203,10 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
         }
 #endif
 #endif
+        
+        //adds plugin identifier
+        [combinedParams setValue:[PHAPIRequest pluginIdentifier] forKey:@"plugin"];
+        
         
         //This allows for unit testing of request values!
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
