@@ -334,7 +334,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
             [self continueLoadingIfNeeded];
         }
     } else {
-        PH_NOTE(@"This request was successful but did not contain any displayable content. Dismissing now.");
+        PH_NOTE(@"The request was successfull but did not contain any displayable content. There may not be any content units assigned to this placement or all content units assigned to this placement have been suppressed by frequency caps or targeting. Visit the PlayHaven Dashboard for more details. Dismissing now.");
         if ([self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
             [self.delegate performSelector:@selector(request:contentDidDismissWithType:) 
                                 withObject:self
