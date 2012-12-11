@@ -8,6 +8,13 @@
 
 #import "PHNetworkUtil.h"
 #import "PHConstants.h"
+#import "PHAPIRequest.h"
+#import <CommonCrypto/CommonDigest.h>
+
+#include <sys/socket.h>
+#include <sys/sysctl.h>
+#include <net/if.h>
+#include <net/if_dl.h>
 #import <netinet/in.h>
 #include <arpa/inet.h>
 
@@ -61,6 +68,87 @@
     }
     
     [pool release];
+}
+
+-(CFDataRef)newMACBytes{
+    if ([PHAPIRequest optOutStatus]) {
+        return nil;
+    }
+    
+    int                 mib[6];
+    size_t              len;
+    char                *buf;
+    uint8_t       *ptr;
+    struct if_msghdr    *ifm;
+    struct sockaddr_dl  *sdl;
+    
+    mib[0] = CTL_NET;
+    mib[1] = AF_ROUTE;
+    mib[2] = 0;
+    mib[3] = AF_LINK;
+    mib[4] = NET_RT_IFLIST;
+    
+    if ((mib[5] = if_nametoindex("en0")) == 0)
+    {
+        PH_NOTE(@"Error: if_nametoindex error\n");
+        return NULL;
+    }
+    
+    if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0)
+    {
+        PH_NOTE(@"Error: sysctl, take 1\n");
+        return NULL;
+    }
+    
+    if ((buf = malloc(len)) == NULL)
+    {
+        PH_NOTE(@"Could not allocate memory. error!\n");
+        return NULL;
+    }
+    
+    if (sysctl(mib, 6, buf, &len, NULL, 0) < 0)
+    {
+        PH_NOTE(@"Error: sysctl, take 2");
+        free(buf);
+        return NULL;
+    }
+    
+    ifm = (struct if_msghdr *)buf;
+    sdl = (struct sockaddr_dl *)(ifm + 1);
+    ptr = (uint8_t *)LLADDR(sdl);
+    CFDataRef data = CFDataCreate(NULL, (uint8_t*)ptr, 6);
+    
+    free(buf);
+    return data;
+}
+
+-(NSString *)stringForMACBytes:(CFDataRef)macBytes{
+    const uint8_t *ptr = CFDataGetBytePtr(macBytes);
+    return  [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X",
+                                        *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)] lowercaseString];
+}
+
+-(NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes{
+    unsigned char messageDigest[CC_SHA1_DIGEST_LENGTH];
+    
+    CC_SHA1(CFDataGetBytePtr((CFDataRef)macBytes),
+            CFDataGetLength((CFDataRef)macBytes),
+            messageDigest);
+    
+    CFMutableStringRef string = CFStringCreateMutable(NULL, 40);
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+        CFStringAppendFormat(string,
+                             NULL,
+                             (CFStringRef)@"%02X",
+                             messageDigest[i]);
+    }
+    
+    CFStringLowercase(string, CFLocaleGetSystem());
+    
+    NSString *odinstring = [[[NSString alloc] initWithString:(NSString*)string] autorelease];
+    CFRelease(string);
+    
+    return odinstring;
 }
 
 @end
