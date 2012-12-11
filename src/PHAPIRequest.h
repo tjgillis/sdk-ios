@@ -39,6 +39,9 @@
 +(BOOL)optOutStatus;
 +(void)setOptOutStatus:(BOOL)yesOrNo;
 
++(NSString *) pluginIdentifier;
++(void)setPluginIdentifier:(NSString *)identifier;
+
 +(id)requestForApp:(NSString *)token secret:(NSString *)secret;
 +(id)requestWithHashCode:(int)hashCode;
 +(void)cancelAllRequestsWithDelegate:(id) delegate;
