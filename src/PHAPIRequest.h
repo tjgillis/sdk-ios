@@ -5,6 +5,8 @@
 //  Created by Jesus Fernandez on 3/30/11.
 //  Copyright 2011 Playhaven. All rights reserved.
 //
+
+#import <CommonCrypto/CommonHMAC.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -34,6 +36,7 @@
 }
 
 +(NSString *) base64SignatureWithString:(NSString *)string;
++(NSString *) expectedSignatureValueForResponse:(NSString *)response nonce:(NSString *)nonce secret:(NSString *)secret;
 +(NSString *) session;
 
 +(BOOL)optOutStatus;

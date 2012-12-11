@@ -45,6 +45,24 @@
                  @"Hash mismatch. Expected %@ got %@",EXPECTED_HASH,signatureHash);
 }
 
+-(void)testResponseDigestVerification{
+    /*
+     For this test expected digest hashes were generated using pyton's hmac library.
+     */
+    NSString *responseDigest, *expectedDigest;
+    
+    //digest with nonce
+    responseDigest = [PHAPIRequest expectedSignatureValueForResponse:@"response body" nonce:@"nonce" secret:PUBLISHER_SECRET];
+    expectedDigest = @"rt3JHGReRAaol-xPVildr6Ev9fU=";
+    STAssertTrue([responseDigest isEqualToString:expectedDigest], @"Digest mismatch. Expected %@ got %@", expectedDigest, responseDigest);
+    
+    //digest without nonce
+    responseDigest = [PHAPIRequest expectedSignatureValueForResponse:@"response body" nonce:nil secret:PUBLISHER_SECRET];
+    expectedDigest = @"iNmo12xRqVAn_7quEvOSwhenEZA=";
+    STAssertTrue([responseDigest isEqualToString:expectedDigest], @"Digest mismatch. Expected %@ got %@", expectedDigest, responseDigest);
+    
+}
+
 -(void)testRequestParameters{
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *signedParameters = [request signedParameters];
