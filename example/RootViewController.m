@@ -14,6 +14,7 @@
 #import "URLLoaderViewController.h"
 #import "IAPViewController.h"
 #import "PHAPIRequest.h"
+#import "IDViewController.h"
 
 @interface RootViewController(Private)
 -(BOOL)isTokenAndSecretFilledIn;
@@ -129,7 +130,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -170,6 +171,10 @@
             cell.detailTextLabel.text = @"Test In-App Purchases";
             cell.accessibilityLabel = @"iap";
             break;
+        case 6:
+            cell.textLabel.text = @"identifiers";
+            cell.detailTextLabel.text = @"all of them";
+            cell.accessibilityLabel = @"identifiers";
         default:
             break;
     }
@@ -216,6 +221,11 @@
         } else if (indexPath.row == 5){
             IAPViewController *controller = [[IAPViewController alloc] initWithNibName:@"IAPViewController" bundle:nil];
             controller.title = @"IAP";
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
+        } else if (indexPath.row == 6){
+            IDViewController *controller = [[IDViewController alloc] initWithNibName:@"IDViewController" bundle:nil];
+            controller.title = @"Identifiers";
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
         }

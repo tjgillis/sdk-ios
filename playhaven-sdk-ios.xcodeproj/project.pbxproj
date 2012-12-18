@@ -265,6 +265,14 @@
 		EA9AB66914A3B2EE00079704 /* PHReward.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB2B44513CBD172006D2391 /* PHReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA9AB66B14A3B2EE00079704 /* PHPublisherOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA523D8D1343EE790057DEA5 /* PHPublisherOpenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA547D714BF62AC00254A54 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D175008D149193790037A036 /* CFNetwork.framework */; };
+		EAA86A96167FFDE100F6B388 /* IDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA86A94167FFDE100F6B388 /* IDViewController.m */; };
+		EAA86A97167FFDE100F6B388 /* IDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA86A94167FFDE100F6B388 /* IDViewController.m */; };
+		EAA86A98167FFDE100F6B388 /* IDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA86A94167FFDE100F6B388 /* IDViewController.m */; };
+		EAA86A99167FFDE100F6B388 /* IDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA86A94167FFDE100F6B388 /* IDViewController.m */; };
+		EAA86A9A167FFDE100F6B388 /* IDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA86A95167FFDE100F6B388 /* IDViewController.xib */; };
+		EAA86A9B167FFDE100F6B388 /* IDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA86A95167FFDE100F6B388 /* IDViewController.xib */; };
+		EAA86A9C167FFDE100F6B388 /* IDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA86A95167FFDE100F6B388 /* IDViewController.xib */; };
+		EAA86A9D167FFDE100F6B388 /* IDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA86A95167FFDE100F6B388 /* IDViewController.xib */; };
 		EAB2B44713CBD172006D2391 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
 		EAB2B44813CBD172006D2391 /* PHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B44613CBD172006D2391 /* PHReward.m */; };
 		EAB4423313452026000DA3E9 /* PHAPIRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4423213452026000DA3E9 /* PHAPIRequestTest.m */; };
@@ -615,6 +623,9 @@
 		EA8C313614DC9F710075B473 /* Info-fixtures.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-fixtures.plist"; sourceTree = "<group>"; };
 		EA98C12C16640E4500B6AA8C /* PHNetworkUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNetworkUtilTest.m; sourceTree = "<group>"; };
 		EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlayHaven.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAA86A93167FFDE100F6B388 /* IDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDViewController.h; sourceTree = "<group>"; };
+		EAA86A94167FFDE100F6B388 /* IDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDViewController.m; sourceTree = "<group>"; };
+		EAA86A95167FFDE100F6B388 /* IDViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDViewController.xib; sourceTree = "<group>"; };
 		EAB19C8C1357BA390067F27A /* PHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConstants.h; sourceTree = "<group>"; };
 		EAB2B44513CBD172006D2391 /* PHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHReward.h; sourceTree = "<group>"; };
 		EAB2B44613CBD172006D2391 /* PHReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHReward.m; sourceTree = "<group>"; };
@@ -917,6 +928,9 @@
 				EA4AC25D15019C230069D264 /* IAPHelper.m */,
 				EA5FA4751542120600F1517A /* PublisherCancelContentViewController.h */,
 				EA5FA4761542120600F1517A /* PublisherCancelContentViewController.m */,
+				EAA86A93167FFDE100F6B388 /* IDViewController.h */,
+				EAA86A94167FFDE100F6B388 /* IDViewController.m */,
+				EAA86A95167FFDE100F6B388 /* IDViewController.xib */,
 			);
 			name = "Example/Debug App";
 			path = example;
@@ -1500,6 +1514,7 @@
 				EABC0C76152B8A3200441393 /* Settings.bundle in Resources */,
 				EA8A531A15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 				EA2163B815BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
+				EAA86A9A167FFDE100F6B388 /* IDViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1532,6 +1547,7 @@
 				EA62D6911579925300B31E62 /* Settings.bundle in Resources */,
 				EA8A531B15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 				EA2163B915BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
+				EAA86A9B167FFDE100F6B388 /* IDViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1554,6 +1570,7 @@
 				EA8A531C15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 				EA1146DC15EEAD2100EDB469 /* content-datacollection.json in Resources */,
 				EA2163BA15BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
+				EAA86A9C167FFDE100F6B388 /* IDViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1574,6 +1591,7 @@
 				EAF168D71534E59C006B6993 /* Settings.bundle in Resources */,
 				EA8A531D15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
 				EA2163BB15BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
+				EAA86A9D167FFDE100F6B388 /* IDViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1638,6 +1656,7 @@
 				EA8A531515B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BB16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6115BF70CE00892B81 /* IAPViewController.m in Sources */,
+				EAA86A96167FFDE100F6B388 /* IDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1735,6 +1754,7 @@
 				EA8A531615B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BC16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6215BF70CE00892B81 /* IAPViewController.m in Sources */,
+				EAA86A97167FFDE100F6B388 /* IDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1782,6 +1802,7 @@
 				EA8A531715B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BD16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6315BF70CE00892B81 /* IAPViewController.m in Sources */,
+				EAA86A98167FFDE100F6B388 /* IDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1956,6 +1977,7 @@
 				EA8A531815B0918B00E7B3ED /* URLLoaderViewController.m in Sources */,
 				EADB57BE16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6415BF70CE00892B81 /* IAPViewController.m in Sources */,
+				EAA86A99167FFDE100F6B388 /* IDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
