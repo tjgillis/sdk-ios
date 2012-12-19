@@ -7,7 +7,7 @@ This guide has the following sections:
 * [Version History](#version) 
 * [Integration](#integration) 
 * [API Reference](#api_ref)
-* [Integration Test Console](#test_console)
+* [Integration Test Console](#integration-test-console-overview)
 
 <a id="overview"></a>
 Overview
@@ -311,7 +311,6 @@ This method is called inside of the `PHNotificationView` instance `-(void)drawRe
 
 This method is called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of `notificationData`, you need to calculate an appropriate size.
 
-<a id="test_console"></a>
 Integration Test Console Overview
 =================================
 
