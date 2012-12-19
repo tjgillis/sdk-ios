@@ -19,7 +19,7 @@ Acquire, retain, re-engage, and monetize your players with the help of PlayHaven
 
 An API token and secret is required to use this SDK. These tokens uniquely identify your app to PlayHaven and prevent others from making requests to the API on your behalf. To get a token and secret, please visit the [PlayHaven dashboard](https://dashboard.playhaven.com).
 
-For more information, see the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration.
+For more information, see the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration. Additionally, the [Integration Test Console](#integration-test-console-overview) can help you test your integration against our APIs.
 
 Also see the [Integration](#integration) and [API Reference](#api_ref) sections in this document.
 
@@ -316,24 +316,22 @@ Integration Test Console Overview
 
 PlayHaven provides an [Integration Test Console](http://console.playhaven.com). It's located at http://console.playhaven.com 
  
-At the Testing Console, developers can enter their UDID (iOS) or Android ID. The Testing Console listens for events coming from the test device and displays a log of output, including successes, failures, and helpful information. The test device must be registered as test device from the PlayHaven Dashboard and "enabled" via the Publisher Dashboard. 
+At the Testing Console, developers can enter their UDID. The Testing Console listens for events coming from the test device and displays a log of output, including successes, failures, and helpful information. The test device must be registered as test device from the PlayHaven Dashboard and "enabled" via the Publisher Dashboard. 
  
 Currently one cannot "export" their console log but you can copy and paste it into a text file or spreadsheet. To search, please use Command+F.
  
-To begin, enter your Android ID or UDID (iOS) and follow the "Testing Instructions" in the light blue box to view events and comments.
+To begin, enter your UDID and follow the "Testing Instructions" in the light blue box to view events and comments.
  
 The following can currently be checked:
  
 * Upon Open Request:
-  * Device ID (UDID/Android Device ID) 
+  * Device ID (UDID) 
   * Open requests sent
   * Token/secret present
   * SDK Version
   * IDFA sent (iOS only)
-
 * Placements:
   * Placement detection (Content request)
   * Pre-loading (Pre-loading request)
-
 * IAP:
   * Check that pricing is present (IAP transaction request)
