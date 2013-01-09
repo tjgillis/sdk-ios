@@ -30,6 +30,11 @@ static NSString *sPlayHavenPluginIdentifier;
 -(void)finish;
 -(void)afterConnectionDidFinishLoading;
 +(void)setSession:(NSString *)session;
+-(void)processRequestResponse:(NSDictionary *)responseData;
+
+-(void)didSucceedWithResponse:(NSDictionary *)responseData;
+-(void)didFailWithError:(NSError *)error;
+
 @end
 
 @implementation PHAPIRequest
