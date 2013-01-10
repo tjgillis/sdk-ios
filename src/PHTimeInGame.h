@@ -23,7 +23,7 @@
 
 //  Start counting up time for the current session
 -(void) gameSessionStarted;
-//  Ends  the current session and increments counters
+//  Ends the current session and increments counters
 -(void) gameSessionStopped;
 //  Resets time and session data. Typically used after data is sent to the API.
 -(void) resetCounters;

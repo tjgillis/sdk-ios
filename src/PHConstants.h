@@ -33,7 +33,8 @@
 //   2: GET request with dispatch parameters encoded as a single JSON string 
 //      in query string. Rewards support requires this setting.
 //   3: Unknown dispatches are ignored instead of throwing an error
-// * 4: ph://launch dispatches no longer create native spinner views
+//   4: ph://launch dispatches no longer create native spinner views
+// * 5: ph://launch dispatches support in-app app store launches on iOS 6
 #define PH_DISPATCH_PROTOCOL_VERSION 5
 
 // PH_REQUEST_TIMEOUT
