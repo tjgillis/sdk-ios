@@ -8,19 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-
+//  String utility class
 @interface PHStringUtil : NSObject
 
 // SEE: implementation for why you should not use this.
 +(NSString *)stringWithQueryQuirky:(NSDictionary *)params;
 
+// generates a unique uuid
++(NSString *)uuid;
+
+// generates a URL query string using a dictionary of parameters
 +(NSString *)stringWithQuery:(NSDictionary *)params;
 +(NSString *)stringByHtmlEscapingString:(NSString *)input;
 +(NSString *)stringByUrlEncodingString:(NSString *)input;
 +(NSString *)stringByUrlDecodingString:(NSString *)input;
-+(NSString *)uuid;
+
+// generates a dictionary from a URL query parameter string
 +(NSDictionary *)dictionaryWithQueryString:(NSString *)input;
 
+// string digest and encoding functions, mostly for signatures
 +(NSData *)dataDigestForString:(NSString *)input;
 +(NSString *)base64EncodedStringForData:(NSData *)data;
 +(NSString *)hexEncodedStringForData:(NSData *)data;
