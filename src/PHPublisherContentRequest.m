@@ -62,6 +62,16 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 @property (nonatomic, readonly) UIButton *closeButton;
 @property (nonatomic, readonly) PHPublisherContentRequestState state;
 -(BOOL)setState:(PHPublisherContentRequestState)state;
+-(void)requestSubcontent:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
+
+
+-(BOOL)isValidReward:(NSDictionary *)rewardData;
+-(void)requestRewards:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
+
+-(BOOL)isValidPurchase:(NSDictionary *)purchaseData;
+-(void)requestPurchases:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
+
+-(void)requestCloseButton:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
 @end
 
 @implementation PHPublisherContentRequest
