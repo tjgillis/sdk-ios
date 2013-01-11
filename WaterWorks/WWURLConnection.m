@@ -78,6 +78,8 @@ NSString *readLineAsNSString(FILE *file)
 +(NSMutableDictionary *)allResponses;
 +(NSData *)getResponseForURL:(NSURL *)url;
 -(void)startInBackground;
++(NSData *)bestResponseForURL:(NSURL *)url;
+
 @end
 
 @implementation WWURLConnection
