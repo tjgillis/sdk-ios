@@ -33,6 +33,9 @@ typedef enum{
     PHPurchaseResolutionFailure
 } PHPurchaseResolutionType;
 
+//  Contains information about a IAP purchase that is usually triggered by a
+//  ph://purchase dispatch in a content unit. Also provides a means for the
+//  content unit to be informed of the resolution of this purchase request
 @interface PHPurchase : NSObject{
 
     NSString *_productIdentifier;
@@ -42,17 +45,29 @@ typedef enum{
     NSString *_callback;
 }
 
+//  Converts the enumerated resolution type to a string value for use in URL
+//  parameter strings
 +(NSString *)stringForResolution:(PHPurchaseResolutionType)resolution;
 
+//  iTunes product identifier
 @property (nonatomic, copy) NSString *productIdentifier;
+
+//  product display name
 @property (nonatomic, copy) NSString *name;
+
+//  quantity of the item to purchase
 @property (nonatomic, assign) NSInteger quantity;
+
+//  unique receipt value to use for validation
 @property (nonatomic, copy) NSString *receipt;
+
+//  content unit callback identifier. (note: we're not passing a reference to
+//  the originating content unit, this depends on callback ids being globally
+//  unique.)
 @property (nonatomic, copy) NSString *callback;
 
-//
-// Called by the Publisher to share the results of the IAP with Play Haven dashboard
-//
+//  Reports the resolution of the purchase (see PHPurchaseResolutionType above)
+//  to the content unit that originated the purchase.
 -(void) reportResolution:(PHPurchaseResolutionType)resolution;
 
 @end

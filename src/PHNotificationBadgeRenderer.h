@@ -11,6 +11,9 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "PHNotificationRenderer.h"
 
+//  Notification renderer class. This class draws a "badge" type notification in
+//  the default notification style familiar to iOS users (red circle, white
+//  border, white text)
 @interface PHNotificationBadgeRenderer : PHNotificationRenderer
 
 @end

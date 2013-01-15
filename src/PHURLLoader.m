@@ -9,8 +9,6 @@
 #import "PHURLLoader.h"
 #import "PHConstants.h"
 
-#define MAXIMUM_REDIRECTS 10
-
 @interface PHURLLoader(Private)
 +(NSMutableSet *)allLoaders;
 -(void)finish;
