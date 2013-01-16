@@ -24,7 +24,7 @@
 @implementation PHPublisherOpenRequest
 
 +(void)initialize{
-    
+
     if  (self == [PHPublisherOpenRequest class]){
         // Initializes pre-fetching and webview caching
         PH_SDURLCACHE_CLASS *urlCache = [[PH_SDURLCACHE_CLASS alloc] initWithMemoryCapacity:PH_MAX_SIZE_MEMORY_CACHE
@@ -37,13 +37,13 @@
 
 @synthesize customUDID = _customUDID;
 
--(NSDictionary *)additionalParameters{    
+-(NSDictionary *)additionalParameters{
     NSMutableDictionary *additionalParameters = [NSMutableDictionary dictionary];
 
     if (!!self.customUDID) {
         [additionalParameters setValue:self.customUDID forKey:@"d_custom"];
     }
-    
+
 #if PH_USE_OPENUDID == 1
         [additionalParameters setValue:[PH_OPENUDID_CLASS value] forKey:@"d_odid"];
 #endif
@@ -58,7 +58,7 @@
         }
     }
 #endif
-    
+
     [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]] forKey:@"scount"];
     [additionalParameters setValue:[NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])] forKey:@"ssum"];
 
@@ -78,28 +78,28 @@
 -(void)didSucceedWithResponse:(NSDictionary *)responseData{
     NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
     if (!!urlArray) {
-        for (NSString *urlString in urlArray){            
+        for (NSString *urlString in urlArray){
             NSURL *url = [NSURL URLWithString:urlString];
             NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
             NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:nil];
             [connection start];
         }
     }
-    
+
     NSString *session = (NSString *)[responseData valueForKey:@"session"];
     if (!!session){
         [PHAPIRequest setSession:session];
     }
-    
+
     if ([self.delegate respondsToSelector:@selector(request:didSucceedWithResponse:)]) {
         [self.delegate performSelector:@selector(request:didSucceedWithResponse:) withObject:self withObject:responseData];
     }
-    
+
     // Reset time in game counters;
     [[PHTimeInGame getInstance] resetCounters];
-    
+
     [self finish];
-    
+
 }
 
 #pragma mark - NSObject

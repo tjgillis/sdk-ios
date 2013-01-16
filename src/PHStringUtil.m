@@ -21,18 +21,18 @@ static HTMLEntityPair gEntityTable[] = {
 	{ 39, @"&apos;" },
 	{ 60, @"&lt;" },
 	{ 62, @"&gt;" },
-	
+
 	// Latin Extended-A
 	{ 338, @"&OElig;" },
 	{ 339, @"&oelig;" },
 	{ 352, @"&Scaron;" },
 	{ 353, @"&scaron;" },
 	{ 376, @"&Yuml;" },
-	
+
 	// Spacing Modifier Letters
 	{ 710, @"&circ;" },
 	{ 732, @"&tilde;" },
-    
+
 	// General Punctuation
 	{ 8194, @"&ensp;" },
 	{ 8195, @"&emsp;" },
@@ -63,7 +63,7 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 	const unichar *character = (const unichar *) voidCharacter;
 	const HTMLEntityPair *entityTable = (const HTMLEntityPair *) voidEntityTable;
 	int result;
-	
+
 	if (*character < entityTable->character) {
 		result = -1;
 	} else if (*character > entityTable->character) {
@@ -71,24 +71,24 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 	} else {
 		result = 0;
 	}
-    
+
 	return result;
 }
 
 @implementation PHStringUtil
 
 // NOTE: Left intact for backwards-quirkiness.
-// Any service-facing input should continue to use this method, 
+// Any service-facing input should continue to use this method,
 // so as not to encourage backwards-incompatible service behavior.
 +(NSString *)stringWithQueryQuirky:(NSDictionary *)params {
 	NSArray *keys = [params allKeys];
 	NSMutableString *query = [NSMutableString string];
 	int i, n = [keys count];
-	
+
 	for (i = 0; i < n; i++) {
 		NSString *key = [keys objectAtIndex:i];
 		id item = [params objectForKey:key];
-		
+
 		if (![item isKindOfClass:[NSString class]])
 		{
 			if ([item respondsToSelector:@selector(stringValue)]){
@@ -98,12 +98,12 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 				item = (NSString *) item;
 			}
 		}
-		
+
 		[query appendFormat:@"%@=%@", key, [PHStringUtil stringByUrlEncodingString:item]];
-		
+
 		if (i < n - 1) [query appendString:@"&"];
 	}
-	
+
 	return query;
 }
 
@@ -111,13 +111,13 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 	NSArray *keys = [params allKeys];
 	NSMutableString *query = [NSMutableString string];
 	int i, n = [keys count];
-	
+
 	for (i = 0; i < n; i++) {
 		NSString *key = [keys objectAtIndex:i];
 		NSString *stringValue = nil;
-		
+
 		id value = [params objectForKey:key];
-		
+
 		if (value != [NSNull null]) {
 			if ([value respondsToSelector:@selector(stringValue)]) {
 				stringValue = [value stringValue];
@@ -125,61 +125,61 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 			else {
 				stringValue = (NSString *) value;
 			}
-			
+
 			stringValue = [PHStringUtil stringByUrlEncodingString:stringValue];
 		}
 		else {
 			stringValue = @"";
 		}
-		
+
 		[query appendFormat:@"%@=%@", key, stringValue];
-		
+
 		if (i < n - 1) [query appendString:@"&"];
 	}
-	
+
 	return query;
 }
 
 +(NSString *) stringByHtmlEscapingString:(NSString *)input {
 	NSUInteger inputLength = [input length];
-	
+
 	if (!inputLength) {
 		return input;
 	}
-    
+
 	NSMutableString *result = [NSMutableString string];
 	NSMutableData *outputData = [NSMutableData dataWithCapacity:sizeof(unichar) * inputLength];
 	const unichar *inputBuffer = CFStringGetCharactersPtr((CFStringRef) input);
-    
+
 	if (!inputBuffer) {
 		NSMutableData *inputData = [NSMutableData dataWithLength:inputLength * sizeof(UniChar)];
-        
+
 		if (inputData) {
 			[input getCharacters:[inputData mutableBytes]];
 			inputBuffer = [inputData bytes];
 		}
 	}
-	
+
 	if (!inputBuffer || !outputData) {
 		return nil;
 	}
-	
+
 	unichar *outputBuffer = (unichar *)[outputData mutableBytes];
 	NSUInteger outputBufferLength = 0;
-	
+
 	for (NSUInteger i = 0; i < inputLength; ++i) {
-		HTMLEntityPair *pair = bsearch(&inputBuffer[i], gEntityTable, 
+		HTMLEntityPair *pair = bsearch(&inputBuffer[i], gEntityTable,
 									   sizeof(gEntityTable) / sizeof(HTMLEntityPair),
 									   sizeof(HTMLEntityPair), CompareEntityPairs);
-        
+
 		if (pair || inputBuffer[i] > 127) {
 			if (outputBufferLength) {
 				CFStringAppendCharacters((CFMutableStringRef) result,
-										 outputBuffer, 
+										 outputBuffer,
 										 outputBufferLength);
 				outputBufferLength = 0;
 			}
-            
+
 			if (pair) {
 				[result appendString:pair->entity];
 			}
@@ -191,27 +191,27 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 			outputBufferLength += 1;
 		}
 	}
-    
+
 	if (outputBufferLength) {
 		CFStringAppendCharacters((CFMutableStringRef) result,
-								 outputBuffer, 
+								 outputBuffer,
 								 outputBufferLength);
 	}
-    
+
 	return result;
 }
 
 +(NSString *) stringByUrlEncodingString:(NSString *)input {
 	CFStringRef value = CFURLCreateStringByAddingPercentEscapes(
-																kCFAllocatorDefault, 
+																kCFAllocatorDefault,
 																(CFStringRef) input,
 																NULL,
 																(CFStringRef) @"!*'();:@&=+$,/?%#[]",
 																kCFStringEncodingUTF8);
-	
+
 	NSString *result = [NSString stringWithString:(NSString *)value];
 	CFRelease(value);
-	
+
 	return result;
 }
 
@@ -223,46 +223,46 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 	CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
 	CFStringRef uuidRef = CFUUIDCreateString(kCFAllocatorDefault, uuid);
 	CFRelease(uuid);
-	
+
 	NSString *result = [NSString stringWithString:(NSString *)uuidRef];
 	CFRelease(uuidRef);
-    
+
 	return [self b64DigestForString:result];
 }
 
 +(NSData *)dataDigestForString:(NSString *)input {
 	const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
 	NSData *data = [NSData dataWithBytes:cstr length:[input length]];
-	
+
 	uint8_t digest[CC_SHA1_DIGEST_LENGTH];
 	CC_SHA1(data.bytes, data.length, digest);
-    
+
 	return [NSData dataWithBytes:digest length:CC_SHA1_DIGEST_LENGTH];
 }
 
 +(NSString *)base64EncodedStringForData:(NSData *)data {
 	NSUInteger b64EncodedLength = (data.length * 8 + 5) / 6;
 	NSMutableData *result = [NSMutableData dataWithLength:b64EncodedLength];
-    
+
 	int resultLength = result.length;
 	int dataLength = data.length;
-	
+
 	if (data.bytes && dataLength && result.bytes && resultLength) {
 		char *resultChars = (char *) result.bytes;
 		const unsigned char *dataChars = data.bytes;
-		
+
 		while (resultLength > 2) {
 			resultChars[0] = gBase64MappingWebSafe[dataChars[0] >> 2];
 			resultChars[1] = gBase64MappingWebSafe[((dataChars[0] & 0x03) << 4) + (dataChars[1] >> 4)];
 			resultChars[2] = gBase64MappingWebSafe[((dataChars[1] & 0x0f) << 2) + (dataChars[2] >> 6)];
 			resultChars[3] = gBase64MappingWebSafe[dataChars[2] & 0x3f];
-			
+
 			resultLength -= 4;
 			dataLength -= 3;
 			resultChars += 4;
 			dataChars += 3;
 		}
-		
+
 		switch (dataLength) {
 			case 2:
 				resultChars[0] = gBase64MappingWebSafe[dataChars[0] >> 2];
@@ -281,18 +281,18 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 				break;
 		}
 	}
-	
+
 	return [[[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding] autorelease];
 }
 
 +(NSString *)hexEncodedStringForData:(NSData *)data {
 	const uint8_t *bytes = data.bytes;
 	NSMutableString *result = [NSMutableString stringWithCapacity:2 * data.length];
-    
+
 	for (NSUInteger i = 0; i < data.length; i++) {
 		[result appendFormat:@"%02x", bytes[i]];
 	}
-	
+
 	return result;
 }
 
@@ -306,28 +306,28 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 
 +(NSDictionary *) dictionaryWithQueryString:(NSString *)input {
 	NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    
+
 	if (input != nil) {
 		NSScanner *scanner = [[NSScanner alloc] initWithString:input];
 		NSCharacterSet *delimiters = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
-		
+
 		while (![scanner isAtEnd]) {
 			NSString *pair;
 			[scanner scanUpToCharactersFromSet:delimiters intoString:&pair];
 			[scanner scanCharactersFromSet:delimiters intoString:nil];
-			
+
 			NSArray *keyAndValue = [pair componentsSeparatedByString:@"="];
 			if ([keyAndValue count] == 2) {
 				NSString *key = [PHStringUtil stringByUrlDecodingString:[keyAndValue objectAtIndex:0]];
 				NSString *value = [PHStringUtil stringByUrlDecodingString:[keyAndValue objectAtIndex:1]];
-				
+
 				[result setValue:value forKey:key];
 			}
 		}
-		
+
 		[scanner release];
 	}
-	
+
 	return result;
 }
 

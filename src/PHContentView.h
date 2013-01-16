@@ -20,10 +20,10 @@
     PHContent *_content;
     UIInterfaceOrientation _orientation;
     NSObject<PHContentViewDelegate> *_delegate;
-    
+
     UIWebView *_webView;
     BOOL _willAnimate;
-    
+
     NSMutableDictionary *_redirects;
     UIActivityIndicatorView *_activityView;
     UIView *_targetView;

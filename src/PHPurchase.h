@@ -14,13 +14,13 @@
  ------------------------
 
  This is used to enumerate the different resolutions a particular purchase
- might have: 
- 
-    * PHPurchaseResolutionBuy ('buy'): the user was offered a purchasable 
+ might have:
+
+    * PHPurchaseResolutionBuy ('buy'): the user was offered a purchasable
         good and purchased it successfully
     * PHPurchaseResolutionCancel ('cancel'): the user was offered a good
         but did not choose to purchase it
-    * PHPurchaseResolutionError ('error'): an error occurred during the 
+    * PHPurchaseResolutionError ('error'): an error occurred during the
         purchase process
     * PHPurchaseResolutionFailure ('failure'): the SDK was not able to
         confirm price and currency information for the good

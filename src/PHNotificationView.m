@@ -44,10 +44,10 @@ static NSMutableDictionary *RendererMap;
         _app = [app copy];
         _secret = [secret copy];
         _placement = [placement copy];
-        
+
         [self addObserver:self forKeyPath:@"notificationData" options:NSKeyValueObservingOptionNew context:nil];
     }
-    
+
     return self;
 }
 
@@ -55,10 +55,10 @@ static NSMutableDictionary *RendererMap;
     if ((self = [super initWithFrame:frame])) {
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
-        
+
         self.clipsToBounds = NO;
     }
-    
+
     return  self;
 }
 
@@ -67,16 +67,16 @@ static NSMutableDictionary *RendererMap;
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if (self == object && [keyPath isEqualToString:@"notificationData"]) {
         NSDictionary *newNotificationData = self.notificationData;
-        
+
         //create new Renderer
         [_notificationRenderer release], _notificationRenderer = [PHNotificationView newRendererForData:newNotificationData];
-        
+
         //adjust size while preserving center;
         CGPoint oldCenter = self.center;
         CGSize newSize = [_notificationRenderer sizeForNotification:newNotificationData];
         self.frame = CGRectMake(0, 0, newSize.width, newSize.height);
         self.center = oldCenter;
-        
+
         //prepare to redraw;
         [self setNeedsDisplay];
     }
@@ -85,7 +85,7 @@ static NSMutableDictionary *RendererMap;
 -(void)dealloc{
     [_request setDelegate:nil];
     [self removeObserver:self forKeyPath:@"notificationData"];
-    
+
     [_app release],_app = nil;
     [_secret release], _secret = nil;
     [_placement release], _placement = nil;
@@ -119,7 +119,7 @@ static NSMutableDictionary *RendererMap;
                                    @"1",@"value",
                                    nil];
     }
-    
+
     self.notificationData = TestingNotificationData;
 }
 
@@ -128,7 +128,7 @@ static NSMutableDictionary *RendererMap;
         _request.delegate = nil;
         _request = nil;
     }
-    
+
     self.notificationData = nil;
 }
 

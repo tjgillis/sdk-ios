@@ -15,9 +15,9 @@
 
 -(void)startRequest{
     [super startRequest];
-    
+
     /*
-     * This is an alternate implementation which allows you you get response 
+     * This is an alternate implementation which allows you you get response
      * data from API requests. This isn't necessary for most developers.
      */
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:self.token secret:self.secret];
@@ -27,7 +27,7 @@
     request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
     request.error = PHCreateError(PHIAPTrackingSimulatorErrorType);
     [request send];
-    
+
     [self.productField resignFirstResponder];
     [self.quantityField resignFirstResponder];
 }
@@ -44,20 +44,20 @@
 -(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
     NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
     [self addMessage:urlMessage];
-    
+
     NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@",responseData];
     [self addMessage:message];
-    
+
     [self finishRequest];
 }
 
 -(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
     NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
     [self addMessage:urlMessage];
-    
+
     NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];
-    
+
     [self finishRequest];
 }
 

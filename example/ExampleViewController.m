@@ -18,7 +18,7 @@
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        _messages = [[NSMutableArray alloc] init];    
+        _messages = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -30,7 +30,7 @@
     [_secret release], _secret = nil;
     [_startRequestDate release], _startRequestDate = nil;
     [_deltaRequestDate release], _deltaRequestDate = nil;
-    
+
     [super dealloc];
 }
 
@@ -46,14 +46,14 @@
     NSTimeInterval intervalDelta =[now timeIntervalSinceDate:_deltaRequestDate];
     NSString *message = [NSString stringWithFormat:@"[TIME] %f secs total (+ %f secs)", totalDelta, intervalDelta];
     [self addMessage:message];
-    
+
     [_deltaRequestDate release], _deltaRequestDate = now;
 }
 
 -(void)startRequest{
     [_messages removeAllObjects];
     [self addMessage:@"Started request!"];
-    
+
     [self startTimers];
 }
 
@@ -70,10 +70,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIBarButtonItem *startButton = [[UIBarButtonItem alloc] initWithTitle:@"Start" 
-                                                                    style:UIBarButtonItemStyleBordered 
-                                                                   target:self 
+
+    UIBarButtonItem *startButton = [[UIBarButtonItem alloc] initWithTitle:@"Start"
+                                                                    style:UIBarButtonItemStyleBordered
+                                                                   target:self
                                                                    action:@selector(startRequest)];
     startButton.accessibilityLabel = @"start";
     self.navigationItem.rightBarButtonItem = startButton;
@@ -103,7 +103,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
@@ -112,18 +112,18 @@
         cell.textLabel.font = LOG_FONT;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+
     NSString *message = [_messages objectAtIndex:indexPath.row];
     cell.textLabel.text = message;
-    
+
     if ([message rangeOfString:@"Success"].location != NSNotFound) {
         cell.accessibilityLabel = @"Request success message";
     }
-    
+
     if ([message rangeOfString:@"dismissed"].location != NSNotFound) {
         cell.accessibilityLabel = @"Request dismiss message";
     }
-    
+
     return cell;
 }
 

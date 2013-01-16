@@ -25,7 +25,7 @@ static PHReward *LastReward;
             [LastReward release], LastReward = [self retain];
         }
     }
-    
+
     return  self;
 }
 @end

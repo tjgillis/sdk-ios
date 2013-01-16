@@ -36,7 +36,7 @@
     /*
      content type: More Games Widget
      placement: more_games
-     
+
      testing more games content unit with featured game turn on
     */
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request..."];
@@ -44,21 +44,21 @@
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
     [result addStep:[KIFTestStep stepToEnterText:@"more_games" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
-    
+
     //featured game content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#more_button" inWebViewWithAccessibilityLabel:@"content view"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://subcontent"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://dismiss"]];
-    
+
     //more games content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#dismiss_button" inWebViewWithAccessibilityLabel:@"content view"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://dismiss"]];
     [result addStep:[KIFTestStep stepToWaitForAbsenceOfViewWithAccessibilityLabel:@"content view"]];
-    
+
     return  result;
 }
 
@@ -66,7 +66,7 @@
     /*
      content type: reward
      placement: reward
-     
+
      testing a reward content unit that rewards item 'delicious_cake'
     */
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request and verifying it returns a reward"];
@@ -75,7 +75,7 @@
     [result addStep:[KIFTestStep stepToEnterText:@"reward" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
 
-    
+
     //reward content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToVerifyRewardUnlocked:@"delicious_cake" quantity:1]];
@@ -87,19 +87,19 @@
 }
 
 +(id)scenarioToSendContentRequestTestingAnnouncementLaunch{
-    /* 
+    /*
      content type: announcement
      placement:announcement_launch
-     
+
      testing an announcement with custom URL launch set to 'http://www.playhaven.com'
     */
-     
+
     KIFTestScenario *result =[KIFTestScenario scenarioWithDescription:@"Sending a content request and testing announcement launch"];
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
     [result addStep:[KIFTestStep stepToEnterText:@"announcement_launch" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
-    
+
     //announcement content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
@@ -114,11 +114,11 @@
     /*
      just testing the URL loader, no dashboard dependency here
     */
-    
+
     KIFTestScenario *result =[KIFTestScenario scenarioWithDescription:@"Loading itunes and verifying referral."];
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"url loader"]];
-    
+
     // This is a GeoRiot short link that points to the iTunes version of
     // Justin Bieber's seminal album, My World.
     // We are testing to see if the launched URL contains the partnerId and siteID

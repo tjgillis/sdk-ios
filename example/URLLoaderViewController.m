@@ -21,13 +21,13 @@
     if (_loader == nil) {
         _loader = [PHURLLoader new];
     }
-    
+
     return _loader;
 }
 
 - (void)dealloc {
     [_loader invalidate];
-    
+
     [_loader release], _loader = nil;
     [URLField release], URLField = nil;
     [openURLSwitch release], openURLSwitch = nil;;
@@ -36,7 +36,7 @@
 
 -(void)startRequest{
     [super startRequest];
-    
+
     //check to see if URL field has valid URL value
     NSURL *loaderURL = [NSURL URLWithString:self.URLField.text];
     if (loaderURL == nil) {
@@ -44,7 +44,7 @@
         [self addMessage:@"[ERROR] A valid URL was not entered!"];
         [self finishRequest];
     }
-    
+
     //if we have a valid loader, then start the request!
     self.loader.targetURL = loaderURL;
     self.loader.opensFinalURLOnDevice = self.openURLSwitch.on;

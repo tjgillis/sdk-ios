@@ -59,10 +59,10 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
     NSMutableArray *_contentViews;
     BOOL _showsOverlayImmediately;
     UIButton *_closeButton;
-    
+
     UIView *_overlayWindow;
     PHContent *_content;
-    
+
     PHPublisherContentRequestState _state;
     PHPublisherContentRequestState _targetState;
 }

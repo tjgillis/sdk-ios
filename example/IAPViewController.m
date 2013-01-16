@@ -24,18 +24,18 @@
 }
 
 #pragma mark -
--(void)startRequest{    
+-(void)startRequest{
     [super startRequest];
-    
+
     PHPurchase *purchase = [PHPurchase new];
-    
+
     purchase.productIdentifier = ([self.productField.text isEqualToString:@""])?@"com.playhaven.example.candy":self.productField.text;
     purchase.quantity =([self.quantityField.text isEqualToString:@""])?1:[self.quantityField.text integerValue];
-    
+
     [[IAPHelper sharedIAPHelper] startPurchase:purchase];
-    
+
     [purchase release];
-    
+
     [super finishRequest];
 }
 

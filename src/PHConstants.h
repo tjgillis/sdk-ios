@@ -30,7 +30,7 @@
 // native code. See content-templates:src/js/playhaven.js for template impl.
 //
 //   1: GET request with dispatch parameter keys and values in query string
-//   2: GET request with dispatch parameters encoded as a single JSON string 
+//   2: GET request with dispatch parameters encoded as a single JSON string
 //      in query string. Rewards support requires this setting.
 //   3: Unknown dispatches are ignored instead of throwing an error
 //   4: ph://launch dispatches no longer create native spinner views
@@ -38,13 +38,13 @@
 #define PH_DISPATCH_PROTOCOL_VERSION 5
 
 // PH_REQUEST_TIMEOUT
-// Defines the maximum amount of time that an API request will wait for a 
+// Defines the maximum amount of time that an API request will wait for a
 // response from the server.
 #define PH_REQUEST_TIMEOUT 10
 
 // PH_USE_CONTENT_VIEW_RECYCLING
 // Recycles content view instances to reduce the number of allocations.
-// Behavior of the SDK without this define has not been tested. 
+// Behavior of the SDK without this define has not been tested.
 #define PH_USE_CONTENT_VIEW_RECYCLING
 
 // PH_DISMISS_CONTENT_REQUEST_WHEN_BACKGROUNDED
@@ -55,15 +55,15 @@
 #endif
 
 // PH_USE_STOREKIT
-// By default, PlayHaven will require the StoreKit framework. Builds that don't need 
+// By default, PlayHaven will require the StoreKit framework. Builds that don't need
 // IAP tracking features may define PH_USE_STOREKIT to be 0.
 #ifndef PH_USE_STOREKIT
 #define PH_USE_STOREKIT 1
 #endif
 
 // PH_NAMESPACE_LIBS
-// The Unity3D plugin requires namespaced classes so that they may co-exist 
-// alongside libraries that use the same classes. However, source builds that are 
+// The Unity3D plugin requires namespaced classes so that they may co-exist
+// alongside libraries that use the same classes. However, source builds that are
 // also using these classes should be able to use the existing implementations.
 #ifdef PH_NAMESPACE_LIBS
 #define PH_NAMESPACE_SBJSON 1
@@ -72,9 +72,9 @@
 #endif
 
 // PH_NAMESPACE_SBJSON
-// The Unity3D plugin requires namespaced SBJSON classes so that they may co-exist 
-// alongside libraries that use SBJSON. However, source builds that are also using 
-// SBJSON should be able to use the SBJSON classes already in their project. This 
+// The Unity3D plugin requires namespaced SBJSON classes so that they may co-exist
+// alongside libraries that use SBJSON. However, source builds that are also using
+// SBJSON should be able to use the SBJSON classes already in their project. This
 // allows the SDK to accommodate both.
 #ifndef PH_NAMESPACE_SBJSON
 #define PH_SBJSONBASE_CLASS SBJsonBase
@@ -157,7 +157,7 @@ NSError *PHCreateError(PHErrorType errorType);
 
 // PHNetworkStatus
 // Determines the status of the device's connectivity. Returns:
-// 
+//
 // 0: No connection
 // 1: Cellular data, 3G/EDGE
 // 2: WiFi
@@ -182,7 +182,7 @@ typedef struct{
     int height;
     int length;
     char data[];
-    
+
 } playHavenImage;
 
 //

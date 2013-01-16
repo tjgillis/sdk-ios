@@ -12,7 +12,7 @@
 @interface ExampleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
     NSMutableArray *_messages;
     UITableView *_tableView;
-    
+
     NSString *_token;
     NSString *_secret;
     NSDate *_startRequestDate;

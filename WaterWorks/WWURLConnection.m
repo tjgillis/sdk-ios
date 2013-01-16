@@ -13,11 +13,11 @@ NSString *readLineAsNSString(FILE *file);
 NSString *readLineAsNSString(FILE *file)
 {
     char buffer[4096];
-    
+
     // tune this capacity to your liking -- larger buffer sizes will be faster, but
     // use more memory
     NSMutableString *result = [NSMutableString stringWithCapacity:256];
-    
+
     // Read up to 4095 non-newline characters
     int charsRead;
     do
@@ -26,13 +26,13 @@ NSString *readLineAsNSString(FILE *file)
             //remove newline from the end of the buffer
             NSString *line = [NSString stringWithFormat:@"%s", buffer];
             line = [line stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-            
+
             [result appendString:line];
         }
         else
             break;
     } while(charsRead == 4095);
-    
+
     return result;
 }
 
@@ -40,7 +40,7 @@ NSString *readLineAsNSString(FILE *file)
 -(NSData *)data;
 @end
 
-@interface WWURLMemoryResponse : NSObject<WWURLResponse> 
+@interface WWURLMemoryResponse : NSObject<WWURLResponse>
 @property (nonatomic, retain) NSData *data;
 @end
 
@@ -55,7 +55,7 @@ NSString *readLineAsNSString(FILE *file)
 @end
 
 
-@interface WWURLFileResponse : NSObject<WWURLResponse> 
+@interface WWURLFileResponse : NSObject<WWURLResponse>
 @property (nonatomic, copy) NSString *filePath;
 @end
 
@@ -90,7 +90,7 @@ NSString *readLineAsNSString(FILE *file)
     WWURLConnection *result = [[[WWURLConnection alloc] init] autorelease];
     result.request = request;
     result.delegate = delegate;
-    
+
     return result;
 }
 
@@ -101,7 +101,7 @@ NSString *readLineAsNSString(FILE *file)
     if (allResponses == nil){
         allResponses = [[NSMutableDictionary alloc] init];
     }
-    
+
     return allResponses;
 }
 
@@ -109,7 +109,7 @@ NSString *readLineAsNSString(FILE *file)
     if (!!response) {
         WWURLMemoryResponse *responseObject = [WWURLMemoryResponse new];
         responseObject.data = response;
-        
+
         [[self allResponses] setObject:responseObject forKey:url];
         [responseObject release];
     } else  {
@@ -146,19 +146,19 @@ NSString *readLineAsNSString(FILE *file)
                             [responseObject release];
                         }
                     }
-                    
+
                 }
             }
         }
         fclose(file);
     }
-    
+
 }
 
 +(NSData *)bestResponseForURL:(NSURL *)url{
     NSData *bestResponse = nil;
     NSInteger bestMatchingLevel = 0;
-    
+
     //Iterate over the dictionary of responses to find a better matching level
     NSEnumerator *keyEnumerator = [[WWURLConnection allResponses] keyEnumerator];
     NSURL *matchURL;
@@ -169,7 +169,7 @@ NSString *readLineAsNSString(FILE *file)
             bestMatchingLevel = nextMatchingLevel;
         }
     }
-    
+
     return bestResponse;
 }
 
@@ -185,7 +185,7 @@ NSString *readLineAsNSString(FILE *file)
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(startInBackground) object:nil];
     _delegate = nil;
     [_request release], _request = nil;
-    
+
     //[super dealloc];
 }
 
@@ -194,27 +194,27 @@ NSString *readLineAsNSString(FILE *file)
 }
 
 -(void)cancel{
-    
+
 }
 
 -(void)startInBackground{
     NSData *responseData = [WWURLConnection bestResponseForURL:self.request.URL];
     if ([self.delegate respondsToSelector:@selector(connection:didReceiveResponse:)]) {
         NSInteger statusCode = (!!responseData)? 200: 404;
-        
+
         NSHTTPURLResponse *response = nil;
         if ([[NSHTTPURLResponse class] instancesRespondToSelector:@selector(initWithURL:statusCode:HTTPVersion:headerFields:)]) {
             response = [[NSHTTPURLResponse alloc] initWithURL:self.request.URL statusCode:statusCode HTTPVersion:nil headerFields:nil];
         }
-        
+
         [self.delegate connection:nil didReceiveResponse:response];
         [response release];
     }
-    
+
     if ([self.delegate respondsToSelector:@selector(connection:didReceiveData:)]) {
         [self.delegate connection:nil didReceiveData:responseData];
     }
-    
+
     if ([self.delegate respondsToSelector:@selector(connectionDidFinishLoading:)]) {
         [self.delegate connectionDidFinishLoading:nil];
     }

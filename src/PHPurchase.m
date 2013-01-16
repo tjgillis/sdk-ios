@@ -17,20 +17,20 @@
         case PHPurchaseResolutionBuy:
             result = @"buy";
             break;
-            
+
         case PHPurchaseResolutionCancel:
             result = @"cancel";
             break;
-        
+
         case PHPurchaseResolutionFailure:
             result = @"failure";
             break;
-            
+
         default:
             result = @"error";
             break;
     }
-    
+
     return result;
 }
 
@@ -45,19 +45,19 @@
     [_item release], _item = nil;
     [_receipt release], _receipt = nil;
     [_callback release], _callback = nil;
-    
+
     [super dealloc];
 }
 
 -(void) reportResolution:(PHPurchaseResolutionType)resolution{
-    
+
     NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:
                               [PHPurchase stringForResolution:resolution],@"resolution", nil];
     NSDictionary *callbackDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                         self.callback, @"callback",
                                         response, @"response", nil];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:PHCONTENTVIEW_CALLBACK_NOTIFICATION object:callbackDictionary]; 
+    [[NSNotificationCenter defaultCenter] postNotificationName:PHCONTENTVIEW_CALLBACK_NOTIFICATION object:callbackDictionary];
 }
 
 @end

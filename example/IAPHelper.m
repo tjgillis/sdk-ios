@@ -82,7 +82,7 @@
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
         request.delegate = self;
         [request start];
-        
+
         //storing the purchase and the product request to retrieve later
         [self.pendingPurchases setValue:purchase forKey:[request hashString]];
         [self.pendingRequests setValue:request forKey:[request hashString]];
@@ -95,20 +95,20 @@
     PHPurchase *purchase = [self.pendingPurchases valueForKey:key];
     NSArray *products = response.products;
     SKProduct *product = [products count] == 1 ? [products objectAtIndex:0] : nil;
-    
+
     if ([purchase.productIdentifier isEqualToString:product.productIdentifier]) {
         //ask the user to choose to purchase or not purchase an item
         NSString *message = [NSString stringWithFormat:@"Do you want to buy %d %@ for %@?",purchase.quantity, product.localizedTitle, product.localizedPrice];
         UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:@"In-Game Store" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy", nil];
-        [purchaseAlert show];        
+        [purchaseAlert show];
         [self.pendingPurchases setObject:purchase forKey:[purchaseAlert hashString]];
-        
+
         [purchaseAlert release];
     } else {
         //either the purchase or the product request is invalid, report as an error
         [self reportPurchase:purchase withResolution:PHPurchaseResolutionError receiptData:nil];
     }
-    
+
     //either way clean up the stored purchase and request
     [self.pendingPurchases removeObjectForKey:key];
     [self.pendingRequests removeObjectForKey:key];
@@ -126,7 +126,7 @@
         [[SKPaymentQueue defaultQueue] addPayment:payment];
         [self.pendingRequests setValue:purchase forKey:[payment hashString]];
     }
-    
+
     //either way, clean up the stored alertview
     [self.pendingPurchases removeObjectForKey:key];
 }
@@ -138,7 +138,7 @@
 -(void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
     //Adding IAP reporting and VGP to transactions requires some modifications to the
     //payment queue observer. Send IAP Purchase tracking requests whenever a transaction
-    //is purchased (SKTransactionStatePurchased), and send IAP Error tracking requests 
+    //is purchased (SKTransactionStatePurchased), and send IAP Error tracking requests
     //whenever a transaction dails (SKTransactionStateFailed)
     for (SKPaymentTransaction *transaction in transactions) {
         NSString *key = [transaction.payment hashString];
@@ -152,19 +152,19 @@
             purchase.quantity = transaction.payment.quantity;
             [purchase autorelease];
         }
-        
+
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
                 //This would normallly be the point where an in app purchase would
                 //be delivered. Instead we're just doing the necessary reporting
                 //to support IAP tracking and VGP content units.
-                
+
                 NSLog(@"IAPHelper: Purchased %@!", transaction.payment.productIdentifier);
                 [self reportPurchase:purchase withResolution:PHPurchaseResolutionBuy receiptData:transaction.transactionReceipt];
                 [self.pendingPurchases removeObjectForKey:key];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
-                
+
             case SKPaymentTransactionStateFailed:
                 //Reporting failed transactions and finalizing them.
                 NSLog(@"IAPHelper: Failed to purchase %@!", transaction.payment.productIdentifier);
@@ -172,7 +172,7 @@
                 [self.pendingPurchases removeObjectForKey:key];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
-                
+
             default:
                 break;
         }
@@ -187,11 +187,11 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [defaults valueForKey:@"ExampleToken"];
         NSString *secret = [defaults valueForKey:@"ExampleSecret"];
-        
+
         //Reporting to the Tracking API
         PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity resolution:resolution receiptData:receiptData];
         [request send];
-        
+
         //Reporting back to the content unit.
         [purchase reportResolution:resolution];
     }
@@ -205,11 +205,11 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [defaults valueForKey:@"ExampleToken"];
         NSString *secret = [defaults valueForKey:@"ExampleSecret"];
-        
+
         //Reporting to the Tracking API
         PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity error:error receiptData:receiptData];
         [request send];
-        
+
         //Reporting back to the content unit
         [purchase reportResolution:request.resolution];
     }

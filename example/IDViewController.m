@@ -30,12 +30,12 @@
 -(void)viewDidAppear:(BOOL)animated{
     self.UDIDLabel.text = [[UIDevice currentDevice] uniqueIdentifier];
     self.IFALabel.text = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
+
     CFDataRef macBytes = [[PHNetworkUtil sharedInstance] newMACBytes];
     self.MACLabel.text = [[PHNetworkUtil sharedInstance] stringForMACBytes:macBytes];
     self.ODIN1Label.text = [[PHNetworkUtil sharedInstance] ODIN1ForMACBytes:macBytes];
     CFRelease(macBytes);
-    
+
     self.GIDLabel.text = PHGID();
     self.PHIDLabel.text = [PHAPIRequest session];
 }

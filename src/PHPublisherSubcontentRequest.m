@@ -17,9 +17,9 @@
 -(NSURL *) URL{
     if (_URL == nil) {
         NSString *urlString = [self urlPath];
-        _URL = [[NSURL alloc] initWithString:urlString]; 
+        _URL = [[NSURL alloc] initWithString:urlString];
     }
-    
+
     return _URL;
 }
 

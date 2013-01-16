@@ -23,7 +23,7 @@
     STAssertTrue(time == 0, @"Session should be == 0 since reset. Value: %f", time);
     int lastCount = [[PHTimeInGame getInstance] getCountSessions];
     STAssertTrue(lastCount == 0, @"Session count should be 0 since reset. Value: %d", lastCount);
-    
+
     [[PHTimeInGame getInstance] gameSessionStarted];
     int sessionCount = [[PHTimeInGame getInstance] getCountSessions];
     STAssertTrue(sessionCount == 1, @"Session count should be a value of 1. Value %d", sessionCount);

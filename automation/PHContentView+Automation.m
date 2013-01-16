@@ -34,17 +34,17 @@
     dispatch_once(&onceToken, ^{
         _dispatchLog = [[NSMutableArray alloc] init];
     });
-    
+
     return _dispatchLog;
 }
 
 +(DispatchLog *)firstDispatch:(NSString *)dispatch{
 
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"dispatch LIKE %@", dispatch];
-    
+
     NSArray *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
     results = [results sortedArrayUsingSelector:@selector(timestamp)];
-    
+
     return ([results count] > 0)? [results objectAtIndex:0] : nil;
 }
 
@@ -52,7 +52,7 @@
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"callback LIKE %@", callback];
     NSArray *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
     DispatchLog *result = ([results count] > 0) ? [results objectAtIndex:0] : nil;
-    
+
     [result setIsComplete:YES];
 }
 
@@ -63,7 +63,7 @@
     logItem.callback = callback;
     logItem.isComplete = NO;
     [[PHContentView _dispatchLog] addObject:logItem];
-    
+
     [logItem release];
 }
 

@@ -19,7 +19,7 @@ static PHTimeInGame * shared = nil;
             shared = [PHTimeInGame new];
         }
     });
-	
+
 	return shared;
 }
 
@@ -28,7 +28,7 @@ static PHTimeInGame * shared = nil;
     if (self) {
         sessionStartTime = 0;
     }
-    
+
     return self;
 }
 
@@ -38,7 +38,7 @@ static PHTimeInGame * shared = nil;
 
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
+
     int currentSessionCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"PHSessionCount"] + 1;
     [[NSUserDefaults standardUserDefaults] setInteger:currentSessionCount forKey:@"PHSessionCount"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -48,7 +48,7 @@ static PHTimeInGame * shared = nil;
 
     if (sessionStartTime == 0)
         return;
-    
+
     // Record elapsed time for this session using a background task identifier to ensure data is recorded
     // as this is normally called as an app is backgrounded/terminated.
     UIBackgroundTaskIdentifier synchronizeIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
@@ -58,7 +58,7 @@ static PHTimeInGame * shared = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[UIApplication sharedApplication] endBackgroundTask:synchronizeIdentifier];
 
-    
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     sessionStartTime = 0;
@@ -68,7 +68,7 @@ static PHTimeInGame * shared = nil;
  The following data is sent in the Open request to the PH server:
  ssum = It is the sum of session duration (since last successful "open") - getSumSessionDuration
  scount = A count of sessions (since last successful "open"). Used if player offline and still playing - getCountSessions
- 
+
  The following data is sent in every Content request to the PH server:
  stime = That is the duration of the current session thus far - getCurrentSessionDuration
  */
@@ -97,7 +97,7 @@ This method should only be invoked for testing purposes as it will destroy sessi
 
     if (sessionStartTime == 0)
         return 0;
-    
+
     CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
     CFAbsoluteTime differenceTime = currentTime - sessionStartTime;
     return differenceTime;
@@ -106,7 +106,7 @@ This method should only be invoked for testing purposes as it will destroy sessi
 /*
 
 After time in game data has been reported to the API, we will purge that amount of time from the stored session duration.
- 
+
 */
 -(void)resetCounters{
     //resetting session count to 1 since this is usually called during a session

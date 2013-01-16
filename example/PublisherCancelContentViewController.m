@@ -15,9 +15,9 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
 #pragma mark -
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(awkwardCancel) 
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(awkwardCancel)
                                                  name:PublisherCancelContentViewControllerNotification
                                                object:self];
 }
@@ -32,10 +32,10 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
     if ([super respondsToSelector:@selector(request:contentWillDisplay:)]) {
         [super request:request contentWillDisplay:content];
     }
-    
+
     NSNotification *cancelNotfication = [NSNotification notificationWithName:PublisherCancelContentViewControllerNotification
                                                                       object:self];
-    [[NSNotificationQueue defaultQueue] enqueueNotification:cancelNotfication 
+    [[NSNotificationQueue defaultQueue] enqueueNotification:cancelNotfication
                                                postingStyle:NSPostASAP];
 }
 

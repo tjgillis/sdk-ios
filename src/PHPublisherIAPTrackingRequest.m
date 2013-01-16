@@ -29,7 +29,7 @@
     if (conversionCookies == nil) {
         conversionCookies = [[NSMutableDictionary alloc] init];
     }
-    
+
     return conversionCookies;
 }
 
@@ -96,19 +96,19 @@
                                  self.product, @"product",
                                  [NSNumber numberWithInteger: self.quantity], @"quantity",
                                  [PHPurchase stringForResolution:self.resolution], @"resolution",
-                                 @"ios", @"store", 
+                                 @"ios", @"store",
                                  price, @"price",
-                                 [priceLocale objectForKey:NSLocaleCurrencyCode], @"price_locale", 
+                                 [priceLocale objectForKey:NSLocaleCurrencyCode], @"price_locale",
                                  [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
-    
+
     //add optional dictionary parameters
     if (self.receiptData) {
         NSString *base64ReceiptString = [PHStringUtil base64EncodedStringForData:self.receiptData];
         [parameters setValue:base64ReceiptString forKey:@"receipt"];
     }
-    
+
     self.additionalParameters = parameters;
-    
+
     [super send];
 }
 
@@ -117,18 +117,18 @@
                                  self.product, @"product",
                                  [NSNumber numberWithInteger: self.quantity], @"quantity",
                                  [PHPurchase stringForResolution:PHPurchaseResolutionError], @"resolution",
-                                 @"ios", @"store", 
+                                 @"ios", @"store",
                                  [NSNumber numberWithInteger:error.code], @"error_code",
                                  [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
-    
+
     //add optional dictionary parameters
     if (self.receiptData) {
         NSString *base64ReceiptString = [PHStringUtil base64EncodedStringForData:self.receiptData];
         [parameters setValue:base64ReceiptString forKey:@"receipt"];
     }
-    
+
     self.additionalParameters = parameters;
-    
+
     [super send];
 }
 
@@ -147,18 +147,18 @@
         case PHPurchaseResolutionBuy:
         case PHPurchaseResolutionCancel:
 #if TARGET_IPHONE_SIMULATOR
-            // IAP requests don't work from the simulator, but it would 
+            // IAP requests don't work from the simulator, but it would
             // be helpful to allow testing the request itself.
             [self sendWithPrice:[NSDecimalNumber decimalNumberWithString:@"0.0"] andLocale:[NSLocale currentLocale]];
 #else
             [self requestProductInformation];
 #endif
             break;
-        
+
         case PHPurchaseResolutionError:
             [self sendWithError:self.error];
             break;
-            
+
         case PHPurchaseResolutionFailure:
             [self sendWithFailure];
             break;
@@ -167,7 +167,7 @@
 }
 
 -(void)requestProductInformation{
-    if (_request == nil) {        
+    if (_request == nil) {
         NSSet *productSet = [NSSet setWithObject:self.product];
         _request = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
         [_request setDelegate:self];

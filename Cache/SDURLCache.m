@@ -32,12 +32,12 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    
+
     [dateFormatter setLocale:locale];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
     [dateFormatter setDateFormat:format];
     [locale release];
-    
+
     return [dateFormatter autorelease];
 }
 
@@ -443,7 +443,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         self.ioQueue = queue;
         [queue release];
-        
+
         ioQueue.maxConcurrentOperationCount = 1; // used to streamline operations in a separate thread
         self.ignoreMemoryOnlyStoragePolicy = YES;
 	}
@@ -527,7 +527,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
             // load wrapper
             PH_SDCACHEDURLRESPONSE_CLASS *diskResponseWrapper = nil;
             NSCachedURLResponse *diskResponse = nil;
-            
+
             @try {
                 diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:[diskCachePath stringByAppendingPathComponent:cacheKey]];
                 diskResponse = diskResponseWrapper.response;
@@ -535,11 +535,11 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
                 //catch NSInvalidUnarchiveOperationException
                 diskResponseWrapper = nil;
                 diskResponse = nil;
-                
+
                 //TODO: remove invalid cache entry?
                 //[self removeCachedResponseForRequest:request];
             }
-            
+
             if (diskResponse)
             {
                 // OPTI: Log the entry last access time for LRU cache eviction algorithm but don't save the dictionary
@@ -597,12 +597,12 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 - (void)removeAllCachedResponses
 {
     [super removeAllCachedResponses];
-    
+
     if (disabled) return;
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     [fileManager removeItemAtPath:diskCachePath error:NULL];
     [fileManager release];
-    
+
     @synchronized(self)
     {
         [diskCacheInfo release], diskCacheInfo = nil;
@@ -624,10 +624,10 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:url];
     NSString *cacheFile = [diskCachePath stringByAppendingPathComponent:cacheKey];
     NSFileManager *manager = [[NSFileManager alloc] init];
-    
+
     BOOL exists = [manager fileExistsAtPath:cacheFile];
     [manager release];
-    
+
     if (exists)
     {
         return YES;

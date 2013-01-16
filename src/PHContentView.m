@@ -315,7 +315,7 @@ static NSMutableSet *allContentViews = nil;
         CGRect contentFrame = CGRectOffset([self.content frameForOrientation:orientation], 0, barHeight);
 
         _webView.frame = contentFrame;
-       
+
         _webView.layer.borderWidth = 1.0f;
 
         if ([self.delegate respondsToSelector:@selector(borderColorForContentView:)]) {

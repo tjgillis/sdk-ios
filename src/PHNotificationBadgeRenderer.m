@@ -20,7 +20,7 @@ static UIImage *BadgeImage;
             badge = convertByteDataToUIImage((playHavenImage *)&badge_2x_image);
         else
             badge = convertByteDataToUIImage((playHavenImage *)&badge_image);
-        
+
         BadgeImage = [[badge stretchableImageWithLeftCapWidth:14 topCapHeight:0] retain];
     }
 }
@@ -32,8 +32,8 @@ static UIImage *BadgeImage;
     }
     CGSize notificationSize = [self sizeForNotification:notificationData];
     [BadgeImage drawInRect:CGRectMake(0, 0, notificationSize.width, BadgeImage.size.height)];
-    
-    [[UIColor whiteColor] set]; 
+
+    [[UIColor whiteColor] set];
     [value drawAtPoint:CGPointMake(10.0f, 1.0f) withFont:[UIFont boldSystemFontOfSize:17.0f]];
 }
 
@@ -42,7 +42,7 @@ static UIImage *BadgeImage;
     if ([value isEqualToString:@"0"]) {
         return CGSizeZero;
     }
-    
+
     CGFloat valueWidth = [value sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]].width + 20.0f;
     return CGSizeMake(valueWidth, BadgeImage.size.height);
 }

@@ -27,7 +27,7 @@
 +(id)sharedInstance{
     static dispatch_once_t pred;
     static PHNetworkUtil *shared = nil;
-    
+
     dispatch_once(&pred, ^{
         shared = [[PHNetworkUtil alloc] init];
     });
@@ -40,7 +40,7 @@
 
 -(void)_backgroundCheckDNSResolutionForURLPath:(NSString *)urlPath{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
+
     Boolean result = FALSE;
     CFHostRef hostRef = NULL;
     NSArray *addresses;
@@ -57,16 +57,16 @@
             NSString *strDNS = [NSString stringWithUTF8String:inet_ntoa(*((struct in_addr *)obj))];
             NSLog(@"Resolved %@ -> %@", hostname, strDNS);
         }];
-        
+
     } else {
         NSLog(@"Could not resolve %@", hostname);
     }
-    
+
     if(hostRef)
     {
         CFRelease(hostRef);
     }
-    
+
     [pool release];
 }
 
@@ -74,50 +74,50 @@
     if ([PHAPIRequest optOutStatus]) {
         return nil;
     }
-    
+
     int                 mib[6];
     size_t              len;
     char                *buf;
     uint8_t       *ptr;
     struct if_msghdr    *ifm;
     struct sockaddr_dl  *sdl;
-    
+
     mib[0] = CTL_NET;
     mib[1] = AF_ROUTE;
     mib[2] = 0;
     mib[3] = AF_LINK;
     mib[4] = NET_RT_IFLIST;
-    
+
     if ((mib[5] = if_nametoindex("en0")) == 0)
     {
         PH_NOTE(@"Error: if_nametoindex error\n");
         return NULL;
     }
-    
+
     if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0)
     {
         PH_NOTE(@"Error: sysctl, take 1\n");
         return NULL;
     }
-    
+
     if ((buf = malloc(len)) == NULL)
     {
         PH_NOTE(@"Could not allocate memory. error!\n");
         return NULL;
     }
-    
+
     if (sysctl(mib, 6, buf, &len, NULL, 0) < 0)
     {
         PH_NOTE(@"Error: sysctl, take 2");
         free(buf);
         return NULL;
     }
-    
+
     ifm = (struct if_msghdr *)buf;
     sdl = (struct sockaddr_dl *)(ifm + 1);
     ptr = (uint8_t *)LLADDR(sdl);
     CFDataRef data = CFDataCreate(NULL, (uint8_t*)ptr, 6);
-    
+
     free(buf);
     return data;
 }
@@ -130,11 +130,11 @@
 
 -(NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes{
     unsigned char messageDigest[CC_SHA1_DIGEST_LENGTH];
-    
+
     CC_SHA1(CFDataGetBytePtr((CFDataRef)macBytes),
             CFDataGetLength((CFDataRef)macBytes),
             messageDigest);
-    
+
     CFMutableStringRef string = CFStringCreateMutable(NULL, 40);
     for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
         CFStringAppendFormat(string,
@@ -142,12 +142,12 @@
                              (CFStringRef)@"%02X",
                              messageDigest[i]);
     }
-    
+
     CFStringLowercase(string, CFLocaleGetSystem());
-    
+
     NSString *odinstring = [[[NSString alloc] initWithString:(NSString*)string] autorelease];
     CFRelease(string);
-    
+
     return odinstring;
 }
 

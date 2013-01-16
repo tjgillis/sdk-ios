@@ -17,17 +17,17 @@
 
 -(void)startRequest{
     [super startRequest];
-    
+
     /*
-     * This is an alternate implementation which allows you you get response 
+     * This is an alternate implementation which allows you you get response
      * data from API requests. This isn't necessary for most developers.
      */
-    
+
     PHPublisherOpenRequest * request = [PHPublisherOpenRequest requestForApp:self.token secret:self.secret];
     request.customUDID = self.customUDIDField.text;
     request.delegate = self;
     [request send];
-    
+
     [self.customUDIDField resignFirstResponder];
 }
 
@@ -41,14 +41,14 @@
 -(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
     NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@",responseData];
     [self addMessage:message];
-    
+
     [self finishRequest];
 }
 
 -(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
     NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];
-    
+
     [self finishRequest];
 }
 
@@ -66,7 +66,7 @@
     [self addMessage:@"GID cleared!"];
 }
 
-- (IBAction)touchedClearSession:(id)sender{ 
+- (IBAction)touchedClearSession:(id)sender{
     [PHAPIRequest setSession:nil];
     [self addMessage:@"session cleared!"];
 }

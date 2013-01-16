@@ -4,7 +4,7 @@
 //
 //  Created by Jesus Fernandez on 9/13/11.
 //  Copyright 2011 Playhaven. All rights reserved.
-// 
+//
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -33,17 +33,17 @@ NSString *PHGID(){
     if (cachedGID == nil) {
         //get the value from NSUserDefaults
         NSString *defaultsGID = [[NSUserDefaults standardUserDefaults] valueForKey:@"PlayHavenGID"];
-        
+
         //if missing, generate a new value and store in NSUserDefaults
         if (defaultsGID == nil) {
             defaultsGID = [PHStringUtil uuid];
             [[NSUserDefaults standardUserDefaults] setValue:defaultsGID forKey:@"PlayHavenGID"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        
+
         cachedGID = [[NSString alloc] initWithString:defaultsGID];
     }
-    
+
     return cachedGID;
 }
 
@@ -65,12 +65,12 @@ NSError *PHCreateError(PHErrorType errorType){
                       @"Signed response did not have valid signature.",
                       nil];
     }
-    
+
     NSString *errorMessage = [errorArray objectAtIndex:errorType];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               errorMessage, NSLocalizedDescriptionKey,
                               nil];
-    
+
     return [NSError errorWithDomain:@"PlayHavenSDK" code:(NSInteger)errorType userInfo:userInfo];
 }
 
@@ -84,7 +84,7 @@ BOOL _localWiFiAvailable()
     struct ifaddrs *cursor;
     BOOL wiFiAvailable = NO;
     if (getifaddrs(&addresses) != 0) return NO;
-    
+
     cursor = addresses;
     while (cursor != NULL) {
         if (cursor -> ifa_addr -> sa_family == AF_INET
@@ -98,7 +98,7 @@ BOOL _localWiFiAvailable()
         }
         cursor = cursor -> ifa_next;
     }
-    
+
     freeifaddrs(addresses);
     return wiFiAvailable;
 }
@@ -114,31 +114,31 @@ int PHNetworkStatus(){
 	bzero(&zeroAddr, sizeof(zeroAddr));
 	zeroAddr.sin_len = sizeof(zeroAddr);
 	zeroAddr.sin_family = AF_INET;
-    
-	SCNetworkReachabilityRef target = 
+
+	SCNetworkReachabilityRef target =
     SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *) &zeroAddr);
-    
+
     SCNetworkReachabilityFlags flags;
 	SCNetworkReachabilityGetFlags(target, &flags);
-    
+
     CFRelease(target);
-    
+
     BOOL isReachable = ((flags & kSCNetworkFlagsReachable) != 0);
     BOOL needsConnection = ((flags & kSCNetworkFlagsConnectionRequired) != 0);
-    
-    if(isReachable && !needsConnection) // connection is available 
+
+    if(isReachable && !needsConnection) // connection is available
     {
-        
+
         // determine what type of connection is available
         BOOL isCellularConnection = ((flags & kSCNetworkReachabilityFlagsIsWWAN) != 0);
-        
-        if(isCellularConnection) 
+
+        if(isCellularConnection)
             return 1; // cellular connection available
-        
+
         if(_localWiFiAvailable())
             return 2; // wifi connection available
     }
-    
+
     return 0; // no connection at all
 }
 
@@ -154,14 +154,14 @@ UIImage *convertByteDataToUIImage(playHavenImage *phImage){
     UInt32 height = phImage->height;
     UInt32 length = phImage->length;
     NSData *data = [NSData dataWithBytes:phImage->data length:length];
-    
+
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast;
     CGImageRef cgImage = CGImageCreate(width, height, 8, 32, 4 * width, colorSpace, bitmapInfo, provider, NULL, NO, kCGRenderingIntentDefault);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);
-    
+
     UIImage *result = [UIImage imageWithCGImage:cgImage];
     CGImageRelease(cgImage);
     return result;

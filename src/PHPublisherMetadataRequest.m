@@ -28,7 +28,7 @@
         self.placement = placement;
         self.delegate = delegate;
     }
-    
+
     return self;
 }
 

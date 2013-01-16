@@ -20,7 +20,7 @@
     NSString *_app;
     NSString *_secret;
     NSString *_placement;
-    
+
     NSDictionary *_notificationData;
     PHNotificationRenderer *_notificationRenderer;
     PHPublisherMetadataRequest *_request;

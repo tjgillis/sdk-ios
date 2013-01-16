@@ -29,32 +29,32 @@
     PHURLLoader *result = [[[PHURLLoader alloc] init] autorelease];
     result.targetURL = [NSURL URLWithString:url];
     [result open];
-    
+
     return result;
 }
 
 +(NSMutableSet *)allLoaders{
     static NSMutableSet *allLoaders = nil;
-    
+
     if (allLoaders == nil) {
         allLoaders = [[NSMutableSet alloc] init];
     }
-    
+
     return allLoaders;
 }
 
 +(void)invalidateAllLoadersWithDelegate:(id<PHURLLoaderDelegate>)delegate{
     NSEnumerator *allLoaders = [[PHURLLoader allLoaders] objectEnumerator];
     PHURLLoader *loader = nil;
-    
+
     NSMutableSet *invalidatedLoaders = [NSMutableSet set];
-    
+
     while (loader = [allLoaders nextObject]){
         if ([[loader delegate] isEqual:delegate]) {
             [invalidatedLoaders addObject:loader];
         }
     }
-    
+
     [invalidatedLoaders makeObjectsPerformSelector:@selector(invalidate)];
 }
 
@@ -65,7 +65,7 @@
     if ((self = [super init])) {
         _opensFinalURLOnDevice = YES;
     }
-    
+
     return self;
 }
 
@@ -73,7 +73,7 @@
     [_targetURL release], _targetURL = nil;
     [_connection release], _connection = nil;
     [_context release], _context = nil;
-    
+
     [super dealloc];
 }
 
@@ -84,12 +84,12 @@
         PH_LOG(@"opening url %@", self.targetURL);
         _totalRedirects = 0;
         NSURLRequest *request = [NSURLRequest requestWithURL:self.targetURL];
-        
+
         @synchronized(self){
             [_connection cancel];
             [_connection release], _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-            
-            
+
+
             //PHURLLOADER_RETAIN see PHURLLOADER_RELEASE
             [[PHURLLoader allLoaders] addObject:self];
         }
@@ -98,7 +98,7 @@
 
 -(void) invalidate{
     self.delegate = nil;
-    
+
     //PHURLLOADER_RELEASE see PHURLLOADER_RETAIN
     @synchronized(self){
         [_connection cancel];
@@ -111,9 +111,9 @@
         if ([self.delegate respondsToSelector:@selector(loaderFinished:)]) {
             [self.delegate loaderFinished:self];
         }
-        
+
         [self invalidate];
-        
+
         if (self.opensFinalURLOnDevice) {
             // using respondsToSelector to allow functionality to be overriden by Automation
             if ([self respondsToSelector:@selector(_launchURLForAutomation:)]) {
@@ -131,7 +131,7 @@
     if ([self.delegate respondsToSelector:@selector(loaderFailed:)]) {
         [self.delegate loaderFailed:self];
     }
-    
+
     [self invalidate];
 }
 

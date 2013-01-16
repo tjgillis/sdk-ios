@@ -40,7 +40,7 @@ static NSString *sPlayHavenPluginIdentifier;
 @implementation PHAPIRequest
 
 +(void)initialize{
-    if  (self == [PHAPIRequest class]){        
+    if  (self == [PHAPIRequest class]){
         [[PHNetworkUtil sharedInstance] checkDNSResolutionForURLPath:PH_BASE_URL];
         [[PHNetworkUtil sharedInstance] checkDNSResolutionForURLPath:PH_CONTENT_ADDRESS];
 #ifdef PH_USE_NETWORK_FIXTURES
@@ -51,26 +51,26 @@ static NSString *sPlayHavenPluginIdentifier;
 
 +(NSMutableSet *)allRequests{
     static NSMutableSet *allRequests = nil;
-    
+
     if (allRequests == nil) {
         allRequests = [[NSMutableSet alloc] init];
     }
-    
+
     return allRequests;
 }
 
 +(void)cancelAllRequestsWithDelegate:(id)delegate{
     NSEnumerator *allRequests = [[PHAPIRequest allRequests] objectEnumerator];
     PHAPIRequest *request = nil;
-    
+
     NSMutableSet *canceledRequests = [NSMutableSet set];
-    
+
     while (request = [allRequests nextObject]){
         if ([[request delegate] isEqual:delegate]) {
             [canceledRequests addObject:request];
         }
     }
-    
+
     [canceledRequests makeObjectsPerformSelector:@selector(cancel)];
 }
 
@@ -79,7 +79,7 @@ static NSString *sPlayHavenPluginIdentifier;
     if (!!request) {
         [request cancel];
         return 1;
-    } 
+    }
     return 0;
 }
 
@@ -90,32 +90,32 @@ static NSString *sPlayHavenPluginIdentifier;
 +(NSString *)expectedSignatureValueForResponse:(NSString *)responseString nonce:(NSString *)nonce secret:(NSString *)secret{
     const char *cKey  = [secret cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
-    
+
     CCHmacContext context;
     CCHmacInit(&context, kCCHmacAlgSHA1, cKey, strlen(cKey));
-    
+
     if (nonce){
         const char *cNonce = [nonce cStringUsingEncoding:NSUTF8StringEncoding];
         CCHmacUpdate(&context, cNonce, strlen(cNonce));
     }
-    
+
     const char *cResponse = [responseString cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmacUpdate(&context, cResponse, strlen(cResponse));
-    
+
     CCHmacFinal(&context, &cHMAC);
-    
+
     NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
                                           length:sizeof(cHMAC)];
-    
+
     NSString *localSignature = [PHStringUtil base64EncodedStringForData:HMAC];
-    
+
     //figure out if we need to pad to multiple of 4 length
     NSInteger length = [localSignature length];
     NSInteger modulo = [localSignature length] % 4;
     if (modulo != 0) {
         length = length + (4 - modulo);
     }
-    
+
     return [localSignature stringByPaddingToLength:length withString:@"=" startingAtIndex:0];
 }
 
@@ -126,7 +126,7 @@ static NSString *sPlayHavenPluginIdentifier;
             sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string] == nil?@"":[pasteboard string]];
         }
     }
-    
+
     return (!!sPlayHavenSession)? sPlayHavenSession : @"";
 }
 
@@ -151,7 +151,7 @@ static NSString *sPlayHavenPluginIdentifier;
             sPlayHavenPluginIdentifier = [[NSString alloc] initWithFormat:@"ios-%@", PH_SDK_VERSION];
         }
     }
-    
+
     return sPlayHavenPluginIdentifier;
 }
 
@@ -181,7 +181,7 @@ static NSString *sPlayHavenPluginIdentifier;
         _token = [token copy];
         _secret = [secret copy];
     }
-    
+
     return self;
 }
 
@@ -190,7 +190,7 @@ static NSString *sPlayHavenPluginIdentifier;
     if (self) {
         [[PHAPIRequest allRequests] addObject:self];
     }
-    
+
     return  self;
 }
 
@@ -205,9 +205,9 @@ static NSString *sPlayHavenPluginIdentifier;
         NSString *urlString = [NSString stringWithFormat:@"%@?%@",
                                [self urlPath],
                                [self signedParameterString]];
-        _URL = [[NSURL alloc] initWithString:urlString]; 
+        _URL = [[NSURL alloc] initWithString:urlString];
     }
-    
+
     return _URL;
 }
 
@@ -218,10 +218,10 @@ static NSString *sPlayHavenPluginIdentifier;
         CGFloat screenWidth = (isLandscape)? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
         CGFloat screenHeight = (!isLandscape)? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
         CGFloat screenScale = [[UIScreen mainScreen] scale];
-        
+
         NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0)?[[NSLocale preferredLanguages] objectAtIndex:0]:nil;
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
-        
+
 #if PH_USE_UNIQUE_IDENTIFIER==1
         if (![PHAPIRequest optOutStatus]) {
             NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
@@ -240,14 +240,14 @@ static NSString *sPlayHavenPluginIdentifier;
         }
 #endif
 #endif
-        
+
         //adds plugin identifier
         [combinedParams setValue:[PHAPIRequest pluginIdentifier] forKey:@"plugin"];
-        
-        
+
+
         //This allows for unit testing of request values!
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
-        
+
         NSString
         *nonce = [PHStringUtil uuid],
         *session = [PHAPIRequest session],
@@ -262,15 +262,15 @@ static NSString *sPlayHavenPluginIdentifier;
                [[UIDevice currentDevice] systemVersion]],
         *languages = preferredLanguage;
         if(!appVersion) appVersion = @"NA";
-        
-        NSNumber 
+
+        NSNumber
         *idiom = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
         *connection = [NSNumber numberWithInt:PHNetworkStatus()],
         *width = [NSNumber numberWithFloat:screenWidth],
         *height = [NSNumber numberWithFloat:screenHeight],
         *scale = [NSNumber numberWithFloat:screenScale];
-        
-        [combinedParams addEntriesFromDictionary:self.additionalParameters];  
+
+        [combinedParams addEntriesFromDictionary:self.additionalParameters];
         NSDictionary *signatureParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                          self.token, @"token",
                                          signature, @"signature",
@@ -289,12 +289,12 @@ static NSString *sPlayHavenPluginIdentifier;
                                          height,@"height",
                                          scale, @"scale",
                                          nil];
-        
+
         [combinedParams addEntriesFromDictionary:signatureParams];
         _signedParameters = combinedParams;
     }
-    
-    return _signedParameters;       
+
+    return _signedParameters;
 }
 
 -(NSString *) signedParameterString{
@@ -319,10 +319,10 @@ static NSString *sPlayHavenPluginIdentifier;
 -(void) send{
     if (_connection == nil) {
         PH_LOG(@"Sending request: %@", [self.URL absoluteString]);
-        NSURLRequest *request = [NSURLRequest requestWithURL:self.URL 
-                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
+        NSURLRequest *request = [NSURLRequest requestWithURL:self.URL
+                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                              timeoutInterval:PH_REQUEST_TIMEOUT];
-        
+
 #ifdef PH_USE_NETWORK_FIXTURES
         _connection = [[WWURLConnection connectionWithRequest:request delegate:self] retain];
 #else
@@ -342,7 +342,7 @@ static NSString *sPlayHavenPluginIdentifier;
  */
 -(void)finish{
     [_connection cancel];
-    
+
     //REQUEST_RELEASE see REQUEST_RETAIN
     [[PHAPIRequest allRequests] removeObject:self];
 }
@@ -355,14 +355,14 @@ static NSString *sPlayHavenPluginIdentifier;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         PH_LOG(@"Request recieved HTTP response: %d", [httpResponse statusCode]);
     }
-    
+
     /* We want to get response objects for everything */
     [_connectionData release], _connectionData = [[NSMutableData alloc] init];
     [_response release], _response = [response retain];
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    
+
     [_connectionData appendData:data];
 }
 
@@ -371,9 +371,9 @@ static NSString *sPlayHavenPluginIdentifier;
     if ([self.delegate respondsToSelector:@selector(requestDidFinishLoading:)]) {
         [self.delegate performSelector:@selector(requestDidFinishLoading:) withObject:self withObject:nil];
     }
-    
+
     NSString *responseString = [[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding];
-    
+
     if ([_response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)_response;
         NSString *requestSignature = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
@@ -386,13 +386,13 @@ static NSString *sPlayHavenPluginIdentifier;
             return;
         }
     }
-    
-    
+
+
     PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
     NSDictionary* resultDictionary = [parser objectWithString:responseString];
     [parser release];
     [responseString release];
-    
+
     [self processRequestResponse:resultDictionary];
 }
 
@@ -402,7 +402,7 @@ static NSString *sPlayHavenPluginIdentifier;
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
     [self didFailWithError:error];
-    
+
     //REQUEST_RELEASE see REQUEST_RETAIN
     [self finish];
 }
@@ -414,7 +414,7 @@ static NSString *sPlayHavenPluginIdentifier;
         PH_LOG(@"Error response: %@", errorValue);
         [self didFailWithError:PHCreateError(PHAPIResponseErrorType)];
     } else {
-        id responseValue = [responseData valueForKey:@"response"]; 
+        id responseValue = [responseData valueForKey:@"response"];
         if ([responseValue isEqual:[NSNull null]]) {
             responseValue = nil;
         }
@@ -426,7 +426,7 @@ static NSString *sPlayHavenPluginIdentifier;
     if ([self.delegate respondsToSelector:@selector(request:didSucceedWithResponse:)]) {
         [self.delegate performSelector:@selector(request:didSucceedWithResponse:) withObject:self withObject:responseData];
     }
-    
+
     [self finish];
 }
 
