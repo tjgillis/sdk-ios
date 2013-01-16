@@ -2,12 +2,13 @@
 //  NSObject+QueryComponents.m
 //  playhaven-sdk-ios
 //
-//  Adapted from http://stackoverflow.com/questions/3997976/parse-nsurl-query-property
-//  Code by BadPirate(blog.logichigh.com)
 //
 
 #import <Foundation/Foundation.h>
 
+//  Adapted from http://stackoverflow.com/questions/3997976/parse-nsurl-query-property
+//  Code by BadPirate(blog.logichigh.com)
+//  TODO: Determine if this can be merged into PHStringUtil
 @interface NSString (QueryComponents)
 - (NSString *)stringByDecodingURLFormat;
 - (NSString *)stringByEncodingURLFormat;

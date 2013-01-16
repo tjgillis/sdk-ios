@@ -25,6 +25,11 @@
 @interface PHPublisherContentRequest(TestMethods)
 @property (nonatomic, readonly) PHPublisherContentRequestState state;
 -(BOOL)setState:(PHPublisherContentRequestState)state;
+-(BOOL)isValidReward:(NSDictionary *)rewardData;
+-(void)requestRewards:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
+
+-(BOOL)isValidPurchase:(NSDictionary *)purchaseData;
+-(void)requestPurchases:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
 @end
 
 

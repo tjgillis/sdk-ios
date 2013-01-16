@@ -22,6 +22,7 @@
 @interface PHAPIRequest(Private)
 +(NSMutableSet *)allRequests;
 +(void)setSession:(NSString *)session;
+-(void)processRequestResponse:(NSDictionary *)response;
 @end
 
 @interface PHAPIRequestTest : SenTestCase @end
