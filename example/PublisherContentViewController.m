@@ -31,14 +31,6 @@
 
         //[self.placementField resignFirstResponder];
 
-        // TODO: Lilli - added for testing fayette-ville, remove/move elsewhere
-        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"fdadf"
-                                                             message:@"dsfsd"
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"fdsfds"
-                                                   otherButtonTitles:nil] autorelease];
-        [alertView show];
-
         NSString *placement = (![self.placementField.text isEqualToString:@""])? self.placementField.text : @"more_games";
         PHPublisherContentRequest * request = [PHPublisherContentRequest requestForApp:self.token secret:self.secret placement:placement delegate:self];
         [request setShowsOverlayImmediately:[showsOverlaySwitch isOn]];

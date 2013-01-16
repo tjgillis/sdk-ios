@@ -273,7 +273,6 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 }
 
 -(void)showOverlayWindow{
-    // TODO: Lilli test
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     [window addSubview:self.overlayWindow];
 

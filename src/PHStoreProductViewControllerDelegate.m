@@ -36,7 +36,6 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
         _visibleViewController = [[UIViewController alloc] init];
     }
 
-    // TODO: Lilli test
     UIWindow *applicationWindow = [[[UIApplication sharedApplication] windows] lastObject];
     [applicationWindow addSubview:_visibleViewController.view];
 
