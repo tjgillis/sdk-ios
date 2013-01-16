@@ -27,7 +27,7 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
             [[NSNotificationCenter defaultCenter] addObserver:_delegate selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
         }
     });
-	
+
 	return _delegate;
 }
 
@@ -35,10 +35,10 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     if (_visibleViewController == nil) {
         _visibleViewController = [[UIViewController alloc] init];
     }
-    
-    UIWindow *applicationWindow = [[[UIApplication sharedApplication]windows] objectAtIndex:0];
+
+    UIWindow *applicationWindow = [[[UIApplication sharedApplication] windows] lastObject];
     [applicationWindow addSubview:_visibleViewController.view];
-    
+
     return _visibleViewController;
 }
 
@@ -48,12 +48,12 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
         NSDictionary *parameters = [NSDictionary dictionaryWithObject:productId forKey:SKStoreProductParameterITunesItemIdentifier];
         controller.delegate = self;
         [controller loadProductWithParameters:parameters completionBlock:nil];
-        
+
         [[self visibleViewController] presentModalViewController:controller animated:YES];
         [controller release];
         return true;
     }
-    
+
     return false;
 }
 
@@ -66,7 +66,7 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 #pragma mark -
 #pragma NSNotification Observers
 -(void)appDidEnterBackground{
-    //This will automatically dismiss the view controller when the app is backgrounded 
+    //This will automatically dismiss the view controller when the app is backgrounded
     if (_visibleViewController.modalViewController)
         [_visibleViewController dismissModalViewControllerAnimated:NO];
     [_visibleViewController.view removeFromSuperview];

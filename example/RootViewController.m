@@ -28,7 +28,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"ExampleToken"];
     NSString *secret = [defaults valueForKey:@"ExampleSecret"];
-    
+
     if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]){
         [defaults setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
     }
@@ -36,11 +36,11 @@
     if (token == nil || [token isEqualToString:@""]) {
         [defaults setValue:@"8ae979ddcdaf450996e897322169d26c" forKey:@"ExampleToken"];
     }
-    
+
     if (secret == nil || [secret isEqualToString:@""]) {
         [defaults setValue:@"080d853e433a4468ba3315953b22615e" forKey:@"ExampleSecret"];
     }
-    
+
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -64,27 +64,27 @@
 -(BOOL)isTokenAndSecretFilledIn{
     BOOL notNil = (self.tokenField.text && self.secretField.text);
     BOOL notEmpty = !( [self.tokenField.text isEqualToString:@""] || [self.secretField.text isEqualToString:@""] );
-    
+
     return notNil && notEmpty;
 }
 
 -(void)loadTokenAndSecretFromDefaults{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
-    
+
     self.tokenField.text = [defaults valueForKey:@"ExampleToken"];
     self.secretField.text = [defaults valueForKey:@"ExampleSecret"];
     self.serviceURLField.text = PH_BASE_URL;
-    
+
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
 }
 
 -(void)saveTokenAndSecretToDefaults{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
+
     [defaults setValue:self.tokenField.text forKey:@"ExampleToken"];
     [defaults setValue:self.secretField.text forKey:@"ExampleSecret"];
-    
+
     [defaults synchronize];
 }
 
@@ -95,7 +95,7 @@
 {
     [super viewDidLoad];
     self.title = @"PlayHaven";
-    
+
     UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithTitle:@"Toggle" style:UIBarButtonItemStyleBordered target:self action:@selector(touchedToggleStatusBar:)];
     self.navigationItem.rightBarButtonItem = toggleButton;
     [toggleButton release];
@@ -108,11 +108,11 @@
 
 -(void)touchedToggleStatusBar:(id)sender{
     BOOL statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
-    
+
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
         [[UIApplication sharedApplication] setStatusBarHidden:!statusBarHidden withAnimation:UIStatusBarAnimationSlide];
     }
-    
+
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:NO];
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:NO];
 }
@@ -135,13 +135,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
+
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"Open";
@@ -178,7 +178,7 @@
         default:
             break;
     }
-    
+
     return cell;
 }
 
@@ -234,7 +234,7 @@
         [alert show];
         [alert release];
     }
-    
+
 }
 
 - (void)viewDidUnload {
