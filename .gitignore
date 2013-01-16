@@ -16,5 +16,10 @@ build/*
 xcuserdata
 profile
 *.moved-aside
+
+# AppCode
+.idea/workspace.xml
+.idea/tasks.xml
+
 # created by textmate
 output.html
