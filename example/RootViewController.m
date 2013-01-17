@@ -17,19 +17,20 @@
 #import "IDViewController.h"
 
 @interface RootViewController(Private)
--(BOOL)isTokenAndSecretFilledIn;
--(void)loadTokenAndSecretFromDefaults;
--(void)saveTokenAndSecretToDefaults;
+- (BOOL)isTokenAndSecretFilledIn;
+- (void)loadTokenAndSecretFromDefaults;
+- (void)saveTokenAndSecretToDefaults;
 @end
 
 @implementation RootViewController
 
-+(void)initialize{
++ (void)initialize
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"ExampleToken"];
     NSString *secret = [defaults valueForKey:@"ExampleSecret"];
 
-    if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]){
+    if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]) {
         [defaults setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
     }
 
@@ -44,14 +45,13 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-
-
 @synthesize tokenField;
 @synthesize secretField;
 @synthesize optOutStatusSlider;
 @synthesize serviceURLField;
 
-- (void)dealloc {
+- (void)dealloc
+{
     [tokenField release];
     [secretField release];
     [optOutStatusSlider release];
@@ -61,14 +61,16 @@
 
 #pragma mark -
 #pragma mark Private
--(BOOL)isTokenAndSecretFilledIn{
+- (BOOL)isTokenAndSecretFilledIn
+{
     BOOL notNil = (self.tokenField.text && self.secretField.text);
     BOOL notEmpty = !( [self.tokenField.text isEqualToString:@""] || [self.secretField.text isEqualToString:@""] );
 
     return notNil && notEmpty;
 }
 
--(void)loadTokenAndSecretFromDefaults{
+- (void)loadTokenAndSecretFromDefaults
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
 
@@ -79,7 +81,8 @@
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
 }
 
--(void)saveTokenAndSecretToDefaults{
+- (void)saveTokenAndSecretToDefaults
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     [defaults setValue:self.tokenField.text forKey:@"ExampleToken"];
@@ -101,12 +104,14 @@
     [toggleButton release];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self loadTokenAndSecretFromDefaults];
 }
 
--(void)touchedToggleStatusBar:(id)sender{
+- (void)touchedToggleStatusBar:(id)sender
+{
     BOOL statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
 
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
@@ -117,23 +122,28 @@
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:NO];
 }
 
-- (IBAction)touchedOptOutStatusSlider:(id)sender {
+- (IBAction)touchedOptOutStatusSlider:(id)sender
+{
     [PHAPIRequest setOptOutStatus:self.optOutStatusSlider.on];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 7;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"Cell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -182,7 +192,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([self isTokenAndSecretFilledIn]) {
         [self saveTokenAndSecretToDefaults];
         if (indexPath.row == 0) {
@@ -192,38 +203,38 @@
             controller.secret = self.secretField.text;
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
-        } else if (indexPath.row == 1){
+        } else if (indexPath.row == 1) {
             PublisherContentViewController *controller = [[PublisherContentViewController alloc] initWithNibName:@"PublisherContentViewController" bundle:nil];
             controller.title = @"Content";
             controller.token = self.tokenField.text;
             controller.secret = self.secretField.text;
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
-        } else if (indexPath.row == 2){
+        } else if (indexPath.row == 2) {
             PublisherIAPTrackingViewController *controller = [[PublisherIAPTrackingViewController alloc] initWithNibName:@"PublisherIAPTrackingViewController" bundle:nil];
             controller.title = @"IAP Tracking";
             controller.token = self.tokenField.text;
             controller.secret = self.secretField.text;
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
-        } else if (indexPath.row == 3){
+        } else if (indexPath.row == 3) {
             PublisherCancelContentViewController *controller = [[PublisherCancelContentViewController alloc] initWithNibName:@"PublisherContentViewController" bundle:nil];
             controller.title = @"Content";
             controller.token = self.tokenField.text;
             controller.secret = self.secretField.text;
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
-        } else if (indexPath.row == 4){
+        } else if (indexPath.row == 4) {
             URLLoaderViewController *controller = [[URLLoaderViewController alloc] initWithNibName:@"URLLoaderViewController" bundle:nil];
             controller.title = @"URL Loader";
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
-        } else if (indexPath.row == 5){
+        } else if (indexPath.row == 5) {
             IAPViewController *controller = [[IAPViewController alloc] initWithNibName:@"IAPViewController" bundle:nil];
             controller.title = @"IAP";
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
-        } else if (indexPath.row == 6){
+        } else if (indexPath.row == 6) {
             IDViewController *controller = [[IDViewController alloc] initWithNibName:@"IDViewController" bundle:nil];
             controller.title = @"Identifiers";
             [self.navigationController pushViewController:controller animated:YES];
@@ -237,7 +248,8 @@
 
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setTokenField:nil];
     [self setSecretField:nil];
     [self setOptOutStatusSlider:nil];

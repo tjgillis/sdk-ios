@@ -11,10 +11,11 @@
 #include <sys/sysctl.h>
 
 @implementation UIDevice(HardwareString)
--(NSString *)hardware{
+- (NSString *)hardware
+{
 #if TARGET_IPHONE_SIMULATOR
     //use idiom to send appropriate string
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         return @"iPad Simulator";
     } else {
         return @"iPhone Simulator";

@@ -15,16 +15,17 @@
 #import "PHPublisherIAPTrackingRequest.h"
 
 @interface PHPublisherIAPTrackingRequest(Private)
-+(NSMutableDictionary *)allConversionCookies;
--(void)requestProductInformation;
--(void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale receiptData:(NSData *)receiptData;
--(void)sendWithError:(NSError *)error receiptData:(NSData *)receiptData;
--(void)sendWithFailure;
++ (NSMutableDictionary *)allConversionCookies;
+- (void)requestProductInformation;
+- (void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale receiptData:(NSData *)receiptData;
+- (void)sendWithError:(NSError *)error receiptData:(NSData *)receiptData;
+- (void)sendWithFailure;
 @end
 
 @implementation PHPublisherIAPTrackingRequest
 
-+(NSMutableDictionary *)allConversionCookies{
++ (NSMutableDictionary *)allConversionCookies
+{
     static NSMutableDictionary *conversionCookies;
     if (conversionCookies == nil) {
         conversionCookies = [[NSMutableDictionary alloc] init];
@@ -33,25 +34,30 @@
     return conversionCookies;
 }
 
-+(void)setConversionCookie:(NSString *)cookie forProduct:(NSString *)product{
++ (void)setConversionCookie:(NSString *)cookie forProduct:(NSString *)product
+{
     [[self allConversionCookies] setValue:cookie forKey:product];
 }
 
-+(NSString *)getConversionCookieForProduct:(NSString *)product{
++ (NSString *)getConversionCookieForProduct:(NSString *)product
+{
     NSString *result = PHAgnosticStringValue([[self allConversionCookies] valueForKey:product]);
     [[self allConversionCookies] setValue:nil forKey:product];
     return result;
 }
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution{
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution
+{
     return [self requestForApp:token secret:secret product:product quantity:quantity resolution:resolution receiptData:nil];
 }
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error{
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error
+{
     return [self requestForApp:token secret:secret product:product quantity:quantity error:error receiptData:nil];
 }
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution receiptData:(NSData*)receiptData{
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution receiptData:(NSData*)receiptData
+{
     PHPublisherIAPTrackingRequest *result = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
     result.product = product;
     result.quantity = quantity;
@@ -60,7 +66,8 @@
     return result;
 }
 
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error receiptData:(NSData *)receiptData{
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error receiptData:(NSData *)receiptData
+{
     PHPublisherIAPTrackingRequest *result = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
     result.error = error;
     result.product = product;
@@ -76,7 +83,8 @@
 @synthesize error = _error;
 @synthesize receiptData = _receiptData;
 
--(void)dealloc{
+- (void)dealloc
+{
     [_product release], _product = nil;
     [_request release], _request = nil;
     [_error release], _error = nil;
@@ -87,11 +95,13 @@
 #pragma mark -
 #pragma mark PHAPIRequest
 
--(NSString *)urlPath{
+- (NSString *)urlPath
+{
     return PH_URL(/v3/publisher/iap/);
 }
 
--(void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale{
+- (void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale
+{
    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  self.product, @"product",
                                  [NSNumber numberWithInteger: self.quantity], @"quantity",
@@ -112,7 +122,8 @@
     [super send];
 }
 
--(void)sendWithError:(NSError *)error{
+- (void)sendWithError:(NSError *)error
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  self.product, @"product",
                                  [NSNumber numberWithInteger: self.quantity], @"quantity",
@@ -132,7 +143,8 @@
     [super send];
 }
 
--(void)sendWithFailure{
+- (void)sendWithFailure
+{
     self.additionalParameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                  self.product, @"product",
                                  [NSNumber numberWithInteger: self.quantity], @"quantity",
@@ -142,7 +154,8 @@
     [super send];
 }
 
--(void)send{
+- (void)send
+{
     switch (self.resolution) {
         case PHPurchaseResolutionBuy:
         case PHPurchaseResolutionCancel:
@@ -163,10 +176,10 @@
             [self sendWithFailure];
             break;
     }
-
 }
 
--(void)requestProductInformation{
+- (void)requestProductInformation
+{
     if (_request == nil) {
         NSSet *productSet = [NSSet setWithObject:self.product];
         _request = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
@@ -177,7 +190,8 @@
 
 #pragma mark -
 #pragma mark SKProductsRequestDelegate
--(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
+{
     if ([response.products count] > 0) {
         SKProduct *productInfo = [response.products objectAtIndex:0];
         [self sendWithPrice:productInfo.price andLocale:productInfo.priceLocale];
@@ -187,9 +201,9 @@
     }
 }
 
--(void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
+{
     [self sendWithError:error];
 }
-
 @end
 #endif

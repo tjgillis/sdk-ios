@@ -29,7 +29,8 @@
 @end
 
 @implementation KIFTestStep (PHAdditions)
-+(NSArray *)stepsToResetApp{
++ (NSArray *)stepsToResetApp
+{
     return [NSArray arrayWithObjects:
             [KIFTestStep stepWithDescription:@"Reset the app"
                               executionBlock:^(KIFTestStep *step, NSError **error) {
@@ -45,7 +46,8 @@
             nil];
 }
 
-+(id)stepToWaitForWebViewWithAccessibilityLabelToFinishLoading:(NSString *)label{
++ (id)stepToWaitForWebViewWithAccessibilityLabelToFinishLoading:(NSString *)label
+{
     return [KIFTestStep stepWithDescription:@"Waiting for a webview to finish loading..." executionBlock:^(KIFTestStep *step, NSError **error){
         UIAccessibilityElement *element = [self _accessibilityElementWithLabel:label accessibilityValue:nil tappable:NO traits:UIAccessibilityTraitNone error:error];
 
@@ -68,11 +70,13 @@
     }];
 }
 
-+(id)stepToRunJavascript:(NSString *)javascript inWebViewWithAccessibilityLabel:(NSString *)label{
++ (id)stepToRunJavascript:(NSString *)javascript inWebViewWithAccessibilityLabel:(NSString *)label
+{
     return [self stepToRunJavascript:javascript inWebViewWithAccessibilityLabel:label expectedResult:nil];
 }
 
-+(id)stepToRunJavascript:(NSString *)javascript inWebViewWithAccessibilityLabel:(NSString *)label expectedResult:(NSString *)expectedResult{
++ (id)stepToRunJavascript:(NSString *)javascript inWebViewWithAccessibilityLabel:(NSString *)label expectedResult:(NSString *)expectedResult
+{
     return [KIFTestStep stepWithDescription:@"Running some javascript on a view..." executionBlock:^(KIFTestStep *step, NSError **error){
         UIAccessibilityElement *element = [self _accessibilityElementWithLabel:label accessibilityValue:nil tappable:NO traits:UIAccessibilityTraitNone error:error];
 
@@ -97,7 +101,8 @@
     }];
 }
 
-+(id)stepToTapElementWithSelector:(NSString *)selector inWebViewWithAccessibilityLabel:(NSString *)label{
++ (id)stepToTapElementWithSelector:(NSString *)selector inWebViewWithAccessibilityLabel:(NSString *)label
+{
     return [KIFTestStep stepWithDescription:@"Tapping an element in a webview" executionBlock:^(KIFTestStep *step, NSError **error){
         UIAccessibilityElement *element = [self _accessibilityElementWithLabel:label accessibilityValue:nil tappable:NO traits:UIAccessibilityTraitNone error:error];
 
@@ -157,7 +162,8 @@
     }];
 }
 
-+ (id)stepToClearTextFromViewWithAccessibilityLabel:(NSString *)label{
++ (id)stepToClearTextFromViewWithAccessibilityLabel:(NSString *)label
+{
     NSString *description = [NSString stringWithFormat:@"Clear the text from the view with accessibility label \"%@\"", label];
     return [self stepWithDescription:description executionBlock:^(KIFTestStep *step, NSError **error) {
 
@@ -201,7 +207,8 @@
     }];
 }
 
-+(id)stepToVerifyRewardUnlocked:(NSString *)reward quantity:(NSInteger)quantity{
++ (id)stepToVerifyRewardUnlocked:(NSString *)reward quantity:(NSInteger)quantity
+{
     NSString *description = [NSString stringWithFormat:@"Verifying the last reward unlocked is %@ (quantity: %d)",reward,quantity];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
         PHReward *lastReward = [PHReward lastReward];
@@ -212,7 +219,8 @@
     }];
 }
 
-+(id)stepToVerifyLaunchURL:(NSString *)urlPath{
++ (id)stepToVerifyLaunchURL:(NSString *)urlPath
+{
     NSString *description = [NSString stringWithFormat:@"Verifying the last URL launched is %@ ",urlPath];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
 
@@ -223,7 +231,8 @@
     }];
 }
 
-+(id)steptoVerifyLaunchURLContainsHost:(NSString *)host{
++ (id)steptoVerifyLaunchURLContainsHost:(NSString *)host
+{
     NSString *description = [NSString stringWithFormat:@"Verifying the last URL launched contains host: %@ ",host];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
 
@@ -235,7 +244,8 @@
     }];
 }
 
-+(id)stepToVerifyLaunchURLContainsParameter:(NSString *)parameter{
++ (id)stepToVerifyLaunchURLContainsParameter:(NSString *)parameter
+{
     NSString *description = [NSString stringWithFormat:@"Verifying the last URL launched contains parameter: %@ ",parameter];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
 
@@ -247,13 +257,13 @@
     }];
 }
 
-
-
-+(id)stepToWaitForDispatch:(NSString *)dispatch{
++ (id)stepToWaitForDispatch:(NSString *)dispatch
+{
     return [self stepToWaitForDispatch:dispatch andCallback:NO];
 }
 
-+(id)stepToWaitForDispatch:(NSString *)dispatch andCallback:(BOOL)waitForCallback {
++ (id)stepToWaitForDispatch:(NSString *)dispatch andCallback:(BOOL)waitForCallback
+{
     NSString *description = [NSString stringWithFormat:@"Waiting for a %@ dispatch",dispatch];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError **error) {
         DispatchLog *foundDispatch = [PHContentView firstDispatch:dispatch];
@@ -270,7 +280,5 @@
 
         return KIFTestStepResultSuccess;
     }];
-
 }
-
 @end

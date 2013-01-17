@@ -12,5 +12,5 @@
 //  (iPhone4,1 for instance), special cases for handling simulator builds
 //  TODO: Move this out of a category.
 @interface UIDevice(HardwareString)
--(NSString *)hardware;
+- (NSString *)hardware;
 @end

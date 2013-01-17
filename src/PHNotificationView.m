@@ -15,7 +15,8 @@ static NSMutableDictionary *RendererMap;
 
 @implementation PHNotificationView
 
-+(void)initialize{
++ (void)initialize
+{
     if (self == [PHNotificationView class]) {
         RendererMap = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                        [PHNotificationBadgeRenderer class], @"badge",
@@ -23,13 +24,15 @@ static NSMutableDictionary *RendererMap;
     }
 }
 
-+(void)setRendererClass:(Class)rendererClass forType:(NSString *)type{
++ (void)setRendererClass:(Class)rendererClass forType:(NSString *)type
+{
     if ([rendererClass isSubclassOfClass:[PHNotificationRenderer class]]) {
         [RendererMap setValue:rendererClass forKey:type];
     }
 }
 
-+(PHNotificationRenderer *)newRendererForData:(NSDictionary *)notificationData{
++ (PHNotificationRenderer *)newRendererForData:(NSDictionary *)notificationData
+{
     NSString *type = [notificationData valueForKey:@"type"];
     Class RendererClass = nil;
     if (!!type) RendererClass = (Class)[RendererMap valueForKey:type];
@@ -39,7 +42,8 @@ static NSMutableDictionary *RendererMap;
     return [[RendererClass alloc] init];
 }
 
--(id)initWithApp:(NSString *)app secret:(NSString *)secret placement:(NSString *)placement{
+- (id)initWithApp:(NSString *)app secret:(NSString *)secret placement:(NSString *)placement
+{
     if ((self = [self initWithFrame:CGRectZero])) {
         _app = [app copy];
         _secret = [secret copy];
@@ -51,7 +55,8 @@ static NSMutableDictionary *RendererMap;
     return self;
 }
 
--(id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame
+{
     if ((self = [super initWithFrame:frame])) {
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
@@ -64,7 +69,8 @@ static NSMutableDictionary *RendererMap;
 
 @synthesize notificationData = _notificationData;
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if (self == object && [keyPath isEqualToString:@"notificationData"]) {
         NSDictionary *newNotificationData = self.notificationData;
 
@@ -82,7 +88,8 @@ static NSMutableDictionary *RendererMap;
     }
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [_request setDelegate:nil];
     [self removeObserver:self forKeyPath:@"notificationData"];
 
@@ -94,24 +101,28 @@ static NSMutableDictionary *RendererMap;
     [super dealloc];
 }
 
--(void)refresh{
+- (void)refresh
+{
     if (!_request) {
         _request = [PHPublisherMetadataRequest requestForApp:_app secret:_secret placement:_placement delegate:self];
         [_request send];
     }
 }
 
--(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
+- (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData
+{
     _request = nil;
     self.notificationData = [responseData valueForKey:@"notification"];
 }
 
--(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
+{
     _request = nil;
     self.notificationData = nil;
 }
 
--(void)test{
+- (void)test
+{
     static NSDictionary *TestingNotificationData;
     if (TestingNotificationData == nil) {
         TestingNotificationData = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -123,7 +134,8 @@ static NSMutableDictionary *RendererMap;
     self.notificationData = TestingNotificationData;
 }
 
--(void)clear{
+- (void)clear
+{
     if (!!_request) {
         _request.delegate = nil;
         _request = nil;
@@ -136,5 +148,4 @@ static NSMutableDictionary *RendererMap;
 {
     [_notificationRenderer drawNotification:self.notificationData inRect:rect];
 }
-
 @end

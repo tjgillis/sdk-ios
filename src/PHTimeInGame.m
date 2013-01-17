@@ -12,18 +12,20 @@
 
 static PHTimeInGame * shared = nil;
 
-+(PHTimeInGame *) getInstance {
-	static dispatch_once_t onceToken;
++ (PHTimeInGame *)getInstance
+{
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (shared == nil) {
             shared = [PHTimeInGame new];
         }
     });
 
-	return shared;
+    return shared;
 }
 
--(id)init{
+- (id)init
+{
     self = [super init];
     if (self) {
         sessionStartTime = 0;
@@ -32,8 +34,8 @@ static PHTimeInGame * shared = nil;
     return self;
 }
 
--(void) gameSessionStarted {
-
+- (void)gameSessionStarted
+{
     sessionStartTime = CFAbsoluteTimeGetCurrent();
 
     [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationWillTerminateNotification object:nil];
@@ -44,8 +46,8 @@ static PHTimeInGame * shared = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void) gameSessionStopped {
-
+- (void)gameSessionStopped
+{
     if (sessionStartTime == 0)
         return;
 
@@ -73,12 +75,14 @@ static PHTimeInGame * shared = nil;
  stime = That is the duration of the current session thus far - getCurrentSessionDuration
  */
 
--(CFAbsoluteTime) getSumSessionDuration {
+- (CFAbsoluteTime)getSumSessionDuration
+{
     CFAbsoluteTime totalDurationTime = [[NSUserDefaults standardUserDefaults] doubleForKey:@"PHSessionDuration"] + [self getCurrentSessionDuration];
     return totalDurationTime;
 }
 
--(int) getCountSessions {
+- (int)getCountSessions
+{
     NSInteger result = [[NSUserDefaults standardUserDefaults] integerForKey:@"PHSessionCount"];
     return result;
 }
@@ -86,15 +90,16 @@ static PHTimeInGame * shared = nil;
 /*
 This method should only be invoked for testing purposes as it will destroy session data.
 */
--(void) gameSessionRestart {
+- (void)gameSessionRestart
+{
     sessionStartTime = 0;
     [[NSUserDefaults standardUserDefaults] setDouble:0.0f forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"PHSessionCount"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(CFAbsoluteTime) getCurrentSessionDuration {
-
+- (CFAbsoluteTime) getCurrentSessionDuration
+{
     if (sessionStartTime == 0)
         return 0;
 
@@ -104,15 +109,13 @@ This method should only be invoked for testing purposes as it will destroy sessi
 }
 
 /*
-
 After time in game data has been reported to the API, we will purge that amount of time from the stored session duration.
-
 */
--(void)resetCounters{
+- (void)resetCounters
+{
     //resetting session count to 1 since this is usually called during a session
     [[NSUserDefaults standardUserDefaults] setDouble:0.0f forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"PHSessionCount"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
 @end

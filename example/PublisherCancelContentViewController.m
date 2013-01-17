@@ -13,7 +13,8 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
 @implementation PublisherCancelContentViewController
 
 #pragma mark -
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -22,13 +23,15 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
                                                object:self];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PublisherCancelContentViewControllerNotification object:self];
 }
 
 #pragma mark -
--(void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content{
+- (void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content
+{
     if ([super respondsToSelector:@selector(request:contentWillDisplay:)]) {
         [super request:request contentWillDisplay:content];
     }
@@ -39,7 +42,8 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
                                                postingStyle:NSPostASAP];
 }
 
--(void)awkwardCancel{
+- (void)awkwardCancel
+{
     [self.request cancel];
     [self addMessage:@"Content Canceled!"];
     [self finishRequest];

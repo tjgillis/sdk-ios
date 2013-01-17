@@ -16,9 +16,9 @@
 
 @implementation PHPublisherMetadataRequestTest
 
--(void)testInstance{
+- (void)testInstance
+{
     PHPublisherMetadataRequest *request = [PHPublisherMetadataRequest requestForApp:@"" secret:@"" placement:@"" delegate:self];
     STAssertNotNil(request, @"expected request instance, got nil");
 }
-
 @end

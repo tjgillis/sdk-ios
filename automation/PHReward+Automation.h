@@ -9,5 +9,5 @@
 #import "PHReward.h"
 
 @interface PHReward (Automation)
-+(PHReward *)lastReward;
++ (PHReward *)lastReward;
 @end

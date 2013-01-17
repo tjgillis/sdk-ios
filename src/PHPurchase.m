@@ -11,7 +11,8 @@
 
 @implementation PHPurchase
 
-+(NSString *)stringForResolution:(PHPurchaseResolutionType)resolution{
++ (NSString *)stringForResolution:(PHPurchaseResolutionType)resolution
+{
     NSString *result = @"error";
     switch (resolution) {
         case PHPurchaseResolutionBuy:
@@ -40,7 +41,8 @@
 @synthesize receipt = _receipt;
 @synthesize callback = _callback;
 
--(void)dealloc{
+- (void)dealloc
+{
     [_productIdentifier release], _productIdentifier = nil;
     [_item release], _item = nil;
     [_receipt release], _receipt = nil;
@@ -49,8 +51,8 @@
     [super dealloc];
 }
 
--(void) reportResolution:(PHPurchaseResolutionType)resolution{
-
+- (void)reportResolution:(PHPurchaseResolutionType)resolution
+{
     NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:
                               [PHPurchase stringForResolution:resolution],@"resolution", nil];
     NSDictionary *callbackDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -59,5 +61,4 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:PHCONTENTVIEW_CALLBACK_NOTIFICATION object:callbackDictionary];
 }
-
 @end

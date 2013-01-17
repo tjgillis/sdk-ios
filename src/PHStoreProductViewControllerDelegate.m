@@ -19,8 +19,9 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 @end
 
 @implementation PHStoreProductViewControllerDelegate
-+(PHStoreProductViewControllerDelegate *)getDelegate{
-	static dispatch_once_t onceToken;
++ (PHStoreProductViewControllerDelegate *)getDelegate
+{
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (_delegate == nil) {
             _delegate = [PHStoreProductViewControllerDelegate new];
@@ -28,10 +29,11 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
         }
     });
 
-	return _delegate;
+    return _delegate;
 }
 
--(UIViewController *)visibleViewController{
+- (UIViewController *)visibleViewController
+{
     if (_visibleViewController == nil) {
         _visibleViewController = [[UIViewController alloc] init];
     }
@@ -42,8 +44,9 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     return _visibleViewController;
 }
 
--(BOOL)showProductId:(NSString *)productId{
-    if ([SKStoreProductViewController class]){
+- (BOOL)showProductId:(NSString *)productId
+{
+    if ([SKStoreProductViewController class]) {
         SKStoreProductViewController *controller = [SKStoreProductViewController new];
         NSDictionary *parameters = [NSDictionary dictionaryWithObject:productId forKey:SKStoreProductParameterITunesItemIdentifier];
         controller.delegate = self;
@@ -57,7 +60,8 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     return false;
 }
 
--(void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
     [viewController dismissViewControllerAnimated:YES completion:^(void){
         [_visibleViewController.view removeFromSuperview];
     }];
@@ -65,12 +69,12 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 
 #pragma mark -
 #pragma NSNotification Observers
--(void)appDidEnterBackground{
+- (void)appDidEnterBackground
+{
     //This will automatically dismiss the view controller when the app is backgrounded
     if (_visibleViewController.modalViewController)
         [_visibleViewController dismissModalViewControllerAnimated:NO];
     [_visibleViewController.view removeFromSuperview];
 }
-
 @end
 #endif

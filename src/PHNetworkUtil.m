@@ -19,12 +19,13 @@
 #include <arpa/inet.h>
 
 @interface PHNetworkUtil ()
--(void)_backgroundCheckDNSResolutionForURLPath:(NSString *)urlPath;
+- (void)_backgroundCheckDNSResolutionForURLPath:(NSString *)urlPath;
 @end
 
 @implementation PHNetworkUtil
 
-+(id)sharedInstance{
++ (id)sharedInstance
+{
     static dispatch_once_t pred;
     static PHNetworkUtil *shared = nil;
 
@@ -34,11 +35,13 @@
     return shared;
 }
 
--(void)checkDNSResolutionForURLPath:(NSString *)urlPath{
+- (void)checkDNSResolutionForURLPath:(NSString *)urlPath
+{
     [self performSelectorInBackground:@selector(_backgroundCheckDNSResolutionForURLPath:) withObject:urlPath];
 }
 
--(void)_backgroundCheckDNSResolutionForURLPath:(NSString *)urlPath{
+- (void)_backgroundCheckDNSResolutionForURLPath:(NSString *)urlPath
+{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     Boolean result = FALSE;
@@ -70,7 +73,8 @@
     [pool release];
 }
 
--(CFDataRef)newMACBytes{
+- (CFDataRef)newMACBytes
+{
     if ([PHAPIRequest optOutStatus]) {
         return nil;
     }
@@ -122,13 +126,15 @@
     return data;
 }
 
--(NSString *)stringForMACBytes:(CFDataRef)macBytes{
+- (NSString *)stringForMACBytes:(CFDataRef)macBytes
+{
     const uint8_t *ptr = CFDataGetBytePtr(macBytes);
     return  [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X",
                                         *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)] lowercaseString];
 }
 
--(NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes{
+- (NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes
+{
     unsigned char messageDigest[CC_SHA1_DIGEST_LENGTH];
 
     CC_SHA1(CFDataGetBytePtr((CFDataRef)macBytes),
@@ -150,5 +156,4 @@
 
     return odinstring;
 }
-
 @end

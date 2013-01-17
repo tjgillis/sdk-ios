@@ -19,5 +19,5 @@
 //    * Increment the matching level by 1 for each matching parameter.
 @interface WWURLMatching : NSObject
 //  Returns the matching level of |url1| with the target URL pattern |url2|
-+(NSInteger)matchingLevelForURL:(NSURL *)url1 withURL:(NSURL *)url2;
++ (NSInteger)matchingLevelForURL:(NSURL *)url1 withURL:(NSURL *)url2;
 @end

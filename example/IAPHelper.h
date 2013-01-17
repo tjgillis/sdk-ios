@@ -18,8 +18,8 @@
 @property(nonatomic, readonly) NSMutableDictionary *pendingPurchases;
 @property(nonatomic, readonly) NSMutableDictionary *pendingRequests;
 
-+(IAPHelper *)sharedIAPHelper;
++ (IAPHelper *)sharedIAPHelper;
 
--(void)startPurchase:(PHPurchase *)purchase;
--(void)restorePurchases;
+- (void)startPurchase:(PHPurchase *)purchase;
+- (void)restorePurchases;
 @end

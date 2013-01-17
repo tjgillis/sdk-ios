@@ -30,10 +30,10 @@
 
 //  Invalidates all loaders that have |delegate|
 //  See -(void)invalidate for details
-+(void)invalidateAllLoadersWithDelegate:(id <PHURLLoaderDelegate>) delegate;
++ (void)invalidateAllLoadersWithDelegate:(id <PHURLLoaderDelegate>) delegate;
 
 //  Opens and returns PHURLLoader instance for the URL string |url|
-+(PHURLLoader *)openDeviceURL:(NSString*)url;
++ (PHURLLoader *)openDeviceURL:(NSString*)url;
 
 //  The delegate, see PHURLLoaderDelegate for supported methods
 @property (nonatomic, assign) id <PHURLLoaderDelegate> delegate;
@@ -50,10 +50,10 @@
 @property (nonatomic, retain) id context;
 
 //  Follows redirects, starting with self.targetURL
--(void)open;
+- (void)open;
 
 //  Stops following redirects and unassigns the delegate
--(void)invalidate;
+- (void)invalidate;
 @end
 
 //  Delegate protocol for PHURLLoader instances.
@@ -62,9 +62,9 @@
 
 //  The loader has successfully finished following redirects and will proceed to
 //  launch the URL on the device if self.opensFinalURLOnDevice is YES.
--(void)loaderFinished:(PHURLLoader *)loader;
+- (void)loaderFinished:(PHURLLoader *)loader;
 
 //  The loader has failed to follow redirects (bad network connection, server
 //  error) and will not launch a URL
--(void)loaderFailed:(PHURLLoader *)loader;
+- (void)loaderFailed:(PHURLLoader *)loader;
 @end

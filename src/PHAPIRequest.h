@@ -34,42 +34,42 @@
 }
 
 //  Generates a URL-friendly b64 signature digest of |string|
-+(NSString *) base64SignatureWithString:(NSString *)string;
++ (NSString *) base64SignatureWithString:(NSString *)string;
 
 //  Generates the expected X-PH-DIGEST response signature based on the response body, nonce, and app secret
-+(NSString *) expectedSignatureValueForResponse:(NSString *)response nonce:(NSString *)nonce secret:(NSString *)secret;
++ (NSString *) expectedSignatureValueForResponse:(NSString *)response nonce:(NSString *)nonce secret:(NSString *)secret;
 
 //  Retrieves the PHID (otherwise known as the session token) from the pasteboard
 //  This value is used for GID/PHID-based device identification
-+(NSString *) session;
++ (NSString *) session;
 
 //  Gets and sets the UDID opt-out status. If YES and
 //  PH_USE_UNIQUE_IDENTIFIER==1, then the device's UDID will be sent with each
 //  request. Defaults to YES.
-+(BOOL)optOutStatus;
-+(void)setOptOutStatus:(BOOL)yesOrNo;
++ (BOOL)optOutStatus;
++ (void)setOptOutStatus:(BOOL)yesOrNo;
 
 //  Gets and sets the plugin identifier. Third party plugins based on the iOS SDK
 //  should set this to a value that is unique for each plugin version.
 //  Defaults to ios-PH_SDK_VERSION
-+(NSString *) pluginIdentifier;
-+(void)setPluginIdentifier:(NSString *)identifier;
++ (NSString *) pluginIdentifier;
++ (void)setPluginIdentifier:(NSString *)identifier;
 
 //  Returns a new PHAPIRequest instance with the given token and secret
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret;
 
 //  Returns an existing request with a hashCode value of |hashCode|
 //  Used by the Unity3d plugin.
-+(id)requestWithHashCode:(int)hashCode;
++ (id)requestWithHashCode:(int)hashCode;
 
 //  Cancels all requests for a given delegate, typically used when a view
 //  controller is set as request delegate, and that view controller might be
 //  dismissed by the user while there are active API requests.
-+(void)cancelAllRequestsWithDelegate:(id) delegate;
++ (void)cancelAllRequestsWithDelegate:(id) delegate;
 
 //  Cancels an existing request with a hashCode value of |hashCode|
 //  Used by the Unity3d plugin.
-+(int)cancelRequestWithHashCode:(int)hashCode;
++ (int)cancelRequestWithHashCode:(int)hashCode;
 
 
 //  API token for this request, value is set during initialization
@@ -101,22 +101,22 @@
 @property (nonatomic, assign) int hashCode;
 
 //  URL-encoded parameter string using keys and values in self.signedParameters
--(NSString *)signedParameterString;
+- (NSString *)signedParameterString;
 
 //  Start the request if it has not already started
--(void)send;
+- (void)send;
 
 //  Cancel the request if it has already started
--(void)cancel;
+- (void)cancel;
 @end
 
 //  Delegate protocol for getting information about API requests
 @protocol PHAPIRequestDelegate <NSObject>
 //  The |request| completed successfully, has a valid response signature and
 //  returned |responseData|
--(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData;
+- (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData;
 
 //  The |request| failed, |error| will either be a PHError instance (see
 //  PHConstants.h) or a NSURLConnection error
--(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error;
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error;
 @end

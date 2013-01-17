@@ -15,11 +15,13 @@
 @synthesize callback = _callback;
 @synthesize isComplete = _isComplete;
 
--(void)markComplete{
+- (void)markComplete
+{
     _isComplete = YES;
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [_dispatch release], _dispatch = nil;
     [_callback release], _callback = nil;
     [super dealloc];
@@ -28,7 +30,8 @@
 @end
 
 @implementation PHContentView (Automation)
-+(NSMutableArray *)_dispatchLog{
++ (NSMutableArray *)_dispatchLog
+{
     static NSMutableArray *_dispatchLog;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -38,8 +41,8 @@
     return _dispatchLog;
 }
 
-+(DispatchLog *)firstDispatch:(NSString *)dispatch{
-
++ (DispatchLog *)firstDispatch:(NSString *)dispatch
+{
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"dispatch LIKE %@", dispatch];
 
     NSArray *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
@@ -48,7 +51,8 @@
     return ([results count] > 0)? [results objectAtIndex:0] : nil;
 }
 
-+(void)completeDispatchWithCallback:(NSString *)callback{
++ (void)completeDispatchWithCallback:(NSString *)callback
+{
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"callback LIKE %@", callback];
     NSArray *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
     DispatchLog *result = ([results count] > 0) ? [results objectAtIndex:0] : nil;
@@ -56,7 +60,8 @@
     [result setIsComplete:YES];
 }
 
--(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback{
+- (void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback
+{
     DispatchLog *logItem = [DispatchLog new];
     logItem.dispatch = urlPath;
     logItem.timestamp = [[NSDate date] timeIntervalSinceReferenceDate];
@@ -67,7 +72,8 @@
     [logItem release];
 }
 
--(void)_logCallbackForAutomation:(NSString *)callback{
+- (void)_logCallbackForAutomation:(NSString *)callback
+{
     [PHContentView completeDispatchWithCallback:callback];
 }
 @end

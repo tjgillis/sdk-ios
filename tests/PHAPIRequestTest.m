@@ -20,18 +20,18 @@
 #define EXPECTED_HASH @"3L0xlrDOt02UrTDwMSnye05Awwk"
 
 @interface PHAPIRequest(Private)
-+(NSMutableSet *)allRequests;
-+(void)setSession:(NSString *)session;
--(void)processRequestResponse:(NSDictionary *)response;
++ (NSMutableSet *)allRequests;
++ (void)setSession:(NSString *)session;
+- (void)processRequestResponse:(NSDictionary *)response;
 @end
 
 @interface PHAPIRequestTest : SenTestCase @end
-@interface PHAPIRequestResponseTest : SenTestCase<PHAPIRequestDelegate>{
+@interface PHAPIRequestResponseTest : SenTestCase<PHAPIRequestDelegate> {
     PHAPIRequest *_request;
     BOOL _didProcess;
 }
 @end
-@interface PHAPIRequestErrorTest : SenTestCase<PHAPIRequestDelegate>{
+@interface PHAPIRequestErrorTest : SenTestCase<PHAPIRequestDelegate> {
     PHAPIRequest *_request;
     BOOL _didProcess;
 }
@@ -40,13 +40,15 @@
 
 @implementation PHAPIRequestTest
 
--(void)testSignatureHash{
+- (void)testSignatureHash
+{
     NSString *signatureHash = [PHAPIRequest base64SignatureWithString:HASH_STRING];
     STAssertTrue([EXPECTED_HASH isEqualToString:signatureHash],
                  @"Hash mismatch. Expected %@ got %@",EXPECTED_HASH,signatureHash);
 }
 
--(void)testResponseDigestVerification{
+- (void)testResponseDigestVerification
+{
     /*
      For this test expected digest hashes were generated using pyton's hmac library.
      */
@@ -61,10 +63,10 @@
     responseDigest = [PHAPIRequest expectedSignatureValueForResponse:@"response body" nonce:nil secret:PUBLISHER_SECRET];
     expectedDigest = @"iNmo12xRqVAn_7quEvOSwhenEZA=";
     STAssertTrue([responseDigest isEqualToString:expectedDigest], @"Digest mismatch. Expected %@ got %@", expectedDigest, responseDigest);
-
 }
 
--(void)testRequestParameters{
+- (void)testRequestParameters
+{
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *signedParameters = [request signedParameters];
 
@@ -103,7 +105,8 @@
                   @"Nonce parameter not present!");
 }
 
--(void)testURLProperty{
+- (void)testURLProperty
+{
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSString *desiredURLString = @"http://thisisatesturlstring.com";
 
@@ -113,22 +116,24 @@
 
 }
 
--(void)testSession{
+- (void)testSession
+{
     STAssertNoThrow([PHAPIRequest setSession:@"test_session"], @"setting a session shouldn't throw an error");
     STAssertNoThrow([PHAPIRequest setSession:nil], @"clearing a session shouldn't throw");
 }
-
 @end
 
 @implementation PHAPIRequestResponseTest
 
--(void)setUp{
+- (void)setUp
+{
     _request = [[PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET] retain];
     _request.delegate = self;
     _didProcess = NO;
 }
 
--(void)testResponse{
+- (void)testResponse
+{
     NSDictionary *testDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                     @"awesomesause", @"awesome",
                                     nil];
@@ -140,7 +145,8 @@
     [_request processRequestResponse:responseDictionary];
 }
 
--(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
+- (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData
+{
     STAssertNotNil(responseData, @"Expected responseData, got nil!");
     STAssertTrue([[responseData allKeys] count] == 1, @"Unexpected number of keys in response data!");
     STAssertTrue([@"awesomesause" isEqualToString:[responseData valueForKey:@"awesome"]],
@@ -149,54 +155,61 @@
     _didProcess = YES;
 }
 
--(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
+{
     STFail(@"Request failed with error, but it wasn't supposed to!");
 }
 
--(void)tearDown{
+- (void)tearDown
+{
     STAssertTrue(_didProcess, @"Did not actually process request!");
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [_request release], _request = nil;
     [super dealloc];
 }
-
 @end
 
 @implementation PHAPIRequestErrorTest
 
--(void)setUp{
+- (void)setUp
+{
     _request = [[PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET] retain];
     _request.delegate = self;
     _didProcess = NO;
 }
 
--(void)testResponse{
+- (void)testResponse
+{
     NSDictionary *responseDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                         @"this is awesome!",@"error",
                                         nil];
     [_request processRequestResponse:responseDictionary];
 }
 
--(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
+- (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData
+{
     STFail(@"Request failed succeeded, but it wasn't supposed to!");
 }
 
--(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
+{
     STAssertNotNil(error, @"Expected error but got nil!");
     _didProcess = YES;
 }
 
--(void)tearDown{
+- (void)tearDown
+{
     STAssertTrue(_didProcess, @"Did not actually process request!");
 }
-
 @end
 
 @implementation PHAPIRequestByHashCodeTest
 
--(void)testRequestByHashCode{
+- (void)testRequestByHashCode
+{
     int hashCode = 100;
 
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
@@ -210,7 +223,8 @@
     STAssertNil([PHAPIRequest requestWithHashCode:hashCode], @"Canceled request was retrieved by hashCode");
 }
 
--(void)testRequestCancelByHashCode{
+- (void)testRequestCancelByHashCode
+{
     int hashCode = 200;
 
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
@@ -221,5 +235,4 @@
     STAssertTrue([PHAPIRequest cancelRequestWithHashCode:hashCode+1] == 0, @"Nonexistent request was canceled.");
     STAssertFalse([[PHAPIRequest allRequests] containsObject:request], @"Request was not removed from request array!");
 }
-
 @end

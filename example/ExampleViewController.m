@@ -15,7 +15,8 @@
 @synthesize token = _token;
 @synthesize secret = _secret;
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         _messages = [[NSMutableArray alloc] init];
@@ -23,7 +24,8 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_messages release], _messages = nil;
     [_tableView release], _tableView = nil;
     [_token release], _token = nil;
@@ -35,12 +37,14 @@
 }
 
 #pragma mark -
--(void)addMessage:(NSString *)message{
+- (void)addMessage:(NSString *)message
+{
     [_messages addObject:message];
     [self.tableView reloadData];
 }
 
--(void)addElapsedTime{
+- (void)addElapsedTime
+{
     NSDate *now = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
     NSTimeInterval totalDelta = [now timeIntervalSinceDate:_startRequestDate];
     NSTimeInterval intervalDelta =[now timeIntervalSinceDate:_deltaRequestDate];
@@ -50,25 +54,29 @@
     [_deltaRequestDate release], _deltaRequestDate = now;
 }
 
--(void)startRequest{
+- (void)startRequest
+{
     [_messages removeAllObjects];
     [self addMessage:@"Started request!"];
 
     [self startTimers];
 }
 
--(void)finishRequest{
+- (void)finishRequest
+{
     [self addElapsedTime];
 }
 
--(void)startTimers{
+- (void)startTimers
+{
     [_startRequestDate release], _startRequestDate = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
     [_deltaRequestDate release], _deltaRequestDate = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     UIBarButtonItem *startButton = [[UIBarButtonItem alloc] initWithTitle:@"Start"
@@ -80,28 +88,33 @@
     [startButton release];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     // Return YES for supported orientations
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) || (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [_messages count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NSString *message = [_messages objectAtIndex:indexPath.row];
     CGSize size = [message sizeWithFont:LOG_FONT constrainedToSize:CGSizeMake(tableView.frame.size.width-24, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap];
     return size.height + 24;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"Cell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -127,7 +140,8 @@
     return cell;
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setTableView:nil];
     [self setTableView:nil];
     [super viewDidUnload];

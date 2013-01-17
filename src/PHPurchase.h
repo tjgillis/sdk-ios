@@ -36,7 +36,7 @@ typedef enum{
 //  Contains information about a IAP purchase that is usually triggered by a
 //  ph://purchase dispatch in a content unit. Also provides a means for the
 //  content unit to be informed of the resolution of this purchase request
-@interface PHPurchase : NSObject{
+@interface PHPurchase : NSObject {
 
     NSString *_productIdentifier;
     NSString *_item;
@@ -47,7 +47,7 @@ typedef enum{
 
 //  Converts the enumerated resolution type to a string value for use in URL
 //  parameter strings
-+(NSString *)stringForResolution:(PHPurchaseResolutionType)resolution;
++ (NSString *)stringForResolution:(PHPurchaseResolutionType)resolution;
 
 //  iTunes product identifier
 @property (nonatomic, copy) NSString *productIdentifier;
@@ -68,6 +68,6 @@ typedef enum{
 
 //  Reports the resolution of the purchase (see PHPurchaseResolutionType above)
 //  to the content unit that originated the purchase.
--(void) reportResolution:(PHPurchaseResolutionType)resolution;
+- (void)reportResolution:(PHPurchaseResolutionType)resolution;
 
 @end

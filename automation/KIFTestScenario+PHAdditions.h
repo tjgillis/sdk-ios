@@ -10,10 +10,10 @@
 #import "KIFTestScenario.h"
 
 @interface KIFTestScenario(PHAdditions)
-+(id)scenarioToSendOpenRequest;
-+(id)scenarioToSendOpenRequestWithCustomDeviceId;
-+(id)scenarioToSendContentRequest;
-+(id)scenarioToSendContentRequestTestingReward;
-+(id)scenarioToSendContentRequestTestingAnnouncementLaunch;
-+(id)scenarioToLoadiTunesAndVerifyReferral;
++ (id)scenarioToSendOpenRequest;
++ (id)scenarioToSendOpenRequestWithCustomDeviceId;
++ (id)scenarioToSendContentRequest;
++ (id)scenarioToSendContentRequestTestingReward;
++ (id)scenarioToSendContentRequestTestingAnnouncementLaunch;
++ (id)scenarioToLoadiTunesAndVerifyReferral;
 @end

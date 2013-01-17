@@ -12,21 +12,20 @@
 @interface WWURLConnection : NSURLConnection
 
 //  NSURLConnection replacement convenience method
-+(WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate;
++ (WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate;
 
 //  Sets the response data for a given URL. See WWURLMatching to see how URL
 //  matching works.
-+(void)setResponse:(NSData *)response forURL:(NSURL *)url;
++ (void)setResponse:(NSData *)response forURL:(NSURL *)url;
 //  Sets responses for multiple URLs from a file. See dev.wwfixtures to see how
 //  that works.
-+(void)setResponsesFromFileNamed:(NSString *)fileName;
++ (void)setResponsesFromFileNamed:(NSString *)fileName;
 //  Clears all configured responses
-+(void)clearAllResponses;
++ (void)clearAllResponses;
 
 //  NSURLConnection replacement delegate
 @property (nonatomic, assign) id delegate;
 
 //  NSURLConnection replacement request
 @property (nonatomic, retain) NSURLRequest *request;
-
 @end

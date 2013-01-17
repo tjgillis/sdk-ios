@@ -19,22 +19,21 @@
 }
 
 //  Singleton accessor
-+(PHTimeInGame *) getInstance;
++ (PHTimeInGame *)getInstance;
 
 //  Start counting up time for the current session
--(void) gameSessionStarted;
+- (void)gameSessionStarted;
 //  Ends the current session and increments counters
--(void) gameSessionStopped;
+- (void)gameSessionStopped;
 //  Resets time and session data. Typically used after data is sent to the API.
--(void) resetCounters;
+- (void)resetCounters;
 //  Re-initializes session and time data. Only used for unit tests
--(void) gameSessionRestart;
+- (void)gameSessionRestart;
 
 //  Returns total unreported session duration, in seconds
--(CFAbsoluteTime) getSumSessionDuration;
+- (CFAbsoluteTime)getSumSessionDuration;
 //  Returns total unreported sessions
--(int) getCountSessions;
+- (int)getCountSessions;
 //  Returns current session duration, in seconds
--(CFAbsoluteTime) getCurrentSessionDuration;
-
+- (CFAbsoluteTime)getCurrentSessionDuration;
 @end

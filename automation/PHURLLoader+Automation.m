@@ -11,19 +11,22 @@
 static NSURL *LastLaunchedURL;
 
 @implementation PHURLLoader (Automation)
-+(NSURL *)lastLaunchedURL{
++ (NSURL *)lastLaunchedURL
+{
     @synchronized(self){
         return LastLaunchedURL;
     }
 }
 
-+(void)setLastLaunchedURL:(NSURL *)url{
++ (void)setLastLaunchedURL:(NSURL *)url
+{
     @synchronized(self){
         [LastLaunchedURL release], LastLaunchedURL = [url copy];
     }
 }
 
--(void)_launchURLForAutomation:(NSURL *)targetURL{
+- (void)_launchURLForAutomation:(NSURL *)targetURL
+{
     //App switching interferes with automation testing
     //Instead, we pretend to launch the URL.
     NSLog(@"Pretending to launch URL: %@", targetURL);

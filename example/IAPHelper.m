@@ -11,11 +11,12 @@
 #import "PHPurchase.h"
 
 @interface NSObject(hash)
--(NSString *)hashString;
+- (NSString *)hashString;
 @end
 
 @implementation NSObject(hash)
--(NSString *)hashString{
+- (NSString *)hashString
+{
     return [NSString stringWithFormat:@"%d",[self hash]];
 }
 @end
@@ -25,7 +26,8 @@
 @end
 
 @implementation SKProduct (LocalizedPrice)
-- (NSString *)localizedPrice {
+- (NSString *)localizedPrice
+{
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -38,13 +40,14 @@
 
 
 @interface IAPHelper(Private)
--(void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
--(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error receiptData:(NSData *)receiptData;
+- (void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
+- (void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error receiptData:(NSData *)receiptData;
 @end
 
 @implementation IAPHelper
 
-+(IAPHelper *)sharedIAPHelper{
++ (IAPHelper *)sharedIAPHelper
+{
     static dispatch_once_t once;
     static id sharedInstance;
     dispatch_once(&once, ^{
@@ -53,7 +56,8 @@
     return sharedInstance;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     // Should never be called, but just here for clarity really.
     [_pendingPurchases release], _pendingPurchases = nil;
     [_pendingRequests release], _pendingRequests = nil;
@@ -61,23 +65,26 @@
 }
 
 #pragma mark -
--(NSMutableDictionary *)pendingPurchases{
+- (NSMutableDictionary *)pendingPurchases
+{
     if (_pendingPurchases == nil) {
         _pendingPurchases = [[NSMutableDictionary alloc] init];
     }
     return _pendingPurchases;
 }
 
--(NSMutableDictionary *)pendingRequests{
+- (NSMutableDictionary *)pendingRequests
+{
     if (_pendingRequests == nil) {
         _pendingRequests = [[NSMutableDictionary alloc] init];
     }
     return _pendingRequests;
 }
 
--(void)startPurchase:(PHPurchase *)purchase{
+- (void)startPurchase:(PHPurchase *)purchase
+{
     // The first step is requesting product information for this purchase.
-    if (!!purchase){
+    if (!!purchase) {
         NSSet *productIdentifiers = [NSSet setWithObject:purchase.productIdentifier];
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
         request.delegate = self;
@@ -90,7 +97,8 @@
     }
 }
 
--(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
+{
     NSString *key = [request hashString];
     PHPurchase *purchase = [self.pendingPurchases valueForKey:key];
     NSArray *products = response.products;
@@ -114,7 +122,8 @@
     [self.pendingRequests removeObjectForKey:key];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
     NSString *key = [alertView hashString];
     PHPurchase *purchase = (PHPurchase *)[self.pendingPurchases objectForKey:key];
     if (buttonIndex == 0) {
@@ -134,8 +143,8 @@
 #pragma mark-
 #pragma VGP Support Implementation
 
-
--(void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
     //Adding IAP reporting and VGP to transactions requires some modifications to the
     //payment queue observer. Send IAP Purchase tracking requests whenever a transaction
     //is purchased (SKTransactionStatePurchased), and send IAP Error tracking requests
@@ -143,7 +152,7 @@
     for (SKPaymentTransaction *transaction in transactions) {
         NSString *key = [transaction.payment hashString];
         PHPurchase *purchase = [self.pendingRequests valueForKey:key];
-        if (purchase == nil){
+        if (purchase == nil) {
             //In the case that a transcaction is being restored, we need to
             //generate a new purchase object so that IAP transactions may
             //be reported accurately.
@@ -179,7 +188,8 @@
     }
 }
 
--(void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData{
+- (void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData
+{
     //PHPurchase objects are generated from VGP content units. It is important to preserve
     //these instances throughout the IAP process. This way, these purchase instances may be
     //used to report purchases to PlayHaven, as well as back to the originating content unit.
@@ -197,7 +207,8 @@
     }
 }
 
--(void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error receiptData:(NSData *)receiptData{
+- (void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error receiptData:(NSData *)receiptData
+{
     //To get a more complete picture of your IAP implementation, report any errors, user
     //cancellations, or other incomplete transactions to PlayHaven. It is also important
     //to inform the originating content unit (for VGP-driven purchases) of the error.
@@ -215,8 +226,8 @@
     }
 }
 
--(void)restorePurchases{
+- (void)restorePurchases
+{
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
-
 @end

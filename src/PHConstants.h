@@ -142,7 +142,7 @@ NSString *PHGID(void);
 void PHClearGID(void);
 
 // Errors
-typedef enum{
+typedef enum {
     PHAPIResponseErrorType,
     PHRequestResponseErrorType,
     PHOrientationErrorType,
@@ -177,7 +177,7 @@ NSString *PHAgnosticStringValue(id object);
 //
 // Play Haven default images
 //
-typedef struct{
+typedef struct {
     int width;
     int height;
     int length;

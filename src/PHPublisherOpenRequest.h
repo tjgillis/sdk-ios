@@ -9,7 +9,7 @@
 #import "PHAPIRequest.h"
 
 //  Open request used to report the beginning of game sessions.
-@interface PHPublisherOpenRequest : PHAPIRequest{
+@interface PHPublisherOpenRequest : PHAPIRequest {
     NSString *_customUDID;
 }
 
@@ -17,5 +17,4 @@
 //  setting this property. This will be appended to the request as a d_custom
 //  parameter.
 @property (nonatomic, copy) NSString *customUDID;
-
 @end

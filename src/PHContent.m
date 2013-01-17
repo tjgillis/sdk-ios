@@ -10,7 +10,8 @@
 
 @implementation PHContent
 
-+(id) contentWithDictionary:(NSDictionary *)dictionaryRepresentation{
++ (id)contentWithDictionary:(NSDictionary *)dictionaryRepresentation
+{
     BOOL
     shouldCreateInstance = !![dictionaryRepresentation valueForKey:@"frame"];
     shouldCreateInstance = shouldCreateInstance && !![dictionaryRepresentation valueForKey:@"url"];
@@ -59,7 +60,8 @@
 
 }
 
--(id)init{
+- (id)init
+{
     if ((self = [super init])) {
         _closeButtonDelay = 10.0f;
     }
@@ -67,10 +69,10 @@
     return  self;
 }
 
-
 @synthesize URL = _URL, transition = _transition, context = _context, closeButtonDelay = _closeButtonDelay, closeButtonURLPath = _closeButtonURLPath;
 
--(void) dealloc{
+- (void)dealloc
+{
     [_URL release], _URL = nil;
     [_context release], _context = nil;
     [_closeButtonURLPath release], _closeButtonURLPath = nil;
@@ -78,8 +80,8 @@
     [super dealloc];
 }
 
-
--(CGRect)frameForOrientation:(UIInterfaceOrientation)orientation{
+- (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation
+{
     NSString *orientationKey = (UIInterfaceOrientationIsLandscape(orientation))? @"PH_LANDSCAPE" : @"PH_PORTRAIT";
     NSDictionary *frameValue = [_frameDict valueForKey:orientationKey];
 
@@ -94,7 +96,7 @@
         } else {
             return CGRectMake(0, 0, width, height);
         }
-    } else if (!!frameValue){
+    } else if (!!frameValue) {
 
         CGFloat
         x = [[frameValue valueForKey:@"x"] floatValue],
@@ -110,10 +112,10 @@
 
 }
 
--(void)setFramesWithDictionary:(NSDictionary *)frameDict{
+- (void)setFramesWithDictionary:(NSDictionary *)frameDict
+{
     if (_frameDict != frameDict) {
         [_frameDict release], _frameDict = [frameDict retain];
     }
 }
-
 @end

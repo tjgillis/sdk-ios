@@ -17,14 +17,16 @@
 @synthesize productField = _productField;
 @synthesize quantityField = _quantityField;
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_productField release], _productField = nil;
     [_quantityField release], _quantityField = nil;
     [super dealloc];
 }
 
 #pragma mark -
--(void)startRequest{
+- (void)startRequest
+{
     [super startRequest];
 
     PHPurchase *purchase = [PHPurchase new];
@@ -38,5 +40,4 @@
 
     [super finishRequest];
 }
-
 @end

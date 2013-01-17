@@ -9,11 +9,9 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface PlayHavenTest : SenTestCase
-
 @end
 
 @implementation PlayHavenTest
-
 @end
 
 #include <stdio.h>

@@ -23,5 +23,4 @@
 
 //  Originating callback id
 @property (nonatomic, copy) NSString *callback;
-
 @end

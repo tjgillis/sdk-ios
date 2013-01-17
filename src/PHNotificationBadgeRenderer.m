@@ -13,7 +13,8 @@ static UIImage *BadgeImage;
 
 @implementation PHNotificationBadgeRenderer
 
-+(void)initialize{
++ (void)initialize
+{
     if (self == [PHNotificationBadgeRenderer class]) {
         UIImage *badge;
         if (IS_RETINA_DISPLAY())
@@ -25,7 +26,8 @@ static UIImage *BadgeImage;
     }
 }
 
--(void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect{
+- (void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect
+{
     NSString *value = [notificationData valueForKey:@"value"];
     if ([value isEqualToString:@"0"]) {
         return;
@@ -37,7 +39,8 @@ static UIImage *BadgeImage;
     [value drawAtPoint:CGPointMake(10.0f, 1.0f) withFont:[UIFont boldSystemFontOfSize:17.0f]];
 }
 
--(CGSize)sizeForNotification:(NSDictionary *)notificationData{
+- (CGSize)sizeForNotification:(NSDictionary *)notificationData
+{
     NSString *value = [notificationData valueForKey:@"value"];
     if ([value isEqualToString:@"0"]) {
         return CGSizeZero;
@@ -46,5 +49,4 @@ static UIImage *BadgeImage;
     CGFloat valueWidth = [value sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]].width + 20.0f;
     return CGSizeMake(valueWidth, BadgeImage.size.height);
 }
-
 @end

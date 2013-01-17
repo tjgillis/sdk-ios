@@ -70,7 +70,7 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
 //  Returns a PHPublisherContentRequest instance for a given token secret and
 //  placement. If a request was preloaded for the same placement, this method
 //  will return that instance instead
-+(id) requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate;
 
 //  Placement id for this content request, this should correspond to one of the
 //  placements set up for this game on the PlayHaven Dashboard
@@ -84,16 +84,15 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
 @property (nonatomic,readonly) NSMutableArray *contentViews;
 
 //  Controls whether or not the overlay will be shown immediately after
-//  -(void) send. Defaults to NO
+//  - (void)send. Defaults to NO
 @property (nonatomic, assign) BOOL showsOverlayImmediately;
 
 //  Overlay view instance
 @property (nonatomic, readonly) UIView *overlayWindow;
 
 //  Request the content unit from the API, but stop before actually displaying
-//  it until -(void) send is called
--(void)preload;
-
+//  it until - (void)send is called
+- (void)preload;
 @end
 
 //  Delegate protocol. Content request delegates will get notified at various
@@ -103,53 +102,52 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
 
 //  A request is being sent to the API. Only sent for the first content unit
 //  for a given request.
--(void) requestWillGetContent:(PHPublisherContentRequest *)request;
+- (void)requestWillGetContent:(PHPublisherContentRequest *)request;
 
 //  A response containing a valid content unit was received from the API. Only
 //  sent for the first content unit for a given request.
--(void) requestDidGetContent:(PHPublisherContentRequest *)request;
+- (void)requestDidGetContent:(PHPublisherContentRequest *)request;
 
 //  The first content unit in the session is about to be shown
--(void) request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content;
+- (void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content;
 
 //  The first content unit in the session has been displayed
--(void) request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content;
+- (void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content;
 
 //  Deprecated. The last content unit in the session has been dismissed
--(void) requestContentDidDismiss:(PHPublisherContentRequest *)request DEPRECATED_ATTRIBUTE;
+- (void)requestContentDidDismiss:(PHPublisherContentRequest *)request DEPRECATED_ATTRIBUTE;
 
 //  The last content unit in the session has been dismissed. |type| will
 //  specify a specific PHPublisherContentDismissType
--(void) request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type;
+- (void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type;
 
 //  The request encountered an error and cannot continue.
--(void) request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
+- (void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
 
 //  Deprecated. The content unit encountered an error and cannot continue.
 //  Errors that would have been sent here are now sent through the other
 //  error delegate.
--(void) request:(PHPublisherContentRequest *)request contentDidFailWithError:(NSError *)error DEPRECATED_ATTRIBUTE;
+- (void)request:(PHPublisherContentRequest *)request contentDidFailWithError:(NSError *)error DEPRECATED_ATTRIBUTE;
 
 #pragma mark - Content customization methods
 //  Customization delegate. Replace the default native close button image with
 //  a custom image for the given button state. Images should be smaller than
 //  40x40 (screen coordinates)
--(UIImage *) request:(PHPublisherContentRequest *)request closeButtonImageForControlState:(UIControlState)state content:(PHContent *)content;
+- (UIImage *)request:(PHPublisherContentRequest *)request closeButtonImageForControlState:(UIControlState)state content:(PHContent *)content;
 
 //  Customization delegate. Replace the default border color with a different
 //  color for dialog-type content units.
--(UIColor *) request:(PHPublisherContentRequest *)request borderColorForContent:(PHContent *)content;
+- (UIColor *)request:(PHPublisherContentRequest *)request borderColorForContent:(PHContent *)content;
 
 #pragma mark - Reward unlocking methods
 //  A content unit delivers the reward specified in PHReward. Please consult
 //  "Unlocking rewards with the SDK" in README.mdown for more information on
 //  how to implement this delegate method.
--(void) request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward;
+- (void)request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward;
 
+#pragma mark - Purchase unlocking methods
 //  A content unit is initiating an IAP transaction. Please consult
 //  "Triggering in-app purchases" in README.mdown for more information on
 //  how to implement this delegate method.
-#pragma mark - Purchase unlocking methods
--(void) request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
-
+- (void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
 @end

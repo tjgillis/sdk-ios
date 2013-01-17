@@ -9,7 +9,7 @@
 #import "PHURLLoader.h"
 
 @interface PHURLLoader (Automation)
-+(NSURL *)lastLaunchedURL;
-+(void)setLastLaunchedURL:(NSURL *)url;
--(void)_launchURLForAutomation:(NSURL *)targetURL;
++ (NSURL *)lastLaunchedURL;
++ (void)setLastLaunchedURL:(NSURL *)url;
+- (void)_launchURLForAutomation:(NSURL *)targetURL;
 @end

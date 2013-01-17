@@ -13,10 +13,10 @@
 @interface PHPurchaseTest : SenTestCase
 @end
 
-
 @implementation PHPurchaseTest
 
--(void)testResolutionStrings{
+- (void)testResolutionStrings
+{
     STAssertTrue([[PHPurchase stringForResolution:PHPurchaseResolutionBuy] isEqualToString:@"buy"], @"Expected 'buy' got %@",[PHPurchase stringForResolution:PHPurchaseResolutionBuy]);
     STAssertTrue([[PHPurchase stringForResolution:PHPurchaseResolutionCancel] isEqualToString:@"cancel"], @"Expected 'cancel' got %@",[PHPurchase stringForResolution:PHPurchaseResolutionCancel]);
     STAssertTrue([[PHPurchase stringForResolution:PHPurchaseResolutionError] isEqualToString:@"error"], @"Expected 'error' got %@",[PHPurchase stringForResolution:PHPurchaseResolutionError]);

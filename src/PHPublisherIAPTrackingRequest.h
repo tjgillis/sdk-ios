@@ -29,24 +29,24 @@
 //  purchase through the purchase dispatch. (i.e: VGP content units), they are
 //  used to track a potential IAP purchase and uniquely tag them as being a
 //  VGP-driven conversion
-+(void)setConversionCookie:(NSString *)cookie forProduct:(NSString *)product;
-+(NSString *)getConversionCookieForProduct:(NSString *)product;
++ (void)setConversionCookie:(NSString *)cookie forProduct:(NSString *)product;
++ (NSString *)getConversionCookieForProduct:(NSString *)product;
 
 //  Returns a request to report a user buying or canceling an IAP product with
 //  id |product|, for successful requests, also send iTunes receipt data so
 //  that the API can independently verify the transaction
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
 
 //  Returns a request to report an IAP transaction that encountered an error
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error receiptData:(NSData *)receiptData;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error receiptData:(NSData *)receiptData;
 
 //  Deprecated. Returns a request to report a user buying or canceling an
 //  IAP product.
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution DEPRECATED_ATTRIBUTE;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity resolution:(PHPurchaseResolutionType)resolution DEPRECATED_ATTRIBUTE;
 
 //  Deprecated. Returns a request to report an IAP transcaction that
 //  encountered an error.
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error DEPRECATED_ATTRIBUTE;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error DEPRECATED_ATTRIBUTE;
 
 //  IAP bundle identifier string registered with Apple
 @property (nonatomic, copy) NSString *product;
@@ -62,6 +62,5 @@
 
 //  iTunes transaction receipt data for this transaction
 @property (nonatomic, retain) NSData *receiptData;
-
 @end
 #endif

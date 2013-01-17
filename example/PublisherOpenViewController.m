@@ -9,13 +9,14 @@
 #import "PublisherOpenViewController.h"
 
 @interface PHAPIRequest(Private)
-+(void)setSession:(NSString *)session;
++ (void)setSession:(NSString *)session;
 @end
 
 @implementation PublisherOpenViewController
 @synthesize customUDIDField;
 
--(void)startRequest{
+- (void)startRequest
+{
     [super startRequest];
 
     /*
@@ -31,42 +32,50 @@
     [self.customUDIDField resignFirstResponder];
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [PHAPIRequest cancelAllRequestsWithDelegate:self];
     [customUDIDField release];
     [super dealloc];
 }
 
 #pragma mark - PHAPIRequestDelegate
--(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
+- (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData
+{
     NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@",responseData];
     [self addMessage:message];
 
     [self finishRequest];
 }
 
--(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
+{
     NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];
 
     [self finishRequest];
 }
 
--(void)requestFinishedPrefetching:(PHAPIRequest *)request{
+- (void)requestFinishedPrefetching:(PHAPIRequest *)request
+{
     [self addMessage:@"Finished prefetching!"];
     [self addElapsedTime];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setCustomUDIDField:nil];
     [super viewDidUnload];
 }
-- (IBAction)touchedClearGID:(id)sender {
+
+- (IBAction)touchedClearGID:(id)sender
+{
     PHClearGID();
     [self addMessage:@"GID cleared!"];
 }
 
-- (IBAction)touchedClearSession:(id)sender{
+- (IBAction)touchedClearSession:(id)sender
+{
     [PHAPIRequest setSession:nil];
     [self addMessage:@"session cleared!"];
 }

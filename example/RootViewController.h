@@ -18,7 +18,7 @@
 @property (retain, nonatomic) IBOutlet UISwitch *optOutStatusSlider;
 @property (retain, nonatomic) IBOutlet UILabel *serviceURLField;
 
--(void)touchedToggleStatusBar:(id)sender;
--(IBAction)touchedOptOutStatusSlider:(id)sender;
+- (void)touchedToggleStatusBar:(id)sender;
+- (IBAction)touchedOptOutStatusSlider:(id)sender;
 
 @end

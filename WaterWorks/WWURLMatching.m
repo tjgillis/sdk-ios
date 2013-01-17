@@ -8,7 +8,8 @@
 #import "WWURLMatching.h"
 
 @implementation WWURLMatching
-+(NSInteger)matchingLevelForURL:(NSURL *)url1 withURL:(NSURL *)url2{
++ (NSInteger)matchingLevelForURL:(NSURL *)url1 withURL:(NSURL *)url2
+{
     NSInteger matchingLevel = 0;
 
     // If the scheme, host, and path match, add 1 to the matching level.
@@ -36,7 +37,6 @@
             matchingLevel++;
         }
     }
-
 
     return matchingLevel;
 }

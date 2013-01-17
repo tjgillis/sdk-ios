@@ -12,13 +12,15 @@ static PHReward *LastReward;
 
 @implementation PHReward (Automation)
 
-+(PHReward *)lastReward{
++ (PHReward *)lastReward
+{
     @synchronized([PHReward class]){
         return LastReward;
     }
 }
 
--(id)init{
+- (id)init
+{
     self = [super init];
     if (self) {
         @synchronized([PHReward class]){

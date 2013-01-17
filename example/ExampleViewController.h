@@ -22,12 +22,12 @@
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSString *secret;
 
--(void)addMessage:(NSString *)message;
--(void)addElapsedTime;
+- (void)addMessage:(NSString *)message;
+- (void)addElapsedTime;
 
--(void)startRequest;
--(void)finishRequest;
+- (void)startRequest;
+- (void)finishRequest;
 
--(void)startTimers;
+- (void)startTimers;
 
 @end

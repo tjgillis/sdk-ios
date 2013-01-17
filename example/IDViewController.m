@@ -13,7 +13,6 @@
 
 
 @interface IDViewController ()
-
 @end
 
 @implementation IDViewController
@@ -27,7 +26,8 @@
     return self;
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     self.UDIDLabel.text = [[UIDevice currentDevice] uniqueIdentifier];
     self.IFALabel.text = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 
@@ -46,7 +46,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_UDIDLabel release];
     [_IFALabel release];
     [_MACLabel release];
@@ -55,7 +56,9 @@
     [_PHIDLabel release];
     [super dealloc];
 }
-- (void)viewDidUnload {
+
+- (void)viewDidUnload
+{
     [self setUDIDLabel:nil];
     [self setIFALabel:nil];
     [self setMACLabel:nil];

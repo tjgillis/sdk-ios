@@ -10,7 +10,7 @@
 
 //  Class that contains information about an unlocked reward.
 //  TODO: Move validation methods from PHPublisherContentRequest to here
-@interface PHReward : NSObject{
+@interface PHReward : NSObject {
     NSString *_reward;
     NSInteger _quanity;
     NSString *_receipt;
@@ -26,5 +26,4 @@
 
 //  Unique receipt value, used for reward validation in the SDK.
 @property (nonatomic, copy) NSString *receipt;
-
 @end

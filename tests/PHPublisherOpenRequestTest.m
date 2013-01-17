@@ -16,10 +16,10 @@
 @interface PHPublisherOpenRequestTest : SenTestCase
 @end
 
-
 @implementation PHPublisherOpenRequestTest
 
--(void)testInstance{
+- (void)testInstance
+{
     NSString *token = @"PUBLISHER_TOKEN",
     *secret = @"PUBLISHER_SECRET";
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret];
@@ -36,7 +36,8 @@
     STAssertTrue([request respondsToSelector:@selector(send)], @"Send method not implemented!");
 }
 
--(void)testCustomUDID{
+- (void)testCustomUDID
+{
     NSString *token = @"PUBLISHER_TOKEN",
     *secret = @"PUBLISHER_SECRET";
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:token secret:secret];
@@ -52,5 +53,4 @@
     STAssertFalse([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
                  @"Custom parameter missing when one is set.");
 }
-
 @end

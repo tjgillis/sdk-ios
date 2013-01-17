@@ -13,7 +13,8 @@
 @synthesize quantityField;
 @synthesize resolutionSegment;
 
--(void)startRequest{
+- (void)startRequest
+{
     [super startRequest];
 
     /*
@@ -32,7 +33,8 @@
     [self.quantityField resignFirstResponder];
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [PHAPIRequest cancelAllRequestsWithDelegate:self];
     [productField release];
     [quantityField release];
@@ -41,7 +43,8 @@
 }
 
 #pragma mark - PHAPIRequestDelegate
--(void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData{
+- (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData
+{
     NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
     [self addMessage:urlMessage];
 
@@ -51,7 +54,8 @@
     [self finishRequest];
 }
 
--(void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
+{
     NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
     [self addMessage:urlMessage];
 
@@ -61,7 +65,8 @@
     [self finishRequest];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setProductField:nil];
     [self setQuantityField:nil];
     [self setResolutionSegment:nil];

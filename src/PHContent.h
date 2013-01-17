@@ -14,7 +14,7 @@
 //    that slides up from the bottom of the screen.
 //    * PHContentTransitionDialog (PH_DIALOG): an arbitrarily sized and
 //    positioned content unit view that 'pops' into view like an alert view
-typedef enum{
+typedef enum {
     PHContentTransitionUnknown,
     PHContentTransitionModal,
     PHContentTransitionDialog
@@ -35,7 +35,7 @@ typedef enum{
 //  Returns a PHContent instance iff the response dictionary
 //  |dictionaryRepresentation| has valid values for all required keys, otherwise
 //  returns nil
-+(id)contentWithDictionary:(NSDictionary *)dictionaryRepresentation;
++ (id)contentWithDictionary:(NSDictionary *)dictionaryRepresentation;
 
 //  Content template URL
 @property (nonatomic, retain) NSURL *URL;
@@ -54,12 +54,10 @@ typedef enum{
 @property (nonatomic, copy) NSString *closeButtonURLPath;
 
 //  Returns a CGRect if this content unit has a valid frame for |orientation|, otherwise returns CGRectNull
--(CGRect)frameForOrientation:(UIInterfaceOrientation)orientation;
+- (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation;
 
 //  Allows for manually setting the frameDict instance variable, values in
 //  frameDict are used for
 //  -(CGRect)frameForOrientation:(UIInterfaceOrientation)orientation
--(void)setFramesWithDictionary:(NSDictionary *)frameDict;
-
-
+- (void)setFramesWithDictionary:(NSDictionary *)frameDict;
 @end

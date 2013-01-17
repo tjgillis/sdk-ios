@@ -26,7 +26,8 @@
  set to no.
 
 */
--(void)testMAC{
+- (void)testMAC
+{
     [PHAPIRequest setOptOutStatus:YES];
     CFDataRef bMACOptOut = [[PHNetworkUtil sharedInstance] newMACBytes];
     STAssertNil((NSData *)bMACOptOut, @"MAC address should not be available when opt out is active");
@@ -46,5 +47,4 @@
 
     CFRelease(bMAC);
 }
-
 @end

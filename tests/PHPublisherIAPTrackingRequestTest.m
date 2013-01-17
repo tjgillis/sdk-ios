@@ -16,7 +16,8 @@
 
 @implementation PHPublisherIAPTrackingRequestTest
 
--(void)testConstructors{
+- (void)testConstructors
+{
     PHPublisherIAPTrackingRequest *request;
 
     request = [PHPublisherIAPTrackingRequest requestForApp:@"APP" secret:@"SECRET"];
@@ -37,7 +38,8 @@
     STAssertNotNil(request, @"Expected request to exist!");
 }
 
--(void)testCookie{
+- (void)testCookie
+{
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:@"APP" secret:@"SECRET" product:@"PRODUCT" quantity:1 resolution:PHPurchaseResolutionBuy receiptData:nil];
     [request send];
     STAssertTrue([[request signedParameterString] rangeOfString:@"cookie"].location == NSNotFound, @"expected no cookie string parameterString: %@", [request signedParameterString]);
@@ -60,5 +62,4 @@
     STAssertTrue([[request3 signedParameterString] rangeOfString:@"cookie"].location == NSNotFound, @"cookie should only exist once! parameterString: %@", [request3 signedParameterString]);
     [request3 cancel];
 }
-
 @end

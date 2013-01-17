@@ -12,7 +12,8 @@
 
 @implementation PHTestController
 
--(void)initializeScenarios{
+- (void)initializeScenarios
+{
     [self addScenario:[KIFTestScenario scenarioToSendOpenRequest]];
     [self addScenario:[KIFTestScenario scenarioToSendOpenRequestWithCustomDeviceId]];
 //    [self addScenario:[KIFTestScenario scenarioToSendContentRequest]];

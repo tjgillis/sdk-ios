@@ -22,7 +22,7 @@ NSString *readLineAsNSString(FILE *file)
     int charsRead;
     do
     {
-        if(fgets(buffer, 4095, file) != NULL){
+        if(fgets(buffer, 4095, file) != NULL) {
             //remove newline from the end of the buffer
             NSString *line = [NSString stringWithFormat:@"%s", buffer];
             line = [line stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -37,7 +37,7 @@ NSString *readLineAsNSString(FILE *file)
 }
 
 @protocol WWURLResponse <NSObject>
--(NSData *)data;
+- (NSData *)data;
 @end
 
 @interface WWURLMemoryResponse : NSObject<WWURLResponse>
@@ -47,13 +47,13 @@ NSString *readLineAsNSString(FILE *file)
 @implementation WWURLMemoryResponse
 
 @synthesize data = _data;
--(void)dealloc{
+- (void)dealloc
+{
     [_data release], _data = nil;
     [super dealloc];
 }
 
 @end
-
 
 @interface WWURLFileResponse : NSObject<WWURLResponse>
 @property (nonatomic, copy) NSString *filePath;
@@ -63,22 +63,23 @@ NSString *readLineAsNSString(FILE *file)
 
 @synthesize filePath = _filePath;
 
--(NSData *)data{
+- (NSData *)data
+{
     return [NSData dataWithContentsOfFile:self.filePath];
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [_filePath release], _filePath = nil;
     [super dealloc];
 }
 @end
 
-
 @interface WWURLConnection(Private)
-+(NSMutableDictionary *)allResponses;
-+(NSData *)getResponseForURL:(NSURL *)url;
--(void)startInBackground;
-+(NSData *)bestResponseForURL:(NSURL *)url;
++ (NSMutableDictionary *)allResponses;
++ (NSData *)getResponseForURL:(NSURL *)url;
+- (void)startInBackground;
++ (NSData *)bestResponseForURL:(NSURL *)url;
 
 @end
 
@@ -86,7 +87,8 @@ NSString *readLineAsNSString(FILE *file)
 
 #pragma mark -
 #pragma mark NSURLConnection substitution
-+(WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate{
++ (WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate
+{
     WWURLConnection *result = [[[WWURLConnection alloc] init] autorelease];
     result.request = request;
     result.delegate = delegate;
@@ -96,16 +98,18 @@ NSString *readLineAsNSString(FILE *file)
 
 #pragma mark -
 #pragma mark Content redirection
-+(NSMutableDictionary *)allResponses{
++ (NSMutableDictionary *)allResponses
+{
     static NSMutableDictionary *allResponses;
-    if (allResponses == nil){
+    if (allResponses == nil) {
         allResponses = [[NSMutableDictionary alloc] init];
     }
 
     return allResponses;
 }
 
-+(void)setResponse:(NSData *)response forURL:(NSURL *)url{
++ (void)setResponse:(NSData *)response forURL:(NSURL *)url
+{
     if (!!response) {
         WWURLMemoryResponse *responseObject = [WWURLMemoryResponse new];
         responseObject.data = response;
@@ -117,23 +121,25 @@ NSString *readLineAsNSString(FILE *file)
     }
 }
 
-+(NSData *)getResponseForURL:(NSURL *)url{
++ (NSData *)getResponseForURL:(NSURL *)url
+{
     id<WWURLResponse> responseObject = (id<WWURLResponse>) [[self allResponses] objectForKey:url];
     return [responseObject data];
 }
 
-+(void)setResponsesFromFileNamed:(NSString *)fileName{
++ (void)setResponsesFromFileNamed:(NSString *)fileName
+{
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     const char *routesPath = [[resourcePath stringByAppendingPathComponent:fileName] UTF8String];
     FILE *file;
-    if((file = fopen(routesPath, "r")) != NULL){
+    if((file = fopen(routesPath, "r")) != NULL) {
         while (!feof(file)) {
             //Read the next line ignoring comments
             NSString *line = readLineAsNSString(file);
             if ([line length] > 1 && ![[line substringToIndex:1] isEqualToString:@"#"]) {
                 //Are there at least two tokens?
                 NSArray *components = [line componentsSeparatedByString:@" "];
-                if  ([components count] >= 2){
+                if  ([components count] >= 2) {
                     //Is the first component a valid URL?
                     NSURL *url = [NSURL URLWithString:[components objectAtIndex:0]];
                     if (!!url) {
@@ -146,16 +152,15 @@ NSString *readLineAsNSString(FILE *file)
                             [responseObject release];
                         }
                     }
-
                 }
             }
         }
         fclose(file);
     }
-
 }
 
-+(NSData *)bestResponseForURL:(NSURL *)url{
++ (NSData *)bestResponseForURL:(NSURL *)url
+{
     NSData *bestResponse = nil;
     NSInteger bestMatchingLevel = 0;
 
@@ -173,15 +178,16 @@ NSString *readLineAsNSString(FILE *file)
     return bestResponse;
 }
 
-
-+(void)clearAllResponses{
++ (void)clearAllResponses
+{
     [[self allResponses] removeAllObjects];
 }
 
 @synthesize delegate = _delegate;
 @synthesize request = _request;
 
--(void)dealloc{
+- (void)dealloc
+{
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(startInBackground) object:nil];
     _delegate = nil;
     [_request release], _request = nil;
@@ -189,15 +195,18 @@ NSString *readLineAsNSString(FILE *file)
     //[super dealloc];
 }
 
--(void)start{
+- (void)start
+{
     [self performSelector:@selector(startInBackground) withObject:nil afterDelay:0.0];
 }
 
--(void)cancel{
+- (void)cancel
+{
 
 }
 
--(void)startInBackground{
+- (void)startInBackground
+{
     NSData *responseData = [WWURLConnection bestResponseForURL:self.request.URL];
     if ([self.delegate respondsToSelector:@selector(connection:didReceiveResponse:)]) {
         NSInteger statusCode = (!!responseData)? 200: 404;
@@ -219,5 +228,4 @@ NSString *readLineAsNSString(FILE *file)
         [self.delegate connectionDidFinishLoading:nil];
     }
 }
-
 @end

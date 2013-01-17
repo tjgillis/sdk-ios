@@ -11,14 +11,13 @@
 
 //  Request class for getting placement metadata for a specific placement.
 //  Placement metadata is used to render notification views, for instance.
-@interface PHPublisherMetadataRequest : PHAPIRequest{
+@interface PHPublisherMetadataRequest : PHAPIRequest {
     NSString *_placement;
 }
 
 //  Returns a metadata request for a given placement
-+(id)requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate;
 
 //  The placement id for this request
 @property (nonatomic,copy) NSString *placement;
-
 @end

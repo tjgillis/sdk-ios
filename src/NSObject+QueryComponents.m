@@ -32,7 +32,7 @@
         NSString *key = [[keyValuePairArray objectAtIndex:0] stringByDecodingURLFormat];
         NSString *value = [[keyValuePairArray objectAtIndex:1] stringByDecodingURLFormat];
         id result = [queryComponents objectForKey:key]; // URL spec says that multiple values are allowed per key
-        if(!result){ // First object
+        if(!result) { // First object
             [queryComponents setObject:value forKey:key];
         } else if (![result isKindOfClass:[NSMutableArray class]]) {
             NSMutableArray *results = [NSMutableArray arrayWithObjects:result, value, nil];

@@ -15,8 +15,8 @@
 @synthesize showsOverlaySwitch;
 @synthesize animateSwitch;
 
-
--(void)dealloc{
+- (void)dealloc
+{
     [PHAPIRequest cancelAllRequestsWithDelegate:self];
 
     [_notificationView release], _notificationView = nil;
@@ -25,7 +25,8 @@
     [super dealloc];
 }
 
--(void)startRequest{
+- (void)startRequest
+{
     if (self.request == nil) {
         [super startRequest];
 
@@ -51,7 +52,8 @@
     }
 }
 
--(void)finishRequest{
+- (void)finishRequest
+{
     [super finishRequest];
 
     //Cleaning up after a completed request
@@ -60,25 +62,29 @@
 }
 
 #pragma mark - PHPublisherContentRequestDelegate
--(void)requestWillGetContent:(PHPublisherContentRequest *)request{
+- (void)requestWillGetContent:(PHPublisherContentRequest *)request
+{
     NSString *message = [NSString stringWithFormat:@"Getting content for placement: %@", request.placement];
     [self addMessage:message];
 }
 
--(void)requestDidGetContent:(PHPublisherContentRequest *)request{
+- (void)requestDidGetContent:(PHPublisherContentRequest *)request
+{
     NSString *message = [NSString stringWithFormat:@"Got content for placement: %@", request.placement];
     [self addMessage:message];
     [self addElapsedTime];
 }
 
--(void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content{
+- (void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content
+{
     NSString *message = [NSString stringWithFormat:@"Preparing to display content: %@",content];
     [self addMessage:message];
 
     [self addElapsedTime];
 }
 
--(void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content{
+- (void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content
+{
     //This is a good place to clear any notification views attached to this request.
     [_notificationView clear];
 
@@ -88,25 +94,29 @@
     [self addElapsedTime];
 }
 
--(void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type{
+- (void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type
+{
     NSString *message = [NSString stringWithFormat:@"[OK] User dismissed request: %@ of type %@",request, type];
     [self addMessage:message];
 
     [self finishRequest];
 }
 
--(void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error{
+- (void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error
+{
     NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];
     [self finishRequest];
 }
 
--(void)request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward{
+- (void)request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward
+{
     NSString *message = [NSString stringWithFormat:@"Unlocked reward: %dx %@", reward.quantity, reward.name];
     [self addMessage:message];
 }
 
--(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase{
+- (void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase
+{
     NSString *message = [NSString stringWithFormat:@"Initiating purchase for: %dx %@", purchase.quantity, purchase.productIdentifier];
     [self addMessage:message];
 
@@ -120,7 +130,8 @@
  * likely to match up to the content unit that will appear.
  */
 
--(void)viewDidLoad{
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     [self startTimers];
@@ -130,23 +141,25 @@
     _notificationView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 }
 
--(void)viewDidUnload{
+- (void)viewDidUnload
+{
     [self setPlacementField:nil];
     [super viewDidUnload];
     [_notificationView removeFromSuperview];
     [_notificationView release], _notificationView = nil;
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self.view addSubview:_notificationView];
     [_notificationView setCenter:CGPointMake(self.view.frame.size.width - 22, 19)];
     [_notificationView refresh];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
     [_notificationView removeFromSuperview];
 }
-
 @end

@@ -17,7 +17,8 @@
 @synthesize URLField;
 @synthesize openURLSwitch;
 
--(PHURLLoader *)loader{
+- (PHURLLoader *)loader
+{
     if (_loader == nil) {
         _loader = [PHURLLoader new];
     }
@@ -25,7 +26,8 @@
     return _loader;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_loader invalidate];
 
     [_loader release], _loader = nil;
@@ -34,7 +36,8 @@
     [super dealloc];
 }
 
--(void)startRequest{
+- (void)startRequest
+{
     [super startRequest];
 
     //check to see if URL field has valid URL value
@@ -54,7 +57,8 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
--(void)finishRequest{
+- (void)finishRequest
+{
     [super finishRequest];
     self.navigationItem.rightBarButtonItem.enabled = YES;
 }
@@ -62,16 +66,17 @@
 #pragma mark -
 #pragma PHURLLoaderDelegate
 
--(void)loaderFinished:(PHURLLoader *)loader{
+- (void)loaderFinished:(PHURLLoader *)loader
+{
     NSString *message = [NSString stringWithFormat:@"[SUCCESS] Loader finished with URL: %@", loader.targetURL];
     [self addMessage:message];
     [self finishRequest];
 }
 
--(void)loaderFailed:(PHURLLoader *)loader{
+- (void)loaderFailed:(PHURLLoader *)loader
+{
     NSString *message = [NSString stringWithFormat:@"[FAIL] Loader failed to open at URL: %@", loader.targetURL];
     [self addMessage:message];
     [self finishRequest];
 }
-
 @end

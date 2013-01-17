@@ -14,10 +14,10 @@
 @interface PHTimeInGameTest : SenTestCase
 @end
 
-
 @implementation PHTimeInGameTest
 
--(void)testTimeInGame{
+- (void)testTimeInGame
+{
     [[PHTimeInGame getInstance] gameSessionRestart];
     CFAbsoluteTime time = [[PHTimeInGame getInstance] getSumSessionDuration];
     STAssertTrue(time == 0, @"Session should be == 0 since reset. Value: %f", time);
@@ -39,5 +39,4 @@
     sessionCount = [[PHTimeInGame getInstance] getCountSessions];
     STAssertTrue(sessionCount == 2, @"Session count should be a value of 2. value: %d", sessionCount);
 }
-
 @end

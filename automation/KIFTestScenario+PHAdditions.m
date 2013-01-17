@@ -13,7 +13,8 @@
 
 
 @implementation KIFTestScenario(PHAdditions)
-+(id)scenarioToSendOpenRequest{
++ (id)scenarioToSendOpenRequest
+{
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request..."];
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"open"]];
@@ -22,7 +23,8 @@
     return result;
 }
 
-+(id)scenarioToSendOpenRequestWithCustomDeviceId{
++ (id)scenarioToSendOpenRequestWithCustomDeviceId
+{
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request with a custom device id..."];
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"open"]];
@@ -32,7 +34,8 @@
     return result;
 }
 
-+(id)scenarioToSendContentRequest{
++ (id)scenarioToSendContentRequest
+{
     /*
      content type: More Games Widget
      placement: more_games
@@ -62,7 +65,8 @@
     return  result;
 }
 
-+(id)scenarioToSendContentRequestTestingReward{
++ (id)scenarioToSendContentRequestTestingReward
+{
     /*
      content type: reward
      placement: reward
@@ -86,7 +90,8 @@
     return result;
 }
 
-+(id)scenarioToSendContentRequestTestingAnnouncementLaunch{
++ (id)scenarioToSendContentRequestTestingAnnouncementLaunch
+{
     /*
      content type: announcement
      placement:announcement_launch
@@ -110,7 +115,8 @@
     return result;
 }
 
-+(id)scenarioToLoadiTunesAndVerifyReferral{
++ (id)scenarioToLoadiTunesAndVerifyReferral
+{
     /*
      just testing the URL loader, no dashboard dependency here
     */

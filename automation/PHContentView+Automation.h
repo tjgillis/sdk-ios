@@ -17,9 +17,9 @@
 
 @interface PHContentView (Automation)
 
-+(NSMutableArray *)_dispatchLog;
-+(DispatchLog *)firstDispatch:(NSString *)dispatch;
-+(void)completeDispatchWithCallback:(NSString *)callback;
--(void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback;
--(void)_logCallbackForAutomation:(NSString *)callback;
++ (NSMutableArray *)_dispatchLog;
++ (DispatchLog *)firstDispatch:(NSString *)dispatch;
++ (void)completeDispatchWithCallback:(NSString *)callback;
+- (void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback;
+- (void)_logCallbackForAutomation:(NSString *)callback;
 @end
