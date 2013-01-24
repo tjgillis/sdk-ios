@@ -114,16 +114,16 @@ BOOL _localWiFiAvailable()
 int PHNetworkStatus()
 {
     //TODO: change this to check API accessibility specifically
-	struct sockaddr_in zeroAddr;
-	bzero(&zeroAddr, sizeof(zeroAddr));
-	zeroAddr.sin_len = sizeof(zeroAddr);
-	zeroAddr.sin_family = AF_INET;
+    struct sockaddr_in zeroAddr;
+    bzero(&zeroAddr, sizeof(zeroAddr));
+    zeroAddr.sin_len = sizeof(zeroAddr);
+    zeroAddr.sin_family = AF_INET;
 
-	SCNetworkReachabilityRef target =
+    SCNetworkReachabilityRef target =
     SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *) &zeroAddr);
 
     SCNetworkReachabilityFlags flags;
-	SCNetworkReachabilityGetFlags(target, &flags);
+    SCNetworkReachabilityGetFlags(target, &flags);
 
     CFRelease(target);
 

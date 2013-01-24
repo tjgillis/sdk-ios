@@ -16,7 +16,6 @@
 @interface PHURLLoaderTest : SenTestCase
 @end
 
-
 @implementation PHURLLoaderTest
 
 - (void)testLoaderParameter
