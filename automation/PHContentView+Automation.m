@@ -26,7 +26,6 @@
     [_callback release], _callback = nil;
     [super dealloc];
 }
-
 @end
 
 @implementation PHContentView (Automation)
@@ -48,14 +47,14 @@
     NSArray *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
     results = [results sortedArrayUsingSelector:@selector(timestamp)];
 
-    return ([results count] > 0)? [results objectAtIndex:0] : nil;
+    return ([results count] > 0) ? [results objectAtIndex:0] : nil;
 }
 
 + (void)completeDispatchWithCallback:(NSString *)callback
 {
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"callback LIKE %@", callback];
-    NSArray *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
-    DispatchLog *result = ([results count] > 0) ? [results objectAtIndex:0] : nil;
+    NSArray     *results = [[PHContentView _dispatchLog] filteredArrayUsingPredicate:searchPredicate];
+    DispatchLog *result  = ([results count] > 0) ? [results objectAtIndex:0] : nil;
 
     [result setIsComplete:YES];
 }
@@ -63,9 +62,9 @@
 - (void)_logRedirectForAutomation:(NSString *)urlPath callback:(NSString *)callback
 {
     DispatchLog *logItem = [DispatchLog new];
-    logItem.dispatch = urlPath;
-    logItem.timestamp = [[NSDate date] timeIntervalSinceReferenceDate];
-    logItem.callback = callback;
+    logItem.dispatch   = urlPath;
+    logItem.timestamp  = [[NSDate date] timeIntervalSinceReferenceDate];
+    logItem.callback   = callback;
     logItem.isComplete = NO;
     [[PHContentView _dispatchLog] addObject:logItem];
 

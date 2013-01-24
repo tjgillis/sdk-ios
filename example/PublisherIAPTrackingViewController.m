@@ -21,12 +21,18 @@
      * This is an alternate implementation which allows you you get response
      * data from API requests. This isn't necessary for most developers.
      */
-    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:self.token secret:self.secret];
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:self.token
+                                                                                   secret:self.secret];
     request.delegate = self;
-    request.product = ([self.productField.text isEqualToString:@""])?@"com.playhaven.example.candy":self.productField.text;
-    request.quantity =([self.quantityField.text isEqualToString:@""])?1:[self.quantityField.text integerValue];
+
+    request.product  = ([self.productField.text isEqualToString:@""]) ?
+                                @"com.playhaven.example.candy" :
+                                self.productField.text;
+    request.quantity = ([self.quantityField.text isEqualToString:@""]) ?
+                                1 : [self.quantityField.text integerValue];
+
     request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
-    request.error = PHCreateError(PHIAPTrackingSimulatorErrorType);
+    request.error      = PHCreateError(PHIAPTrackingSimulatorErrorType);
     [request send];
 
     [self.productField resignFirstResponder];
@@ -48,7 +54,7 @@
     NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
     [self addMessage:urlMessage];
 
-    NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@",responseData];
+    NSString *message    = [NSString stringWithFormat:@"[OK] Success with response: %@", responseData];
     [self addMessage:message];
 
     [self finishRequest];
@@ -59,7 +65,7 @@
     NSString *urlMessage = [NSString stringWithFormat:@"URL: %@", request.URL];
     [self addMessage:urlMessage];
 
-    NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
+    NSString *message    = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];
 
     [self finishRequest];

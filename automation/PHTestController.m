@@ -21,5 +21,4 @@
     [self addScenario:[KIFTestScenario scenarioToSendContentRequestTestingAnnouncementLaunch]];
     [self addScenario:[KIFTestScenario scenarioToLoadiTunesAndVerifyReferral]];
 }
-
 @end

@@ -22,7 +22,7 @@
 
 - (void)testInstance
 {
-    PHNotificationView *notificationView = [[PHNotificationView alloc]initWithApp:@"" secret:@"" placement:@""];
+    PHNotificationView *notificationView = [[PHNotificationView alloc] initWithApp:@"" secret:@"" placement:@""];
     STAssertNotNil(notificationView, @"expected notification view instance, got nil");
     STAssertTrue([notificationView respondsToSelector:@selector(refresh)], @"refresh method not present");
 }

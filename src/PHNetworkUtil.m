@@ -44,9 +44,9 @@
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    Boolean result = FALSE;
+    Boolean   result  = FALSE;
     CFHostRef hostRef = NULL;
-    NSArray *addresses;
+    NSArray  *addresses;
     NSString *hostname = [urlPath substringFromIndex:7];
     hostRef = CFHostCreateWithName(kCFAllocatorDefault, (CFStringRef)hostname);
     if (hostRef) {
@@ -65,7 +65,7 @@
         NSLog(@"Could not resolve %@", hostname);
     }
 
-    if(hostRef)
+    if (hostRef)
     {
         CFRelease(hostRef);
     }
@@ -81,10 +81,10 @@
 
     int                 mib[6];
     size_t              len;
-    char                *buf;
-    uint8_t       *ptr;
-    struct if_msghdr    *ifm;
-    struct sockaddr_dl  *sdl;
+    char               *buf;
+    uint8_t            *ptr;
+    struct if_msghdr   *ifm;
+    struct sockaddr_dl *sdl;
 
     mib[0] = CTL_NET;
     mib[1] = AF_ROUTE;
@@ -129,8 +129,8 @@
 - (NSString *)stringForMACBytes:(CFDataRef)macBytes
 {
     const uint8_t *ptr = CFDataGetBytePtr(macBytes);
-    return  [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X",
-                                        *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)] lowercaseString];
+    return [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X",
+                            *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)] lowercaseString];
 }
 
 - (NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes

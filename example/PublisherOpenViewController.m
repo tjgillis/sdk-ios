@@ -24,9 +24,9 @@
      * data from API requests. This isn't necessary for most developers.
      */
 
-    PHPublisherOpenRequest * request = [PHPublisherOpenRequest requestForApp:self.token secret:self.secret];
+    PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:self.token secret:self.secret];
     request.customUDID = self.customUDIDField.text;
-    request.delegate = self;
+    request.delegate   = self;
     [request send];
 
     [self.customUDIDField resignFirstResponder];
@@ -42,7 +42,7 @@
 #pragma mark - PHAPIRequestDelegate
 - (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData
 {
-    NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@",responseData];
+    NSString *message = [NSString stringWithFormat:@"[OK] Success with response: %@", responseData];
     [self addMessage:message];
 
     [self finishRequest];

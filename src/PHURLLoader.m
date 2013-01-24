@@ -25,7 +25,7 @@
 #pragma mark -
 #pragma mark Static
 
-+ (PHURLLoader *) openDeviceURL:(NSString *)url
++ (PHURLLoader *)openDeviceURL:(NSString *)url
 {
     PHURLLoader *result = [[[PHURLLoader alloc] init] autorelease];
     result.targetURL = [NSURL URLWithString:url];
@@ -48,11 +48,11 @@
 + (void)invalidateAllLoadersWithDelegate:(id<PHURLLoaderDelegate>)delegate
 {
     NSEnumerator *allLoaders = [[PHURLLoader allLoaders] objectEnumerator];
-    PHURLLoader *loader = nil;
+    PHURLLoader  *loader     = nil;
 
     NSMutableSet *invalidatedLoaders = [NSMutableSet set];
 
-    while (loader = [allLoaders nextObject]){
+    while (loader = [allLoaders nextObject]) {
         if ([[loader delegate] isEqual:delegate]) {
             [invalidatedLoaders addObject:loader];
         }
@@ -90,9 +90,11 @@
         _totalRedirects = 0;
         NSURLRequest *request = [NSURLRequest requestWithURL:self.targetURL];
 
-        @synchronized(self) {
+        @synchronized (self) {
             [_connection cancel];
-            [_connection release], _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+            [_connection release], _connection = [[NSURLConnection alloc] initWithRequest:request
+                                                                                 delegate:self
+                                                                         startImmediately:YES];
 
 
             //PHURLLOADER_RETAIN see PHURLLOADER_RELEASE
@@ -106,7 +108,7 @@
     self.delegate = nil;
 
     //PHURLLOADER_RELEASE see PHURLLOADER_RETAIN
-    @synchronized(self){
+    @synchronized (self) {
         [_connection cancel];
         [[PHURLLoader allLoaders] removeObject:self];
     }
@@ -152,7 +154,7 @@
         PH_LOG(@"detected app store URL: %@", self.targetURL);
         [self finish];
         return nil;
-    } if (++_totalRedirects < MAXIMUM_REDIRECTS) {
+    } if (++_totalRedirects < MAXIMUM_REDIRECTS) { // TODO: ??? missing else or just bad/weird formatting?
         return request;
     } else {
         PH_LOG(@"max redirects with URL %@", self.targetURL);

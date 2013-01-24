@@ -81,6 +81,7 @@ static NSString *sPlayHavenPluginIdentifier;
     PHAPIRequest *request = [self requestWithHashCode:hashCode];
     if (!!request) {
         [request cancel];
+
         return 1;
     }
     return 0;
@@ -93,7 +94,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 + (NSString *)expectedSignatureValueForResponse:(NSString *)responseString nonce:(NSString *)nonce secret:(NSString *)secret
 {
-    const char *cKey  = [secret cStringUsingEncoding:NSUTF8StringEncoding];
+    const char   *cKey = [secret cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
 
     CCHmacContext context;
@@ -126,24 +127,24 @@ static NSString *sPlayHavenPluginIdentifier;
 
 + (NSString *)session
 {
-    @synchronized(self) {
+    @synchronized (self) {
         if (sPlayHavenSession == nil) {
             UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:kSessionPasteboard create:NO];
-            sPlayHavenSession = [[NSString alloc] initWithString:[pasteboard string] == nil?@"":[pasteboard string]];
+            sPlayHavenSession = [[NSString alloc] initWithString:([pasteboard string] == nil ? @"" : [pasteboard string])];
         }
     }
 
-    return (!!sPlayHavenSession)? sPlayHavenSession : @"";
+    return (!!sPlayHavenSession) ? sPlayHavenSession : @"";
 }
 
 + (void)setSession:(NSString *)session
 {
-    @synchronized(self) {
+    @synchronized (self) {
         if (![session isEqualToString:sPlayHavenSession]) {
             UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:kSessionPasteboard create:YES];
-            [pasteboard setString:(session!= nil)?session:@""];
+            [pasteboard setString:((session!= nil) ? session : @"")];
             [sPlayHavenSession release];
-            sPlayHavenSession = (!!session)?[[NSString alloc] initWithString:session]: nil;
+            sPlayHavenSession = (!!session) ? [[NSString alloc] initWithString:session] : nil;
         }
     }
 }
@@ -155,7 +156,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 + (NSString *)pluginIdentifier
 {
-    @synchronized(self) {
+    @synchronized (self) {
         if (sPlayHavenPluginIdentifier == nil) {
             sPlayHavenPluginIdentifier = [[NSString alloc] initWithFormat:@"ios-%@", PH_SDK_VERSION];
         }
@@ -166,7 +167,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 + (void)setPluginIdentifier:(NSString *)identifier
 {
-    @synchronized(self) {
+    @synchronized (self) {
         [sPlayHavenPluginIdentifier release], sPlayHavenPluginIdentifier = [identifier copy];
     }
 }
@@ -184,7 +185,8 @@ static NSString *sPlayHavenPluginIdentifier;
 + (id)requestWithHashCode:(int)hashCode
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashCode == %d",hashCode];
-    NSSet *resultSet = [[self allRequests] filteredSetUsingPredicate:predicate];
+    NSSet       *resultSet = [[self allRequests] filteredSetUsingPredicate:predicate];
+
     return [resultSet anyObject];
 }
 
@@ -192,7 +194,7 @@ static NSString *sPlayHavenPluginIdentifier;
 {
     self = [self init];
     if (self) {
-        _token = [token copy];
+        _token  = [token copy];
         _secret = [secret copy];
     }
 
@@ -230,13 +232,15 @@ static NSString *sPlayHavenPluginIdentifier;
 - (NSDictionary *)signedParameters
 {
     if (_signedParameters == nil) {
-        CGRect screenBounds = [[UIScreen mainScreen] applicationFrame];
-        BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
-        CGFloat screenWidth = (isLandscape)? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
-        CGFloat screenHeight = (!isLandscape)? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
-        CGFloat screenScale = [[UIScreen mainScreen] scale];
+        CGRect  screenBounds = [[UIScreen mainScreen] applicationFrame];
+        BOOL    isLandscape  = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+        CGFloat screenWidth  = (isLandscape) ? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
+        CGFloat screenHeight = (!isLandscape) ? CGRectGetHeight(screenBounds) : CGRectGetWidth(screenBounds);
+        CGFloat screenScale  = [[UIScreen mainScreen] scale];
 
-        NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0)?[[NSLocale preferredLanguages] objectAtIndex:0]:nil;
+        NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0) ?
+                                            [[NSLocale preferredLanguages] objectAtIndex:0] : nil;
+
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
 
 #if PH_USE_UNIQUE_IDENTIFIER==1
@@ -249,8 +253,8 @@ static NSString *sPlayHavenPluginIdentifier;
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
         if ([ASIdentifierManager class]) {
-            NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-            NSString *uuidString = [uuid UUIDString];
+            NSUUID   *uuid            = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+            NSString *uuidString      = [uuid UUIDString];
             NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
             [combinedParams setValue:uuidString forKey:@"d_ifa"];
             [combinedParams setValue:trackingEnabled forKey:@"tracking"];
@@ -265,46 +269,51 @@ static NSString *sPlayHavenPluginIdentifier;
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
 
         NSString
-        *nonce = [PHStringUtil uuid],
-        *session = [PHAPIRequest session],
-        *gid = PHGID(),
-        *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", self.token, [PHAPIRequest session], PHGID(), nonce, self.secret],
-        *signature = [PHAPIRequest base64SignatureWithString:signatureHash],
-        *appId = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
-        *appVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
-        *hardware = [[UIDevice currentDevice] hardware],
-        *os = [NSString stringWithFormat:@"%@ %@",
-               [[UIDevice currentDevice] systemName],
-               [[UIDevice currentDevice] systemVersion]],
-        *languages = preferredLanguage;
-        if(!appVersion) appVersion = @"NA";
+            *nonce         = [PHStringUtil uuid],
+            *session       = [PHAPIRequest session],
+            *gid           = PHGID(),
+            *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
+                                    self.token, [PHAPIRequest session],
+                                    PHGID(), nonce, self.secret],
+            *signature     = [PHAPIRequest base64SignatureWithString:signatureHash],
+            *appId         = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
+            *appVersion    = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
+            *hardware      = [[UIDevice currentDevice] hardware],
+            *os            = [NSString stringWithFormat:@"%@ %@",
+                                    [[UIDevice currentDevice] systemName],
+                                    [[UIDevice currentDevice] systemVersion]],
+            *languages     = preferredLanguage;
+
+        if (!appVersion) appVersion = @"NA";
 
         NSNumber
-        *idiom = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
-        *connection = [NSNumber numberWithInt:PHNetworkStatus()],
-        *width = [NSNumber numberWithFloat:screenWidth],
-        *height = [NSNumber numberWithFloat:screenHeight],
-        *scale = [NSNumber numberWithFloat:screenScale];
+            *idiom      = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
+            *connection = [NSNumber numberWithInt:PHNetworkStatus()],
+            *width      = [NSNumber numberWithFloat:screenWidth],
+            *height     = [NSNumber numberWithFloat:screenHeight],
+            *scale      = [NSNumber numberWithFloat:screenScale];
 
         [combinedParams addEntriesFromDictionary:self.additionalParameters];
-        NSDictionary *signatureParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         self.token, @"token",
-                                         signature, @"signature",
-                                         nonce, @"nonce",
-                                         appId, @"app",
-                                         hardware,@"hardware",
-                                         os,@"os",
-                                         idiom,@"idiom",
-                                         appVersion, @"app_version",
-                                         connection,@"connection",
-                                         PH_SDK_VERSION, @"sdk-ios",
-                                         languages,@"languages",
-                                         session, @"session",
-                                         gid, @"gid",
-                                         width, @"width",
-                                         height,@"height",
-                                         scale, @"scale",
-                                         nil];
+
+        NSDictionary *signatureParams =
+             [NSDictionary dictionaryWithObjectsAndKeys:
+                                 self.token, @"token",
+                                 signature,  @"signature",
+                                 nonce,      @"nonce",
+                                 appId,      @"app",
+                                 hardware,   @"hardware",
+                                 os,    @"os",
+                                 idiom, @"idiom",
+                                 appVersion, @"app_version",
+                                 connection, @"connection",
+                                 PH_SDK_VERSION, @"sdk-ios",
+                                 languages,  @"languages",
+                                 session, @"session",
+                                 gid,     @"gid",
+                                 width,   @"width",
+                                 height,  @"height",
+                                 scale,   @"scale",
+                                 nil];
 
         [combinedParams addEntriesFromDictionary:signatureParams];
         _signedParameters = combinedParams;
@@ -399,19 +408,22 @@ static NSString *sPlayHavenPluginIdentifier;
 
     if ([_response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)_response;
-        NSString *requestSignature = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
-        NSString *nonce = [self.signedParameters valueForKey:@"nonce"];
+        NSString *requestSignature  = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
+        NSString *nonce             = [self.signedParameters valueForKey:@"nonce"];
         NSString *expectedSignature = [PHAPIRequest expectedSignatureValueForResponse:responseString
-                                                                               nonce:nonce
+                                                                                nonce:nonce
                                                                                secret:self.secret];
+
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
+
             return;
         }
     }
 
-    PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
-    NSDictionary* resultDictionary = [parser objectWithString:responseString];
+    PH_SBJSONPARSER_CLASS *parser           = [[PH_SBJSONPARSER_CLASS alloc] init];
+    NSDictionary          *resultDictionary = [parser objectWithString:responseString];
+
     [parser release];
     [responseString release];
 

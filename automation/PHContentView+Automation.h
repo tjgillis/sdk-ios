@@ -9,14 +9,13 @@
 #import "PHContentView.h"
 
 @interface DispatchLog : NSObject
-@property (nonatomic, copy) NSString *dispatch;
-@property (nonatomic, copy) NSString *callback;
+@property (nonatomic, copy)   NSString *dispatch;
+@property (nonatomic, copy)   NSString *callback;
 @property (nonatomic, assign) NSTimeInterval timestamp;
 @property (nonatomic, assign) BOOL isComplete;
 @end
 
 @interface PHContentView (Automation)
-
 + (NSMutableArray *)_dispatchLog;
 + (DispatchLog *)firstDispatch:(NSString *)dispatch;
 + (void)completeDispatchWithCallback:(NSString *)callback;

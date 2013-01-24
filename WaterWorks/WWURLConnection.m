@@ -22,7 +22,7 @@ NSString *readLineAsNSString(FILE *file)
     int charsRead;
     do
     {
-        if(fgets(buffer, 4095, file) != NULL) {
+        if (fgets(buffer, 4095, file) != NULL) {
             //remove newline from the end of the buffer
             NSString *line = [NSString stringWithFormat:@"%s", buffer];
             line = [line stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -31,7 +31,7 @@ NSString *readLineAsNSString(FILE *file)
         }
         else
             break;
-    } while(charsRead == 4095);
+    } while (charsRead == 4095);
 
     return result;
 }
@@ -90,7 +90,7 @@ NSString *readLineAsNSString(FILE *file)
 + (WWURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate
 {
     WWURLConnection *result = [[[WWURLConnection alloc] init] autorelease];
-    result.request = request;
+    result.request  = request;
     result.delegate = delegate;
 
     return result;
@@ -123,7 +123,7 @@ NSString *readLineAsNSString(FILE *file)
 
 + (NSData *)getResponseForURL:(NSURL *)url
 {
-    id<WWURLResponse> responseObject = (id<WWURLResponse>) [[self allResponses] objectForKey:url];
+    id<WWURLResponse> responseObject = (id<WWURLResponse>)[[self allResponses] objectForKey:url];
     return [responseObject data];
 }
 
@@ -139,7 +139,7 @@ NSString *readLineAsNSString(FILE *file)
             if ([line length] > 1 && ![[line substringToIndex:1] isEqualToString:@"#"]) {
                 //Are there at least two tokens?
                 NSArray *components = [line componentsSeparatedByString:@" "];
-                if  ([components count] >= 2) {
+                if ([components count] >= 2) {
                     //Is the first component a valid URL?
                     NSURL *url = [NSURL URLWithString:[components objectAtIndex:0]];
                     if (!!url) {

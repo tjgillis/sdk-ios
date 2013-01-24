@@ -11,12 +11,12 @@
 
 @interface ExampleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
     NSMutableArray *_messages;
-    UITableView *_tableView;
+    UITableView    *_tableView;
 
     NSString *_token;
     NSString *_secret;
-    NSDate *_startRequestDate;
-    NSDate *_deltaRequestDate;
+    NSDate   *_startRequestDate;
+    NSDate   *_deltaRequestDate;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *token;
@@ -29,5 +29,4 @@
 - (void)finishRequest;
 
 - (void)startTimers;
-
 @end

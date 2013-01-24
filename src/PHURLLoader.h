@@ -20,7 +20,7 @@
 //  launch or stop following redirects.
 //  Used to prevent Safari from showing up when loading iTunes store links.
 @interface PHURLLoader : NSObject {
-    id <PHURLLoaderDelegate> _delegate;
+    id<PHURLLoaderDelegate> _delegate;
     NSURLConnection *_connection;
     NSURL *_targetURL;
     NSInteger _totalRedirects;
@@ -30,13 +30,13 @@
 
 //  Invalidates all loaders that have |delegate|
 //  See -(void)invalidate for details
-+ (void)invalidateAllLoadersWithDelegate:(id <PHURLLoaderDelegate>) delegate;
++ (void)invalidateAllLoadersWithDelegate:(id<PHURLLoaderDelegate>)delegate;
 
 //  Opens and returns PHURLLoader instance for the URL string |url|
 + (PHURLLoader *)openDeviceURL:(NSString*)url;
 
 //  The delegate, see PHURLLoaderDelegate for supported methods
-@property (nonatomic, assign) id <PHURLLoaderDelegate> delegate;
+@property (nonatomic, assign) id<PHURLLoaderDelegate> delegate;
 
 //  The target URL, will be updated as redirects are followed
 @property (nonatomic, retain) NSURL *targetURL;
@@ -57,7 +57,7 @@
 @end
 
 //  Delegate protocol for PHURLLoader instances.
-@protocol PHURLLoaderDelegate<NSObject>
+@protocol PHURLLoaderDelegate <NSObject>
 @optional
 
 //  The loader has successfully finished following redirects and will proceed to

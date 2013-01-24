@@ -66,9 +66,9 @@
 // alongside libraries that use the same classes. However, source builds that are
 // also using these classes should be able to use the existing implementations.
 #ifdef PH_NAMESPACE_LIBS
-#define PH_NAMESPACE_SBJSON 1
+#define PH_NAMESPACE_SBJSON     1
 #define PH_NAMESPACE_SDURLCACHE 1
-#define PH_NAMESPACE_OPENUDID 1
+#define PH_NAMESPACE_OPENUDID   1
 #endif
 
 // PH_NAMESPACE_SBJSON
@@ -77,23 +77,23 @@
 // SBJSON should be able to use the SBJSON classes already in their project. This
 // allows the SDK to accommodate both.
 #ifndef PH_NAMESPACE_SBJSON
-#define PH_SBJSONBASE_CLASS SBJsonBase
-#define PH_SBJSONPARSER_CLASS SBJsonParser
-#define PH_SBJSONWRITER_CLASS SBJsonWriter
+#define PH_SBJSONBASE_CLASS        SBJsonBase
+#define PH_SBJSONPARSER_CLASS      SBJsonParser
+#define PH_SBJSONWRITER_CLASS      SBJsonWriter
 #define PH_SBJSONERRORDOMAIN_CONST SBJSONErrorDomain
 #else
-#define PH_SBJSONBASE_CLASS SBJsonBasePH
-#define PH_SBJSONPARSER_CLASS SBJsonParserPH
-#define PH_SBJSONWRITER_CLASS SBJsonWriterPH
+#define PH_SBJSONBASE_CLASS        SBJsonBasePH
+#define PH_SBJSONPARSER_CLASS      SBJsonParserPH
+#define PH_SBJSONWRITER_CLASS      SBJsonWriterPH
 #define PH_SBJSONERRORDOMAIN_CONST SBJSONErrorDomainPH
 #endif
 
 // PH_NAMESPACE_SDURLCACHE
 #ifndef PH_NAMESPACE_SDURLCACHE
-#define PH_SDURLCACHE_CLASS SDURLCache
+#define PH_SDURLCACHE_CLASS          SDURLCache
 #define PH_SDCACHEDURLRESPONSE_CLASS SDCachedURLResponse
 #else
-#define PH_SDURLCACHE_CLASS SDURLCachePH
+#define PH_SDURLCACHE_CLASS          SDURLCachePH
 #define PH_SDCACHEDURLRESPONSE_CLASS SDCachedURLResponsePH
 #endif
 
@@ -129,11 +129,11 @@
 #define PH_URL_FMT(PATH,FMT) [PH_BASE_URL stringByAppendingFormat:@#PATH, FMT]
 
 #ifndef PH_LOG
-#define PH_LOG(COMMENT,...) NSLog(@"[PlayHaven-%@] %@",PH_SDK_VERSION, [NSString stringWithFormat:COMMENT,__VA_ARGS__])
+#define PH_LOG(COMMENT,...) NSLog(@"[PlayHaven-%@] %@", PH_SDK_VERSION, [NSString stringWithFormat:COMMENT, __VA_ARGS__])
 #endif
 
 #ifndef PH_NOTE
-#define PH_NOTE(COMMENT) NSLog(@"[PlayHaven-%@] %@",PH_SDK_VERSION, COMMENT)
+#define PH_NOTE(COMMENT) NSLog(@"[PlayHaven-%@] %@", PH_SDK_VERSION, COMMENT)
 #endif
 
 #define PH_MULTITASKING_SUPPORTED [[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)] && [[UIDevice currentDevice] isMultitaskingSupported]
@@ -171,8 +171,8 @@ NSString *PHAgnosticStringValue(id object);
 
 #define PH_MAX_CONCURRENT_OPERATIONS    2
 
-#define PH_MAX_SIZE_MEMORY_CACHE        1024*1024          // 1MB mem cache
-#define PH_MAX_SIZE_FILESYSTEM_CACHE    1024*1024*10       // 10MB disk cache
+#define PH_MAX_SIZE_MEMORY_CACHE        1024 * 1024          // 1MB mem cache
+#define PH_MAX_SIZE_FILESYSTEM_CACHE    1024 * 1024 * 10       // 10MB disk cache
 
 //
 // Play Haven default images

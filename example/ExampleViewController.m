@@ -18,7 +18,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self){
+    if (self) {
         _messages = [[NSMutableArray alloc] init];
     }
     return self;
@@ -45,10 +45,10 @@
 
 - (void)addElapsedTime
 {
-    NSDate *now = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-    NSTimeInterval totalDelta = [now timeIntervalSinceDate:_startRequestDate];
-    NSTimeInterval intervalDelta =[now timeIntervalSinceDate:_deltaRequestDate];
-    NSString *message = [NSString stringWithFormat:@"[TIME] %f secs total (+ %f secs)", totalDelta, intervalDelta];
+    NSDate        *now           = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
+    NSTimeInterval totalDelta    = [now timeIntervalSinceDate:_startRequestDate];
+    NSTimeInterval intervalDelta = [now timeIntervalSinceDate:_deltaRequestDate];
+    NSString       *message      = [NSString stringWithFormat:@"[TIME] %f secs total (+ %f secs)", totalDelta, intervalDelta];
     [self addMessage:message];
 
     [_deltaRequestDate release], _deltaRequestDate = now;
@@ -83,7 +83,7 @@
                                                                     style:UIBarButtonItemStyleBordered
                                                                    target:self
                                                                    action:@selector(startRequest)];
-    startButton.accessibilityLabel = @"start";
+    startButton.accessibilityLabel         = @"start";
     self.navigationItem.rightBarButtonItem = startButton;
     [startButton release];
 }
@@ -109,7 +109,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *message = [_messages objectAtIndex:indexPath.row];
-    CGSize size = [message sizeWithFont:LOG_FONT constrainedToSize:CGSizeMake(tableView.frame.size.width-24, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize    size    = [message sizeWithFont:LOG_FONT
+                            constrainedToSize:CGSizeMake(tableView.frame.size.width - 24, MAXFLOAT)
+                                lineBreakMode:UILineBreakModeWordWrap];
     return size.height + 24;
 }
 
@@ -120,10 +122,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+
         cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
         cell.textLabel.numberOfLines = 0;
-        cell.textLabel.font = LOG_FONT;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font          = LOG_FONT;
+        cell.selectionStyle          = UITableViewCellSelectionStyleNone;
     }
 
     NSString *message = [_messages objectAtIndex:indexPath.row];

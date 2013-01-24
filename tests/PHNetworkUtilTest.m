@@ -35,8 +35,8 @@
     CFDataRef bMAC = [[PHNetworkUtil sharedInstance] newMACBytes];
     STAssertNotNil((NSData *)bMAC, @"Missing MAC address bytes!");
 
-    uint8_t testBytes[] = {0x1a, 0x2b, 0x3c, 0x4d, 0x5e, 0x6f};
-    CFDataRef testData = CFDataCreate(NULL, (uint8_t *)testBytes, 6);
+    uint8_t testBytes[] = { 0x1a, 0x2b, 0x3c, 0x4d, 0x5e, 0x6f };
+    CFDataRef testData  = CFDataCreate(NULL, (uint8_t *)testBytes, 6);
 
     NSString *macString = [[PHNetworkUtil sharedInstance] stringForMACBytes: testData];
     STAssertTrue([macString isEqualToString:@"1a2b3c4d5e6f"], @"String representation not correct!");

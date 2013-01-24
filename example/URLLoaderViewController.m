@@ -49,9 +49,9 @@
     }
 
     //if we have a valid loader, then start the request!
-    self.loader.targetURL = loaderURL;
+    self.loader.targetURL             = loaderURL;
     self.loader.opensFinalURLOnDevice = self.openURLSwitch.on;
-    self.loader.delegate = self;
+    self.loader.delegate              = self;
 
     [self.loader open];
     self.navigationItem.rightBarButtonItem.enabled = NO;

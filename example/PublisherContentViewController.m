@@ -32,8 +32,14 @@
 
         //[self.placementField resignFirstResponder];
 
-        NSString *placement = (![self.placementField.text isEqualToString:@""])? self.placementField.text : @"more_games";
-        PHPublisherContentRequest * request = [PHPublisherContentRequest requestForApp:self.token secret:self.secret placement:placement delegate:self];
+        NSString *placement = (![self.placementField.text isEqualToString:@""]) ?
+                                    self.placementField.text :
+                                    @"more_games";
+
+        PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:self.token
+                                                                               secret:self.secret
+                                                                            placement:placement
+                                                                             delegate:self];
         [request setShowsOverlayImmediately:[showsOverlaySwitch isOn]];
         [request setAnimated:[animateSwitch isOn]];
         [request send];
@@ -41,12 +47,12 @@
         [self setRequest:request];
 
         [self.navigationItem.rightBarButtonItem setTitle:@"Cancel"];
+
     } else {
         [self addMessage:@"Request canceled!"];
 
         [self.request cancel];
         self.request = nil;
-
 
         [self.navigationItem.rightBarButtonItem setTitle:@"Start"];
     }
@@ -77,7 +83,7 @@
 
 - (void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content
 {
-    NSString *message = [NSString stringWithFormat:@"Preparing to display content: %@",content];
+    NSString *message = [NSString stringWithFormat:@"Preparing to display content: %@", content];
     [self addMessage:message];
 
     [self addElapsedTime];
@@ -88,7 +94,7 @@
     //This is a good place to clear any notification views attached to this request.
     [_notificationView clear];
 
-    NSString *message = [NSString stringWithFormat:@"Displayed content: %@",content];
+    NSString *message = [NSString stringWithFormat:@"Displayed content: %@", content];
     [self addMessage:message];
 
     [self addElapsedTime];
@@ -96,7 +102,7 @@
 
 - (void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type
 {
-    NSString *message = [NSString stringWithFormat:@"[OK] User dismissed request: %@ of type %@",request, type];
+    NSString *message = [NSString stringWithFormat:@"[OK] User dismissed request: %@ of type %@", request, type];
     [self addMessage:message];
 
     [self finishRequest];

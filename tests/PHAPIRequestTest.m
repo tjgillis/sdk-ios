@@ -26,12 +26,12 @@
 @end
 
 @interface PHAPIRequestTest : SenTestCase @end
-@interface PHAPIRequestResponseTest : SenTestCase<PHAPIRequestDelegate> {
+@interface PHAPIRequestResponseTest : SenTestCase <PHAPIRequestDelegate> {
     PHAPIRequest *_request;
     BOOL _didProcess;
 }
 @end
-@interface PHAPIRequestErrorTest : SenTestCase<PHAPIRequestDelegate> {
+@interface PHAPIRequestErrorTest : SenTestCase <PHAPIRequestDelegate> {
     PHAPIRequest *_request;
     BOOL _didProcess;
 }
@@ -72,11 +72,11 @@
 
     //Test for existence of parameters
     NSString
-    *session = [signedParameters valueForKey:@"session"],
-    *gid = [signedParameters valueForKey:@"gid"],
-    *token  = [signedParameters valueForKey:@"token"],
-    *signature = [signedParameters valueForKey:@"signature"],
-    *nonce  = [signedParameters valueForKey:@"nonce"];
+        *session   = [signedParameters valueForKey:@"session"],
+        *gid       = [signedParameters valueForKey:@"gid"],
+        *token     = [signedParameters valueForKey:@"token"],
+        *signature = [signedParameters valueForKey:@"signature"],
+        *nonce     = [signedParameters valueForKey:@"nonce"];
 
     STAssertNotNil(session ,@"Required session param is missing!");
     STAssertNotNil(gid ,@"Required gid param is missing!");
@@ -96,8 +96,8 @@
                   @"Signature parameter not present!");
 
     NSString
-    *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [PHAPIRequest session], PHGID(), nonce, PUBLISHER_SECRET],
-    *expectedSignature = [PHStringUtil b64DigestForString:expectedSignatureString];
+        *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [PHAPIRequest session], PHGID(), nonce, PUBLISHER_SECRET],
+        *expectedSignature       = [PHStringUtil b64DigestForString:expectedSignatureString];
     STAssertTrue([signature isEqualToString:expectedSignature], @"signature did not match expected value!");
 
     NSString *nonceParam = [NSString stringWithFormat:@"nonce=%@",nonce];
@@ -108,7 +108,7 @@
 - (void)testURLProperty
 {
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
-    NSString *desiredURLString = @"http://thisisatesturlstring.com";
+    NSString     *desiredURLString = @"http://thisisatesturlstring.com";
 
     request.urlPath = desiredURLString;
     STAssertFalse([[request.URL absoluteString] rangeOfString:desiredURLString].location == NSNotFound,
@@ -134,14 +134,12 @@
 
 - (void)testResponse
 {
-    NSDictionary *testDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    @"awesomesause", @"awesome",
-                                    nil];
+    NSDictionary *testDictionary     = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                            @"awesomesause", @"awesome", nil];
     NSDictionary *responseDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        testDictionary,@"response",
-                                        [NSNull null],@"error",
-                                        [NSNull null],@"errobj",
-                                        nil];
+                                                            testDictionary,@"response",
+                                                            [NSNull null],@"error",
+                                                            [NSNull null],@"errobj", nil];
     [_request processRequestResponse:responseDictionary];
 }
 
@@ -184,8 +182,7 @@
 - (void)testResponse
 {
     NSDictionary *responseDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        @"this is awesome!",@"error",
-                                        nil];
+                                            @"this is awesome!",@"error", nil];
     [_request processRequestResponse:responseDictionary];
 }
 

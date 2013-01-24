@@ -11,7 +11,6 @@
 
 @interface URLLoaderViewController : ExampleViewController<PHURLLoaderDelegate>
 @property (retain, readonly) PHURLLoader *loader;
-
 @property (retain, nonatomic) IBOutlet UITextField *URLField;
-@property (retain, nonatomic) IBOutlet UISwitch *openURLSwitch;
+@property (retain, nonatomic) IBOutlet UISwitch    *openURLSwitch;
 @end

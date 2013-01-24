@@ -16,21 +16,25 @@
 + (id)scenarioToSendOpenRequest
 {
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request..."];
+
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"open"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
     [result addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"Request success message"]];
+
     return result;
 }
 
 + (id)scenarioToSendOpenRequestWithCustomDeviceId
 {
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request with a custom device id..."];
+
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"open"]];
     [result addStep:[KIFTestStep stepToEnterText:@"test_id" intoViewWithAccessibilityLabel:@"custom"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
     [result addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"Request success message"]];
+
     return result;
 }
 
@@ -43,6 +47,7 @@
      testing more games content unit with featured game turn on
     */
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request..."];
+
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
     [result addStep:[KIFTestStep stepToEnterText:@"more_games" intoViewWithAccessibilityLabel:@"placement"]];
@@ -74,6 +79,7 @@
      testing a reward content unit that rewards item 'delicious_cake'
     */
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request and verifying it returns a reward"];
+
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
     [result addStep:[KIFTestStep stepToEnterText:@"reward" intoViewWithAccessibilityLabel:@"placement"]];
@@ -87,6 +93,7 @@
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#button" inWebViewWithAccessibilityLabel:@"content view"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://dismiss"]];
     [result addStep:[KIFTestStep stepToWaitForAbsenceOfViewWithAccessibilityLabel:@"content view"]];
+
     return result;
 }
 
@@ -99,7 +106,7 @@
      testing an announcement with custom URL launch set to 'http://www.playhaven.com'
     */
 
-    KIFTestScenario *result =[KIFTestScenario scenarioWithDescription:@"Sending a content request and testing announcement launch"];
+    KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending a content request and testing announcement launch"];
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"content"]];
     [result addStep:[KIFTestStep stepToEnterText:@"announcement_launch" intoViewWithAccessibilityLabel:@"placement"]];
@@ -112,6 +119,7 @@
     [result addStep:[KIFTestStep stepToVerifyLaunchURL:@"http://www.playhaven.com/"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://dismiss"]];
     [result addStep:[KIFTestStep stepToWaitForAbsenceOfViewWithAccessibilityLabel:@"content view"]];
+
     return result;
 }
 
@@ -121,7 +129,7 @@
      just testing the URL loader, no dashboard dependency here
     */
 
-    KIFTestScenario *result =[KIFTestScenario scenarioWithDescription:@"Loading itunes and verifying referral."];
+    KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Loading itunes and verifying referral."];
     [result addStepsFromArray:[KIFTestStep stepsToResetApp]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"url loader"]];
 
@@ -131,9 +139,10 @@
     // parameters that are needed for recording affiliate referrals.
     [result addStep:[KIFTestStep stepToEnterText:@"http://glob.ly/2yWE/iso2/EN" intoViewWithAccessibilityLabel:@"URL"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
-    [result addStep:[KIFTestStep steptoVerifyLaunchURLContainsHost:@"itunes.apple.com"]];
+    [result addStep:[KIFTestStep stepToVerifyLaunchURLContainsHost:@"itunes.apple.com"]];
     [result addStep:[KIFTestStep stepToVerifyLaunchURLContainsParameter:@"partnerId"]];
     [result addStep:[KIFTestStep stepToVerifyLaunchURLContainsParameter:@"siteID"]];
+
     return  result;
 }
 @end

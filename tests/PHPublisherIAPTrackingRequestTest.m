@@ -23,7 +23,7 @@
     STAssertNotNil(request, @"Expected request to exist!");
 
 
-    NSString *product = @"com.playhaven.item";
+    NSString *product  = @"com.playhaven.item";
     NSInteger quantity = 1;
     request = [PHPublisherIAPTrackingRequest requestForApp:@"APP"
                                                     secret:@"SECRET"

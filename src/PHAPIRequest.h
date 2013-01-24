@@ -21,27 +21,27 @@
 //  Base class for API requests, generates valid request signatures based on the
 //  device's GID, and checks for a valid X-PH-DIGEST response signature.
 @interface PHAPIRequest : NSObject {
-    NSURL *_URL;
-    NSString *_token, *_secret;
+    NSURL           *_URL;
+    NSString        *_token, *_secret;
     NSURLConnection *_connection;
-    NSDictionary *_signedParameters;
-    id<NSObject> _delegate;
-    NSMutableData *_connectionData;
-    NSString *_urlPath;
-    NSDictionary *_additionalParameters;
-    NSURLResponse *_response;
-    int _hashCode;
+    NSDictionary    *_signedParameters;
+    id<NSObject>     _delegate;
+    NSMutableData   *_connectionData;
+    NSString        *_urlPath;
+    NSDictionary    *_additionalParameters;
+    NSURLResponse   *_response;
+    int              _hashCode;
 }
 
 //  Generates a URL-friendly b64 signature digest of |string|
-+ (NSString *) base64SignatureWithString:(NSString *)string;
++ (NSString *)base64SignatureWithString:(NSString *)string;
 
 //  Generates the expected X-PH-DIGEST response signature based on the response body, nonce, and app secret
-+ (NSString *) expectedSignatureValueForResponse:(NSString *)response nonce:(NSString *)nonce secret:(NSString *)secret;
++ (NSString *)expectedSignatureValueForResponse:(NSString *)response nonce:(NSString *)nonce secret:(NSString *)secret;
 
 //  Retrieves the PHID (otherwise known as the session token) from the pasteboard
 //  This value is used for GID/PHID-based device identification
-+ (NSString *) session;
++ (NSString *)session;
 
 //  Gets and sets the UDID opt-out status. If YES and
 //  PH_USE_UNIQUE_IDENTIFIER==1, then the device's UDID will be sent with each
@@ -65,7 +65,7 @@
 //  Cancels all requests for a given delegate, typically used when a view
 //  controller is set as request delegate, and that view controller might be
 //  dismissed by the user while there are active API requests.
-+ (void)cancelAllRequestsWithDelegate:(id) delegate;
++ (void)cancelAllRequestsWithDelegate:(id)delegate;
 
 //  Cancels an existing request with a hashCode value of |hashCode|
 //  Used by the Unity3d plugin.

@@ -64,15 +64,16 @@
 - (void)testContent
 {
     NSString
-    *empty = @"{}",
-    *keyword = @"{\"frame\":\"PH_FULLSCREEN\",\"url\":\"http://google.com\",\"transition\":\"PH_MODAL\",\"context\":{\"awesome\":\"awesome\"}}",
-    *rect = @"{\"frame\":{\"PH_LANDSCAPE\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"PH_PORTRAIT\":{\"x\":40,\"y\":60,\"w\":240,\"h\":340}},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"}}";
+        *empty   = @"{}",
+        *keyword = @"{\"frame\":\"PH_FULLSCREEN\",\"url\":\"http://google.com\",\"transition\":\"PH_MODAL\",\"context\":{\"awesome\":\"awesome\"}}",
+        *rect    = @"{\"frame\":{\"PH_LANDSCAPE\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"PH_PORTRAIT\":{\"x\":40,\"y\":60,\"w\":240,\"h\":340}},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"}}";
 
   PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
-  NSDictionary
-    *emptyDict = [parser objectWithString:empty],
-    *keywordDict = [parser objectWithString:keyword],
-    *rectDict = [parser objectWithString:rect];
+    NSDictionary
+        *emptyDict   = [parser objectWithString:empty],
+        *keywordDict = [parser objectWithString:keyword],
+        *rectDict    = [parser objectWithString:rect];
+
     [parser release];
 
     PHContent *emptyUnit = [PHContent contentWithDictionary:emptyDict];
@@ -110,8 +111,7 @@
   STAssertTrue(content.closeButtonDelay == 10.0f, @"Default closeButton delay value incorrect!");
   [content release];
 
-  NSString
-  *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_delay\":23}";
+  NSString *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_delay\":23}";
 
   PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
   NSDictionary *rectDict = [parser objectWithString:rect];
@@ -127,8 +127,7 @@
   STAssertTrue(content.closeButtonURLPath == nil, @"CloseButtonURLPath property not available");
   [content release];
 
-  NSString
-  *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_ping\":\"http://playhaven.com\"}";
+  NSString *rect = @"{\"frame\":{\"x\":60,\"y\":40,\"w\":200,\"h\":400},\"url\":\"http://google.com\",\"transition\":\"PH_DIALOG\",\"context\":{\"awesome\":\"awesome\"},\"close_ping\":\"http://playhaven.com\"}";
 
   PH_SBJSONPARSER_CLASS *parser = [[PH_SBJSONPARSER_CLASS alloc] init];
   NSDictionary *rectDict = [parser objectWithString:rect];
@@ -146,8 +145,8 @@
     PHContent *content = [[PHContent alloc] init];
 
     PHContentView *contentView = [[PHContentView alloc] initWithContent:content];
-    STAssertTrue([contentView respondsToSelector:@selector(show:)],@"Should respond to show selector");
-    STAssertTrue([contentView respondsToSelector:@selector(dismiss:)],@"Should respond to dismiss selector");
+    STAssertTrue([contentView respondsToSelector:@selector(show:)], @"Should respond to show selector");
+    STAssertTrue([contentView respondsToSelector:@selector(dismiss:)], @"Should respond to dismiss selector");
     [contentView release];
     [content release];
 }
@@ -241,7 +240,8 @@
 
 - (void)testAnimatedParameter
 {
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
+                                                                           secret:PUBLISHER_SECRET];
     STAssertTrue(request.animated, @"Default state of animated property should be TRUE");
 
     request.animated = NO;
@@ -250,17 +250,17 @@
 
 - (void)testRequestParameters
 {
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
+                                                                           secret:PUBLISHER_SECRET];
     request.placement = @"placement_id";
 
     NSDictionary *dictionary = [request signedParameters];
     STAssertNotNil([dictionary valueForKey:@"placement_id"], @"Expected 'placement_id' parameter.");
 
     NSString *parameterString = [request signedParameterString];
-    NSString *placementParam = @"placement_id=placement_id";
+    NSString *placementParam  = @"placement_id=placement_id";
     STAssertFalse([parameterString rangeOfString:placementParam].location == NSNotFound,
                   @"Placment_id parameter not present!");
-
 }
 @end
 
@@ -268,26 +268,25 @@
 
 - (void)testValidation
 {
-    NSString *reward = @"SLAPPY_COINS";
-    NSNumber *quantity = [NSNumber numberWithInt:1234];
-    NSNumber *receipt = [NSNumber numberWithInt:102930193];
+    NSString *reward    = @"SLAPPY_COINS";
+    NSNumber *quantity  = [NSNumber numberWithInt:1234];
+    NSNumber *receipt   = [NSNumber numberWithInt:102930193];
     NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@",
                                                             reward, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
 
     NSDictionary *rewardDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                reward, @"reward",
-                                quantity, @"quantity",
-                                receipt, @"receipt",
-                                signature, @"signature",
-                                nil];
+                                                    reward, @"reward",
+                                                    quantity, @"quantity",
+                                                    receipt, @"receipt",
+                                                    signature, @"signature", nil];
     NSDictionary *badRewardDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   reward, @"reward",
-                                   quantity, @"quantity",
-                                   receipt, @"receipt",
-                                   @"BAD_SIGNATURE_RARARA", @"signature",
-                                   nil];
+                                                    reward, @"reward",
+                                                    quantity, @"quantity",
+                                                    receipt, @"receipt",
+                                                    @"BAD_SIGNATURE_RARARA", @"signature", nil];
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
+                                                                           secret:PUBLISHER_SECRET];
 
     STAssertTrue([request isValidReward:rewardDict], @"PHPublisherContentRequest could not validate valid reward.");
     STAssertFalse([request isValidReward:badRewardDict], @"PHPublisherContentRequest validated invalid reward.");
@@ -298,25 +297,29 @@
 
 - (void)testValidation
 {
-    NSString *product = @"com.playhaven.example.candy";
-    NSString *name = @"Delicious Candy";
-    NSNumber *quantity = [NSNumber numberWithInt:1234];
-    NSNumber *receipt = [NSNumber numberWithInt:102930193];
-    NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
-                                                            product, name, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
-    NSNumber *cookie = [NSNumber numberWithInt:3423413];
+    NSString *product   = @"com.playhaven.example.candy";
+    NSString *name      = @"Delicious Candy";
+    NSNumber *quantity  = [NSNumber numberWithInt:1234];
+    NSNumber *receipt   = [NSNumber numberWithInt:102930193];
+    NSString *signature = [PHStringUtil hexDigestForString:
+                                                [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
+                                                                product, name, quantity, PHGID(),
+                                                                receipt, PUBLISHER_SECRET]];
+    NSNumber *cookie    = [NSNumber numberWithInt:3423413];
 
     NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                product, @"product",
-                                name, @"name",
-                                quantity, @"quantity",
-                                receipt, @"receipt",
-                                signature, @"signature",
-                                cookie, @"cookie",
-                                nil];
-    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict] forKey:@"purchases"];
+                                                    product, @"product",
+                                                    name, @"name",
+                                                    quantity, @"quantity",
+                                                    receipt, @"receipt",
+                                                    signature, @"signature",
+                                                    cookie, @"cookie", nil];
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict]
+                                                              forKey:@"purchases"];
+
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
+                                                                           secret:PUBLISHER_SECRET];
 
     STAssertTrue([request isValidPurchase:purchaseDict], @"PHPublisherContentRequest could not validate valid purchase");
     STAssertNoThrow([request requestPurchases:purchasesDict callback:nil source:nil], @"Problem processing valid purchases array");
@@ -324,25 +327,29 @@
 
 - (void)testAlternateValidation
 {
-    NSString *product = @"com.playhaven.example.candy";
-    NSString *name = @"Delicious Candy";
-    NSNumber *quantity = [NSNumber numberWithInt:1234];
-    NSString *receipt = @"102930193";
-    NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
-                                                            product, name, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
-    NSString *cookie = @"3423413";
+    NSString *product   = @"com.playhaven.example.candy";
+    NSString *name      = @"Delicious Candy";
+    NSNumber *quantity  = [NSNumber numberWithInt:1234];
+    NSString *receipt   = @"102930193";
+    NSString *signature = [PHStringUtil hexDigestForString:
+                                                [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
+                                                                product, name, quantity, PHGID(),
+                                                                receipt, PUBLISHER_SECRET]];
+    NSString *cookie    = @"3423413";
 
     NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  product, @"product",
-                                  name, @"name",
-                                  quantity, @"quantity",
-                                  receipt, @"receipt",
-                                  signature, @"signature",
-                                  cookie, @"cookie",
-                                  nil];
-    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict] forKey:@"purchases"];
+                                                    product, @"product",
+                                                    name, @"name",
+                                                    quantity, @"quantity",
+                                                    receipt, @"receipt",
+                                                    signature, @"signature",
+                                                    cookie, @"cookie", nil];
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict]
+                                                              forKey:@"purchases"];
+
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
+                                                                           secret:PUBLISHER_SECRET];
 
     STAssertTrue([request isValidPurchase:purchaseDict], @"PHPublisherContentRequest could not validate valid purchase");
     STAssertNoThrow([request requestPurchases:purchasesDict callback:nil source:nil], @"Problem processing valid purchases array");

@@ -17,9 +17,11 @@
 //  Sets the response data for a given URL. See WWURLMatching to see how URL
 //  matching works.
 + (void)setResponse:(NSData *)response forURL:(NSURL *)url;
+
 //  Sets responses for multiple URLs from a file. See dev.wwfixtures to see how
 //  that works.
 + (void)setResponsesFromFileNamed:(NSString *)fileName;
+
 //  Clears all configured responses
 + (void)clearAllResponses;
 

@@ -20,8 +20,8 @@
 
 - (void)testInstance
 {
-    NSString *token = @"PUBLISHER_TOKEN",
-    *secret = @"PUBLISHER_SECRET";
+    NSString *token  = @"PUBLISHER_TOKEN",
+             *secret = @"PUBLISHER_SECRET";
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret];
     NSString *requestURLString = [request.URL absoluteString];
 
@@ -38,8 +38,8 @@
 
 - (void)testCustomUDID
 {
-    NSString *token = @"PUBLISHER_TOKEN",
-    *secret = @"PUBLISHER_SECRET";
+    NSString *token  = @"PUBLISHER_TOKEN",
+             *secret = @"PUBLISHER_SECRET";
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:token secret:secret];
     NSString *requestURLString = [request.URL absoluteString];
 

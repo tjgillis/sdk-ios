@@ -26,7 +26,9 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:PublisherCancelContentViewControllerNotification object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PublisherCancelContentViewControllerNotification
+                                                  object:self];
 }
 
 #pragma mark -

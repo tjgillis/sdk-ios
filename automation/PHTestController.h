@@ -10,5 +10,4 @@
 #import "KIFTestController.h"
 
 @interface PHTestController : KIFTestController
-
 @end

@@ -23,7 +23,7 @@
 // SDK specific steps
 + (id)stepToVerifyRewardUnlocked:(NSString *)reward quantity:(NSInteger)quantity;
 + (id)stepToVerifyLaunchURL:(NSString *)urlPath;
-+ (id)steptoVerifyLaunchURLContainsHost:(NSString *)host;
++ (id)stepToVerifyLaunchURLContainsHost:(NSString *)host;
 + (id)stepToVerifyLaunchURLContainsParameter:(NSString *)parameter;
 + (id)stepToWaitForDispatch:(NSString *)dispatch;
 + (id)stepToWaitForDispatch:(NSString *)dispatch andCallback:(BOOL)waitForCallback;

@@ -17,7 +17,7 @@
 @implementation NSObject(hash)
 - (NSString *)hashString
 {
-    return [NSString stringWithFormat:@"%d",[self hash]];
+    return [NSString stringWithFormat:@"%d", [self hash]];
 }
 @end
 
@@ -32,12 +32,14 @@
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setLocale:self.priceLocale];
+
     NSString *formattedString = [numberFormatter stringFromNumber:self.price];
+
     [numberFormatter release];
+
     return formattedString;
 }
 @end
-
 
 @interface IAPHelper(Private)
 - (void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
@@ -85,29 +87,38 @@
 {
     // The first step is requesting product information for this purchase.
     if (!!purchase) {
-        NSSet *productIdentifiers = [NSSet setWithObject:purchase.productIdentifier];
+        NSSet *productIdentifiers  = [NSSet setWithObject:purchase.productIdentifier];
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+
         request.delegate = self;
         [request start];
 
         //storing the purchase and the product request to retrieve later
         [self.pendingPurchases setValue:purchase forKey:[request hashString]];
         [self.pendingRequests setValue:request forKey:[request hashString]];
+
         [request release];
     }
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    NSString *key = [request hashString];
+    NSString   *key      = [request hashString];
     PHPurchase *purchase = [self.pendingPurchases valueForKey:key];
-    NSArray *products = response.products;
-    SKProduct *product = [products count] == 1 ? [products objectAtIndex:0] : nil;
+    NSArray    *products = response.products;
+    SKProduct  *product  = [products count] == 1 ? [products objectAtIndex:0] : nil;
 
     if ([purchase.productIdentifier isEqualToString:product.productIdentifier]) {
         //ask the user to choose to purchase or not purchase an item
-        NSString *message = [NSString stringWithFormat:@"Do you want to buy %d %@ for %@?",purchase.quantity, product.localizedTitle, product.localizedPrice];
-        UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:@"In-Game Store" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy", nil];
+        NSString    *message = [NSString stringWithFormat:@"Do you want to buy %d %@ for %@?",
+                                              purchase.quantity, product.localizedTitle, product.localizedPrice];
+
+        UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:@"In-Game Store"
+                                                                message:message
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                      otherButtonTitles:@"Buy", nil];
+
         [purchaseAlert show];
         [self.pendingPurchases setObject:purchase forKey:[purchaseAlert hashString]];
 
@@ -124,8 +135,9 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSString *key = [alertView hashString];
+    NSString   *key      = [alertView hashString];
     PHPurchase *purchase = (PHPurchase *)[self.pendingPurchases objectForKey:key];
+
     if (buttonIndex == 0) {
         //the user has canceled the request
         [self reportPurchase:purchase withResolution:PHPurchaseResolutionCancel receiptData:nil];
@@ -150,15 +162,18 @@
     //is purchased (SKTransactionStatePurchased), and send IAP Error tracking requests
     //whenever a transaction dails (SKTransactionStateFailed)
     for (SKPaymentTransaction *transaction in transactions) {
-        NSString *key = [transaction.payment hashString];
+        NSString   *key      = [transaction.payment hashString];
         PHPurchase *purchase = [self.pendingRequests valueForKey:key];
+
         if (purchase == nil) {
             //In the case that a transcaction is being restored, we need to
             //generate a new purchase object so that IAP transactions may
             //be reported accurately.
             purchase = [PHPurchase new];
+
             purchase.productIdentifier = transaction.payment.productIdentifier;
-            purchase.quantity = transaction.payment.quantity;
+            purchase.quantity          = transaction.payment.quantity;
+
             [purchase autorelease];
         }
 
@@ -169,7 +184,10 @@
                 //to support IAP tracking and VGP content units.
 
                 NSLog(@"IAPHelper: Purchased %@!", transaction.payment.productIdentifier);
-                [self reportPurchase:purchase withResolution:PHPurchaseResolutionBuy receiptData:transaction.transactionReceipt];
+                [self reportPurchase:purchase
+                      withResolution:PHPurchaseResolutionBuy
+                         receiptData:transaction.transactionReceipt];
+
                 [self.pendingPurchases removeObjectForKey:key];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
@@ -177,7 +195,10 @@
             case SKPaymentTransactionStateFailed:
                 //Reporting failed transactions and finalizing them.
                 NSLog(@"IAPHelper: Failed to purchase %@!", transaction.payment.productIdentifier);
-                [self reportPurchase:purchase withError:transaction.error receiptData:transaction.transactionReceipt];
+                [self reportPurchase:purchase
+                           withError:transaction.error
+                         receiptData:transaction.transactionReceipt];
+
                 [self.pendingPurchases removeObjectForKey:key];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
@@ -195,11 +216,17 @@
     //used to report purchases to PlayHaven, as well as back to the originating content unit.
     if (!!purchase) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [defaults valueForKey:@"ExampleToken"];
-        NSString *secret = [defaults valueForKey:@"ExampleSecret"];
+        NSString       *token    = [defaults valueForKey:@"ExampleToken"];
+        NSString       *secret   = [defaults valueForKey:@"ExampleSecret"];
 
         //Reporting to the Tracking API
-        PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity resolution:resolution receiptData:receiptData];
+        PHPublisherIAPTrackingRequest *request =
+                  [PHPublisherIAPTrackingRequest requestForApp:token
+                                                        secret:secret
+                                                       product:purchase.productIdentifier
+                                                      quantity:purchase.quantity
+                                                    resolution:resolution
+                                                   receiptData:receiptData];
         [request send];
 
         //Reporting back to the content unit.
@@ -212,13 +239,19 @@
     //To get a more complete picture of your IAP implementation, report any errors, user
     //cancellations, or other incomplete transactions to PlayHaven. It is also important
     //to inform the originating content unit (for VGP-driven purchases) of the error.
-    if (!!purchase){
+    if (!!purchase) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [defaults valueForKey:@"ExampleToken"];
-        NSString *secret = [defaults valueForKey:@"ExampleSecret"];
+        NSString       *token    = [defaults valueForKey:@"ExampleToken"];
+        NSString       *secret   = [defaults valueForKey:@"ExampleSecret"];
 
         //Reporting to the Tracking API
-        PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret product:purchase.productIdentifier quantity:purchase.quantity error:error receiptData:receiptData];
+        PHPublisherIAPTrackingRequest *request =
+                  [PHPublisherIAPTrackingRequest requestForApp:token
+                                                        secret:secret
+                                                       product:purchase.productIdentifier
+                                                      quantity:purchase.quantity
+                                                         error:error
+                                                   receiptData:receiptData];
         [request send];
 
         //Reporting back to the content unit

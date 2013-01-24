@@ -12,5 +12,4 @@
 @interface IAPViewController : ExampleViewController
 @property (retain, nonatomic) IBOutlet UITextField *productField;
 @property (retain, nonatomic) IBOutlet UITextField *quantityField;
-
 @end

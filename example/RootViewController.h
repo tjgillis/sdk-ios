@@ -12,13 +12,11 @@
     UITextField *tokenField;
     UITextField *secretField;
 }
-
 @property (nonatomic, retain) IBOutlet UITextField *tokenField;
 @property (nonatomic, retain) IBOutlet UITextField *secretField;
-@property (retain, nonatomic) IBOutlet UISwitch *optOutStatusSlider;
-@property (retain, nonatomic) IBOutlet UILabel *serviceURLField;
+@property (retain, nonatomic) IBOutlet UISwitch    *optOutStatusSlider;
+@property (retain, nonatomic) IBOutlet UILabel     *serviceURLField;
 
 - (void)touchedToggleStatusBar:(id)sender;
 - (IBAction)touchedOptOutStatusSlider:(id)sender;
-
 @end
