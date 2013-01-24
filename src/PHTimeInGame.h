@@ -14,7 +14,6 @@
 //  Information collected by this class is used for time-in-game segmentation
 //  and targeting.
 @interface PHTimeInGame : NSObject {
-
     CFAbsoluteTime sessionStartTime;
 }
 

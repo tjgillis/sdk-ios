@@ -26,7 +26,7 @@
         confirm price and currency information for the good
 
 **/
-typedef enum{
+typedef enum {
     PHPurchaseResolutionBuy,
     PHPurchaseResolutionCancel,
     PHPurchaseResolutionError,
@@ -69,5 +69,4 @@ typedef enum{
 //  Reports the resolution of the purchase (see PHPurchaseResolutionType above)
 //  to the content unit that originated the purchase.
 - (void)reportResolution:(PHPurchaseResolutionType)resolution;
-
 @end

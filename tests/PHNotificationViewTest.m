@@ -18,7 +18,6 @@
 }
 @end
 
-
 @implementation PHNotificationViewTest
 
 - (void)testInstance
@@ -28,7 +27,6 @@
     STAssertTrue([notificationView respondsToSelector:@selector(refresh)], @"refresh method not present");
 }
 @end
-
 
 @implementation PHNotificationViewDeallocTest
 - (void)setUp

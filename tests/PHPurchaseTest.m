@@ -22,5 +22,4 @@
     STAssertTrue([[PHPurchase stringForResolution:PHPurchaseResolutionError] isEqualToString:@"error"], @"Expected 'error' got %@",[PHPurchase stringForResolution:PHPurchaseResolutionError]);
     STAssertTrue([[PHPurchase stringForResolution:PHPurchaseResolutionFailure] isEqualToString:@"failure"], @"Expected 'failure' got %@",[PHPurchase stringForResolution:PHPurchaseResolutionFailure]);
 }
-
 @end

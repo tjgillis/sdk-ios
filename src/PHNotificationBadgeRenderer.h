@@ -15,5 +15,4 @@
 //  the default notification style familiar to iOS users (red circle, white
 //  border, white text)
 @interface PHNotificationBadgeRenderer : PHNotificationRenderer
-
 @end

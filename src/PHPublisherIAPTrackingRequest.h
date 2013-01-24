@@ -15,7 +15,7 @@
 //  Request for reporting IAP transaction information to PlayHaven, used for
 //  user segmentation and targeting by total in-app purchase spend.
 //  See PHPurchase.h for more information about purchase resolution types
-@interface PHPublisherIAPTrackingRequest : PHAPIRequest<SKProductsRequestDelegate>{
+@interface PHPublisherIAPTrackingRequest : PHAPIRequest<SKProductsRequestDelegate> {
     NSString *_product;
     NSInteger _quantity;
     PHPurchaseResolutionType _resolution;

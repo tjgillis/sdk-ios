@@ -14,7 +14,6 @@
 @interface PHNetworkUtilTest : SenTestCase
 @end
 
-
 @implementation PHNetworkUtilTest
 
 /*

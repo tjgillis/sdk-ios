@@ -24,7 +24,5 @@
 
 //  Present an SKStoreProductViewController for the iTunes product with id |productId|
 - (BOOL)showProductId:(NSString *)productId;
-
 @end
-
 #endif

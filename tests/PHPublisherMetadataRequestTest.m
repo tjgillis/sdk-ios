@@ -13,7 +13,6 @@
 @interface PHPublisherMetadataRequestTest : SenTestCase
 @end
 
-
 @implementation PHPublisherMetadataRequestTest
 
 - (void)testInstance

@@ -13,7 +13,6 @@
 @interface PHPublisherIAPTrackingRequestTest : SenTestCase
 @end
 
-
 @implementation PHPublisherIAPTrackingRequestTest
 
 - (void)testConstructors
