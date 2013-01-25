@@ -10,17 +10,18 @@
 #import "PHAPIRequest.h"
 @class PHContentView;
 
-//  Request for handling subcontent requests during a PHPublisherContentRequest
-//  session. Subcontent requests require a fully qualified and presigned content
-//  request URL.
+/**
+ * @internal
+ *
+ * @brief Request for handling subcontent requests during a PHPublisherContentRequest
+ * session. Subcontent requests require a fully qualified and presigned content
+ * request URL.
+ **/
 @interface PHPublisherSubContentRequest : PHAPIRequest {
     PHContentView *_source;
-    NSString *_callback;
+    NSString      *_callback;
 }
 
-//  Originating content view instance
-@property (nonatomic, assign) PHContentView *source;
-
-//  Originating callback id
-@property (nonatomic, copy) NSString *callback;
+@property (nonatomic, assign) PHContentView *source;   /**< Originating content view instance */
+@property (nonatomic, copy)   NSString      *callback; /**< Originating callback id */
 @end

@@ -8,9 +8,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-//  Category on UIDevice to find the hw.machine name of the current device
-//  (iPhone4,1 for instance), special cases for handling simulator builds
+/**
+ * @file
+ * @internal
+ * @brief Category on UIDevice to find the <tt>hw.machine</tt> name of the current device
+ * (<tt>iPhone4,1</tt> for instance), special cases for handling simulator builds
+ **/
 //  TODO: Move this out of a category.
-@interface UIDevice(HardwareString)
+@interface UIDevice (HardwareString)
 - (NSString *)hardware;
 @end

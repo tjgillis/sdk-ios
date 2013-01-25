@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "KIFTestScenario.h"
 
-@interface KIFTestScenario(PHAdditions)
+@interface KIFTestScenario (PHAdditions)
 + (id)scenarioToSendOpenRequest;
 + (id)scenarioToSendOpenRequestWithCustomDeviceId;
 + (id)scenarioToSendContentRequest;

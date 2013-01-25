@@ -10,6 +10,6 @@
 @class PHReward;
 
 @interface RewardLog : NSObject
-+(RewardLog *)sharedRewardLog;
++ (RewardLog *)sharedRewardLog;
 @property(nonatomic, retain) PHReward *lastRewardUnlocked;
 @end

@@ -10,7 +10,7 @@
 #import "ExampleViewController.h"
 #import "PlayHavenSDK.h"
 
-@interface PublisherContentViewController : ExampleViewController<PHPublisherContentRequestDelegate> {
+@interface PublisherContentViewController : ExampleViewController <PHPublisherContentRequestDelegate> {
     PHNotificationView *_notificationView;
     UITextField        *_placementField;
 

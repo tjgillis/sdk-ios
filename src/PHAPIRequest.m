@@ -24,7 +24,7 @@ static NSString *sPlayHavenSession;
 static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
 
-@interface PHAPIRequest(Private)
+@interface PHAPIRequest (Private)
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret;
 + (NSMutableSet *)allRequests;
 - (void)finish;

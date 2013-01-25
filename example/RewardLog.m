@@ -10,7 +10,8 @@
 #import "PHReward.h"
 @implementation RewardLog
 
-+(RewardLog *)sharedRewardLog{
++ (RewardLog *)sharedRewardLog
+{
     static dispatch_once_t once;
     static id sharedInstance;
     dispatch_once(&once, ^{
@@ -21,10 +22,10 @@
 
 @synthesize lastRewardUnlocked = _lastRewardUnlocked;
 
-- (void)dealloc{
+- (void)dealloc
+{
     // will never be called, but here for clarity
     [_lastRewardUnlocked release], _lastRewardUnlocked = nil;
     [super dealloc];
 }
-
 @end

@@ -37,7 +37,7 @@
 
 @synthesize productIdentifier = _productIdentifier;
 @synthesize name = _item;
-@synthesize quantity = _quanity;
+@synthesize quantity = _quantity;
 @synthesize receipt = _receipt;
 @synthesize callback = _callback;
 

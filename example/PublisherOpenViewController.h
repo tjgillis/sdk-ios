@@ -11,7 +11,7 @@
 #import "PlayHavenSDK.h"
 #import "PHAPIRequest.h"
 
-@interface PublisherOpenViewController : ExampleViewController<PHAPIRequestDelegate> {
+@interface PublisherOpenViewController : ExampleViewController <PHAPIRequestDelegate> {
 }
 @property (retain, nonatomic) IBOutlet UITextField *customUDIDField;
 

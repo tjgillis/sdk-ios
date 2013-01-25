@@ -11,7 +11,7 @@
 @implementation PHReward
 
 @synthesize name = _reward;
-@synthesize quantity = _quanity;
+@synthesize quantity = _quantity;
 @synthesize receipt = _receipt;
 
 - (void)dealloc

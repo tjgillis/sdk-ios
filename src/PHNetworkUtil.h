@@ -8,24 +8,62 @@
 
 #import <Foundation/Foundation.h>
 
-// Singleton class with network-related utility functions
+/**
+ * @internal
+ *
+ * @brief Singleton class with network-related utility functions
+ **/
 @interface PHNetworkUtil : NSObject
 
-// Singleton accessor
+/**
+ * Singleton accessor
+ *
+ * @return
+ *   The shared instance
+ **/
 + (id)sharedInstance;
 
-//  Attempts to resolve DNS for the host at |urlpath|. Used to force populate the
-//  DNS cache with PlayHaven API servers at app launch.
+/**
+ * Attempts to resolve DNS for the host at \c urlPath. Used to force populate the
+ * DNS cache with PlayHaven API servers at app launch
+ *
+ * @param urlPath
+ *   The urlPath
+ **/
 - (void)checkDNSResolutionForURLPath:(NSString *)urlPath;
 
-//  Returns a retained CFDataRef instance with the current device's wifi MAC
-//  address as a byte array. (Note: caller is responsible for CFReleasing this
-//  instance.)
+/**
+ * Returns a retained CFDataRef instance with the current device's wifi MAC
+ * address as a byte array.
+ *
+ * @return
+ *   The retained CFDataRef instance
+ *
+ * @note
+ * Caller is responsible for CFReleasing this instance
+ **/
 - (CFDataRef)newMACBytes;
 
-//  Returns a string representation of a MAC address byte array |macBytes|
--(NSString *)stringForMACBytes:(CFDataRef)macBytes;
-//  Returns ODIN1 representation (SHA1 hex diges) of a MAC address byte
-//  array |macBytes|
+/**
+ * Returns a string representation of a MAC address byte array \c macBytes
+ *
+ * @param macBytes
+ *   MAC address byte array
+ *
+ * @return
+ *   A string representation of \c macBytes
+ **/
+- (NSString *)stringForMACBytes:(CFDataRef)macBytes;
+
+/**
+ * Returns ODIN1 representation (SHA1 hex digest) of a MAC address byte
+ * array \c macBytes
+ *
+ * @param macBytes
+ *   MAC address byte array
+ *
+ * @return
+ *   An ODIN1 representation of \c macBytes
+ **/
 - (NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes;
 @end

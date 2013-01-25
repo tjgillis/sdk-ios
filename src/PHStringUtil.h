@@ -8,28 +8,63 @@
 
 #import <Foundation/Foundation.h>
 
-//  String utility class
+/**
+ * @internal
+ *
+ * @brief String utility class
+ **/
 @interface PHStringUtil : NSObject
 
-// SEE: implementation for why you should not use this.
+/**
+ * SEE: implementation for why you should not use this.
+ **/
 + (NSString *)stringWithQueryQuirky:(NSDictionary *)params;
 
-// generates a unique uuid
+/**
+ * Generates a unique uuid
+ *
+ * @return
+ *   A unique uuid
+ **/
 + (NSString *)uuid;
 
-// generates a URL query string using a dictionary of parameters
+/**
+ * Generates a URL query string using a dictionary of parameters
+ *
+ * @param params
+ *   The params dictionary
+ *
+ * @return
+ *   A URL query string
+ **/
 + (NSString *)stringWithQuery:(NSDictionary *)params;
+
 + (NSString *)stringByHtmlEscapingString:(NSString *)input;
 + (NSString *)stringByUrlEncodingString:(NSString *)input;
 + (NSString *)stringByUrlDecodingString:(NSString *)input;
 
-// generates a dictionary from a URL query parameter string
+/**
+ * Generates a dictionary from a URL query parameter string
+ *
+ * @param input
+ *   A URL query parameter string
+ *
+ * @return
+ *   A dictionary from a URL query parameter string
+ **/
 + (NSDictionary *)dictionaryWithQueryString:(NSString *)input;
 
-// string digest and encoding functions, mostly for signatures
+/**
+ * @name String digest and encoding functions
+ **/
+/*@{*/
+/**
+ * String digest and encoding functions, mostly for signatures
+ **/
 + (NSData *)dataDigestForString:(NSString *)input;
 + (NSString *)base64EncodedStringForData:(NSData *)data;
 + (NSString *)hexEncodedStringForData:(NSData *)data;
 + (NSString *)hexDigestForString:(NSString *)input;
 + (NSString *)b64DigestForString:(NSString *)input;
+/*@}*/
 @end

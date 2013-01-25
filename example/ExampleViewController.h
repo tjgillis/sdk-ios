@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ExampleViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
+@interface ExampleViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     NSMutableArray *_messages;
     UITableView    *_tableView;
 

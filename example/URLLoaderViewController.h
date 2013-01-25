@@ -9,7 +9,7 @@
 #import "ExampleViewController.h"
 #import "PHURLLoader.h"
 
-@interface URLLoaderViewController : ExampleViewController<PHURLLoaderDelegate>
+@interface URLLoaderViewController : ExampleViewController <PHURLLoaderDelegate>
 @property (retain, readonly) PHURLLoader *loader;
 @property (retain, nonatomic) IBOutlet UITextField *URLField;
 @property (retain, nonatomic) IBOutlet UISwitch    *openURLSwitch;
