@@ -25,7 +25,7 @@
 /**
  * PHContentView notification that a callback is ready for processing
  **/
-// TODO: Can we safetly rename this to put a space between the PH and CONTENTVIEW words?
+// TODO: Can we safely rename this to put a space between the PH and CONTENTVIEW words?
 #define PHCONTENTVIEW_CALLBACK_NOTIFICATION  @"PHContentViewPHCallbackNotification"
 
 
@@ -155,6 +155,14 @@
 #ifndef PH_NOTE
 #define PH_NOTE(COMMENT) NSLog(@"[PlayHaven-%@] %@", PH_SDK_VERSION, COMMENT)
 #endif
+
+#ifdef DEBUG
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define DLog(...)
+#endif
+
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 #define PH_MULTITASKING_SUPPORTED [[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)] && [[UIDevice currentDevice] isMultitaskingSupported]
 

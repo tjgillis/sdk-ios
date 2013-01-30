@@ -18,6 +18,7 @@
 @end
 
 @implementation PHPublisherMetadataRequest
+@synthesize placement = _placement;
 
 + (id)requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate
 {
@@ -28,13 +29,11 @@
 {
     if ((self = [self initWithApp:token secret:secret])) {
         self.placement = placement;
-        self.delegate = delegate;
+        self.delegate  = delegate;
     }
 
     return self;
 }
-
-@synthesize placement = _placement;
 
 - (void)dealloc
 {
@@ -52,8 +51,7 @@
 - (NSDictionary *)additionalParameters
 {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            self.placement, @"placement_id",
-            @"1", @"metadata",
-            nil];
+                                self.placement, @"placement_id",
+                                @"1", @"metadata", nil];
 }
 @end

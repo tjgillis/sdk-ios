@@ -10,11 +10,11 @@
 #import "PlayHavenSDK.h"
 #import "PHPurchase.h"
 
-@interface NSObject(hash)
+@interface NSObject (hash)
 - (NSString *)hashString;
 @end
 
-@implementation NSObject(hash)
+@implementation NSObject (hash)
 - (NSString *)hashString
 {
     return [NSString stringWithFormat:@"%d", [self hash]];
@@ -41,7 +41,7 @@
 }
 @end
 
-@interface IAPHelper(Private)
+@interface IAPHelper (Private)
 - (void)reportPurchase:(PHPurchase *)purchase withResolution:(PHPurchaseResolutionType)resolution receiptData:(NSData *)receiptData;
 - (void)reportPurchase:(PHPurchase *)purchase withError:(NSError *)error receiptData:(NSData *)receiptData;
 @end
@@ -148,7 +148,7 @@
         [self.pendingRequests setValue:purchase forKey:[payment hashString]];
     }
 
-    //either way, clean up the stored alertview
+    //either way, clean up the stored alert view
     [self.pendingPurchases removeObjectForKey:key];
 }
 
@@ -160,13 +160,13 @@
     //Adding IAP reporting and VGP to transactions requires some modifications to the
     //payment queue observer. Send IAP Purchase tracking requests whenever a transaction
     //is purchased (SKTransactionStatePurchased), and send IAP Error tracking requests
-    //whenever a transaction dails (SKTransactionStateFailed)
+    //whenever a transaction fails (SKTransactionStateFailed)
     for (SKPaymentTransaction *transaction in transactions) {
         NSString   *key      = [transaction.payment hashString];
         PHPurchase *purchase = [self.pendingRequests valueForKey:key];
 
         if (purchase == nil) {
-            //In the case that a transcaction is being restored, we need to
+            //In the case that a transaction is being restored, we need to
             //generate a new purchase object so that IAP transactions may
             //be reported accurately.
             purchase = [PHPurchase new];
@@ -179,7 +179,7 @@
 
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
-                //This would normallly be the point where an in app purchase would
+                //This would normally be the point where an in app purchase would
                 //be delivered. Instead we're just doing the necessary reporting
                 //to support IAP tracking and VGP content units.
 

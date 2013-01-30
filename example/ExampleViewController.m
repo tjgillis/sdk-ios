@@ -12,8 +12,8 @@
 
 @implementation ExampleViewController
 @synthesize tableView = _tableView;
-@synthesize token = _token;
-@synthesize secret = _secret;
+@synthesize token     = _token;
+@synthesize secret    = _secret;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,7 +108,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *message = [_messages objectAtIndex:indexPath.row];
+    NSString *message = [_messages objectAtIndex:(NSUInteger)indexPath.row];
     CGSize    size    = [message sizeWithFont:LOG_FONT
                             constrainedToSize:CGSizeMake(tableView.frame.size.width - 24, MAXFLOAT)
                                 lineBreakMode:UILineBreakModeWordWrap];

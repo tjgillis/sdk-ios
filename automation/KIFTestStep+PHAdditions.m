@@ -23,7 +23,7 @@
 
 #import "SBJsonParser.h"
 
-@interface KIFTestStep()
+@interface KIFTestStep ()
 + (UIAccessibilityElement *)_accessibilityElementWithLabel:(NSString *)label accessibilityValue:(NSString *)value tappable:(BOOL)mustBeTappable traits:(UIAccessibilityTraits)traits error:(out NSError **)error;
 + (BOOL)_enterCharacter:(NSString *)characterString;
 @end
@@ -165,12 +165,12 @@
                                   NSEnumerator *scriptEnumerator = [scriptNames objectEnumerator];
                                   NSString     *scriptName;
 
-                                  while (scriptName = [scriptEnumerator nextObject]) {
+                                  while ((scriptName = [scriptEnumerator nextObject])) {
                                       NSString *jsPath             = [[NSBundle mainBundle] pathForResource:scriptName
                                                                                                      ofType:@"js"];
-                                      NSString *injectedJavascript = [[NSString alloc] initWithContentsOfFile:jsPath
-                                                                                                     encoding:NSUTF8StringEncoding
-                                                                                                        error:NULL];
+                                      NSString *injectedJavascript = [[[NSString alloc] initWithContentsOfFile:jsPath
+                                                                                                      encoding:NSUTF8StringEncoding
+                                                                                                         error:NULL] autorelease];
 
                                       [webView stringByEvaluatingJavaScriptFromString:injectedJavascript];
                                   }

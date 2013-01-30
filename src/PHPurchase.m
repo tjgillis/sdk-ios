@@ -10,6 +10,11 @@
 #import "PHConstants.h"
 
 @implementation PHPurchase
+@synthesize productIdentifier = _productIdentifier;
+@synthesize name     = _item;
+@synthesize quantity = _quantity;
+@synthesize receipt  = _receipt;
+@synthesize callback = _callback;
 
 + (NSString *)stringForResolution:(PHPurchaseResolutionType)resolution
 {
@@ -35,12 +40,6 @@
     return result;
 }
 
-@synthesize productIdentifier = _productIdentifier;
-@synthesize name = _item;
-@synthesize quantity = _quantity;
-@synthesize receipt = _receipt;
-@synthesize callback = _callback;
-
 - (void)dealloc
 {
     [_productIdentifier release], _productIdentifier = nil;
@@ -53,12 +52,15 @@
 
 - (void)reportResolution:(PHPurchaseResolutionType)resolution
 {
-    NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [PHPurchase stringForResolution:resolution],@"resolution", nil];
-    NSDictionary *callbackDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        self.callback, @"callback",
-                                        response, @"response", nil];
+    NSDictionary *response =
+         [NSDictionary dictionaryWithObjectsAndKeys:
+                            [PHPurchase stringForResolution:resolution], @"resolution", nil];
+    NSDictionary *callbackDictionary =
+         [NSDictionary dictionaryWithObjectsAndKeys:
+                            self.callback, @"callback",
+                            response,      @"response", nil];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:PHCONTENTVIEW_CALLBACK_NOTIFICATION object:callbackDictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PHCONTENTVIEW_CALLBACK_NOTIFICATION
+                                                        object:callbackDictionary];
 }
 @end

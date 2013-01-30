@@ -44,10 +44,11 @@
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    Boolean   result  = FALSE;
-    CFHostRef hostRef = NULL;
-    NSArray  *addresses;
-    NSString *hostname = [urlPath substringFromIndex:7];
+    Boolean   result    = FALSE;
+    CFHostRef hostRef   = NULL;
+    NSArray  *addresses = NULL;
+    NSString *hostname  = [urlPath substringFromIndex:7];
+
     hostRef = CFHostCreateWithName(kCFAllocatorDefault, (CFStringRef)hostname);
     if (hostRef) {
         result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed

@@ -13,14 +13,14 @@ static NSURL *LastLaunchedURL;
 @implementation PHURLLoader (Automation)
 + (NSURL *)lastLaunchedURL
 {
-    @synchronized(self) {
+    @synchronized (self) {
         return LastLaunchedURL;
     }
 }
 
 + (void)setLastLaunchedURL:(NSURL *)url
 {
-    @synchronized(self) {
+    @synchronized (self) {
         [LastLaunchedURL release], LastLaunchedURL = [url copy];
     }
 }

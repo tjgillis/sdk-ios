@@ -14,7 +14,7 @@ static PHReward *LastReward;
 
 + (PHReward *)lastReward
 {
-    @synchronized([PHReward class]) {
+    @synchronized ([PHReward class]) {
         return LastReward;
     }
 }
@@ -23,7 +23,7 @@ static PHReward *LastReward;
 {
     self = [super init];
     if (self) {
-        @synchronized([PHReward class]) {
+        @synchronized ([PHReward class]) {
             [LastReward release], LastReward = [self retain];
         }
     }

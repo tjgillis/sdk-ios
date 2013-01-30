@@ -83,10 +83,10 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 // so as not to encourage backwards-incompatible service behavior.
 + (NSString *)stringWithQueryQuirky:(NSDictionary *)params
 {
-    NSArray *keys = [params allKeys];
+    NSArray         *keys  = [params allKeys];
     NSMutableString *query = [NSMutableString string];
-    int i, n = [keys count];
 
+    NSUInteger i, n = [keys count];
     for (i = 0; i < n; i++) {
         NSString *key = [keys objectAtIndex:i];
         id item = [params objectForKey:key];
@@ -111,10 +111,10 @@ static int CompareEntityPairs(const void *voidCharacter, const void *voidEntityT
 
 + (NSString *)stringWithQuery:(NSDictionary *)params
 {
-    NSArray *keys = [params allKeys];
+    NSArray         *keys  = [params allKeys];
     NSMutableString *query = [NSMutableString string];
-    int i, n = [keys count];
 
+    NSUInteger i, n = [keys count];
     for (i = 0; i < n; i++) {
         NSString *key = [keys objectAtIndex:i];
         NSString *stringValue = nil;

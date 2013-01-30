@@ -12,7 +12,7 @@
 #import "KIFTestStep+PHAdditions.h"
 
 
-@implementation KIFTestScenario(PHAdditions)
+@implementation KIFTestScenario (PHAdditions)
 + (id)scenarioToSendOpenRequest
 {
     KIFTestScenario *result = [KIFTestScenario scenarioWithDescription:@"Sending an open request..."];

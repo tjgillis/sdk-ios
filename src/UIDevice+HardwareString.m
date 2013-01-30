@@ -10,7 +10,7 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
-@implementation UIDevice(HardwareString)
+@implementation UIDevice (HardwareString)
 - (NSString *)hardware
 {
 #if TARGET_IPHONE_SIMULATOR

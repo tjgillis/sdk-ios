@@ -14,13 +14,13 @@
 static NSMutableDictionary *RendererMap;
 
 @implementation PHNotificationView
+@synthesize notificationData = _notificationData;
 
 + (void)initialize
 {
     if (self == [PHNotificationView class]) {
         RendererMap = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                       [PHNotificationBadgeRenderer class], @"badge",
-                       nil];
+                                                           [PHNotificationBadgeRenderer class], @"badge", nil];
     }
 }
 
@@ -66,8 +66,6 @@ static NSMutableDictionary *RendererMap;
 
     return  self;
 }
-
-@synthesize notificationData = _notificationData;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -123,12 +121,11 @@ static NSMutableDictionary *RendererMap;
 
 - (void)test
 {
-    static NSDictionary *TestingNotificationData;
+    static NSDictionary *TestingNotificationData = nil;
     if (TestingNotificationData == nil) {
         TestingNotificationData = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                   @"badge", @"type",
-                                   @"1",@"value",
-                                   nil];
+                                                                @"badge", @"type",
+                                                                @"1",     @"value", nil];
     }
 
     self.notificationData = TestingNotificationData;

@@ -17,7 +17,7 @@
 
 #define MAX_MARGIN 20
 
-@interface PHContentView(Private)
+@interface PHContentView (Private)
 + (void)clearContentViews;
 + (NSMutableSet *)allContentViews;
 - (void)sizeToFitOrientation:(BOOL)transform;
@@ -25,9 +25,7 @@
 - (void)orientationDidChange;
 - (void)viewDidShow;
 - (void)viewDidDismiss;
-- (void)dismissView;
 - (void)loadTemplate;
-- (void)handleLaunch:(NSDictionary *)queryComponents;
 - (void)handleDismiss:(NSDictionary *)queryComponents;
 - (void)handleLoadContext:(NSDictionary *)queryComponents callback:(NSString*)callback;
 - (UIActivityIndicatorView *)activityView;
@@ -37,24 +35,32 @@
 - (void)resetRedirects;
 - (void)bounceOut;
 - (void)bounceIn;
+//- (void)handleLaunch:(NSDictionary *)queryComponents;
+//- (void)dismissView;
 @end
 
 static NSMutableSet *allContentViews = nil;
 
 @implementation PHContentView
+@synthesize content    = _content;
+@synthesize delegate   = _delegate;
+@synthesize targetView = _targetView;
 
 #pragma mark - Static Methods
 
 + (void)initialize
 {
-    if  (self == [PHContentView class]) {
-        [[NSNotificationCenter defaultCenter] addObserver:[PHContentView class] selector:@selector(clearContentViews) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    if (self == [PHContentView class]) {
+        [[NSNotificationCenter defaultCenter] addObserver:[PHContentView class]
+                                                 selector:@selector(clearContentViews)
+                                                     name:UIApplicationDidReceiveMemoryWarningNotification
+                                                   object:nil];
     }
 }
 
 + (NSMutableSet *)allContentViews
 {
-    @synchronized(allContentViews) {
+    @synchronized (allContentViews) {
         if (allContentViews == nil) {
             allContentViews = [[NSMutableSet alloc] init];
         }
@@ -64,7 +70,7 @@ static NSMutableSet *allContentViews = nil;
 
 + (void)clearContentViews
 {
-    @synchronized(allContentViews) {
+    @synchronized (allContentViews) {
         [allContentViews release], allContentViews = nil;
     }
 }
@@ -73,7 +79,9 @@ static NSMutableSet *allContentViews = nil;
 {
     if ([[notification name] isEqualToString:PHCONTENTVIEW_CALLBACK_NOTIFICATION]) {
         NSDictionary *callBack = (NSDictionary *)[notification object];
-        [self sendCallback:[callBack valueForKey:@"callback"] withResponse:[callBack valueForKey:@"response"] error:[callBack valueForKey:@"error"]];
+        [self sendCallback:[callBack valueForKey:@"callback"]
+              withResponse:[callBack valueForKey:@"response"]
+                     error:[callBack valueForKey:@"error"]];
     }
 }
 
@@ -105,24 +113,27 @@ static NSMutableSet *allContentViews = nil;
 {
     if ((self = [super initWithFrame:[[UIScreen mainScreen] applicationFrame]])) {
         NSInvocation
-        *dismissRedirect = [NSInvocation invocationWithMethodSignature:[[PHContentView class] instanceMethodSignatureForSelector:@selector(handleDismiss:)]],
-        *launchRedirect = [NSInvocation invocationWithMethodSignature:[[PHContentView class] instanceMethodSignatureForSelector:@selector(handleLaunch:callback:)]],
-        *loadContextRedirect = [NSInvocation invocationWithMethodSignature:[[PHContentView class] instanceMethodSignatureForSelector:@selector(handleLoadContext:callback:)]];
+            *dismissRedirect     = [NSInvocation invocationWithMethodSignature:
+                                        [[PHContentView class] instanceMethodSignatureForSelector:@selector(handleDismiss:)]],
+            *launchRedirect      = [NSInvocation invocationWithMethodSignature:
+                                        [[PHContentView class] instanceMethodSignatureForSelector:@selector(handleLaunch:callback:)]],
+            *loadContextRedirect = [NSInvocation invocationWithMethodSignature:
+                                        [[PHContentView class] instanceMethodSignatureForSelector:@selector(handleLoadContext:callback:)]];
 
-        dismissRedirect.target = self;
+        dismissRedirect.target   = self;
         dismissRedirect.selector = @selector(handleDismiss:);
 
-        launchRedirect.target = self;
+        launchRedirect.target   = self;
         launchRedirect.selector = @selector(handleLaunch:callback:);
 
-        loadContextRedirect.target = self;
+        loadContextRedirect.target   = self;
         loadContextRedirect.selector = @selector(handleLoadContext:callback:);
 
         _redirects = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                      dismissRedirect,@"ph://dismiss",
-                      launchRedirect,@"ph://launch",
-                      loadContextRedirect,@"ph://loadContext",
-                      nil];
+                                                          dismissRedirect,     @"ph://dismiss",
+                                                          launchRedirect,      @"ph://launch",
+                                                          loadContextRedirect, @"ph://loadContext", nil];
+
 #ifndef PH_UNIT_TESTING
         _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
         _webView.accessibilityLabel = @"content view";
@@ -145,16 +156,13 @@ static NSMutableSet *allContentViews = nil;
     return self;
 }
 
-@synthesize content = _content;
-@synthesize delegate = _delegate;
-@synthesize targetView = _targetView;
-
 - (void)resetRedirects
 {
 #ifdef PH_USE_CONTENT_VIEW_RECYCLING
     NSEnumerator *keyEnumerator = [[_redirects allKeys] objectEnumerator];
-    NSString *key;
-    while (key = [keyEnumerator nextObject]){
+    NSString     *key;
+
+    while ((key = [keyEnumerator nextObject])) {
         NSInvocation *invocation = [_redirects valueForKey:key];
         if (invocation.target != self) {
             [_redirects removeObjectForKey:key];
@@ -165,8 +173,9 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)prepareForReuse
 {
-    self.content = nil;
+    self.content  = nil;
     self.delegate = nil;
+
     [self resetRedirects];
     [_webView stringByEvaluatingJavaScriptFromString:@"document.open();document.close();"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -188,10 +197,12 @@ static NSMutableSet *allContentViews = nil;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [PHURLLoader invalidateAllLoadersWithDelegate:self];
+
     [_content release], _content = nil;
     [_webView release], _webView = nil;
     [_redirects release], _redirects = nil;
     [_activityView release] , _activityView = nil;
+
     [super dealloc];
 }
 
@@ -207,10 +218,9 @@ static NSMutableSet *allContentViews = nil;
         CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
 
         if (self.content.transition == PHContentTransitionDialog) {
-            CGFloat barHeight = ([[UIApplication sharedApplication] isStatusBarHidden])? 0 : 20;
+            CGFloat barHeight   = ([[UIApplication sharedApplication] isStatusBarHidden]) ? 0 : 20;
             CGRect contentFrame = CGRectOffset([self.content frameForOrientation:orientation], 0, barHeight);
             _webView.frame = contentFrame;
-
         }
 
         [UIView beginAnimations:nil context:nil];
@@ -227,8 +237,7 @@ static NSMutableSet *allContentViews = nil;
     }
 
     CGRect frame = [UIScreen mainScreen].bounds;
-    CGPoint center = CGPointMake(
-                                 frame.origin.x + ceil(frame.size.width/2),
+    CGPoint center = CGPointMake(frame.origin.x + ceil(frame.size.width/2),
                                  frame.origin.y + ceil(frame.size.height/2));
 
     CGFloat scale_factor = 1.0f;
@@ -267,10 +276,10 @@ static NSMutableSet *allContentViews = nil;
 {
     //reset transforms before doing anything
     _webView.transform = CGAffineTransformIdentity;
-    _webView.alpha = 1.0;
+    _webView.alpha     = 1.0;
 
     self.transform = CGAffineTransformIdentity;
-    self.alpha = 1.0;
+    self.alpha     = 1.0;
 
     //actually start showing
     _willAnimate = animated;
@@ -287,7 +296,7 @@ static NSMutableSet *allContentViews = nil;
         return;
     }
 
-    CGFloat barHeight = ([[UIApplication sharedApplication] isStatusBarHidden])? 0 : 20;
+    CGFloat barHeight = ([[UIApplication sharedApplication] isStatusBarHidden]) ? 0 : 20;
 
     if (self.content.transition == PHContentTransitionModal) { // Not really used, but not yet killed; may be in disrepair
         self.backgroundColor = [UIColor clearColor];
@@ -295,14 +304,14 @@ static NSMutableSet *allContentViews = nil;
 
         CGFloat width, height;
         if (UIInterfaceOrientationIsPortrait(_orientation)) {
-            width = self.frame.size.width;
+            width  = self.frame.size.width;
             height = self.frame.size.height;
         } else {
-            width = self.frame.size.height;
+            width  = self.frame.size.height;
             height = self.frame.size.width;
         }
 
-        _webView.frame = CGRectMake(0, barHeight, width, height-barHeight);
+        _webView.frame = CGRectMake(0, barHeight, width, height - barHeight);
 
         [self activityView].center = _webView.center;
 
@@ -347,14 +356,16 @@ static NSMutableSet *allContentViews = nil;
 
     [self addSubview:[self activityView]];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentViewsCallback:) name:PHCONTENTVIEW_CALLBACK_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contentViewsCallback:)
+                                                 name:PHCONTENTVIEW_CALLBACK_NOTIFICATION
+                                               object:nil];
 
     //TRACK_ORIENTATION see STOP_TRACK_ORIENTATION
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(orientationDidChange)
-     name:UIDeviceOrientationDidChangeNotification
-     object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationDidChange)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)dismiss:(BOOL)animated
@@ -365,7 +376,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)dismissFromButton
 {
     NSDictionary *queryComponents = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     self.content.closeButtonURLPath, @"ping", nil];
+                                                          self.content.closeButtonURLPath, @"ping", nil];
     [self handleDismiss:queryComponents];
 }
 
@@ -415,16 +426,14 @@ static NSMutableSet *allContentViews = nil;
         }
     }
 
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self
-     name:PHCONTENTVIEW_CALLBACK_NOTIFICATION
-     object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PHCONTENTVIEW_CALLBACK_NOTIFICATION
+                                                  object:nil];
 
     //STOP_TRACK_ORIENTATION see TRACK_ORIENTATION
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self
-     name:UIDeviceOrientationDidChangeNotification
-     object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
 }
 
 - (void)loadTemplate
@@ -438,7 +447,10 @@ static NSMutableSet *allContentViews = nil;
     NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
     if (response) {
         PH_NOTE(@"Found local copy of template!");
-        [_webView loadData:response.data MIMEType:response.response.MIMEType textEncodingName:response.response.textEncodingName baseURL:response.response.URL];
+        [_webView loadData:response.data
+                  MIMEType:response.response.MIMEType
+          textEncodingName:response.response.textEncodingName
+                   baseURL:response.response.URL];
     } else {
         PH_LOG(@"Loading template from network: %@", self.content.URL);
         [_webView loadRequest:request];
@@ -481,17 +493,18 @@ static NSMutableSet *allContentViews = nil;
     if (redirect) {
 
         NSDictionary *queryComponents = [url queryComponents];
-        NSString *callback = [queryComponents valueForKey:@"callback"];
-        NSString *contextString = [queryComponents valueForKey:@"context"];
+        NSString     *callback        = [queryComponents valueForKey:@"callback"];
+        NSString     *contextString   = [queryComponents valueForKey:@"context"];
 
-        //Logging for automation, this is a no-op when not automating
+        // Logging for automation, this is a no-op when not automating
+        // TODO: This is not the correct way of doing this.  Should fix later
         if ([self respondsToSelector:@selector(_logRedirectForAutomation:callback:)]) {
             [self performSelector:@selector(_logRedirectForAutomation:callback:) withObject:urlPath withObject:callback];
         }
 
         PH_SBJSONPARSER_CLASS *parser = [PH_SBJSONPARSER_CLASS new];
         id parserObject = [parser objectWithString:contextString];
-        NSDictionary *context = ([parserObject isKindOfClass:[NSDictionary class]])?(NSDictionary*) parserObject: nil;
+        NSDictionary *context = ([parserObject isKindOfClass:[NSDictionary class]]) ? (NSDictionary*) parserObject: nil;
 
         [parser release];
 
@@ -542,7 +555,7 @@ static NSMutableSet *allContentViews = nil;
 {
     if (!!target) {
         NSInvocation *redirect = [NSInvocation invocationWithMethodSignature:[[target class] instanceMethodSignatureForSelector:action]];
-        redirect.target = target;
+        redirect.target   = target;
         redirect.selector = action;
 
         [_redirects setValue:redirect forKey:urlPath];
@@ -556,12 +569,12 @@ static NSMutableSet *allContentViews = nil;
     NSString *urlPath = [queryComponents valueForKey:@"url"];
     if (!!urlPath && [urlPath isKindOfClass:[NSString class]]) {
         PHURLLoader *loader = [[PHURLLoader alloc] init];
+
         loader.targetURL = [NSURL URLWithString:urlPath];
-        loader.delegate = self;
-        loader.context = [NSDictionary dictionaryWithObjectsAndKeys:
-                          callback,@"callback",
-                          queryComponents,@"queryComponents",
-                          nil];
+        loader.delegate  = self;
+        loader.context   = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 callback,        @"callback",
+                                                 queryComponents, @"queryComponents", nil];
 #if PH_USE_STOREKIT!=0
         BOOL shouldUseInternal = [[queryComponents valueForKey:@"in_app_store_enabled"] boolValue] && ([SKStoreProductViewController class] != nil);
         loader.opensFinalURLOnDevice = !shouldUseInternal;
@@ -577,8 +590,10 @@ static NSMutableSet *allContentViews = nil;
     NSString *pingPath = [queryComponents valueForKey:@"ping"];
     if (!!pingPath && [pingPath isKindOfClass:[NSString class]]) {
         PHURLLoader *loader = [[PHURLLoader alloc] init];
+
         loader.opensFinalURLOnDevice = NO;
-        loader.targetURL = [NSURL URLWithString:pingPath];
+        loader.targetURL             = [NSURL URLWithString:pingPath];
+
         [loader open];
         [loader release];
     }
@@ -609,15 +624,17 @@ static NSMutableSet *allContentViews = nil;
     if (!!response) {
         _response = [jsonWriter stringWithObject:response];
     }
+
     if (!!error) {
         _error = [jsonWriter stringWithObject:error];
     }
+
     [jsonWriter release];
 
     NSString *callbackCommand = [NSString stringWithFormat:@"var PlayHavenAPICallback = (window[\"PlayHavenAPICallback\"])? PlayHavenAPICallback : function(c,r,e){try{PlayHaven.nativeAPI.callback(c,r,e);return \"OK\";}catch(err){ return JSON.stringify(err);}}; PlayHavenAPICallback(\"%@\",%@,%@)", _callback, _response, _error];
     NSString *callbackResponse = [_webView stringByEvaluatingJavaScriptFromString:callbackCommand];
 
-    //log callback for automation, this is no-op outside of automation
+    // Log callback for automation, this is no-op outside of automation
     if ([self respondsToSelector:@selector(_logCallbackForAutomation:)]) {
         [self performSelector:@selector(_logCallbackForAutomation:) withObject:callback];
     }
@@ -634,12 +651,11 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark PHURLLoaderDelegate
 - (void)loaderFinished:(PHURLLoader *)loader
 {
-    NSDictionary *contextData = (NSDictionary *)loader.context;
-    NSString *callback = [contextData valueForKey:@"callback"];
+    NSDictionary *contextData  = (NSDictionary *)loader.context;
+    NSString     *callback     = [contextData valueForKey:@"callback"];
 
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  [loader.targetURL absoluteString], @"url",
-                                  nil];
+                                                       [loader.targetURL absoluteString], @"url", nil];
 
 #if PH_USE_STOREKIT!=0
     NSDictionary *queryComponents = [contextData valueForKey:@"queryComponents"];
@@ -656,11 +672,11 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)loaderFailed:(PHURLLoader *)loader
 {
-    NSDictionary *contextData = (NSDictionary *)loader.context;
+    NSDictionary *contextData  = (NSDictionary *)loader.context;
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  [loader.targetURL absoluteString], @"url",
-                                  nil];
-    NSDictionary *errorDict = [NSDictionary dictionaryWithObject:@"1" forKey:@"error"];
+                                                       [loader.targetURL absoluteString], @"url", nil];
+    NSDictionary *errorDict    = [NSDictionary dictionaryWithObject:@"1" forKey:@"error"];
+
     [self sendCallback:[contextData valueForKey:@"callback"]
           withResponse:responseDict
                  error:errorDict];
@@ -668,10 +684,10 @@ static NSMutableSet *allContentViews = nil;
 
 #pragma mark - PH_DIALOG animation methods
 #define ALPHA_OUT 0.0f
-#define ALPHA_IN 1.0f
+#define ALPHA_IN  1.0f
 
-#define BOUNCE_OUT CGAffineTransformMakeScale(0.8,0.8)
-#define BOUNCE_MID CGAffineTransformMakeScale(1.1,1.1)
+#define BOUNCE_OUT CGAffineTransformMakeScale(0.8, 0.8)
+#define BOUNCE_MID CGAffineTransformMakeScale(1.1, 1.1)
 #define BOUNCE_IN  CGAffineTransformIdentity
 
 #define DURATION_1 0.125
@@ -680,7 +696,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)bounceIn
 {
     _webView.transform = BOUNCE_OUT;
-    _webView.alpha = ALPHA_OUT;
+    _webView.alpha     = ALPHA_OUT;
 
     [UIView beginAnimations:@"bounce" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -689,7 +705,7 @@ static NSMutableSet *allContentViews = nil;
     [UIView setAnimationDidStopSelector:@selector(continueBounceIn)];
 
     _webView.transform = BOUNCE_MID;
-    _webView.alpha = ALPHA_IN;
+    _webView.alpha     = ALPHA_IN;
 
     [UIView commitAnimations];
 }
@@ -697,7 +713,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)continueBounceIn
 {
     _webView.transform = BOUNCE_MID;
-    _webView.alpha = ALPHA_IN;
+    _webView.alpha     = ALPHA_IN;
 
     [UIView beginAnimations:@"bounce2" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -713,7 +729,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)finishBounceIn
 {
     _webView.transform = BOUNCE_IN;
-    _webView.alpha = ALPHA_IN;
+    _webView.alpha     = ALPHA_IN;
 
     [self viewDidShow];
 }
@@ -721,7 +737,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)bounceOut
 {
     _webView.transform = BOUNCE_IN;
-    _webView.alpha = ALPHA_IN;
+    _webView.alpha     = ALPHA_IN;
 
     [UIView beginAnimations:@"bounce" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -737,7 +753,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)continueBounceOut
 {
     _webView.transform = BOUNCE_MID;
-    _webView.alpha = ALPHA_IN;
+    _webView.alpha     = ALPHA_IN;
 
     [UIView beginAnimations:@"bounce2" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -746,7 +762,7 @@ static NSMutableSet *allContentViews = nil;
     [UIView setAnimationDidStopSelector:@selector(finishBounceOut)];
 
     _webView.transform = BOUNCE_OUT;
-    _webView.alpha = ALPHA_OUT;
+    _webView.alpha     = ALPHA_OUT;
 
     [UIView commitAnimations];
 }
@@ -754,7 +770,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)finishBounceOut
 {
     _webView.transform = BOUNCE_OUT;
-    _webView.alpha = ALPHA_OUT;
+    _webView.alpha     = ALPHA_OUT;
 
     [self viewDidDismiss];
 }

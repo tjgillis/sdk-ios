@@ -38,8 +38,14 @@ static PHTimeInGame * shared = nil;
 {
     sessionStartTime = CFAbsoluteTimeGetCurrent();
 
-    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance] selector:@selector(gameSessionStopped) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance]
+                                             selector:@selector(gameSessionStopped)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[PHTimeInGame getInstance]
+                                             selector:@selector(gameSessionStopped)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
 
     int currentSessionCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"PHSessionCount"] + 1;
     [[NSUserDefaults standardUserDefaults] setInteger:currentSessionCount forKey:@"PHSessionCount"];
@@ -56,13 +62,18 @@ static PHTimeInGame * shared = nil;
     UIBackgroundTaskIdentifier synchronizeIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         //no-op
     }];
+
     [[NSUserDefaults standardUserDefaults] setDouble:[self getSumSessionDuration] forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[UIApplication sharedApplication] endBackgroundTask:synchronizeIdentifier];
 
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillTerminateNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:nil];
     sessionStartTime = 0;
 }
 

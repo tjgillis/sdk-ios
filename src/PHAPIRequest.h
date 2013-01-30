@@ -29,12 +29,13 @@
     NSString        *_token, *_secret;
     NSURLConnection *_connection;
     NSDictionary    *_signedParameters;
-    id<NSObject>     _delegate;
     NSMutableData   *_connectionData;
     NSString        *_urlPath;
     NSDictionary    *_additionalParameters;
     NSURLResponse   *_response;
     int              _hashCode;
+
+    id<PHAPIRequestDelegate> _delegate;
 }
 
 /**
@@ -154,12 +155,13 @@
                                                         this with a hard-coded value */
 @property (nonatomic, readonly) NSURL    *URL;     /**< Lazily-initialized NSURL instance that contains a full request
                                                         URL with signed parameters */
-@property (nonatomic, assign)   id<NSObject>  delegate;             /**< Request delegate, see PHAPIRequestDelegate */ // TODO: Why is this delegate of type <NSObject> and not, say, <PHAPIRequestDelegate>
 @property (nonatomic, retain)   NSDictionary *additionalParameters; /**< Subclasses can either override this implementation
                                                                          to add custom parameters to requests */
 @property (nonatomic, readonly) NSDictionary *signedParameters;     /**< Lazily-initialized dictionary of base request
                                                                          parameters as well as necessary request signatures */
 @property (nonatomic, assign)   int hashCode;      /**< Unique hash code identifying this request. Used by the Unity3d plugin */
+
+@property (nonatomic, assign)   id<PHAPIRequestDelegate>  delegate; /**< Request delegate, see PHAPIRequestDelegate */
 
 /**
  * URL-encoded parameter string using keys and values in self.signedParameters
@@ -183,6 +185,14 @@
  * @brief Delegate protocol for getting information about API requests
  **/
 @protocol PHAPIRequestDelegate <NSObject>
+@optional
+/**
+ * The \c request finished loading
+ *
+ * @param request
+ *   The request
+ **/
+- (void)requestDidFinishLoading:(PHAPIRequest *)request;
 
 /**
  * The \c request completed successfully, has a valid response signature and returned \c responseData
@@ -192,7 +202,6 @@
  *
  * @param responseData
  *   response data
- *
  **/
 - (void)request:(PHAPIRequest *)request didSucceedWithResponse:(NSDictionary *)responseData;
 

@@ -106,7 +106,7 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
  * @brief Delegate protocol. Content request delegates will get notified at various
  * points in the content unit session.
  **/
-@protocol PHPublisherContentRequestDelegate <NSObject>
+@protocol PHPublisherContentRequestDelegate <PHAPIRequestDelegate>
 @optional
 
 /**

@@ -37,6 +37,12 @@ static NSString *sPlayHavenPluginIdentifier;
 @end
 
 @implementation PHAPIRequest
+@synthesize token    = _token;
+@synthesize secret   = _secret;
+@synthesize delegate = _delegate;
+@synthesize urlPath  = _urlPath;
+@synthesize hashCode = _hashCode;
+@synthesize additionalParameters = _additionalParameters;
 
 + (void)initialize
 {
@@ -67,7 +73,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
     NSMutableSet *canceledRequests = [NSMutableSet set];
 
-    while (request = [allRequests nextObject]) {
+    while ((request = [allRequests nextObject])) {
         if ([[request delegate] isEqual:delegate]) {
             [canceledRequests addObject:request];
         }
@@ -110,14 +116,14 @@ static NSString *sPlayHavenPluginIdentifier;
 
     CCHmacFinal(&context, &cHMAC);
 
-    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
-                                          length:sizeof(cHMAC)];
+    NSData *HMAC = [[[NSData alloc] initWithBytes:cHMAC
+                                           length:sizeof(cHMAC)] autorelease];
 
     NSString *localSignature = [PHStringUtil base64EncodedStringForData:HMAC];
 
     //figure out if we need to pad to multiple of 4 length
-    NSInteger length = [localSignature length];
-    NSInteger modulo = [localSignature length] % 4;
+    NSUInteger length = [localSignature length];
+    NSUInteger modulo = [localSignature length] % 4;
     if (modulo != 0) {
         length = length + (4 - modulo);
     }
@@ -184,7 +190,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 + (id)requestWithHashCode:(int)hashCode
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashCode == %d",hashCode];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashCode == %d", hashCode];
     NSSet       *resultSet = [[self allRequests] filteredSetUsingPredicate:predicate];
 
     return [resultSet anyObject];
@@ -210,12 +216,6 @@ static NSString *sPlayHavenPluginIdentifier;
 
     return  self;
 }
-
-@synthesize token = _token, secret = _secret;
-@synthesize delegate = _delegate;
-@synthesize urlPath = _urlPath;
-@synthesize additionalParameters = _additionalParameters;
-@synthesize hashCode = _hashCode;
 
 - (NSURL *)URL
 {
@@ -297,23 +297,22 @@ static NSString *sPlayHavenPluginIdentifier;
 
         NSDictionary *signatureParams =
              [NSDictionary dictionaryWithObjectsAndKeys:
-                                 self.token, @"token",
-                                 signature,  @"signature",
-                                 nonce,      @"nonce",
-                                 appId,      @"app",
-                                 hardware,   @"hardware",
-                                 os,    @"os",
-                                 idiom, @"idiom",
-                                 appVersion, @"app_version",
-                                 connection, @"connection",
+                                 self.token,     @"token",
+                                 signature,      @"signature",
+                                 nonce,          @"nonce",
+                                 appId,          @"app",
+                                 hardware,       @"hardware",
+                                 os,             @"os",
+                                 idiom,          @"idiom",
+                                 appVersion,     @"app_version",
+                                 connection,     @"connection",
                                  PH_SDK_VERSION, @"sdk-ios",
-                                 languages,  @"languages",
-                                 session, @"session",
-                                 gid,     @"gid",
-                                 width,   @"width",
-                                 height,  @"height",
-                                 scale,   @"scale",
-                                 nil];
+                                 languages,      @"languages",
+                                 session,        @"session",
+                                 gid,            @"gid",
+                                 width,          @"width",
+                                 height,         @"height",
+                                 scale,          @"scale", nil];
 
         [combinedParams addEntriesFromDictionary:signatureParams];
         _signedParameters = combinedParams;
@@ -337,6 +336,8 @@ static NSString *sPlayHavenPluginIdentifier;
     [_connectionData release], _connectionData = nil;
     [_urlPath release], _urlPath = nil;
     [_additionalParameters release], _additionalParameters = nil;
+    [_response release], _response = nil; // TODO: Lilli, make sure by adding this, nothing breaks
+
     [super dealloc];
 }
 
@@ -389,7 +390,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
     /* We want to get response objects for everything */
     [_connectionData release], _connectionData = [[NSMutableData alloc] init];
-    [_response release], _response = [response retain];
+    [_response release], _response = [response retain]; // TODO: Why are we holding on to the response object between connections?
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -404,7 +405,7 @@ static NSString *sPlayHavenPluginIdentifier;
         [self.delegate performSelector:@selector(requestDidFinishLoading:) withObject:self withObject:nil];
     }
 
-    NSString *responseString = [[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding];
+    NSString *responseString = [[[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding] autorelease];
 
     if ([_response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)_response;
@@ -421,11 +422,8 @@ static NSString *sPlayHavenPluginIdentifier;
         }
     }
 
-    PH_SBJSONPARSER_CLASS *parser           = [[PH_SBJSONPARSER_CLASS alloc] init];
+    PH_SBJSONPARSER_CLASS *parser           = [[[PH_SBJSONPARSER_CLASS alloc] init] autorelease];
     NSDictionary          *resultDictionary = [parser objectWithString:responseString];
-
-    [parser release];
-    [responseString release];
 
     [self processRequestResponse:resultDictionary];
 }
@@ -455,6 +453,7 @@ static NSString *sPlayHavenPluginIdentifier;
         if ([responseValue isEqual:[NSNull null]]) {
             responseValue = nil;
         }
+
         [self didSucceedWithResponse:responseValue];
     }
 }
@@ -473,6 +472,7 @@ static NSString *sPlayHavenPluginIdentifier;
     if ([self.delegate respondsToSelector:@selector(request:didFailWithError:)]) {
         [self.delegate performSelector:@selector(request:didFailWithError:) withObject:self withObject:error];
     }
+
     [self finish];
 }
 @end

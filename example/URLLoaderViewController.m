@@ -9,11 +9,13 @@
 #import "URLLoaderViewController.h"
 
 @interface URLLoaderViewController ()
-
+{
+    PHURLLoader *_loader;
+}
 @end
 
 @implementation URLLoaderViewController
-@synthesize loader = _loader;
+@dynamic    loader;
 @synthesize URLField;
 @synthesize openURLSwitch;
 

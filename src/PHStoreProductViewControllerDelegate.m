@@ -15,7 +15,7 @@
 static PHStoreProductViewControllerDelegate *_delegate = nil;
 
 @interface PHStoreProductViewControllerDelegate()
--(UIViewController *)visibleViewController;
+- (UIViewController *)visibleViewController;
 @end
 
 @implementation PHStoreProductViewControllerDelegate
@@ -25,13 +25,17 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
     dispatch_once(&onceToken, ^{
         if (_delegate == nil) {
             _delegate = [PHStoreProductViewControllerDelegate new];
-            [[NSNotificationCenter defaultCenter] addObserver:_delegate selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:_delegate
+                                                     selector:@selector(appDidEnterBackground)
+                                                         name:UIApplicationDidEnterBackgroundNotification
+                                                       object:nil];
         }
     });
 
     return _delegate;
 }
 
+// TODO: This class isn't following retain/release principles correctly and is missing dealloc. Investigate further
 - (UIViewController *)visibleViewController
 {
     if (_visibleViewController == nil) {

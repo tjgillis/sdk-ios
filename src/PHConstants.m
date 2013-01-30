@@ -56,7 +56,7 @@ void PHClearGID()
 
 NSError *PHCreateError(PHErrorType errorType)
 {
-    static NSArray *errorArray;
+    static NSArray *errorArray = nil;
     if (errorArray == nil) {
         errorArray = [[NSArray alloc] initWithObjects:
                           @"PlayHaven received an error response from the API. Please check your token and secret values and try again.",
@@ -147,7 +147,7 @@ int PHNetworkStatus()
 
 NSString *PHAgnosticStringValue(id object)
 {
-    return (!!object)?[NSString stringWithFormat:@"%@",object]:nil;
+    return (!!object) ? [NSString stringWithFormat:@"%@",object] : nil;
 }
 
 //
@@ -155,9 +155,9 @@ NSString *PHAgnosticStringValue(id object)
 //
 UIImage *convertByteDataToUIImage(playHavenImage *phImage)
 {
-    UInt32  width  = phImage->width;
-    UInt32  height = phImage->height;
-    UInt32  length = phImage->length;
+    UInt32  width  = (UInt32)phImage->width;
+    UInt32  height = (UInt32)phImage->height;
+    UInt32  length = (UInt32)phImage->length;
     NSData *data   = [NSData dataWithBytes:phImage->data length:length];
 
     CGDataProviderRef provider   = CGDataProviderCreateWithCFData((CFDataRef)data);

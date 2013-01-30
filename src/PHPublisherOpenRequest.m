@@ -22,20 +22,19 @@
 @end
 
 @implementation PHPublisherOpenRequest
+@synthesize customUDID = _customUDID;
 
 + (void)initialize
 {
     if (self == [PHPublisherOpenRequest class]) {
         // Initializes pre-fetching and webview caching
         PH_SDURLCACHE_CLASS *urlCache = [[PH_SDURLCACHE_CLASS alloc] initWithMemoryCapacity:PH_MAX_SIZE_MEMORY_CACHE
-                                                                 diskCapacity:PH_MAX_SIZE_FILESYSTEM_CACHE
-                                                                     diskPath:[PH_SDURLCACHE_CLASS defaultCachePath]];
+                                                                               diskCapacity:PH_MAX_SIZE_FILESYSTEM_CACHE
+                                                                                   diskPath:[PH_SDURLCACHE_CLASS defaultCachePath]];
         [NSURLCache setSharedURLCache:urlCache];
         [urlCache release];
     }
 }
-
-@synthesize customUDID = _customUDID;
 
 - (NSDictionary *)additionalParameters
 {
@@ -60,8 +59,10 @@
     }
 #endif
 
-    [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]] forKey:@"scount"];
-    [additionalParameters setValue:[NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])] forKey:@"ssum"];
+    [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]]
+                            forKey:@"scount"];
+    [additionalParameters setValue:[NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getSumSessionDuration])]
+                            forKey:@"ssum"];
 
     return  additionalParameters;
 }

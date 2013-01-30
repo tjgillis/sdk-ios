@@ -9,18 +9,17 @@
 #import "PHURLLoader.h"
 #import "PHConstants.h"
 
-@interface PHURLLoader(Private)
+@interface PHURLLoader (Private)
 + (NSMutableSet *)allLoaders;
 - (void)finish;
 - (void)fail;
 @end
 
 @implementation PHURLLoader
-
-@synthesize delegate = _delegate;
+@synthesize delegate  = _delegate;
 @synthesize targetURL = _targetURL;
 @synthesize opensFinalURLOnDevice = _opensFinalURLOnDevice;
-@synthesize context = _context;
+@synthesize context   = _context;
 
 #pragma mark -
 #pragma mark Static
@@ -52,7 +51,7 @@
 
     NSMutableSet *invalidatedLoaders = [NSMutableSet set];
 
-    while (loader = [allLoaders nextObject]) {
+    while ((loader = [allLoaders nextObject])) {
         if ([[loader delegate] isEqual:delegate]) {
             [invalidatedLoaders addObject:loader];
         }

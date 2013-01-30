@@ -9,6 +9,11 @@
 #import "PHContent.h"
 
 @implementation PHContent
+@synthesize URL        = _URL;
+@synthesize transition = _transition;
+@synthesize context    = _context;
+@synthesize closeButtonDelay   = _closeButtonDelay;
+@synthesize closeButtonURLPath = _closeButtonURLPath;
 
 + (id)contentWithDictionary:(NSDictionary *)dictionaryRepresentation
 {
@@ -22,13 +27,11 @@
 
         id frameValue = [dictionaryRepresentation valueForKey:@"frame"];
         if ([frameValue isKindOfClass:[NSString class]]) {
-            [result setFramesWithDictionary:
-             [NSDictionary dictionaryWithObjectsAndKeys:
-              frameValue, frameValue, nil]];
+            [result setFramesWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:frameValue, frameValue, nil]];
         } else if ([frameValue isKindOfClass:[NSDictionary class]]) {
             [result setFramesWithDictionary:frameValue];
         } else {
-            //we seem to have some invalid value here, yuck
+            // We seem to have some invalid value here, yuck
             return nil;
         }
 
@@ -69,8 +72,6 @@
     return  self;
 }
 
-@synthesize URL = _URL, transition = _transition, context = _context, closeButtonDelay = _closeButtonDelay, closeButtonURLPath = _closeButtonURLPath;
-
 - (void)dealloc
 {
     [_URL release], _URL = nil;
@@ -82,7 +83,7 @@
 
 - (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation
 {
-    NSString *orientationKey = (UIInterfaceOrientationIsLandscape(orientation))? @"PH_LANDSCAPE" : @"PH_PORTRAIT";
+    NSString *orientationKey = (UIInterfaceOrientationIsLandscape(orientation)) ? @"PH_LANDSCAPE" : @"PH_PORTRAIT";
     NSDictionary *frameValue = [_frameDict valueForKey:orientationKey];
 
     if (!![_frameDict valueForKey:@"PH_FULLSCREEN"]) {

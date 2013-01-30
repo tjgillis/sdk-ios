@@ -23,6 +23,10 @@
 @end
 
 @implementation RootViewController
+@synthesize tokenField;
+@synthesize secretField;
+@synthesize optOutStatusSlider;
+@synthesize serviceURLField;
 
 + (void)initialize
 {
@@ -44,11 +48,6 @@
 
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
-@synthesize tokenField;
-@synthesize secretField;
-@synthesize optOutStatusSlider;
-@synthesize serviceURLField;
 
 - (void)dealloc
 {

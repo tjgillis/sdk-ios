@@ -9,10 +9,9 @@
 #import "PHReward.h"
 
 @implementation PHReward
-
-@synthesize name = _reward;
+@synthesize name     = _reward;
 @synthesize quantity = _quantity;
-@synthesize receipt = _receipt;
+@synthesize receipt  = _receipt;
 
 - (void)dealloc
 {

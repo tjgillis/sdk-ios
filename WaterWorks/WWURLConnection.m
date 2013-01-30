@@ -19,7 +19,7 @@ NSString *readLineAsNSString(FILE *file)
     NSMutableString *result = [NSMutableString stringWithCapacity:256];
 
     // Read up to 4095 non-newline characters
-    int charsRead;
+    int charsRead; // TODO: How can this method possibly work?  charsRead is never initialized, and doesn't appear to be getting changed anywhere. Does it go on forever?
     do
     {
         if (fgets(buffer, 4095, file) != NULL) {
@@ -45,14 +45,13 @@ NSString *readLineAsNSString(FILE *file)
 @end
 
 @implementation WWURLMemoryResponse
-
 @synthesize data = _data;
+
 - (void)dealloc
 {
     [_data release], _data = nil;
     [super dealloc];
 }
-
 @end
 
 @interface WWURLFileResponse : NSObject<WWURLResponse>
@@ -60,7 +59,6 @@ NSString *readLineAsNSString(FILE *file)
 @end
 
 @implementation WWURLFileResponse
-
 @synthesize filePath = _filePath;
 
 - (NSData *)data
@@ -84,6 +82,8 @@ NSString *readLineAsNSString(FILE *file)
 @end
 
 @implementation WWURLConnection
+@synthesize delegate = _delegate;
+@synthesize request  = _request;
 
 #pragma mark -
 #pragma mark NSURLConnection substitution
@@ -100,7 +100,7 @@ NSString *readLineAsNSString(FILE *file)
 #pragma mark Content redirection
 + (NSMutableDictionary *)allResponses
 {
-    static NSMutableDictionary *allResponses;
+    static NSMutableDictionary *allResponses = nil;
     if (allResponses == nil) {
         allResponses = [[NSMutableDictionary alloc] init];
     }
@@ -167,7 +167,7 @@ NSString *readLineAsNSString(FILE *file)
     //Iterate over the dictionary of responses to find a better matching level
     NSEnumerator *keyEnumerator = [[WWURLConnection allResponses] keyEnumerator];
     NSURL *matchURL;
-    while (matchURL = [keyEnumerator nextObject]) {
+    while ((matchURL = [keyEnumerator nextObject])) {
         NSInteger nextMatchingLevel = [WWURLMatching matchingLevelForURL:url withURL:matchURL];
         if (nextMatchingLevel > bestMatchingLevel) {
             bestResponse = [WWURLConnection getResponseForURL:matchURL],
@@ -183,16 +183,13 @@ NSString *readLineAsNSString(FILE *file)
     [[self allResponses] removeAllObjects];
 }
 
-@synthesize delegate = _delegate;
-@synthesize request = _request;
-
 - (void)dealloc
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(startInBackground) object:nil];
     _delegate = nil;
     [_request release], _request = nil;
 
-    //[super dealloc];
+    //[super dealloc]; // TODO: Why is super commented out?
 }
 
 - (void)start
@@ -209,7 +206,7 @@ NSString *readLineAsNSString(FILE *file)
 {
     NSData *responseData = [WWURLConnection bestResponseForURL:self.request.URL];
     if ([self.delegate respondsToSelector:@selector(connection:didReceiveResponse:)]) {
-        NSInteger statusCode = (!!responseData)? 200: 404;
+        NSInteger statusCode = (!!responseData) ? 200: 404;
 
         NSHTTPURLResponse *response = nil;
         if ([[NSHTTPURLResponse class] instancesRespondToSelector:@selector(initWithURL:statusCode:HTTPVersion:headerFields:)]) {

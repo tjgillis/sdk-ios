@@ -14,7 +14,7 @@
 @end
 
 @implementation IAPViewController
-@synthesize productField = _productField;
+@synthesize productField  = _productField;
 @synthesize quantityField = _quantityField;
 
 - (void)dealloc

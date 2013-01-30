@@ -11,7 +11,7 @@
 
 @implementation PublisherContentViewController
 @synthesize placementField = _placementField;
-@synthesize request = _request;
+@synthesize request        = _request;
 @synthesize showsOverlaySwitch;
 @synthesize animateSwitch;
 
@@ -22,6 +22,9 @@
     [_notificationView release], _notificationView = nil;
     [_placementField release], _placementField = nil;
     [_request release], _request = nil;
+    [showsOverlaySwitch release];
+    [animateSwitch release];
+
     [super dealloc];
 }
 

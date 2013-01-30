@@ -14,19 +14,24 @@
 #import "PHStringUtil.h"
 #import "PHPublisherIAPTrackingRequest.h"
 
-@interface PHPublisherIAPTrackingRequest(Private)
+@interface PHPublisherIAPTrackingRequest (Private)
 + (NSMutableDictionary *)allConversionCookies;
 - (void)requestProductInformation;
-- (void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale receiptData:(NSData *)receiptData;
-- (void)sendWithError:(NSError *)error receiptData:(NSData *)receiptData;
+//- (void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale receiptData:(NSData *)receiptData;
+//- (void)sendWithError:(NSError *)error receiptData:(NSData *)receiptData;
 - (void)sendWithFailure;
 @end
 
 @implementation PHPublisherIAPTrackingRequest
+@synthesize product     = _product;
+@synthesize quantity    = _quantity;
+@synthesize resolution  = _resolution;
+@synthesize error       = _error;
+@synthesize receiptData = _receiptData;
 
 + (NSMutableDictionary *)allConversionCookies
 {
-    static NSMutableDictionary *conversionCookies;
+    static NSMutableDictionary *conversionCookies = nil;
     if (conversionCookies == nil) {
         conversionCookies = [[NSMutableDictionary alloc] init];
     }
@@ -69,19 +74,13 @@
 + (id)requestForApp:(NSString *)token secret:(NSString *)secret product:(NSString *)product quantity:(NSInteger)quantity error:(NSError *)error receiptData:(NSData *)receiptData
 {
     PHPublisherIAPTrackingRequest *result = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
-    result.error = error;
-    result.product = product;
-    result.quantity = quantity;
-    result.resolution = (error.code == SKErrorPaymentCancelled)? PHPurchaseResolutionCancel : PHPurchaseResolutionError;
+    result.error       = error;
+    result.product     = product;
+    result.quantity    = quantity;
+    result.resolution  = (error.code == SKErrorPaymentCancelled) ? PHPurchaseResolutionCancel : PHPurchaseResolutionError;
     result.receiptData = receiptData;
     return result;
 }
-
-@synthesize product = _product;
-@synthesize quantity = _quantity;
-@synthesize resolution = _resolution;
-@synthesize error = _error;
-@synthesize receiptData = _receiptData;
 
 - (void)dealloc
 {
@@ -89,6 +88,7 @@
     [_request release], _request = nil;
     [_error release], _error = nil;
     [_receiptData release], _receiptData = nil;
+
     [super dealloc];
 }
 
@@ -102,16 +102,17 @@
 
 - (void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale
 {
-   NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 self.product, @"product",
-                                 [NSNumber numberWithInteger: self.quantity], @"quantity",
-                                 [PHPurchase stringForResolution:self.resolution], @"resolution",
-                                 @"ios", @"store",
-                                 price, @"price",
-                                 [priceLocale objectForKey:NSLocaleCurrencyCode], @"price_locale",
-                                 [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+   NSMutableDictionary *parameters =
+            [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      self.product, @"product",
+                                      [NSNumber numberWithInteger: self.quantity],      @"quantity",
+                                      [PHPurchase stringForResolution:self.resolution], @"resolution",
+                                      @"ios",       @"store",
+                                      price,        @"price",
+                                      [priceLocale objectForKey:NSLocaleCurrencyCode],  @"price_locale",
+                                      [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
 
-    //add optional dictionary parameters
+    // Add optional dictionary parameters
     if (self.receiptData) {
         NSString *base64ReceiptString = [PHStringUtil base64EncodedStringForData:self.receiptData];
         [parameters setValue:base64ReceiptString forKey:@"receipt"];
@@ -124,15 +125,16 @@
 
 - (void)sendWithError:(NSError *)error
 {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 self.product, @"product",
-                                 [NSNumber numberWithInteger: self.quantity], @"quantity",
-                                 [PHPurchase stringForResolution:PHPurchaseResolutionError], @"resolution",
-                                 @"ios", @"store",
-                                 [NSNumber numberWithInteger:error.code], @"error_code",
-                                 [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+    NSMutableDictionary *parameters =
+            [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     self.product, @"product",
+                                     [NSNumber numberWithInteger: self.quantity], @"quantity",
+                                     [PHPurchase stringForResolution:PHPurchaseResolutionError], @"resolution",
+                                     @"ios", @"store",
+                                     [NSNumber numberWithInteger:error.code], @"error_code",
+                                     [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
 
-    //add optional dictionary parameters
+    // Add optional dictionary parameters
     if (self.receiptData) {
         NSString *base64ReceiptString = [PHStringUtil base64EncodedStringForData:self.receiptData];
         [parameters setValue:base64ReceiptString forKey:@"receipt"];
@@ -145,12 +147,13 @@
 
 - (void)sendWithFailure
 {
-    self.additionalParameters = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 self.product, @"product",
-                                 [NSNumber numberWithInteger: self.quantity], @"quantity",
-                                 [PHPurchase stringForResolution:PHPurchaseResolutionFailure], @"resolution",
-                                 @"ios", @"store",
-                                 [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
+    self.additionalParameters =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+                                     self.product, @"product",
+                                     [NSNumber numberWithInteger: self.quantity], @"quantity",
+                                     [PHPurchase stringForResolution:PHPurchaseResolutionFailure], @"resolution",
+                                     @"ios", @"store",
+                                     [PHPublisherIAPTrackingRequest getConversionCookieForProduct:self.product], @"cookie", nil];
     [super send];
 }
 

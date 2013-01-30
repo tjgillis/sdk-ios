@@ -9,6 +9,7 @@
 #import "RewardLog.h"
 #import "PHReward.h"
 @implementation RewardLog
+@synthesize lastRewardUnlocked = _lastRewardUnlocked;
 
 + (RewardLog *)sharedRewardLog
 {
@@ -20,7 +21,7 @@
     return sharedInstance;
 }
 
-@synthesize lastRewardUnlocked = _lastRewardUnlocked;
+
 
 - (void)dealloc
 {

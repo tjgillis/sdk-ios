@@ -9,10 +9,9 @@
 #import "PHContentView+Automation.h"
 
 @implementation DispatchLog
-
-@synthesize dispatch = _dispatch;
-@synthesize timestamp = _timestamp;
-@synthesize callback = _callback;
+@synthesize dispatch   = _dispatch;
+@synthesize timestamp  = _timestamp;
+@synthesize callback   = _callback;
 @synthesize isComplete = _isComplete;
 
 - (void)markComplete

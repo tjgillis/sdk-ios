@@ -22,9 +22,9 @@
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
 
-@interface PHPublisherContentRequest(TestMethods)
+@interface PHPublisherContentRequest (TestMethods)
 @property (nonatomic, readonly) PHPublisherContentRequestState state;
-- (BOOL)setState:(PHPublisherContentRequestState)state;
+- (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state;
 - (BOOL)isValidReward:(NSDictionary *)rewardData;
 - (void)requestRewards:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
 
@@ -434,8 +434,8 @@
     PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
 
     STAssertTrue(request.state == PHPublisherContentRequestInitialized,@"Expected initialized state, got %d", request.state);
-    STAssertTrue([request setState:PHPublisherContentRequestPreloaded], @"Expected to be able to advance state!");
-    STAssertFalse([request setState: PHPublisherContentRequestPreloading], @"Expected not to be able to regress state!");
+    STAssertTrue([request setPublisherContentRequestState:PHPublisherContentRequestPreloaded], @"Expected to be able to advance state!");
+    STAssertFalse([request setPublisherContentRequestState:PHPublisherContentRequestPreloading], @"Expected not to be able to regress state!");
 
     [request cancel];
 }

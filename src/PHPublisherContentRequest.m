@@ -18,32 +18,32 @@
 #import "OpenUDID.h"
 #import "PHTimeInGame.h"
 
-NSString *const PHPublisherContentRequestRewardIDKey = @"reward";
-NSString *const PHPublisherContentRequestRewardQuantityKey = @"quantity";
-NSString *const PHPublisherContentRequestRewardReceiptKey = @"receipt";
+NSString *const PHPublisherContentRequestRewardIDKey        = @"reward";
+NSString *const PHPublisherContentRequestRewardQuantityKey  = @"quantity";
+NSString *const PHPublisherContentRequestRewardReceiptKey   = @"receipt";
 NSString *const PHPublisherContentRequestRewardSignatureKey = @"signature";
 
 NSString *const PHPublisherContentRequestPurchaseProductIDKey = @"product";
-NSString *const PHPublisherContentRequestPurchaseNameKey = @"name";
-NSString *const PHPublisherContentRequestPurchaseQuantityKey = @"quantity";
-NSString *const PHPublisherContentRequestPurchaseReceiptKey = @"receipt";
+NSString *const PHPublisherContentRequestPurchaseNameKey      = @"name";
+NSString *const PHPublisherContentRequestPurchaseQuantityKey  = @"quantity";
+NSString *const PHPublisherContentRequestPurchaseReceiptKey   = @"receipt";
 NSString *const PHPublisherContentRequestPurchaseSignatureKey = @"signature";
-NSString *const PHPublisherContentRequestPurchaseCookieKey = @"cookie";
+NSString *const PHPublisherContentRequestPurchaseCookieKey    = @"cookie";
 
-PHPublisherContentDismissType * const PHPublisherContentUnitTriggeredDismiss = @"PHPublisherContentUnitTriggeredDismiss";
-PHPublisherContentDismissType * const PHPublisherNativeCloseButtonTriggeredDismiss = @"PHPublisherNativeCloseButtonTriggeredDismiss";
+PHPublisherContentDismissType * const PHPublisherContentUnitTriggeredDismiss           = @"PHPublisherContentUnitTriggeredDismiss";
+PHPublisherContentDismissType * const PHPublisherNativeCloseButtonTriggeredDismiss     = @"PHPublisherNativeCloseButtonTriggeredDismiss";
 PHPublisherContentDismissType * const PHPublisherApplicationBackgroundTriggeredDismiss = @"PHPublisherApplicationBackgroundTriggeredDismiss";
-PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"PHPublisherNoContentTriggeredDismiss";
+PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss             = @"PHPublisherNoContentTriggeredDismiss";
 
 #define MAX_MARGIN 20
 
-@interface PHAPIRequest(Private)
+@interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret;
 - (void)finish;
 @end
 
-@interface PHPublisherContentRequest(Private)
+@interface PHPublisherContentRequest (Private)
 + (PHPublisherContentRequest *)existingRequestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement;
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate;
 - (CGAffineTransform)transformForOrientation:(UIInterfaceOrientation)orientation;
@@ -63,7 +63,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 @property (nonatomic, readonly) UIButton *closeButton;
 @property (nonatomic, readonly) PHPublisherContentRequestState state;
 
-- (BOOL)setState:(PHPublisherContentRequestState)state;
+- (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state;
 - (void)requestSubcontent:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
 
 - (BOOL)isValidReward:(NSDictionary *)rewardData;
@@ -76,13 +76,19 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 @end
 
 @implementation PHPublisherContentRequest
+@synthesize placement               = _placement;
+@synthesize animated                = _animated;
+@synthesize showsOverlayImmediately = _showsOverlayImmediately;
+//@synthesize state                   = _state;
+//@dynamic    state; // TODO: Figure out what's going on with this variable (state)
+//                   // TODO: Lilli added @dynamic to try and quelch warnings, but still there
 
 + (PHPublisherContentRequest *)existingRequestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement
 {
     NSEnumerator *allRequests = [[PHAPIRequest allRequests] objectEnumerator];
 
     PHAPIRequest *request = nil;
-    while (request = [allRequests nextObject]) {
+    while ((request = [allRequests nextObject])) {
         if ([request isKindOfClass:[PHPublisherContentRequest class]]) {
             PHPublisherContentRequest *contentRequest = (PHPublisherContentRequest*) request;
             if ([contentRequest.placement isEqualToString:placement] && [contentRequest.token isEqualToString:token] && [contentRequest.secret isEqualToString:secret]) {
@@ -118,27 +124,23 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret
 {
     if ((self = [super initWithApp:token secret:secret])) {
-        _state = PHPublisherContentRequestInitialized;
+        _state    = PHPublisherContentRequestInitialized;
         _animated = YES;
     }
 
     return self;
 }
 
-@synthesize placement = _placement;
-@synthesize animated = _animated;
-@synthesize showsOverlayImmediately = _showsOverlayImmediately;
-
 - (PHPublisherContentRequestState)state
 {
     return _state;
 }
 
-- (BOOL)setState:(PHPublisherContentRequestState)state
+- (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state
 {
     //state may only be set ahead!
     if (_state < state) {
-        [self willChangeValueForKey:@"state"];
+        [self willChangeValueForKey:@"state"]; // TODO: Figure out what's going on with this variable (state)
         _state = state;
         [self didChangeValueForKey:@"state"];
         return YES;
@@ -169,15 +171,19 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 {
     if (_closeButton == nil) {
         _closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        _closeButton.frame = CGRectMake(0, 0, 40, 40);
+        _closeButton.frame  = CGRectMake(0, 0, 40, 40);
         _closeButton.hidden = YES;
 
         UIImage
-        *closeImage = [self contentView:nil imageForCloseButtonState:UIControlStateNormal],
-        *closeActiveImage = [self contentView:nil imageForCloseButtonState:UIControlStateHighlighted];
+            *closeImage       = [self contentView:nil imageForCloseButtonState:UIControlStateNormal],
+            *closeActiveImage = [self contentView:nil imageForCloseButtonState:UIControlStateHighlighted];
 
-        closeImage = (!closeImage)? convertByteDataToUIImage((playHavenImage *)&close_image) : closeImage;
-        closeActiveImage = (!closeActiveImage)?convertByteDataToUIImage((playHavenImage *)&close_active_image): closeActiveImage;
+        closeImage       = (!closeImage) ?
+                                convertByteDataToUIImage((playHavenImage *)&close_image) :
+                                closeImage;
+        closeActiveImage = (!closeActiveImage) ?
+                                convertByteDataToUIImage((playHavenImage *)&close_active_image) :
+                                closeActiveImage;
 
         [_closeButton setImage:closeImage forState:UIControlStateNormal];
         [_closeButton setImage:closeActiveImage forState:UIControlStateHighlighted];
@@ -197,6 +203,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     [_contentViews release], _contentViews = nil;
     [_closeButton release], _closeButton = nil;
     [_overlayWindow release], _overlayWindow = nil;
+
     [super dealloc];
 }
 
@@ -204,20 +211,23 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (void)placeCloseButton
 {
     if ([_closeButton superview] == nil) {
-        //TRACK_ORIENTATION see STOP_TRACK_ORIENTATION
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self
-         selector:@selector(placeCloseButton)
-         name:UIDeviceOrientationDidChangeNotification
-         object:nil];
+        // TRACK_ORIENTATION see STOP_TRACK_ORIENTATION
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(placeCloseButton)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil];
 
     }
 
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     CGFloat barHeight = ([[UIApplication sharedApplication] isStatusBarHidden]) ? 0 : 20;
 
-    CGRect screen = [[UIScreen mainScreen] applicationFrame];
-    CGFloat width = screen.size.width, height = screen.size.height, X,Y;
+    CGRect  screen = [[UIScreen mainScreen] applicationFrame];
+    CGFloat width  = screen.size.width,
+            height = screen.size.height;
+    CGFloat X = 0.0,
+            Y = 0.0;
+
     switch (orientation) {
         case UIInterfaceOrientationPortrait:
             X = width - MAX_MARGIN;
@@ -281,8 +291,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 
 - (void)hideCloseButton
 {
-    [PHPublisherContentRequest cancelPreviousPerformRequestsWithTarget:self selector:@selector(showCloseButtonBecauseOfTimeout) object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    [PHPublisherContentRequest cancelPreviousPerformRequestsWithTarget:self
+                                                              selector:@selector(showCloseButtonBecauseOfTimeout)
+                                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
+
     [_closeButton removeFromSuperview];
 }
 
@@ -314,11 +330,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (NSDictionary *)additionalParameters
 {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            self.placement, @"placement_id",
-            [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])], @"stime",
-            [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)], @"preload",
-            [NSNumber numberWithBool:([SKStoreProductViewController class] != nil)], @"isa",
-            nil];
+                                 self.placement,
+                                          @"placement_id",
+                                 [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])],
+                                          @"stime",
+                                 [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)],
+                                          @"preload",
+                                 [NSNumber numberWithBool:([SKStoreProductViewController class] != nil)],
+                                          @"isa", nil];
 }
 
 - (void)cancel
@@ -339,8 +358,9 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 
 - (void)finish
 {
-    if ([self setState:PHPublisherContentRequestDone]) {
-        [PHAPIRequest cancelAllRequestsWithDelegate:self];
+    if ([self setPublisherContentRequestState:PHPublisherContentRequestDone]) {
+        [PHAPIRequest cancelAllRequestsWithDelegate:self]; // TODO: Something is not right here; should be "...WithDelegate:self.delegate];"???
+                                                           // Ohhhhhh ... when subcontent requests are created, the instance of this class is used as the delegate
 
         [self hideOverlayWindow];
         [self hideCloseButton];
@@ -358,22 +378,23 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 {
     [_content release], _content = [[PHContent contentWithDictionary:responseData] retain];
     if (!!_content) {
-        if ([self.delegate respondsToSelector:@selector(requestDidGetContent:)]) {
-            [self.delegate performSelector:@selector(requestDidGetContent:) withObject:self];
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(requestDidGetContent:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestDidGetContent:)
+                                                                       withObject:self];
         }
 
-        if ([self setState:PHPublisherContentRequestPreloaded]) {
+        if ([self setPublisherContentRequestState:PHPublisherContentRequestPreloaded]) {
             [self continueLoadingIfNeeded];
         }
     } else {
         PH_NOTE(@"The request was successfull but did not contain any displayable content. There may not be any content units assigned to this placement or all content units assigned to this placement have been suppressed by frequency caps or targeting. Visit the PlayHaven Dashboard for more details. Dismissing now.");
-        if ([self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
-            [self.delegate performSelector:@selector(request:contentDidDismissWithType:)
-                                withObject:self
-                                withObject:PHPublisherNoContentTriggeredDismiss];
-        } else if ([self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
-            [self.delegate performSelector:@selector(requestContentDidDismiss:)
-                                withObject:self];
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidDismissWithType:)
+                                                                       withObject:self
+                                                                       withObject:PHPublisherNoContentTriggeredDismiss];
+        } else if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestContentDidDismiss:)
+                                                                       withObject:self];
         }
         [self finish];
     }
@@ -423,11 +444,12 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 
 - (void)getContent
 {
-    if ([self setState:PHPublisherContentRequestPreloading]) {
+    if ([self setPublisherContentRequestState:PHPublisherContentRequestPreloading]) {
         [super send];
 
-        if ([self.delegate respondsToSelector:@selector(requestWillGetContent:)]) {
-            [self.delegate performSelector:@selector(requestWillGetContent:) withObject:self];
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(requestWillGetContent:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestWillGetContent:)
+                                                                       withObject:self];
         }
 
         [self placeCloseButton];
@@ -438,11 +460,13 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (void)showContentIfReady
 {
     if (_targetState >= PHPublisherContentRequestDisplayingContent) {
-        if ([self.delegate respondsToSelector:@selector(request:contentWillDisplay:)]) {
-            [self.delegate performSelector:@selector(request:contentWillDisplay:) withObject:self withObject:_content];
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentWillDisplay:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentWillDisplay:)
+                                                                       withObject:self
+                                                                       withObject:_content];
         }
 
-        if ([self setState:PHPublisherContentRequestDisplayingContent]) {
+        if ([self setPublisherContentRequestState:PHPublisherContentRequestDisplayingContent]) {
             [self showOverlayWindow];
             [self pushContent:_content];
         }
@@ -463,8 +487,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 
         [request send];
     } else {
-        NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"1",@"error", nil];
+        NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"error", nil];
         [source sendCallback:callback withResponse:nil error:errorDict];
     }
 }
@@ -477,8 +500,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
         [self pushContent:content];
         [scRequest.source sendCallback:scRequest.callback withResponse:responseData error:nil];
     } else {
-        NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"1",@"error", nil];
+        NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"error", nil];
         [scRequest.source sendCallback:scRequest.callback withResponse:nil error:errorDict];
     }
 }
@@ -486,8 +508,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
 {
     PHPublisherSubContentRequest *scRequest = (PHPublisherSubContentRequest *)request;
-    NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"1",@"error", nil];
+    NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"error", nil];
     [scRequest.source sendCallback:scRequest.callback withResponse:nil error:errorDict];
 }
 
@@ -535,14 +556,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
         [contentViews release];
     }
 
-    if ([self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
-        [self.delegate performSelector:@selector(request:contentDidDismissWithType:)
-                            withObject:self
-                            withObject:PHPublisherNativeCloseButtonTriggeredDismiss];
+    if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
+        [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidDismissWithType:)
+                                                                   withObject:self
+                                                                   withObject:PHPublisherNativeCloseButtonTriggeredDismiss];
     } else {
-        if ([self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
-            [self.delegate performSelector:@selector(requestContentDidDismiss:)
-                                withObject:self];
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestContentDidDismiss:)
+                                                                       withObject:self];
         }
     }
 
@@ -563,14 +584,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
         [contentViews release];
     }
 
-    if ([self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
-        [self.delegate performSelector:@selector(request:contentDidDismissWithType:)
-                            withObject:self
-                            withObject:PHPublisherApplicationBackgroundTriggeredDismiss];
+    if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
+        [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidDismissWithType:)
+                                                                   withObject:self
+                                                                   withObject:PHPublisherApplicationBackgroundTriggeredDismiss];
     } else {
-        if ([self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
-            [self.delegate performSelector:@selector(requestContentDidDismiss:)
-                                withObject:self];
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestContentDidDismiss:)
+                                                                       withObject:self];
         }
     }
 
@@ -595,11 +616,11 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (void)contentViewDidLoad:(PHContentView *)contentView
 {
     if ([self.contentViews count] == 1) {
-        //only passthrough the first contentView load
-        if ([self.delegate respondsToSelector:@selector(request:contentDidDisplay:)]) {
-            [self.delegate performSelector:@selector(request:contentDidDisplay:)
-                                withObject:self
-                                withObject:contentView.content];
+        // Only pass-through the first contentView load
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDisplay:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidDisplay:)
+                                                                       withObject:self
+                                                                       withObject:contentView.content];
         }
     }
 }
@@ -609,14 +630,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     [self removeContentView:contentView];
 
     if ([self.contentViews count] == 0) {
-        //only passthrough the last contentView to dismiss
-        if ([self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
-            [self.delegate performSelector:@selector(request:contentDidDismissWithType:)
-                                withObject:self
-                                withObject:PHPublisherContentUnitTriggeredDismiss];
-        } else if ([self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
-            [self.delegate performSelector:@selector(requestContentDidDismiss:)
-                                withObject:self];
+        // Only pass-through the last contentView to dismiss
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidDismissWithType:)
+                                                                       withObject:self
+                                                                       withObject:PHPublisherContentUnitTriggeredDismiss];
+        } else if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(requestContentDidDismiss:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestContentDidDismiss:)
+                                                                       withObject:self];
         }
 
         [self finish];
@@ -628,16 +649,16 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     [self removeContentView:contentView];
 
     if ([self.contentViews count] == 0) {
-        //only passthrough the last contentView to error
-        if ([self.delegate respondsToSelector:@selector(request:contentDidFailWithError:)]) {
+        // Only pass-through the last contentView to error
+        if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidFailWithError:)]) {
             PH_NOTE(@"It seems like you're using the -request:contentDidFailWithError: delegate method. This delegate has been deprecated, please use -request:didFailWithError: instead.");
-            [self.delegate performSelector:@selector(request:contentDidFailWithError:)
-                                withObject:self
-                                withObject:error];
-        }else if ([self.delegate respondsToSelector:@selector(request:didFailWithError:)]) {
-            [self.delegate performSelector:@selector(request:didFailWithError:)
-                                withObject:self
-                                withObject:error];
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidFailWithError:)
+                                                                       withObject:self
+                                                                       withObject:error];
+        } else if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:didFailWithError:)]) {
+            [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:didFailWithError:)
+                                                                       withObject:self
+                                                                       withObject:error];
         }
 
         [self finish];
@@ -646,8 +667,10 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 
 - (UIImage *)contentView:(PHContentView *)contentView imageForCloseButtonState:(UIControlState)state
 {
-    if ([self.delegate respondsToSelector:@selector(request:closeButtonImageForControlState:content:)]) {
-        return [(id <PHPublisherContentRequestDelegate>)self.delegate request:self closeButtonImageForControlState:state content:contentView.content];
+    if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:closeButtonImageForControlState:content:)]) {
+        return [(id<PHPublisherContentRequestDelegate>)self.delegate request:self
+                                             closeButtonImageForControlState:state
+                                                                     content:contentView.content];
     }
 
     return nil;
@@ -655,8 +678,9 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 
 - (UIColor *)borderColorForContentView:(PHContentView *)contentView
 {
-    if ([self.delegate respondsToSelector:@selector(request:borderColorForContent:)]) {
-        return [(id <PHPublisherContentRequestDelegate>)self.delegate request:self borderColorForContent:contentView.content];
+    if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:borderColorForContent:)]) {
+        return [(id<PHPublisherContentRequestDelegate>)self.delegate request:self
+                                                       borderColorForContent:contentView.content];
     }
 
     return nil;
@@ -665,12 +689,13 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 #pragma mark - Reward unlocking methods
 - (BOOL)isValidReward:(NSDictionary *)rewardData
 {
-    NSString *reward = [rewardData valueForKey:PHPublisherContentRequestRewardIDKey];
-    NSNumber *quantity = [rewardData valueForKey:PHPublisherContentRequestRewardQuantityKey];
-    NSNumber *receipt = [rewardData valueForKey:PHPublisherContentRequestRewardReceiptKey];
+    NSString *reward    = [rewardData valueForKey:PHPublisherContentRequestRewardIDKey];
+    NSNumber *quantity  = [rewardData valueForKey:PHPublisherContentRequestRewardQuantityKey];
+    NSNumber *receipt   = [rewardData valueForKey:PHPublisherContentRequestRewardReceiptKey];
     NSString *signature = [rewardData valueForKey:PHPublisherContentRequestRewardSignatureKey];
 
-    NSString *generatedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
+    NSString *generatedSignatureString =
+                     [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
                                           reward,
                                           quantity,
                                           PHGID(),
@@ -686,13 +711,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     NSArray *rewardsArray = [queryParameters valueForKey:@"rewards"];
     for (NSDictionary *rewardData in rewardsArray) {
         if ([self isValidReward:rewardData]) {
-            PHReward *reward = [PHReward new];
-            reward.name = [rewardData valueForKey:PHPublisherContentRequestRewardIDKey];
-            reward.quantity = [[rewardData valueForKey:PHPublisherContentRequestRewardQuantityKey] integerValue];
-            reward.receipt = [[rewardData valueForKey:PHPublisherContentRequestRewardReceiptKey] stringValue];
+            PHReward *reward = [[PHReward new] autorelease]; // TODO: Why is PHReward created with 'new'? Should be alloc init; fix.
 
-            if ([self.delegate respondsToSelector:@selector(request:unlockedReward:)]) {
-                [(id <PHPublisherContentRequestDelegate>)self.delegate request:self unlockedReward:reward];
+            reward.name     = [rewardData valueForKey:PHPublisherContentRequestRewardIDKey];
+            reward.quantity = [[rewardData valueForKey:PHPublisherContentRequestRewardQuantityKey] integerValue];
+            reward.receipt  = [[rewardData valueForKey:PHPublisherContentRequestRewardReceiptKey] stringValue];
+
+            if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:unlockedReward:)]) {
+                [(id<PHPublisherContentRequestDelegate>)self.delegate request:self unlockedReward:reward];
             }
         }
     }
@@ -704,12 +730,13 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
 - (BOOL)isValidPurchase:(NSDictionary *)purchaseData
 {
     NSString *productId = [purchaseData valueForKey:PHPublisherContentRequestPurchaseProductIDKey];
-    NSString *name = [purchaseData valueForKey:PHPublisherContentRequestPurchaseNameKey];
-    NSNumber *quantity = [purchaseData valueForKey:PHPublisherContentRequestPurchaseQuantityKey];
-    NSNumber *receipt = [purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey];
+    NSString *name      = [purchaseData valueForKey:PHPublisherContentRequestPurchaseNameKey];
+    NSNumber *quantity  = [purchaseData valueForKey:PHPublisherContentRequestPurchaseQuantityKey];
+    NSNumber *receipt   = [purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey];
     NSString *signature = [purchaseData valueForKey:PHPublisherContentRequestPurchaseSignatureKey];
 
-    NSString *generatedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
+    NSString *generatedSignatureString =
+                     [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
                                           productId,
                                           name,
                                           quantity,
@@ -727,18 +754,19 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss = @"P
     for (NSDictionary *purchaseData in purchasesArray) {
         if ([self isValidPurchase:purchaseData]) {
             PHPurchase *purchase = [PHPurchase new];
+
             purchase.productIdentifier = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseProductIDKey]);
-            purchase.name = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseNameKey]);
-            purchase.quantity = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseQuantityKey] integerValue];
-            purchase.receipt = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey]);
-            purchase.callback = callback;
+            purchase.name              = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseNameKey]);
+            purchase.quantity          = [[purchaseData valueForKey:PHPublisherContentRequestPurchaseQuantityKey] integerValue];
+            purchase.receipt           = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey]);
+            purchase.callback          = callback;
 
 #if PH_USE_STOREKIT!=0
             NSString *cookie = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseCookieKey]);
             [PHPublisherIAPTrackingRequest setConversionCookie:cookie forProduct:purchase.productIdentifier];
 #endif
-            if ([self.delegate respondsToSelector:@selector(request:makePurchase:)]) {
-                [(id <PHPublisherContentRequestDelegate>)self.delegate request:self makePurchase:purchase];
+            if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:makePurchase:)]) {
+                [(id<PHPublisherContentRequestDelegate>)self.delegate request:self makePurchase:purchase];
             }
             [purchase release];
         }

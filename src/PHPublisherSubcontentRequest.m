@@ -10,8 +10,7 @@
 #import "PHConstants.h"
 
 @implementation PHPublisherSubContentRequest
-
-@synthesize source = _source;
+@synthesize source   = _source;
 @synthesize callback = _callback;
 
 - (NSURL *)URL
