@@ -10,9 +10,6 @@
 #import "PHContent.h"
 #import "NSObject+QueryComponents.h"
 #import "JSON.h"
-#import "PHConstants.h"
-#import "SDURLCache.h"
-#import "PHPurchase.h"
 #import "PHStoreProductViewControllerDelegate.h"
 
 #define MAX_MARGIN 20
@@ -274,14 +271,14 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)show:(BOOL)animated
 {
-    //reset transforms before doing anything
+    // Reset transforms before doing anything
     _webView.transform = CGAffineTransformIdentity;
     _webView.alpha     = 1.0;
 
     self.transform = CGAffineTransformIdentity;
     self.alpha     = 1.0;
 
-    //actually start showing
+    // Actually start showing
     _willAnimate = animated;
     [self.targetView addSubview: self];
     [self sizeToFitOrientation:YES];
@@ -291,7 +288,7 @@ static NSMutableSet *allContentViews = nil;
     [self loadTemplate];
 
     if (CGRectIsNull([self.content frameForOrientation:_orientation])) {
-        //this is an invalid frame and we should dismiss immediately!
+        // This is an invalid frame and we should dismiss immediately!
         [self dismissWithError:PHCreateError(PHOrientationErrorType)];
         return;
     }
@@ -361,7 +358,7 @@ static NSMutableSet *allContentViews = nil;
                                                  name:PHCONTENTVIEW_CALLBACK_NOTIFICATION
                                                object:nil];
 
-    //TRACK_ORIENTATION see STOP_TRACK_ORIENTATION
+    // TRACK_ORIENTATION see STOP_TRACK_ORIENTATION
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationDidChange)
                                                  name:UIDeviceOrientationDidChangeNotification
@@ -430,7 +427,7 @@ static NSMutableSet *allContentViews = nil;
                                                     name:PHCONTENTVIEW_CALLBACK_NOTIFICATION
                                                   object:nil];
 
-    //STOP_TRACK_ORIENTATION see TRACK_ORIENTATION
+    // STOP_TRACK_ORIENTATION see TRACK_ORIENTATION
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
@@ -520,7 +517,7 @@ static NSMutableSet *allContentViews = nil;
                 break;
         }
 
-        //NOTE: It's important to keep the invocation object around while we're invoking. This will prevent occasional EXC_BAD_ACCESS errors.
+        // NOTE: It's important to keep the invocation object around while we're invoking. This will prevent occasional EXC_BAD_ACCESS errors.
         [redirect retain];
         [redirect invoke];
         [redirect release];
@@ -538,8 +535,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    //This is a fix that primarily affects iOS versions older than 4.1, it should prevent http requests
-    //from leaking memory from the webview. Newer iOS versions are unaffected by the bug or the fix.
+    // This is a fix that primarily affects iOS versions older than 4.1, it should prevent http requests
+    // from leaking memory from the webview. Newer iOS versions are unaffected by the bug or the fix.
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
 
     [[self activityView] stopAnimating];
@@ -575,7 +572,7 @@ static NSMutableSet *allContentViews = nil;
         loader.context   = [NSDictionary dictionaryWithObjectsAndKeys:
                                                  callback,        @"callback",
                                                  queryComponents, @"queryComponents", nil];
-#if PH_USE_STOREKIT!=0
+#if PH_USE_STOREKIT != 0
         BOOL shouldUseInternal = [[queryComponents valueForKey:@"in_app_store_enabled"] boolValue] && ([SKStoreProductViewController class] != nil);
         loader.opensFinalURLOnDevice = !shouldUseInternal;
 #endif
@@ -606,7 +603,7 @@ static NSMutableSet *allContentViews = nil;
     NSString *loadCommand = [NSString stringWithFormat:@"window.PlayHavenDispatchProtocolVersion = %d", PH_DISPATCH_PROTOCOL_VERSION];
     [_webView stringByEvaluatingJavaScriptFromString:loadCommand];
 
-    if(![self sendCallback:callback withResponse:self.content.context error:nil]) {
+    if (![self sendCallback:callback withResponse:self.content.context error:nil]) {
         [self dismissWithError:PHCreateError(PHLoadContextErrorType)];
     };
 }
@@ -657,7 +654,7 @@ static NSMutableSet *allContentViews = nil;
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                                        [loader.targetURL absoluteString], @"url", nil];
 
-#if PH_USE_STOREKIT!=0
+#if PH_USE_STOREKIT != 0
     NSDictionary *queryComponents = [contextData valueForKey:@"queryComponents"];
     BOOL shouldUseInternal = [[queryComponents valueForKey:@"in_app_store_enabled"] boolValue] && ([SKStoreProductViewController class] != nil);
     if (shouldUseInternal) {

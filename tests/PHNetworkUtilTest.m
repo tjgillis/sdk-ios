@@ -7,7 +7,6 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
 #import "PHNetworkUtil.h"
 #import "PHAPIRequest.h"
 

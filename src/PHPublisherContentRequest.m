@@ -15,7 +15,6 @@
 #import "PHPurchase.h"
 #import "PHPublisherIAPTrackingRequest.h"
 #import "JSON.h"
-#import "OpenUDID.h"
 #import "PHTimeInGame.h"
 
 NSString *const PHPublisherContentRequestRewardIDKey        = @"reward";
@@ -138,7 +137,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state
 {
-    //state may only be set ahead!
+    // State may only be set ahead!
     if (_state < state) {
         [self willChangeValueForKey:@"state"]; // TODO: Figure out what's going on with this variable (state)
         _state = state;
@@ -247,7 +246,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
             break;
     }
 
-    //find the topmost contentView
+    // Find the topmost contentView
     PHContentView *topContentView = [self.contentViews lastObject];
     if (!!topContentView) {
         CGRect contentFrame = [topContentView.content frameForOrientation:orientation];
@@ -307,14 +306,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     [window addSubview:self.overlayWindow];
 
-    //This should keep UIKeyboard instances from blocking the content view.
-    //It should be fine if this runs more than once.
+    // This should keep UIKeyboard instances from blocking the content view.
+    // It should be fine if this runs more than once.
     [window endEditing:YES];
 }
 
 - (void)hideOverlayWindow
 {
-    //lets avoid creating an overlay instance if we don't need to.
+    // Let's avoid creating an overlay instance if we don't need to.
     if (!!_overlayWindow) {
         [self.overlayWindow removeFromSuperview];
     }
@@ -371,7 +370,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)afterConnectionDidFinishLoading
 {
-    // don't do anything
+    // Don't do anything
 }
 
 - (void)didSucceedWithResponse:(NSDictionary *)responseData
@@ -761,7 +760,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
             purchase.receipt           = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseReceiptKey]);
             purchase.callback          = callback;
 
-#if PH_USE_STOREKIT!=0
+#if PH_USE_STOREKIT != 0
             NSString *cookie = PHAgnosticStringValue([purchaseData valueForKey:PHPublisherContentRequestPurchaseCookieKey]);
             [PHPublisherIAPTrackingRequest setConversionCookie:cookie forProduct:purchase.productIdentifier];
 #endif

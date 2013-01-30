@@ -138,7 +138,7 @@
 
 /**
  * We support the use of OpenUDID as an optional supplemental device identifier.
- * To disable sending OpenUDIDs set PH_USE_OPENUDID=0
+ * To disable sending OpenUDIDs set PH_USE_OPENUDID = 0
  **/
 #ifndef PH_USE_OPENUDID
 #define PH_USE_OPENUDID 1

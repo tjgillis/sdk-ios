@@ -16,7 +16,7 @@
 #import "OpenUDID.h"
 #endif
 
-@interface PHAPIRequest(Private)
+@interface PHAPIRequest (Private)
 - (void)finish;
 + (void)setSession:(NSString *)session;
 @end

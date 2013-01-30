@@ -12,8 +12,6 @@
 #import "PHStringUtil.h"
 #import "JSON.h"
 #import "UIDevice+HardwareString.h"
-#import "PHConstants.h"
-#import "OpenUDID.h"
 #import "PHNetworkUtil.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
@@ -121,7 +119,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
     NSString *localSignature = [PHStringUtil base64EncodedStringForData:HMAC];
 
-    //figure out if we need to pad to multiple of 4 length
+    // Figure out if we need to pad to multiple of 4 length
     NSUInteger length = [localSignature length];
     NSUInteger modulo = [localSignature length] % 4;
     if (modulo != 0) {
@@ -243,7 +241,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
 
-#if PH_USE_UNIQUE_IDENTIFIER==1
+#if PH_USE_UNIQUE_IDENTIFIER == 1
         if (![PHAPIRequest optOutStatus]) {
             NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
             [combinedParams setValue:device forKey:@"device"];
@@ -262,10 +260,10 @@ static NSString *sPlayHavenPluginIdentifier;
 #endif
 #endif
 
-        //adds plugin identifier
+        // Adds plugin identifier
         [combinedParams setValue:[PHAPIRequest pluginIdentifier] forKey:@"plugin"];
 
-        //This allows for unit testing of request values!
+        // This allows for unit testing of request values!
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
 
         NSString
@@ -374,7 +372,7 @@ static NSString *sPlayHavenPluginIdentifier;
 {
     [_connection cancel];
 
-    //REQUEST_RELEASE see REQUEST_RETAIN
+    // REQUEST_RELEASE see REQUEST_RETAIN
     [[PHAPIRequest allRequests] removeObject:self];
 }
 
@@ -437,7 +435,7 @@ static NSString *sPlayHavenPluginIdentifier;
     PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
     [self didFailWithError:error];
 
-    //REQUEST_RELEASE see REQUEST_RETAIN
+    // REQUEST_RELEASE see REQUEST_RETAIN
     [self finish];
 }
 

@@ -9,7 +9,6 @@
 #import "PHNetworkUtil.h"
 #import "PHConstants.h"
 #import "PHAPIRequest.h"
-#import <CommonCrypto/CommonDigest.h>
 
 #include <sys/socket.h>
 #include <sys/sysctl.h>
@@ -51,7 +50,7 @@
 
     hostRef = CFHostCreateWithName(kCFAllocatorDefault, (CFStringRef)hostname);
     if (hostRef) {
-        result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
+        result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // Pass an error instead of NULL here to find out why it failed
         if (result == TRUE) {
             addresses = (NSArray*)CFHostGetAddressing(hostRef, &result);
         }

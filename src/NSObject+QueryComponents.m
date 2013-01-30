@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+QueryComponents.h"
+
 @implementation NSString (QueryComponents)
 - (NSString *)stringByDecodingURLFormat
 {

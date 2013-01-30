@@ -13,10 +13,9 @@
 #import "PublisherCancelContentViewController.h"
 #import "URLLoaderViewController.h"
 #import "IAPViewController.h"
-#import "PHAPIRequest.h"
 #import "IDViewController.h"
 
-@interface RootViewController(Private)
+@interface RootViewController (Private)
 - (BOOL)isTokenAndSecretFilledIn;
 - (void)loadTokenAndSecretFromDefaults;
 - (void)saveTokenAndSecretToDefaults;

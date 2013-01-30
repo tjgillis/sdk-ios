@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
+
 @class PHPurchase;
 @interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver> {
     NSMutableDictionary *_pendingPurchases;

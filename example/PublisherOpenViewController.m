@@ -8,7 +8,7 @@
 
 #import "PublisherOpenViewController.h"
 
-@interface PHAPIRequest(Private)
+@interface PHAPIRequest (Private)
 + (void)setSession:(NSString *)session;
 @end
 

@@ -7,7 +7,6 @@
 //
 
 #import "KIFTestScenario+PHAdditions.h"
-
 #import "KIFTestStep.h"
 #import "KIFTestStep+PHAdditions.h"
 
@@ -53,14 +52,14 @@
     [result addStep:[KIFTestStep stepToEnterText:@"more_games" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
 
-    //featured game content unit
+    // Featured game content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#more_button" inWebViewWithAccessibilityLabel:@"content view"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://subcontent"]];
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://dismiss"]];
 
-    //more games content unit
+    // More games content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#dismiss_button" inWebViewWithAccessibilityLabel:@"content view"]];
@@ -86,7 +85,7 @@
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
 
 
-    //reward content unit
+    // Reward content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToVerifyRewardUnlocked:@"delicious_cake" quantity:1]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
@@ -112,7 +111,7 @@
     [result addStep:[KIFTestStep stepToEnterText:@"announcement_launch" intoViewWithAccessibilityLabel:@"placement"]];
     [result addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"start"]];
 
-    //announcement content unit
+    // Announcement content unit
     [result addStep:[KIFTestStep stepToWaitForDispatch:@"ph://loadContext" andCallback:YES]];
     [result addStep:[KIFTestStep stepToWaitForTimeInterval:1.0 description:@"HACKY: Waiting for the webview to finish rendering before attempting to tap button."]];
     [result addStep:[KIFTestStep stepToTapElementWithSelector:@"#button" inWebViewWithAccessibilityLabel:@"content view"]];

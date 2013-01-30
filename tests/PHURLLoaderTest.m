@@ -7,7 +7,6 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
 #import "PHURLLoader.h"
 
 #define EXPECTED_HASH @"3L0xlrDOt02UrTDwMSnye05Awwk"

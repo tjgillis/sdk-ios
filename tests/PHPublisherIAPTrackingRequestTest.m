@@ -7,7 +7,6 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
 #import "PlayHavenSDK.h"
 
 @interface PHPublisherIAPTrackingRequestTest : SenTestCase

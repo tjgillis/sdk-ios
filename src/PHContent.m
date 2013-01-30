@@ -107,7 +107,7 @@
 
         return CGRectMake(x, y, w, h);
     } else {
-        //no frame data for this orientation
+        // No frame data for this orientation
         return CGRectNull;
     }
 

@@ -72,16 +72,16 @@ static NSMutableDictionary *RendererMap;
     if (self == object && [keyPath isEqualToString:@"notificationData"]) {
         NSDictionary *newNotificationData = self.notificationData;
 
-        //create new Renderer
+        // Create new Renderer
         [_notificationRenderer release], _notificationRenderer = [PHNotificationView newRendererForData:newNotificationData];
 
-        //adjust size while preserving center;
+        // Adjust size while preserving center;
         CGPoint oldCenter = self.center;
         CGSize newSize = [_notificationRenderer sizeForNotification:newNotificationData];
         self.frame = CGRectMake(0, 0, newSize.width, newSize.height);
         self.center = oldCenter;
 
-        //prepare to redraw;
+        // Prepare to redraw;
         [self setNeedsDisplay];
     }
 }

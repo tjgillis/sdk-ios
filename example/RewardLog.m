@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-    // will never be called, but here for clarity
+    // Will never be called, but here for clarity
     [_lastRewardUnlocked release], _lastRewardUnlocked = nil;
     [super dealloc];
 }

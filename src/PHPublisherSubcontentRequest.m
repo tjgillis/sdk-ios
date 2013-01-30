@@ -7,7 +7,6 @@
 //
 
 #import "PHPublisherSubContentRequest.h"
-#import "PHConstants.h"
 
 @implementation PHPublisherSubContentRequest
 @synthesize source   = _source;

@@ -7,7 +7,6 @@
 //
 
 #import "PHTestController.h"
-#import "KIFTestScenario.h"
 #import "KIFTestScenario+PHAdditions.h"
 
 @implementation PHTestController

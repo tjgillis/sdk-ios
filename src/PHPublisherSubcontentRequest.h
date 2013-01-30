@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PHAPIRequest.h"
+
 @class PHContentView;
 
 /**

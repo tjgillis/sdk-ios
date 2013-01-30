@@ -65,7 +65,7 @@
 {
     [super finishRequest];
 
-    //Cleaning up after a completed request
+    // Cleaning up after a completed request
     self.request = nil;
     [self.navigationItem.rightBarButtonItem setTitle:@"Start"];
 }
@@ -94,7 +94,7 @@
 
 - (void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content
 {
-    //This is a good place to clear any notification views attached to this request.
+    // This is a good place to clear any notification views attached to this request.
     [_notificationView clear];
 
     NSString *message = [NSString stringWithFormat:@"Displayed content: %@", content];

@@ -7,7 +7,6 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
 #import "PHNotificationView.h"
 
 @interface PHNotificationViewTest : SenTestCase

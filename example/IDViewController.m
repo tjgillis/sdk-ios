@@ -11,7 +11,6 @@
 #import "PlayHavenSDK.h"
 #import "PHNetworkUtil.h"
 
-
 @interface IDViewController ()
 @end
 

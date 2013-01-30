@@ -42,15 +42,15 @@
 {
     [super startRequest];
 
-    //check to see if URL field has valid URL value
+    // Check to see if URL field has valid URL value
     NSURL *loaderURL = [NSURL URLWithString:self.URLField.text];
     if (loaderURL == nil) {
-        //finish the request and report an error!
+        // Finish the request and report an error!
         [self addMessage:@"[ERROR] A valid URL was not entered!"];
         [self finishRequest];
     }
 
-    //if we have a valid loader, then start the request!
+    // If we have a valid loader, then start the request!
     self.loader.targetURL             = loaderURL;
     self.loader.opensFinalURLOnDevice = self.openURLSwitch.on;
     self.loader.delegate              = self;

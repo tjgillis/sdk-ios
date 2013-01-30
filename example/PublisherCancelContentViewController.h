@@ -8,5 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PublisherContentViewController.h"
+
 @interface PublisherCancelContentViewController : PublisherContentViewController
 @end

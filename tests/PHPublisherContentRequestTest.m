@@ -7,17 +7,12 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import <QuartzCore/QuartzCore.h>
 
-#import "PHConstants.h"
 #import "SBJsonParser.h"
 #import "PHContent.h"
 #import "PHContentView.h"
 #import "PHPublisherContentRequest.h"
 #import "PHStringUtil.h"
-#import "OpenUDID.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -219,7 +214,7 @@
     _shouldExpectParameter = YES;
     STAssertFalse([contentView webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked], @"Didn't redirect to dispatch handler");
 
-    //NOTE: This rest ensures that invocation objects are being properly recycled.
+    // NOTE: This rest ensures that invocation objects are being properly recycled.
     NSURLRequest *nextRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"ph://test"]];
     _shouldExpectParameter = NO;
     STAssertFalse([contentView webView:nil shouldStartLoadWithRequest:nextRequest navigationType:UIWebViewNavigationTypeLinkClicked], @"Didn't redirect next request to dispatch handler");

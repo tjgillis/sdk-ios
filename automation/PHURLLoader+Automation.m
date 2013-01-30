@@ -27,8 +27,8 @@ static NSURL *LastLaunchedURL;
 
 - (void)_launchURLForAutomation:(NSURL *)targetURL
 {
-    //App switching interferes with automation testing
-    //Instead, we pretend to launch the URL.
+    // App switching interferes with automation testing
+    // Instead, we pretend to launch the URL.
     NSLog(@"Pretending to launch URL: %@", targetURL);
     [PHURLLoader setLastLaunchedURL:targetURL];
 }

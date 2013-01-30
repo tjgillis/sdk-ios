@@ -7,9 +7,8 @@
 //
 
 //  This will ensure the PH_USE_STOREKIT macro is properly set.
-#import "PHConstants.h"
 
-#if PH_USE_STOREKIT!=0
+#if PH_USE_STOREKIT != 0
 #import "PHStoreProductViewControllerDelegate.h"
 
 static PHStoreProductViewControllerDelegate *_delegate = nil;
@@ -75,7 +74,7 @@ static PHStoreProductViewControllerDelegate *_delegate = nil;
 #pragma NSNotification Observers
 - (void)appDidEnterBackground
 {
-    //This will automatically dismiss the view controller when the app is backgrounded
+    // This will automatically dismiss the view controller when the app is backgrounded
     if (_visibleViewController.modalViewController)
         [_visibleViewController dismissModalViewControllerAnimated:NO];
     [_visibleViewController.view removeFromSuperview];

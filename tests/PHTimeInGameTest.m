@@ -7,8 +7,6 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
-#import "PHPublisherOpenRequest.h"
 #import "PHTimeInGame.h"
 
 @interface PHTimeInGameTest : SenTestCase

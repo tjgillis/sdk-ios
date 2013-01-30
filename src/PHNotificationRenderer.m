@@ -11,7 +11,7 @@
 @implementation PHNotificationRenderer
 - (void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect
 {
-    //does nothing
+    // Does nothing
 }
 
 - (CGSize)sizeForNotification:(NSDictionary *)notificationData

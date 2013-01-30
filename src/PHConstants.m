@@ -6,19 +6,13 @@
 //  Copyright 2011 Playhaven. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #import "PHConstants.h"
 #import "PHStringUtil.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <net/if.h>
-#include <net/if_dl.h>
-#include <arpa/inet.h>
-#include <ifaddrs.h>
 
 #if ! defined(IFT_ETHER)
 #define IFT_ETHER 0x6 /* Ethernet CSMACD */
@@ -30,12 +24,12 @@ static NSString *cachedGID;
 
 NSString *PHGID()
 {
-    //cache the value as a static variable to prevent
+    // Cache the value as a static variable to prevent
     if (cachedGID == nil) {
-        //get the value from NSUserDefaults
+        // Get the value from NSUserDefaults
         NSString *defaultsGID = [[NSUserDefaults standardUserDefaults] valueForKey:@"PlayHavenGID"];
 
-        //if missing, generate a new value and store in NSUserDefaults
+        // If missing, generate a new value and store in NSUserDefaults
         if (defaultsGID == nil) {
             defaultsGID = [PHStringUtil uuid];
             [[NSUserDefaults standardUserDefaults] setValue:defaultsGID forKey:@"PlayHavenGID"];
@@ -112,7 +106,7 @@ BOOL _localWiFiAvailable()
 
 int PHNetworkStatus()
 {
-    //TODO: change this to check API accessibility specifically
+    // TODO: change this to check API accessibility specifically
     struct sockaddr_in zeroAddr;
     bzero(&zeroAddr, sizeof(zeroAddr));
 
@@ -130,19 +124,19 @@ int PHNetworkStatus()
     BOOL isReachable     = ((flags & kSCNetworkFlagsReachable) != 0);
     BOOL needsConnection = ((flags & kSCNetworkFlagsConnectionRequired) != 0);
 
-    if(isReachable && !needsConnection) // connection is available
+    if (isReachable && !needsConnection) // Connection is available
     {
-        // determine what type of connection is available
+        // Determine what type of connection is available
         BOOL isCellularConnection = ((flags & kSCNetworkReachabilityFlagsIsWWAN) != 0);
 
-        if(isCellularConnection)
-            return 1; // cellular connection available
+        if (isCellularConnection)
+            return 1; // Cellular connection available
 
-        if(_localWiFiAvailable())
-            return 2; // wifi connection available
+        if (_localWiFiAvailable())
+            return 2; // Wifi connection available
     }
 
-    return 0; // no connection at all
+    return 0; // No connection at all
 }
 
 NSString *PHAgnosticStringValue(id object)

@@ -7,9 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <UIKit/UIKit.h>
 #import "PHAPIRequest.h"
-#import "OpenUDID.h"
 #import "PHConstants.h"
 #import "PHStringUtil.h"
 
@@ -19,7 +17,7 @@
 #define HASH_STRING  @"DEVICE_ID:PUBLISHER_TOKEN:PUBLISHER_SECRET:NONCE"
 #define EXPECTED_HASH @"3L0xlrDOt02UrTDwMSnye05Awwk"
 
-@interface PHAPIRequest(Private)
+@interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
 + (void)setSession:(NSString *)session;
 - (void)processRequestResponse:(NSDictionary *)response;
@@ -54,12 +52,12 @@
      */
     NSString *responseDigest, *expectedDigest;
 
-    //digest with nonce
+    // Digest with nonce
     responseDigest = [PHAPIRequest expectedSignatureValueForResponse:@"response body" nonce:@"nonce" secret:PUBLISHER_SECRET];
     expectedDigest = @"rt3JHGReRAaol-xPVildr6Ev9fU=";
     STAssertTrue([responseDigest isEqualToString:expectedDigest], @"Digest mismatch. Expected %@ got %@", expectedDigest, responseDigest);
 
-    //digest without nonce
+    // Digest without nonce
     responseDigest = [PHAPIRequest expectedSignatureValueForResponse:@"response body" nonce:nil secret:PUBLISHER_SECRET];
     expectedDigest = @"iNmo12xRqVAn_7quEvOSwhenEZA=";
     STAssertTrue([responseDigest isEqualToString:expectedDigest], @"Digest mismatch. Expected %@ got %@", expectedDigest, responseDigest);
@@ -70,7 +68,7 @@
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *signedParameters = [request signedParameters];
 
-    //Test for existence of parameters
+    // Test for existence of parameters
     NSString
         *session   = [signedParameters valueForKey:@"session"],
         *gid       = [signedParameters valueForKey:@"gid"],

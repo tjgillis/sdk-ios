@@ -5,7 +5,7 @@
 //  Created by Jesus Fernandez on 2/9/11.
 //  Copyright 2011 Playhaven. All rights reserved.
 //
-#import <UIKit/UIKit.h>
+
 #import "PHURLLoader.h"
 #import "PHConstants.h"
 
@@ -96,7 +96,7 @@
                                                                          startImmediately:YES];
 
 
-            //PHURLLOADER_RETAIN see PHURLLOADER_RELEASE
+            // PHURLLOADER_RETAIN see PHURLLOADER_RELEASE
             [[PHURLLoader allLoaders] addObject:self];
         }
     }
@@ -106,7 +106,7 @@
 {
     self.delegate = nil;
 
-    //PHURLLOADER_RELEASE see PHURLLOADER_RETAIN
+    // PHURLLOADER_RELEASE see PHURLLOADER_RETAIN
     @synchronized (self) {
         [_connection cancel];
         [[PHURLLoader allLoaders] removeObject:self];
@@ -123,7 +123,7 @@
         [self invalidate];
 
         if (self.opensFinalURLOnDevice) {
-            // using respondsToSelector to allow functionality to be overriden by Automation
+            // Using respondsToSelector to allow functionality to be overriden by Automation
             if ([self respondsToSelector:@selector(_launchURLForAutomation:)]) {
                 [self performSelector:@selector(_launchURLForAutomation:) withObject:self.targetURL];
             } else {

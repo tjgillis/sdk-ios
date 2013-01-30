@@ -80,7 +80,7 @@
  **/
 /*@{*/
 /**
- * Gets and sets the UDID opt-out status. If \c YES and <tt>PH_USE_UNIQUE_IDENTIFIER==1</tt>,
+ * Gets and sets the UDID opt-out status. If \c YES and <tt>PH_USE_UNIQUE_IDENTIFIER == 1</tt>,
  * then the device's UDID will be sent with each request. Defaults to \c YES
  **/
 + (BOOL)optOutStatus;

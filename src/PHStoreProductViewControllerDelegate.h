@@ -5,7 +5,8 @@
 //  Created by Jesus Fernandez on 9/18/12.
 //
 //
-#if PH_USE_STOREKIT!=0
+#if PH_USE_STOREKIT != 0
+
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 

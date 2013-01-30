@@ -60,7 +60,7 @@ static PHTimeInGame * shared = nil;
     // Record elapsed time for this session using a background task identifier to ensure data is recorded
     // as this is normally called as an app is backgrounded/terminated.
     UIBackgroundTaskIdentifier synchronizeIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        //no-op
+        // no-op
     }];
 
     [[NSUserDefaults standardUserDefaults] setDouble:[self getSumSessionDuration] forKey:@"PHSessionDuration"];
@@ -124,7 +124,7 @@ After time in game data has been reported to the API, we will purge that amount 
 */
 - (void)resetCounters
 {
-    //resetting session count to 1 since this is usually called during a session
+    // Resetting session count to 1 since this is usually called during a session
     [[NSUserDefaults standardUserDefaults] setDouble:0.0f forKey:@"PHSessionDuration"];
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"PHSessionCount"];
     [[NSUserDefaults standardUserDefaults] synchronize];

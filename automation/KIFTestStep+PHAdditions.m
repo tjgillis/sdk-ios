@@ -8,10 +8,9 @@
 
 #import "KIFTestStep+PHAdditions.h"
 #import "AppDelegate.h"
-#import "RootViewController.h"
+
 #import "UIAccessibilityElement-KIFAdditions.h"
 #import "UIView-KIFAdditions.h"
-#import "UIApplication-KIFAdditions.h"
 #import "UIWindow-KIFAdditions.h"
 
 #import "PHReward.h"
@@ -36,11 +35,11 @@
             [KIFTestStep stepWithDescription:@"Reset the app"
                               executionBlock:^(KIFTestStep *step, NSError **error)
                               {
-                                  //reset to home screen and set token and secret. This will automatically cancel any open requests if they did not clean up properly
+                                  // Reset to home screen and set token and secret. This will automatically cancel any open requests if they did not clean up properly
                                   AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                                   [delegate.navigationController popToRootViewControllerAnimated:YES];
 
-                                  //reset dispatch log to prevent dispatches from matching dispatches from a previous test
+                                  // Reset dispatch log to prevent dispatches from matching dispatches from a previous test
                                   [[PHContentView _dispatchLog] removeAllObjects];
 
                                   return KIFTestStepResultSuccess;
@@ -64,10 +63,10 @@
                               NSString *waitDescription =
                                     [NSString stringWithFormat:@"Waiting for presence of accessibility element with label \"%@\"", label];
 
-                              //wait for the presence of the view
+                              // Wait for the presence of the view
                               KIFTestWaitCondition(element, error, @"%@", waitDescription);
 
-                              //is this element a UIWebView
+                              // Is this element a UIWebView
                               UIView *view =
                                     [UIAccessibilityElement viewContainingAccessibilityElement:element];
                               BOOL isElementWebView =
@@ -75,7 +74,7 @@
 
                               KIFTestCondition(isElementWebView, error, @"View with accessibility label %@ is not a webview, but a %@!", label, NSStringFromClass([view class]));
 
-                              //wait for the webview to finish loading
+                              // Wait for the webview to finish loading
                               UIWebView *webView = (UIWebView *) view;
                               KIFTestWaitCondition(![webView isLoading], error, @"Waiting for UIWebView instance with accessibility label %@...", label);
 
@@ -104,17 +103,17 @@
                               NSString *waitDescription =
                                     [NSString stringWithFormat:@"Waiting for presence of accessibility element with label \"%@\"", label];
 
-                              //wait for the presence of the view
+                              // Wait for the presence of the view
                               KIFTestWaitCondition(element, error, @"%@", waitDescription);
 
-                              //is this element a UIWebView?
+                              // Is this element a UIWebView?
                               UIView *view =
                                     [UIAccessibilityElement viewContainingAccessibilityElement:element];
                               BOOL isElementWebView =
                                     [view isKindOfClass:[UIWebView class]];
                               KIFTestCondition(isElementWebView, error, @"View with accessibility label %@ is not a webview, but a %@!", label, NSStringFromClass([view class]));
 
-                              //wait for the webview to finish loading
+                              // Wait for the webview to finish loading
                               UIWebView *webView = (UIWebView *)view;
                               NSString  *result  = [webView stringByEvaluatingJavaScriptFromString:javascript];
                               if (expectedResult != nil) {
@@ -141,10 +140,10 @@
                               NSString *waitDescription =
                                     [NSString stringWithFormat:@"Waiting for presence of accessibility element with label \"%@\"", label];
 
-                              //wait for the presence of the view
+                              // Wait for the presence of the view
                               KIFTestWaitCondition(element, error, @"%@", waitDescription);
 
-                              //is this element a UIWebView?
+                              // Is this element a UIWebView?
                               UIView *view =
                                     [UIAccessibilityElement viewContainingAccessibilityElement:element];
                               BOOL isElementWebView =
@@ -153,13 +152,13 @@
 
                               UIWebView *webView = (UIWebView *)view;
 
-                              //inject javascript if automation functions are missing
+                              // Inject javascript if automation functions are missing
                               NSString *javascriptCheckResult =
                                     [webView stringByEvaluatingJavaScriptFromString:@"$.fn.isTappable === undefined"];
 
                               if ([javascriptCheckResult isEqualToString:@"true"]) {
 
-                                  //inject javascripts
+                                  // Inject javascripts
                                   NSArray *scriptNames = [NSArray arrayWithObjects:@"zepto.viewportposition", nil];
 
                                   NSEnumerator *scriptEnumerator = [scriptNames objectEnumerator];
@@ -177,7 +176,7 @@
 
                               }
 
-                              //wait for element to be tappable
+                              // Wait for element to be tappable
                               NSString *tappableCheckScript =
                                     [NSString stringWithFormat:@"$('%@').isTappable()", selector];
                               NSString *tappableCheckResult =
@@ -185,7 +184,7 @@
 
                               KIFTestWaitCondition([tappableCheckResult isEqualToString:@"true"], error, @"Timed out waiting for element at selector %@ to be tappable", selector);
 
-                              //get element position and tap the webview
+                              // Get element position and tap the webview
                               NSString *positionScript =
                                     [NSString stringWithFormat:@"JSON.stringify($('%@').viewportPosition())", selector];
                               NSString *positionResult =
@@ -197,7 +196,7 @@
 
                               KIFTestCondition(positionDictionary != nil, error, @"Did not get a valid position for element at selector %@", selector);
 
-                              //tap the view
+                              // Tap the view
                               CGFloat tapX = [[positionDictionary valueForKey:@"x"] floatValue];
                               CGFloat tapY = [[positionDictionary valueForKey:@"y"] floatValue];
                               CGPoint tapPoint = CGPointMake(tapX, tapY);
@@ -342,7 +341,7 @@
                                   KIFTestWaitCondition(foundDispatch.isComplete, error, @"Timed out waiting for dispatch: %@ to call back!", dispatch);
                               }
 
-                              //prevent this dispatch from getting matched again
+                              // Prevent this dispatch from getting matched again
                               [[PHContentView _dispatchLog] removeObject:foundDispatch];
 
                               return KIFTestStepResultSuccess;

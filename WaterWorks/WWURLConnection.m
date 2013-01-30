@@ -7,14 +7,14 @@
 
 #import "WWURLConnection.h"
 #import "WWURLMatching.h"
-#include <stdio.h>
+
 NSString *readLineAsNSString(FILE *file);
 
 NSString *readLineAsNSString(FILE *file)
 {
     char buffer[4096];
 
-    // tune this capacity to your liking -- larger buffer sizes will be faster, but
+    // Tune this capacity to your liking -- larger buffer sizes will be faster, but
     // use more memory
     NSMutableString *result = [NSMutableString stringWithCapacity:256];
 
@@ -23,7 +23,7 @@ NSString *readLineAsNSString(FILE *file)
     do
     {
         if (fgets(buffer, 4095, file) != NULL) {
-            //remove newline from the end of the buffer
+            // Remove newline from the end of the buffer
             NSString *line = [NSString stringWithFormat:@"%s", buffer];
             line = [line stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 
@@ -73,7 +73,7 @@ NSString *readLineAsNSString(FILE *file)
 }
 @end
 
-@interface WWURLConnection(Private)
+@interface WWURLConnection (Private)
 + (NSMutableDictionary *)allResponses;
 + (NSData *)getResponseForURL:(NSURL *)url;
 - (void)startInBackground;
@@ -132,18 +132,18 @@ NSString *readLineAsNSString(FILE *file)
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     const char *routesPath = [[resourcePath stringByAppendingPathComponent:fileName] UTF8String];
     FILE *file;
-    if((file = fopen(routesPath, "r")) != NULL) {
+    if ((file = fopen(routesPath, "r")) != NULL) {
         while (!feof(file)) {
-            //Read the next line ignoring comments
+            // Read the next line ignoring comments
             NSString *line = readLineAsNSString(file);
             if ([line length] > 1 && ![[line substringToIndex:1] isEqualToString:@"#"]) {
-                //Are there at least two tokens?
+                // Are there at least two tokens?
                 NSArray *components = [line componentsSeparatedByString:@" "];
                 if ([components count] >= 2) {
-                    //Is the first component a valid URL?
+                    // Is the first component a valid URL?
                     NSURL *url = [NSURL URLWithString:[components objectAtIndex:0]];
                     if (!!url) {
-                        //Is the second component a valid file?
+                        // Is the second component a valid file?
                         NSString *responsePath = [resourcePath stringByAppendingPathComponent:[components objectAtIndex:1]];
                         if ([[NSFileManager defaultManager] fileExistsAtPath:responsePath]) {
                             WWURLFileResponse *responseObject = [WWURLFileResponse new];
@@ -164,7 +164,7 @@ NSString *readLineAsNSString(FILE *file)
     NSData *bestResponse = nil;
     NSInteger bestMatchingLevel = 0;
 
-    //Iterate over the dictionary of responses to find a better matching level
+    // Iterate over the dictionary of responses to find a better matching level
     NSEnumerator *keyEnumerator = [[WWURLConnection allResponses] keyEnumerator];
     NSURL *matchURL;
     while ((matchURL = [keyEnumerator nextObject])) {
