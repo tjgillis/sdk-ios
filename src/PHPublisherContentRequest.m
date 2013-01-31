@@ -328,6 +328,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (NSDictionary *)additionalParameters
 {
+#if PH_USE_STOREKIT != 0
     return [NSDictionary dictionaryWithObjectsAndKeys:
                                  self.placement,
                                           @"placement_id",
@@ -337,6 +338,17 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
                                           @"preload",
                                  [NSNumber numberWithBool:([SKStoreProductViewController class] != nil)],
                                           @"isa", nil];
+#else
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+                                 self.placement,
+                                          @"placement_id",
+                                 [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])],
+                                          @"stime",
+                                 [NSNumber numberWithBool:(_targetState == PHPublisherContentRequestPreloaded)],
+                                          @"preload",
+                                 [NSNumber numberWithBool:NO],
+                                          @"isa", nil];
+#endif
 }
 
 - (void)cancel
@@ -349,6 +361,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
             [self removeContentView:contentView];
         }
+
         [contentViews release];
     }
 
@@ -395,6 +408,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
             [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(requestContentDidDismiss:)
                                                                        withObject:self];
         }
+
         [self finish];
     }
 }
