@@ -137,6 +137,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state
 {
+    DLog(@"");
+
     // State may only be set ahead!
     if (_state < state) {
         [self willChangeValueForKey:@"state"]; // TODO: Figure out what's going on with this variable (state)
@@ -195,6 +197,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)dealloc
 {
+    DLog(@"");
+
     [PHPublisherContentRequest cancelPreviousPerformRequestsWithTarget:self selector:@selector(showCloseButtonBecauseOfTimeout) object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_content release], _content = nil;
@@ -302,6 +306,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)showOverlayWindow
 {
+    DLog(@"");
+
     // This should keep UIKeyboard instances from blocking the content view.
     // It should be fine if this runs more than once.
     UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
@@ -314,6 +320,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)hideOverlayWindow
 {
+    DLog(@"");
+
     // Let's avoid creating an overlay instance if we don't need to.
     if (!!_overlayWindow) {
         [self.overlayWindow removeFromSuperview];
@@ -354,6 +362,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)cancel
 {
+    DLog(@"");
+
     if ([self.contentViews count] > 0) {
         NSArray *contentViews = [self.contentViews copy];
         for (PHContentView *contentView in contentViews) {
@@ -371,6 +381,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)finish
 {
+    DLog(@"");
+
     if ([self setPublisherContentRequestState:PHPublisherContentRequestDone]) {
         [PHAPIRequest cancelAllRequestsWithDelegate:self];
 
@@ -422,6 +434,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)send
 {
+    DLog(@"");
+
 #ifdef PH_DISMISS_WHEN_BACKGROUNDED
     if (PH_MULTITASKING_SUPPORTED) {
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -444,20 +458,27 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)continueLoadingIfNeeded
 {
+    DLog(@"");
+
     switch (self.state) {
         case PHPublisherContentRequestInitialized:
+            DLog(@"case PHPublisherContentRequestInitialized");
             [self getContent];
             break;
         case PHPublisherContentRequestPreloaded:
+            DLog(@"case PHPublisherContentRequestPreloaded");
             [self showContentIfReady];
             break;
         default:
+            DLog(@"case default");
             break;
     }
 }
 
 - (void)getContent
 {
+    DLog(@"");
+
     if ([self setPublisherContentRequestState:PHPublisherContentRequestPreloading]) {
         [super send];
 
@@ -472,6 +493,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)showContentIfReady
 {
+    DLog(@"");
+
     if (_targetState >= PHPublisherContentRequestDisplayingContent) {
         if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentWillDisplay:)]) {
             [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentWillDisplay:)
@@ -480,6 +503,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
         }
 
         if ([self setPublisherContentRequestState:PHPublisherContentRequestDisplayingContent]) {
+            DLog(@"showing overlay and pushing content");
+
             [self showOverlayWindow];
             [self pushContent:_content];
         }
@@ -530,10 +555,12 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)pushContent:(PHContent *)content
 {
+    DLog(@"");
+
     PHContentView *contentView = [PHContentView dequeueContentViewInstance];
+
     if (!contentView)
         contentView = [[[PHContentView alloc] initWithContent:nil] autorelease];
-
 
     [contentView redirectRequest:@"ph://subcontent" toTarget:self action:@selector(requestSubcontent:callback:source:)];
     [contentView redirectRequest:@"ph://reward" toTarget:self action:@selector(requestRewards:callback:source:)];
@@ -552,6 +579,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)removeContentView:(PHContentView *)contentView
 {
+    DLog(@"");
+
     [contentView retain];
     [self.contentViews removeObject:contentView];
     [PHContentView enqueueContentViewInstance:contentView];
@@ -588,6 +617,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)dismissToBackground
 {
+    DLog(@"");
+
     PH_NOTE(@"The content unit was dismissed because the app has been backgrounded.");
     if ([self.contentViews count] > 0) {
         NSArray *contentViews = [self.contentViews copy];
@@ -631,6 +662,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 #pragma mark PHContentViewDelegate
 - (void)contentViewDidLoad:(PHContentView *)contentView
 {
+    DLog(@"");
+
     if ([self.contentViews count] == 1) {
         // Only pass-through the first contentView load
         if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDisplay:)]) {
@@ -643,6 +676,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)contentViewDidDismiss:(PHContentView *)contentView
 {
+    DLog(@"");
+
     [self removeContentView:contentView];
 
     if ([self.contentViews count] == 0) {
@@ -662,6 +697,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)contentView:(PHContentView *)contentView didFailWithError:(NSError *)error
 {
+    DLog(@"");
+
     [self removeContentView:contentView];
 
     if ([self.contentViews count] == 0) {

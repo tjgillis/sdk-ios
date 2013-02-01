@@ -11,6 +11,7 @@
 #import "NSObject+QueryComponents.h"
 #import "JSON.h"
 #import "PHStoreProductViewControllerDelegate.h"
+#import "PHConnectionManager.h"
 
 #define MAX_MARGIN 20
 
@@ -47,6 +48,8 @@ static NSMutableSet *allContentViews = nil;
 
 + (void)initialize
 {
+    DLog(@"");
+
     if (self == [PHContentView class]) {
         [[NSNotificationCenter defaultCenter] addObserver:[PHContentView class]
                                                  selector:@selector(clearContentViews)
@@ -108,6 +111,8 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark -
 - (id)initWithContent:(PHContent *)content
 {
+    DLog(@"");
+
     if ((self = [super initWithFrame:[[UIScreen mainScreen] applicationFrame]])) {
         NSInvocation
             *dismissRedirect     = [NSInvocation invocationWithMethodSignature:
@@ -192,6 +197,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)dealloc
 {
+    DLog(@"");
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [PHURLLoader invalidateAllLoadersWithDelegate:self];
 
@@ -271,6 +278,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)show:(BOOL)animated
 {
+    DLog(@"");
+
     // Reset transforms before doing anything
     _webView.transform = CGAffineTransformIdentity;
     _webView.alpha     = 1.0;
@@ -367,11 +376,15 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)dismiss:(BOOL)animated
 {
+    DLog(@"");
+
     [self closeView:animated];
 }
 
 - (void)dismissFromButton
 {
+    DLog(@"");
+
     NSDictionary *queryComponents = [NSDictionary dictionaryWithObjectsAndKeys:
                                                           self.content.closeButtonURLPath, @"ping", nil];
     [self handleDismiss:queryComponents];
@@ -379,6 +392,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)dismissWithError:(NSError *)error
 {
+    DLog(@"");
+
     // This is here because get called 2x
     // first from handleLoadContext:
     // second from webView:didFailLoadWithError:
@@ -398,6 +413,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)closeView:(BOOL)animated
 {
+    DLog(@"");
+
     [_webView setDelegate:nil];
     [_webView stopLoading];
 
@@ -433,29 +450,81 @@ static NSMutableSet *allContentViews = nil;
                                                   object:nil];
 }
 
+- (void)templateLoaded:(NSNotification *)notification
+{
+    DLog(@"");
+
+    NSURLRequest  *request  = [notification.userInfo objectForKey:@"request"];
+    NSURLResponse *response = [notification.userInfo objectForKey:@"response"];
+    NSData        *data     = [notification.userInfo objectForKey:@"data"];
+    NSError       *error    = [notification.userInfo objectForKey:@"error"];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[[request URL] absoluteString]
+                                                  object:nil];
+
+    DLog(@"request: %@, response: %@, data: %@, error: %@", [request description], [response description], data ? @"data" : @"no data", [error description]);
+
+    if (error) {
+        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 1 pre-caching, so loading template from network: %@", self.content.URL);
+        [_webView loadRequest:request];
+    } else if (!response || !data) {
+        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 2 pre-caching, so loading template from network: %@", self.content.URL);
+        [_webView loadRequest:request];
+    } else {
+        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXX Have pre-cached template!");
+        [_webView loadData:data
+                  MIMEType:response.MIMEType
+          textEncodingName:response.textEncodingName
+                   baseURL:response.URL];
+    }
+
+    //[self loadTemplate];
+}
+
 - (void)loadTemplate
 {
+    DLog(@"");
+
     [_webView stopLoading];
+
+            // TODO: Perhaps these need to match?
+//    NSURLRequest *request = [NSURLRequest requestWithURL:self.content.URL
+//                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+//                                         timeoutInterval:PH_REQUEST_TIMEOUT];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:self.content.URL
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                         timeoutInterval:PH_REQUEST_TIMEOUT];
+                                         timeoutInterval:PH_REQUEST_TIMEOUT + 10];
 
     NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
-    if (response) {
-        PH_NOTE(@"Found local copy of template!");
+
+    DLog(@"Looking for cached template: %@", [[request URL] absoluteString]);
+
+    if ([PHConnectionManager isRequestPending:request]) {
+        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Template is already being downloaded. Will come back when complete!");
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(templateLoaded:)
+                                                     name:[[request URL] absoluteString]
+                                                   object:nil];
+
+    } else if (response) {
+        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Found local copy of template!");
         [_webView loadData:response.data
                   MIMEType:response.response.MIMEType
           textEncodingName:response.response.textEncodingName
                    baseURL:response.response.URL];
     } else {
-        PH_LOG(@"Loading template from network: %@", self.content.URL);
+        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Loading template from network: %@", self.content.URL);
         [_webView loadRequest:request];
     }
 }
 
 - (void)viewDidShow
 {
+    DLog(@"");
+
     if ([self.delegate respondsToSelector:(@selector(contentViewDidShow:))]) {
         [self.delegate contentViewDidShow:self];
     }
@@ -463,6 +532,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)viewDidDismiss
 {
+    DLog(@"");
+
     id oldDelegate = self.delegate;
     [self prepareForReuse];
 
@@ -475,6 +546,8 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    DLog(@"");
+
     NSURL *url = request.URL;
     NSString *urlPath;
     if ([url host] == nil) {
@@ -530,11 +603,15 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    DLog(@"");
+
     [self dismissWithError:error];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    DLog(@"");
+
     // This is a fix that primarily affects iOS versions older than 4.1, it should prevent http requests
     // from leaking memory from the webview. Newer iOS versions are unaffected by the bug or the fix.
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
@@ -550,6 +627,8 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark Redirects
 - (void)redirectRequest:(NSString *)urlPath toTarget:(id)target action:(SEL)action
 {
+    DLog(@"");
+
     if (!!target) {
         NSInvocation *redirect = [NSInvocation invocationWithMethodSignature:[[target class] instanceMethodSignatureForSelector:action]];
         redirect.target   = target;
@@ -563,6 +642,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)handleLaunch:(NSDictionary *)queryComponents callback:(NSString *)callback
 {
+    DLog(@"");
+
     NSString *urlPath = [queryComponents valueForKey:@"url"];
     if (!!urlPath && [urlPath isKindOfClass:[NSString class]]) {
         PHURLLoader *loader = [[PHURLLoader alloc] init];
@@ -584,6 +665,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)handleDismiss:(NSDictionary *)queryComponents
 {
+    DLog(@"");
+
     NSString *pingPath = [queryComponents valueForKey:@"ping"];
     if (!!pingPath && [pingPath isKindOfClass:[NSString class]]) {
         PHURLLoader *loader = [[PHURLLoader alloc] init];
@@ -600,6 +683,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)handleLoadContext:(NSDictionary *)queryComponents callback:(NSString*)callback
 {
+    DLog(@"");
+
     NSString *loadCommand = [NSString stringWithFormat:@"window.PlayHavenDispatchProtocolVersion = %d", PH_DISPATCH_PROTOCOL_VERSION];
     [_webView stringByEvaluatingJavaScriptFromString:loadCommand];
 
@@ -611,6 +696,8 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark - callbacks
 - (BOOL)sendCallback:(NSString *)callback withResponse:(id)response error:(id)error
 {
+    DLog(@"");
+
     NSString *_callback = @"null", *_response = @"null", *_error = @"null";
     if (!!callback) {
         PH_LOG(@"Sending callback with id: %@", callback);
@@ -648,6 +735,8 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark PHURLLoaderDelegate
 - (void)loaderFinished:(PHURLLoader *)loader
 {
+    DLog(@"");
+
     NSDictionary *contextData  = (NSDictionary *)loader.context;
     NSString     *callback     = [contextData valueForKey:@"callback"];
 
@@ -669,6 +758,8 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)loaderFailed:(PHURLLoader *)loader
 {
+    DLog(@"");
+
     NSDictionary *contextData  = (NSDictionary *)loader.context;
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                                        [loader.targetURL absoluteString], @"url", nil];

@@ -6,6 +6,7 @@
 //  Copyright 2011 Playhaven. All rights reserved.
 //
 
+#import "PHConnectionManager.h"
 #import "PHAPIRequest.h"
 
 #import "NSObject+QueryComponents.h"
@@ -351,15 +352,18 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)dealloc
 {
+    DLog(@"");
+
     [_token release], _token = nil;
     [_secret release], _secret = nil;
     [_URL release], _URL = nil;
-    [_connection release], _connection = nil;
     [_signedParameters release], _signedParameters = nil;
-    [_connectionData release], _connectionData = nil;
     [_urlPath release], _urlPath = nil;
     [_additionalParameters release], _additionalParameters = nil;
-    [_response release], _response = nil;
+
+    //[_connection release], _connection = nil;
+    //[_connectionData release], _connectionData = nil;
+    //[_response release], _response = nil;
 
     [super dealloc];
 }
@@ -369,24 +373,44 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)send
 {
-    if (_connection == nil) {
+    DLog(@"");
+
+    //if (_connection == nil) { // TODO: This seems like a very bad way to stop requests from being sent twice (as _connection would
+                                // really only be nil when the apirequest was first created), though that's what it's actually doing
+                                // as it is never set to nil when the connection finishes. Was this prevention here intentionally?
+
+    if (!theRightWayToStopTheRequestFromBeingSentTwiceIfItsActuallyNeeded)
+    {
         PH_LOG(@"Sending request: %@", [self.URL absoluteString]);
         NSURLRequest *request = [NSURLRequest requestWithURL:self.URL
                                                  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                              timeoutInterval:PH_REQUEST_TIMEOUT];
 
-#ifdef PH_USE_NETWORK_FIXTURES
-        _connection = [[WWURLConnection connectionWithRequest:request delegate:self] retain];
-#else
-        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-#endif
-        [_connection start];
+        if ([PHConnectionManager createConnectionFromRequest:request forDelegate:self withContext:nil])
+            theRightWayToStopTheRequestFromBeingSentTwiceIfItsActuallyNeeded = YES;
+        else
+            [self didFailWithError:nil]; // TODO: Create error
+
+//#ifdef PH_USE_NETWORK_FIXTURES
+//        _connection = [[WWURLConnection connectionWithRequest:request delegate:self] retain];
+//#else
+//        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//#endif
+//        [_connection start];
+
     }
+
+
+
+    //}
 }
 
 - (void)cancel
 {
     PH_LOG(@"%@ canceled!", NSStringFromClass([self class]));
+
+    // TODO: Confirm that by moving this from 'finish' to 'cancel' doesn't break anything
+    [PHConnectionManager stopConnectionsForDelegate:self];
     [self finish];
 }
 
@@ -395,48 +419,57 @@ static NSString *sPlayHavenPluginIdentifier;
  */
 - (void)finish
 {
-    [_connection cancel];
+    DLog(@"");
+
+//    [_connection cancel];
 
     // REQUEST_RELEASE see REQUEST_RETAIN
     [[PHAPIRequest allRequests] removeObject:self];
 }
 
 #pragma mark -
-#pragma mark NSURLConnectionDelegate
+#pragma mark NSURLConnectionDelegate PHConnectionManagerDelegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+//- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+//{
+//    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+//        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//        PH_LOG(@"Request recieved HTTP response: %d", [httpResponse statusCode]);
+//    }
+//
+//    /* We want to get response objects for everything */
+//    [_connectionData release], _connectionData = [[NSMutableData alloc] init];
+//    [_response release], _response = [response retain];
+//}
+
+//- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+//{
+//    [_connectionData appendData:data];
+//}
+
+//- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoadingWithRequest:(NSURLRequest *)request response:(NSURLResponse *)response data:(NSData *)data andContext:(id)context
 {
-    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        PH_LOG(@"Request received HTTP response: %d", [httpResponse statusCode]);
-    }
+    //PH_NOTE(@"Request finished!");
 
-    /* We want to get response objects for everything */
-    [_connectionData release], _connectionData = [[NSMutableData alloc] init];
-    [_response release], _response = [response retain];
-}
+    DLog(@"");
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [_connectionData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    PH_NOTE(@"Request finished!");
     if ([self.delegate respondsToSelector:@selector(requestDidFinishLoading:)]) {
         [self.delegate performSelector:@selector(requestDidFinishLoading:) withObject:self withObject:nil];
     }
 
-    NSString *responseString = [[[NSString alloc] initWithData:_connectionData encoding:NSUTF8StringEncoding] autorelease];
+    NSString *responseString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
-    if ([_response isKindOfClass:[NSHTTPURLResponse class]]) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)_response;
+    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSString *requestSignature  = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
         NSString *nonce             = [self.signedParameters valueForKey:@"nonce"];
         NSString *expectedSignature = [PHAPIRequest expectedSignatureValueForResponse:responseString
                                                                                 nonce:nonce
                                                                                secret:self.secret];
+
+        DLog(@"expected signature: %@", expectedSignature);
+        DLog(@"request signature:  %@", requestSignature);
 
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
@@ -453,20 +486,26 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)afterConnectionDidFinishLoading
 {
+
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+//- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)connectionDidFailWithError:(NSError *)error request:(NSURLRequest *)request andContext:(id)context
 {
-    PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
+    DLog(@"");
+
+    //PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
     [self didFailWithError:error];
 
     // REQUEST_RELEASE see REQUEST_RETAIN
-    [self finish];
+    //[self finish]; // TODO: Why is this here if it's also in didFailWithError which is called immediately above??
+    // TODO: Investigate this further. Having it here causes crash, and removing it makes things work more as expected. Why else would it be needed?
 }
 
 #pragma mark -
 - (void)processRequestResponse:(NSDictionary *)responseData
 {
+    DLog(@"");
     id errorValue = [responseData valueForKey:@"error"];
     if (!!errorValue && ![errorValue isEqual:[NSNull null]]) {
         PH_LOG(@"Error response: %@", errorValue);
