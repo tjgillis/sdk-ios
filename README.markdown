@@ -9,7 +9,6 @@ This guide has the following sections:
 * [API Reference](#api-reference)
 * [Integration Test Console](#integration-test-console-overview)
 
-<a id="overview"></a>
 Overview
 ========
 
@@ -23,7 +22,6 @@ For more information, see the [Help Center](http://help.playhaven.com) or contac
 
 Also see the [Integration](#integration) and [API Reference](#api-reference) sections in this document.
 
-<a id="version"></a>
 Version History
 ===============
 
@@ -64,7 +62,6 @@ Version History
 * In-App Purchase tracking and virtual goods promotion support. See [Triggering in-app purchases](#triggering-in-app-purchases) and [Tracking in-app purchases](#tracking-in-app-purchases) for information on how to integrate this into your app.
 * New documentation on how to disable Store Kit-based features in the SDK.
 
-<a id="integration"></a>
 Integration
 ===========
 If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/) instead of the iOS SDK.
@@ -99,7 +96,6 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 1. For each placement, you need to send a content request and implement content request delegate methods. See [Requesting content for your placements](#requesting-content-for-your-placements).
 1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that use this widget. This can improve chart opens performance by up to 300%. See [Add a notification view (notifier badge)](#add-a-notification-view-notifier-badge).
 
-<a id="api_ref"></a>
 API Reference
 =============
 ### Device tracking
@@ -118,7 +114,6 @@ To comply with Apple policies for the use of device information, we've provided 
 
 You are responsible for providing an appropriate user interface for user opt-out. User data is sent by default.
 
-<a id="recording"></a>
 ### Recording game opens
 Your application must report each time that it comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.
 
@@ -231,7 +226,6 @@ The `PHReward` object passed through this method has the following helpful prope
   * quantity - An integer representing the quantity associated with the reward.
   * receipt - A unique identifier that is used to detect duplicate reward unlocks. Your app should ensure that each receipt is only unlocked once.
 
-<a id="trigger-in-app"></a>
 ### Triggering in-app purchases
 Using the Virtual Goods Promotion content unit, PlayHaven can be used to trigger In-App Purchase requests in your app using the following:
 
@@ -253,13 +247,11 @@ The `PHPurchase` object passed through this method has the following properties:
   * PHPurchaseResolutionCancel - The user was prompted for an item, but the user elected to not buy it.
   * PHPurchaseResolutionError - An error prevented the purchase or delivery of the item.
 
-<a id="in-app_links"></a>
 ### Links to the App Store
 As of 1.12.1, links that open in the App Store will instead launch Apple's In-App iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
 
 In-App iTunes purchases are like other in-app purchases in that when launched from an app that is being debugged (through XCode), or distributed using an Ad-Hoc profile, they interact with Apple's sandbox iTunes environment. Thus, purchases won't seem to work unless they're tested with a sandbox iTunes account, which is set up through iTunes Connect. The purchases will work as expected from a version of the app downloaded from the App Store, which is signed by Apple.
 
-<a id="track-in-app"></a>
 ### Tracking in-app purchases
 By providing data on your In-App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the `PHPublisherIAPTrackingRequest` class. To report successful purchases use the following either in your `SKPaymentQueueObserver` instance or after a purchase has been successfully delivered:
 
@@ -273,7 +265,6 @@ Purchases that are canceled or encounter errors should be reported using the fol
 
 If the error comes from an `SKPaymentTransaction` instance's `error` property, the SDK will automatically select the correct resolution (buy/cancel) based on the `NSError` object that is passed in.
 
-<a id="notification_view"></a>
 ### Add a notification view (notifier badge)
 Adding a notification view to your More Games button can increase the number of More Games Widget opens for your game by up to 300%. To create a notification view:
 
