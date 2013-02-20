@@ -215,7 +215,6 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
                                                  selector:@selector(placeCloseButton)
                                                      name:UIDeviceOrientationDidChangeNotification
                                                    object:nil];
-
     }
 
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -303,11 +302,13 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)showOverlayWindow
 {
-    UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
-    [window addSubview:self.overlayWindow];
-
     // This should keep UIKeyboard instances from blocking the content view.
     // It should be fine if this runs more than once.
+    UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+    [window addSubview:self.overlayWindow];
+
+    //This should keep UIKeyboard instances from blocking the content view.
+    //It should be fine if this runs more than once.
     [window endEditing:YES];
 }
 
@@ -467,7 +468,6 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
         [self placeCloseButton];
     }
-
 }
 
 - (void)showContentIfReady
@@ -714,6 +714,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
                                           PHGID(),
                                           receipt,
                                           self.secret];
+
     NSString *generatedSignature = [PHStringUtil hexDigestForString:generatedSignatureString];
 
     return [generatedSignature isEqualToString:signature];
