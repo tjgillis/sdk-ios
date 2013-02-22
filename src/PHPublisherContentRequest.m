@@ -372,8 +372,8 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 - (void)finish
 {
     if ([self setPublisherContentRequestState:PHPublisherContentRequestDone]) {
-        [PHAPIRequest cancelAllRequestsWithDelegate:self]; // TODO: Something is not right here; should be "...WithDelegate:self.delegate];"???
-                                                           // Ohhhhhh ... when subcontent requests are created, the instance of this class is used as the delegate
+        [PHAPIRequest cancelAllRequestsWithDelegate:self];
+
 
         [self hideOverlayWindow];
         [self hideCloseButton];
@@ -494,9 +494,12 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
         PHPublisherSubContentRequest *request = [PHPublisherSubContentRequest requestForApp:self.token secret:self.secret];
         request.delegate = self;
 
-        request.urlPath = [queryParameters valueForKey:@"url"];
+        //request.urlPath  = [queryParameters valueForKey:@"url"];
+
+        request.additionalParameters = [queryParameters objectForKey:@"additional_parameters"];
+
         request.callback = callback;
-        request.source = source;
+        request.source   = source;
 
         [request send];
     } else {
