@@ -64,7 +64,7 @@ static NSString *sPlayHavenPluginIdentifier;
     return allRequests;
 }
 
-+ (void)cancelAllRequestsWithDelegate:(id)delegate
++ (void)cancelAllRequestsWithDelegate:(id<PHAPIRequestDelegate>)delegate
 {
     NSEnumerator *allRequests = [[PHAPIRequest allRequests] objectEnumerator];
     PHAPIRequest *request = nil;
@@ -359,7 +359,7 @@ static NSString *sPlayHavenPluginIdentifier;
     [_connectionData release], _connectionData = nil;
     [_urlPath release], _urlPath = nil;
     [_additionalParameters release], _additionalParameters = nil;
-    [_response release], _response = nil; // TODO: Lilli, make sure by adding this, nothing breaks
+    [_response release], _response = nil;
 
     [super dealloc];
 }
@@ -408,12 +408,12 @@ static NSString *sPlayHavenPluginIdentifier;
 {
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        PH_LOG(@"Request recieved HTTP response: %d", [httpResponse statusCode]);
+        PH_LOG(@"Request received HTTP response: %d", [httpResponse statusCode]);
     }
 
     /* We want to get response objects for everything */
     [_connectionData release], _connectionData = [[NSMutableData alloc] init];
-    [_response release], _response = [response retain]; // TODO: Why are we holding on to the response object between connections?
+    [_response release], _response = [response retain];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

@@ -134,8 +134,7 @@
  * @param delegate
  *   The delegate
  **/
-// TODO: Update the argument to be of type (id<DelegateType>), as opposed to just (id); figure out the type
-+ (void)cancelAllRequestsWithDelegate:(id)delegate;
++ (void)cancelAllRequestsWithDelegate:(id<PHAPIRequestDelegate>)delegate;
 
 /**
  * Cancels an existing request with a hash code value of \c hashCode.
@@ -155,7 +154,7 @@
                                                         this with a hard-coded value */
 @property (nonatomic, readonly) NSURL    *URL;     /**< Lazily-initialized NSURL instance that contains a full request
                                                         URL with signed parameters */
-@property (nonatomic, retain)   NSDictionary *additionalParameters; /**< Subclasses can either override this implementation
+@property (nonatomic, retain)   NSDictionary *additionalParameters; /**< Subclasses can override this implementation
                                                                          to add custom parameters to requests */
 @property (nonatomic, readonly) NSDictionary *signedParameters;     /**< Lazily-initialized dictionary of base request
                                                                          parameters as well as necessary request signatures */
