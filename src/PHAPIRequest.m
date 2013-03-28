@@ -352,7 +352,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)dealloc
 {
-    DLog(@"");
+    //DLog(@"");
 
     [_token release], _token = nil;
     [_secret release], _secret = nil;
@@ -373,7 +373,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)send
 {
-    DLog(@"");
+    //DLog(@"");
 
     //if (_connection == nil) { // TODO: This seems like a very bad way to stop requests from being sent twice (as _connection would
                                 // really only be nil when the apirequest was first created), though that's what it's actually doing
@@ -419,7 +419,7 @@ static NSString *sPlayHavenPluginIdentifier;
  */
 - (void)finish
 {
-    DLog(@"");
+    //DLog(@"");
 
 //    [_connection cancel];
 
@@ -468,9 +468,6 @@ static NSString *sPlayHavenPluginIdentifier;
                                                                                 nonce:nonce
                                                                                secret:self.secret];
 
-        DLog(@"expected signature: %@", expectedSignature);
-        DLog(@"request signature:  %@", requestSignature);
-
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
 
@@ -505,7 +502,7 @@ static NSString *sPlayHavenPluginIdentifier;
 #pragma mark -
 - (void)processRequestResponse:(NSDictionary *)responseData
 {
-    DLog(@"");
+    //DLog(@"");
     id errorValue = [responseData valueForKey:@"error"];
     if (!!errorValue && ![errorValue isEqual:[NSNull null]]) {
         PH_LOG(@"Error response: %@", errorValue);

@@ -465,21 +465,21 @@ static NSMutableSet *allContentViews = nil;
 
     DLog(@"request: %@, response: %@, data: %@, error: %@", [request description], [response description], data ? @"data" : @"no data", [error description]);
 
-    if (error) {
-        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 1 pre-caching, so loading template from network: %@", self.content.URL);
-        [_webView loadRequest:request];
-    } else if (!response || !data) {
-        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 2 pre-caching, so loading template from network: %@", self.content.URL);
-        [_webView loadRequest:request];
-    } else {
-        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXX Have pre-cached template!");
-        [_webView loadData:data
-                  MIMEType:response.MIMEType
-          textEncodingName:response.textEncodingName
-                   baseURL:response.URL];
-    }
+//    if (error) {
+//        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 1 pre-caching, so loading template from network: %@", self.content.URL);
+//        [_webView loadRequest:request];
+//    } else if (!response || !data) {
+//        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 2 pre-caching, so loading template from network: %@", self.content.URL);
+//        [_webView loadRequest:request];
+//    } else {
+//        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXX Have pre-cached template!");
+//        [_webView loadData:data
+//                  MIMEType:response.MIMEType
+//          textEncodingName:response.textEncodingName
+//                   baseURL:response.URL];
+//    }
 
-    //[self loadTemplate];
+    [self loadTemplate];
 }
 
 - (void)loadTemplate

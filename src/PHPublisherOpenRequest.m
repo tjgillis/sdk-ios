@@ -89,12 +89,12 @@
     {
         DLog(@"prefilling url array");
 
-        urlArray = [NSArray arrayWithObjects://@"http://media.playhaven.com/content-templates/f0452b8fb73f0dd835130f062c84dca7bacb3acc/html/more-games.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/f0452b8fb73f0dd835130f062c84dca7bacb3acc/html/announcement.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/f0452b8fb73f0dd835130f062c84dca7bacb3acc/html/data-collection.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/f0452b8fb73f0dd835130f062c84dca7bacb3acc/html/image.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/f0452b8fb73f0dd835130f062c84dca7bacb3acc/html/promo.html.gz",
-                                             @"http://media.playhaven.com/content-templates/f0452b8fb73f0dd835130f062c84dca7bacb3acc/html/gow.html.gz", nil];
+        urlArray = [NSArray arrayWithObjects:@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/more-games.html.gz",
+                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/announcement.html.gz",
+                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/data-collection.html.gz",
+                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/image.html.gz",
+                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/promo.html.gz",
+                                             @"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/gow.html.gz", nil];
     }
 
     if (!!urlArray) {

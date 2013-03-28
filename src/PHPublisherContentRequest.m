@@ -137,7 +137,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state
 {
-    DLog(@"");
+    //DLog(@"");
 
     // State may only be set ahead!
     if (_state < state) {
@@ -197,7 +197,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)dealloc
 {
-    DLog(@"");
+    //DLog(@"");
 
     [PHPublisherContentRequest cancelPreviousPerformRequestsWithTarget:self selector:@selector(showCloseButtonBecauseOfTimeout) object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -306,7 +306,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)showOverlayWindow
 {
-    DLog(@"");
+    //DLog(@"");
 
     // This should keep UIKeyboard instances from blocking the content view.
     // It should be fine if this runs more than once.
@@ -320,7 +320,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)hideOverlayWindow
 {
-    DLog(@"");
+    //DLog(@"");
 
     // Let's avoid creating an overlay instance if we don't need to.
     if (!!_overlayWindow) {
@@ -362,7 +362,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)cancel
 {
-    DLog(@"");
+    //DLog(@"");
 
     if ([self.contentViews count] > 0) {
         NSArray *contentViews = [self.contentViews copy];
@@ -381,7 +381,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)finish
 {
-    DLog(@"");
+    //DLog(@"");
 
     if ([self setPublisherContentRequestState:PHPublisherContentRequestDone]) {
         [PHAPIRequest cancelAllRequestsWithDelegate:self];
@@ -434,7 +434,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)send
 {
-    DLog(@"");
+    //DLog(@"");
 
 #ifdef PH_DISMISS_WHEN_BACKGROUNDED
     if (PH_MULTITASKING_SUPPORTED) {
@@ -458,7 +458,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)continueLoadingIfNeeded
 {
-    DLog(@"");
+    //DLog(@"");
 
     switch (self.state) {
         case PHPublisherContentRequestInitialized:
@@ -477,7 +477,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)getContent
 {
-    DLog(@"");
+    //DLog(@"");
 
     if ([self setPublisherContentRequestState:PHPublisherContentRequestPreloading]) {
         [super send];
@@ -493,7 +493,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)showContentIfReady
 {
-    DLog(@"");
+    //DLog(@"");
 
     if (_targetState >= PHPublisherContentRequestDisplayingContent) {
         if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentWillDisplay:)]) {
@@ -555,7 +555,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)pushContent:(PHContent *)content
 {
-    DLog(@"");
+    //DLog(@"");
 
     PHContentView *contentView = [PHContentView dequeueContentViewInstance];
 
@@ -579,7 +579,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)removeContentView:(PHContentView *)contentView
 {
-    DLog(@"");
+    //DLog(@"");
 
     [contentView retain];
     [self.contentViews removeObject:contentView];
@@ -617,7 +617,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)dismissToBackground
 {
-    DLog(@"");
+    //DLog(@"");
 
     PH_NOTE(@"The content unit was dismissed because the app has been backgrounded.");
     if ([self.contentViews count] > 0) {
@@ -662,7 +662,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 #pragma mark PHContentViewDelegate
 - (void)contentViewDidLoad:(PHContentView *)contentView
 {
-    DLog(@"");
+    //DLog(@"");
 
     if ([self.contentViews count] == 1) {
         // Only pass-through the first contentView load
@@ -676,7 +676,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)contentViewDidDismiss:(PHContentView *)contentView
 {
-    DLog(@"");
+    //DLog(@"");
 
     [self removeContentView:contentView];
 
@@ -697,7 +697,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (void)contentView:(PHContentView *)contentView didFailWithError:(NSError *)error
 {
-    DLog(@"");
+    //DLog(@"");
 
     [self removeContentView:contentView];
 

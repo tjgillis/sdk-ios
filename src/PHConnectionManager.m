@@ -156,7 +156,8 @@ static PHConnectionManager *singleton = nil;
 
 + (BOOL)createConnectionFromRequest:(NSURLRequest *)request forDelegate:(id <PHConnectionManagerDelegate>)delegate withContext:(id)context
 {
-    DLog(@"creating connection for url: %@", [[request URL] absoluteString]);
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/content-templates"])
+        DLog(@"creating connection for url: %@", [[request URL] absoluteString]);
 
     PHConnectionManager *connectionManager = [PHConnectionManager sharedInstance];
 
@@ -237,7 +238,7 @@ static PHConnectionManager *singleton = nil;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    DLog(@"");
+//    DLog(@"");
 
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -271,12 +272,14 @@ static PHConnectionManager *singleton = nil;
     [[self pendingRequests] removeObject:[[request URL] absoluteString]];
     [[self completeRequests] addObject:[[request URL] absoluteString]];
 
-    DLog(@"completing connection for url: %@", [[request URL] absoluteString]);
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/content-templates"])
+        DLog(@"completing connection for url: %@", [[request URL] absoluteString]);
 
     if ([delegate respondsToSelector:@selector(connectionDidFinishLoadingWithRequest:response:data:andContext:)])
         [delegate connectionDidFinishLoadingWithRequest:request response:response data:data andContext:context];
 
-    DLog(@"request: %@, response: %@, data: %@", [request description], [response description], data ? @"data" : @"no data");
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/content-templates"])
+        DLog(@"request: %@, response: %@, data: %@", [request description], [response description], data ? @"data" : @"no data");
 
     [[NSNotificationCenter defaultCenter] postNotificationName:[[request URL] absoluteString]
                                                         object:nil
@@ -291,7 +294,7 @@ static PHConnectionManager *singleton = nil;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    DLog(@"");
+    //DLog(@"");
     PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
 
     PHConnectionBundle *connectionBundle = [(PHConnectionBundle *) CFDictionaryGetValue(self.connections, connection) retain];
