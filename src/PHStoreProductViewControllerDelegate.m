@@ -20,6 +20,7 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 //  This will ensure the PH_USE_STOREKIT macro is properly set.
+#import "PHConstants.h"
 
 #if PH_USE_STOREKIT != 0
 #import "PHStoreProductViewControllerDelegate.h"
