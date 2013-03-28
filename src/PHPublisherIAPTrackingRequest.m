@@ -22,8 +22,6 @@
 @interface PHPublisherIAPTrackingRequest (Private)
 + (NSMutableDictionary *)allConversionCookies;
 - (void)requestProductInformation;
-//- (void)sendWithPrice:(NSDecimalNumber *)price andLocale:(NSLocale *)priceLocale receiptData:(NSData *)receiptData;
-//- (void)sendWithError:(NSError *)error receiptData:(NSData *)receiptData;
 - (void)sendWithFailure;
 @end
 

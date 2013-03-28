@@ -13,5 +13,6 @@
 @interface PublisherIAPTrackingViewController : ExampleViewController <PHAPIRequestDelegate>
 @property (retain, nonatomic) IBOutlet UITextField *productField;
 @property (retain, nonatomic) IBOutlet UITextField *quantityField;
+@property (retain, nonatomic) IBOutlet UITextField *receiptField;
 @property (retain, nonatomic) IBOutlet UISegmentedControl *resolutionSegment;
 @end
