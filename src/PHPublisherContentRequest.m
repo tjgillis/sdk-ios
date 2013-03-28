@@ -400,7 +400,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
             [self continueLoadingIfNeeded];
         }
     } else {
-        PH_NOTE(@"The request was successfull but did not contain any displayable content. There may not be any content units assigned to this placement or all content units assigned to this placement have been suppressed by frequency caps or targeting. Visit the PlayHaven Dashboard for more details. Dismissing now.");
+        PH_NOTE(@"The request was successful but did not contain any displayable content. This may have occurred because there are no content units assigned to this placement; all content units assigned to this placement are suppressed by frequency caps or targeting; no ad campaigns are available at this time; or an invalid placement was requested. Visit the PlayHaven Dashboard for more details. Dismissing now.");
         if ([(id<PHPublisherContentRequestDelegate>)self.delegate respondsToSelector:@selector(request:contentDidDismissWithType:)]) {
             [(id<PHPublisherContentRequestDelegate>)self.delegate performSelector:@selector(request:contentDidDismissWithType:)
                                                                        withObject:self
