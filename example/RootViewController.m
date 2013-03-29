@@ -14,11 +14,13 @@
 #import "URLLoaderViewController.h"
 #import "IAPViewController.h"
 #import "IDViewController.h"
+#import "SDURLCache.h"
 
-@interface RootViewController (Private)
+@interface RootViewController ()
 - (BOOL)isTokenAndSecretFilledIn;
 - (void)loadTokenAndSecretFromDefaults;
 - (void)saveTokenAndSecretToDefaults;
+@property (nonatomic, retain) UIButton *clearCacheButton;
 @end
 
 @implementation RootViewController
@@ -26,6 +28,7 @@
 @synthesize secretField;
 @synthesize optOutStatusSlider;
 @synthesize serviceURLField;
+@synthesize clearCacheButton;
 
 + (void)initialize
 {
@@ -54,6 +57,7 @@
     [secretField release];
     [optOutStatusSlider release];
     [serviceURLField release];
+    [clearCacheButton release];
     [super dealloc];
 }
 
@@ -91,6 +95,69 @@
 
 #pragma mark -
 #pragma mark UIViewController
+- (UIView *)viewForTableFooter
+{
+    UIView *footerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)] autorelease];
+    clearCacheButton   = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+
+    clearCacheButton.frame = CGRectMake(20, 10, self.view.frame.size.width - 40, 30);
+
+    [clearCacheButton setTitle:@"Cache Is Empty (0 Mb)" forState:UIControlStateDisabled];
+
+    clearCacheButton.autoresizingMask = UIViewAutoresizingNone | UIViewAutoresizingFlexibleWidth;
+
+    footerView.backgroundColor  = [UIColor colorWithRed:0.72157 green:0.75686 blue:0.78431 alpha:1.0];
+    footerView.autoresizingMask = UIViewAutoresizingNone | UIViewAutoresizingFlexibleWidth;
+
+    [footerView addSubview:clearCacheButton];
+
+    return footerView;
+}
+
+- (void)updateCacheButton
+{
+    if ([[NSURLCache sharedURLCache] isKindOfClass:[PH_SDURLCACHE_CLASS class]]) {
+        NSUInteger currentCacheUsage =
+                           [[NSURLCache sharedURLCache] currentDiskUsage] +
+                           [[NSURLCache sharedURLCache] currentMemoryUsage];
+
+        if (currentCacheUsage) {
+            CGFloat f_size = [[NSNumber numberWithUnsignedInt:currentCacheUsage] floatValue] / 1024;
+
+            NSString *s_size;
+
+            if (f_size < 1024) s_size = [NSString stringWithFormat:@"(%.2f Kb)", f_size];
+            else               s_size = [NSString stringWithFormat:@"(%.2f Mb)", f_size / 1024];
+
+            [clearCacheButton setTitle:[NSString stringWithFormat:@"Clear Cache %@", s_size]
+                              forState:UIControlStateNormal];
+            [clearCacheButton setEnabled:YES];
+        } else {
+            [clearCacheButton setEnabled:NO];
+        }
+
+        [clearCacheButton addTarget:self action:@selector(clearCache:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [clearCacheButton setTitle:@"Set Cache" forState:UIControlStateNormal];
+        [clearCacheButton addTarget:self action:@selector(setCache:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)setCache:(id)sender
+{
+    PH_SDURLCACHE_CLASS *urlCache = [[[PH_SDURLCACHE_CLASS alloc] initWithMemoryCapacity:PH_MAX_SIZE_MEMORY_CACHE
+                                                                            diskCapacity:PH_MAX_SIZE_FILESYSTEM_CACHE
+                                                                                diskPath:[PH_SDURLCACHE_CLASS defaultCachePath]] autorelease];
+    [NSURLCache setSharedURLCache:urlCache];
+
+    [self updateCacheButton];
+}
+
+- (void)clearCache:(id)sender
+{
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    [self updateCacheButton];
+}
 
 - (void)viewDidLoad
 {
@@ -103,12 +170,16 @@
                                                                     action:@selector(touchedToggleStatusBar:)];
     self.navigationItem.rightBarButtonItem = toggleButton;
     [toggleButton release];
+
+    ((UITableView *)self.view).tableFooterView = [self viewForTableFooter];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self loadTokenAndSecretFromDefaults];
+
+    [self updateCacheButton];
 }
 
 - (void)touchedToggleStatusBar:(id)sender
