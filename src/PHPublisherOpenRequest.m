@@ -101,18 +101,8 @@
 
         DLog(@"starting to cache content");
 
-        [PHResourceCacher cacherWithThingsToDownload:urlArray];
-
-//        for (NSString *urlString in urlArray) {
-//            NSURL *url = [NSURL URLWithString:urlString];
-//            NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
-//
-//            if (![PHConnectionManager isRequestPending:request])
-//                [PHConnectionManager createConnectionFromRequest:request forDelegate:self withContext:nil];
-
-//            NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:nil];
-//            [connection start];
-//        }
+        for (NSString *url in urlArray)
+            [PHResourceCacher cacheObject:url];
     }
 
     NSString *session = (NSString *)[responseData valueForKey:@"session"];

@@ -27,6 +27,7 @@
  **/
 // TODO: Can we safely rename this to put a space between the PH and CONTENTVIEW words?
 #define PHCONTENTVIEW_CALLBACK_NOTIFICATION  @"PHContentViewPHCallbackNotification"
+#define PH_PRECACHER_CALLBACK_NOTIFICATION   @"PHPrecacherPHCallbackNotification"
 
 
 /**

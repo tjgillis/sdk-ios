@@ -10,8 +10,14 @@
 
 // TODO: Optimize the imports
 #import "PHConnectionManager.h"
+#import "PlayHavenSDK.h"
 
-@interface PHResourceCacher : NSObject <PHConnectionManagerDelegate>
-- (id)initWithThingsToDownload:(id)things;
-+ (id)cacherWithThingsToDownload:(id)things;
+@interface PHResourceCacher : NSObject <PHConnectionManagerDelegate, UIWebViewDelegate, PHPublisherContentRequestDelegate>
+@property (nonatomic, retain) UIWebView *webView;
+
++ (void)cacheObject:(NSString *)object;
++ (BOOL)isRequestPending:(NSString *)requestUrlString;
+
++ (void)pause;
++ (void)resume;
 @end

@@ -12,6 +12,7 @@
 #import "JSON.h"
 #import "PHStoreProductViewControllerDelegate.h"
 #import "PHConnectionManager.h"
+#import "PHResourceCacher.h"
 
 #define MAX_MARGIN 20
 
@@ -455,31 +456,15 @@ static NSMutableSet *allContentViews = nil;
     DLog(@"");
 
     NSURLRequest  *request  = [notification.userInfo objectForKey:@"request"];
-    NSURLResponse *response = [notification.userInfo objectForKey:@"response"];
-    NSData        *data     = [notification.userInfo objectForKey:@"data"];
-    NSError       *error    = [notification.userInfo objectForKey:@"error"];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[[request URL] absoluteString]
-                                                  object:nil];
+    if ([request.URL.absoluteString isEqualToString:self.content.URL.absoluteString]) {
 
-    DLog(@"request: %@, response: %@, data: %@, error: %@", [request description], [response description], data ? @"data" : @"no data", [error description]);
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:PH_PRECACHER_CALLBACK_NOTIFICATION
+                                                      object:nil];
+        [self loadTemplate];
 
-//    if (error) {
-//        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 1 pre-caching, so loading template from network: %@", self.content.URL);
-//        [_webView loadRequest:request];
-//    } else if (!response || !data) {
-//        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXX Error 2 pre-caching, so loading template from network: %@", self.content.URL);
-//        [_webView loadRequest:request];
-//    } else {
-//        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXX Have pre-cached template!");
-//        [_webView loadData:data
-//                  MIMEType:response.MIMEType
-//          textEncodingName:response.textEncodingName
-//                   baseURL:response.URL];
-//    }
-
-    [self loadTemplate];
+    }
 }
 
 - (void)loadTemplate
@@ -488,35 +473,19 @@ static NSMutableSet *allContentViews = nil;
 
     [_webView stopLoading];
 
-            // TODO: Perhaps these need to match?
-//    NSURLRequest *request = [NSURLRequest requestWithURL:self.content.URL
-//                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                         timeoutInterval:PH_REQUEST_TIMEOUT];
-
     NSURLRequest *request = [NSURLRequest requestWithURL:self.content.URL
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                         timeoutInterval:PH_REQUEST_TIMEOUT + 10];
+                                         timeoutInterval:PH_REQUEST_TIMEOUT];
 
-    NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
-
-    DLog(@"Looking for cached template: %@", [[request URL] absoluteString]);
-
-    if ([PHConnectionManager isRequestPending:request]) {
-        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Template is already being downloaded. Will come back when complete!");
+    if ([PHResourceCacher isRequestPending:[[request URL] absoluteString]]) {
+        PH_NOTE(@"Template is already being downloaded. Will come back when complete!");
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(templateLoaded:)
-                                                     name:[[request URL] absoluteString]
+                                                     name:PH_PRECACHER_CALLBACK_NOTIFICATION
                                                    object:nil];
-
-    } else if (response) {
-        PH_NOTE(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Found local copy of template!");
-        [_webView loadData:response.data
-                  MIMEType:response.response.MIMEType
-          textEncodingName:response.response.textEncodingName
-                   baseURL:response.response.URL];
     } else {
-        PH_LOG(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Loading template from network: %@", self.content.URL);
+        PH_LOG(@"Loading template from network or cahce: %@", self.content.URL);
         [_webView loadRequest:request];
     }
 }

@@ -448,7 +448,7 @@ static NSString *sPlayHavenPluginIdentifier;
 //}
 
 //- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-- (void)connectionDidFinishLoadingWithRequest:(NSURLRequest *)request response:(NSURLResponse *)response data:(NSData *)data andContext:(id)context
+- (void)connectionDidFinishLoadingWithRequest:(NSURLRequest *)request response:(NSURLResponse *)response data:(NSData *)data context:(id)context
 {
     //PH_NOTE(@"Request finished!");
 
@@ -487,7 +487,7 @@ static NSString *sPlayHavenPluginIdentifier;
 }
 
 //- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-- (void)connectionDidFailWithError:(NSError *)error request:(NSURLRequest *)request andContext:(id)context
+- (void)connectionDidFailWithError:(NSError *)error request:(NSURLRequest *)request context:(id)context
 {
     DLog(@"");
 
