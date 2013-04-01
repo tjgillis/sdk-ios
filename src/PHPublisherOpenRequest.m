@@ -12,10 +12,6 @@
 #import "PHTimeInGame.h"
 #import "PHNetworkUtil.h"
 
-#if PH_USE_OPENUDID == 1
-#import "OpenUDID.h"
-#endif
-
 @interface PHAPIRequest (Private)
 - (void)finish;
 + (void)setSession:(NSString *)session;
@@ -44,9 +40,6 @@
         [additionalParameters setValue:self.customUDID forKey:@"d_custom"];
     }
 
-#if PH_USE_OPENUDID == 1
-        [additionalParameters setValue:[PH_OPENUDID_CLASS value] forKey:@"d_odid"];
-#endif
 #if PH_USE_MAC_ADDRESS == 1
     if (![PHAPIRequest optOutStatus]) {
         PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
