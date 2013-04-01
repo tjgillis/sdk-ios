@@ -165,7 +165,7 @@ static PHConnectionManager *singleton = nil;
 
 + (void)stopConnectionsForDelegate:(id<PHConnectionManagerDelegate>)delegate
 {
-    DLog(@"");
+    //DLog(@"");
 
     PHConnectionManager *connectionManager = [PHConnectionManager sharedInstance];
     PHConnectionBundle  *connectionBundle  = nil;
@@ -190,7 +190,7 @@ static PHConnectionManager *singleton = nil;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    DLog(@"");
+    //DLog(@"");
 
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -211,7 +211,6 @@ static PHConnectionManager *singleton = nil;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    PH_NOTE(@"Request finished!");
     PHConnectionBundle *connectionBundle = [(PHConnectionBundle *) CFDictionaryGetValue(self.connections, connection) retain];
 
     NSURLRequest  *request  = [connectionBundle request];
@@ -219,8 +218,6 @@ static PHConnectionManager *singleton = nil;
     NSData        *data     = [connectionBundle data];
     id             context  = [connectionBundle context];
     id<PHConnectionManagerDelegate> delegate = [connectionBundle delegate];
-
-    DLog(@"completing connection for url: %@", [[request URL] absoluteString]);
 
     if ([delegate respondsToSelector:@selector(connectionDidFinishLoadingWithRequest:response:data:context:)])
         [delegate connectionDidFinishLoadingWithRequest:request response:response data:data context:context];
@@ -231,9 +228,7 @@ static PHConnectionManager *singleton = nil;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    DLog(@"");
-    PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
-
+    //DLog(@"");
     PHConnectionBundle *connectionBundle = [(PHConnectionBundle *) CFDictionaryGetValue(self.connections, connection) retain];
 
     NSURLRequest *request  = [connectionBundle request];
@@ -262,8 +257,8 @@ static PHConnectionManager *singleton = nil;
     return cachedResponse;
 }
 
-- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge  { DLog(@""); }
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge { DLog(@""); }
+- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge  { /*DLog(@"");*/ }
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge { /*DLog(@"");*/ }
 //- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse    { DLog(@""); return cachedResponse; }
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten
                                                totalBytesWritten:(NSInteger)totalBytesWritten

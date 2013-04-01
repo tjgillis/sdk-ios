@@ -49,8 +49,6 @@ static NSMutableSet *allContentViews = nil;
 
 + (void)initialize
 {
-    DLog(@"");
-
     if (self == [PHContentView class]) {
         [[NSNotificationCenter defaultCenter] addObserver:[PHContentView class]
                                                  selector:@selector(clearContentViews)
@@ -112,8 +110,6 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark -
 - (id)initWithContent:(PHContent *)content
 {
-    DLog(@"");
-
     if ((self = [super initWithFrame:[[UIScreen mainScreen] applicationFrame]])) {
         NSInvocation
             *dismissRedirect     = [NSInvocation invocationWithMethodSignature:
@@ -198,8 +194,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)dealloc
 {
-    DLog(@"");
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [PHURLLoader invalidateAllLoadersWithDelegate:self];
 
@@ -279,8 +273,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)show:(BOOL)animated
 {
-    DLog(@"");
-
     // Reset transforms before doing anything
     _webView.transform = CGAffineTransformIdentity;
     _webView.alpha     = 1.0;
@@ -377,15 +369,11 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)dismiss:(BOOL)animated
 {
-    DLog(@"");
-
     [self closeView:animated];
 }
 
 - (void)dismissFromButton
 {
-    DLog(@"");
-
     NSDictionary *queryComponents = [NSDictionary dictionaryWithObjectsAndKeys:
                                                           self.content.closeButtonURLPath, @"ping", nil];
     [self handleDismiss:queryComponents];
@@ -393,8 +381,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)dismissWithError:(NSError *)error
 {
-    DLog(@"");
-
     // This is here because get called 2x
     // first from handleLoadContext:
     // second from webView:didFailLoadWithError:
@@ -414,8 +400,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)closeView:(BOOL)animated
 {
-    DLog(@"");
-
     [_webView setDelegate:nil];
     [_webView stopLoading];
 
@@ -453,8 +437,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)templateLoaded:(NSNotification *)notification
 {
-    DLog(@"");
-
     NSURLRequest  *request  = [notification.userInfo objectForKey:@"request"];
 
     if ([request.URL.absoluteString isEqualToString:self.content.URL.absoluteString]) {
@@ -469,8 +451,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)loadTemplate
 {
-    DLog(@"");
-
     [_webView stopLoading];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:self.content.URL
@@ -492,8 +472,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)viewDidShow
 {
-    DLog(@"");
-
     if ([self.delegate respondsToSelector:(@selector(contentViewDidShow:))]) {
         [self.delegate contentViewDidShow:self];
     }
@@ -501,8 +479,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)viewDidDismiss
 {
-    DLog(@"");
-
     id oldDelegate = self.delegate;
     [self prepareForReuse];
 
@@ -515,8 +491,6 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    DLog(@"");
-
     NSURL *url = request.URL;
     NSString *urlPath;
     if ([url host] == nil) {
@@ -572,15 +546,11 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    DLog(@"");
-
     [self dismissWithError:error];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    DLog(@"");
-
     // This is a fix that primarily affects iOS versions older than 4.1, it should prevent http requests
     // from leaking memory from the webview. Newer iOS versions are unaffected by the bug or the fix.
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
@@ -596,8 +566,6 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark Redirects
 - (void)redirectRequest:(NSString *)urlPath toTarget:(id)target action:(SEL)action
 {
-    DLog(@"");
-
     if (!!target) {
         NSInvocation *redirect = [NSInvocation invocationWithMethodSignature:[[target class] instanceMethodSignatureForSelector:action]];
         redirect.target   = target;
@@ -611,8 +579,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)handleLaunch:(NSDictionary *)queryComponents callback:(NSString *)callback
 {
-    DLog(@"");
-
     NSString *urlPath = [queryComponents valueForKey:@"url"];
     if (!!urlPath && [urlPath isKindOfClass:[NSString class]]) {
         PHURLLoader *loader = [[PHURLLoader alloc] init];
@@ -634,8 +600,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)handleDismiss:(NSDictionary *)queryComponents
 {
-    DLog(@"");
-
     NSString *pingPath = [queryComponents valueForKey:@"ping"];
     if (!!pingPath && [pingPath isKindOfClass:[NSString class]]) {
         PHURLLoader *loader = [[PHURLLoader alloc] init];
@@ -652,8 +616,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)handleLoadContext:(NSDictionary *)queryComponents callback:(NSString*)callback
 {
-    DLog(@"");
-
     NSString *loadCommand = [NSString stringWithFormat:@"window.PlayHavenDispatchProtocolVersion = %d", PH_DISPATCH_PROTOCOL_VERSION];
     [_webView stringByEvaluatingJavaScriptFromString:loadCommand];
 
@@ -665,8 +627,6 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark - callbacks
 - (BOOL)sendCallback:(NSString *)callback withResponse:(id)response error:(id)error
 {
-    DLog(@"");
-
     NSString *_callback = @"null", *_response = @"null", *_error = @"null";
     if (!!callback) {
         PH_LOG(@"Sending callback with id: %@", callback);
@@ -704,8 +664,6 @@ static NSMutableSet *allContentViews = nil;
 #pragma mark PHURLLoaderDelegate
 - (void)loaderFinished:(PHURLLoader *)loader
 {
-    DLog(@"");
-
     NSDictionary *contextData  = (NSDictionary *)loader.context;
     NSString     *callback     = [contextData valueForKey:@"callback"];
 
@@ -727,8 +685,6 @@ static NSMutableSet *allContentViews = nil;
 
 - (void)loaderFailed:(PHURLLoader *)loader
 {
-    DLog(@"");
-
     NSDictionary *contextData  = (NSDictionary *)loader.context;
     NSDictionary *responseDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                                        [loader.targetURL absoluteString], @"url", nil];

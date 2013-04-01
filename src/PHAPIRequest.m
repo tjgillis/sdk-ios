@@ -352,18 +352,12 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)dealloc
 {
-    //DLog(@"");
-
     [_token release], _token = nil;
     [_secret release], _secret = nil;
     [_URL release], _URL = nil;
     [_signedParameters release], _signedParameters = nil;
     [_urlPath release], _urlPath = nil;
     [_additionalParameters release], _additionalParameters = nil;
-
-    //[_connection release], _connection = nil;
-    //[_connectionData release], _connectionData = nil;
-    //[_response release], _response = nil;
 
     [super dealloc];
 }
@@ -373,13 +367,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (void)send
 {
-    //DLog(@"");
-
-    //if (_connection == nil) { // TODO: This seems like a very bad way to stop requests from being sent twice (as _connection would
-                                // really only be nil when the apirequest was first created), though that's what it's actually doing
-                                // as it is never set to nil when the connection finishes. Was this prevention here intentionally?
-
-    if (!theRightWayToStopTheRequestFromBeingSentTwiceIfItsActuallyNeeded)
+    if (!alreadySent)
     {
         PH_LOG(@"Sending request: %@", [self.URL absoluteString]);
         NSURLRequest *request = [NSURLRequest requestWithURL:self.URL
@@ -387,22 +375,10 @@ static NSString *sPlayHavenPluginIdentifier;
                                              timeoutInterval:PH_REQUEST_TIMEOUT];
 
         if ([PHConnectionManager createConnectionFromRequest:request forDelegate:self withContext:nil])
-            theRightWayToStopTheRequestFromBeingSentTwiceIfItsActuallyNeeded = YES;
+            alreadySent = YES;
         else
             [self didFailWithError:nil]; // TODO: Create error
-
-//#ifdef PH_USE_NETWORK_FIXTURES
-//        _connection = [[WWURLConnection connectionWithRequest:request delegate:self] retain];
-//#else
-//        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//#endif
-//        [_connection start];
-
     }
-
-
-
-    //}
 }
 
 - (void)cancel
@@ -419,40 +395,15 @@ static NSString *sPlayHavenPluginIdentifier;
  */
 - (void)finish
 {
-    //DLog(@"");
-
-//    [_connection cancel];
-
     // REQUEST_RELEASE see REQUEST_RETAIN
     [[PHAPIRequest allRequests] removeObject:self];
 }
 
 #pragma mark -
 #pragma mark NSURLConnectionDelegate PHConnectionManagerDelegate
-
-//- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-//{
-//    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-//        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-//        PH_LOG(@"Request recieved HTTP response: %d", [httpResponse statusCode]);
-//    }
-//
-//    /* We want to get response objects for everything */
-//    [_connectionData release], _connectionData = [[NSMutableData alloc] init];
-//    [_response release], _response = [response retain];
-//}
-
-//- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-//{
-//    [_connectionData appendData:data];
-//}
-
-//- (void)connectionDidFinishLoading:(NSURLConnection *)connection
 - (void)connectionDidFinishLoadingWithRequest:(NSURLRequest *)request response:(NSURLResponse *)response data:(NSData *)data context:(id)context
 {
-    //PH_NOTE(@"Request finished!");
-
-    DLog(@"");
+    PH_NOTE(@"Request finished!");
 
     if ([self.delegate respondsToSelector:@selector(requestDidFinishLoading:)]) {
         [self.delegate performSelector:@selector(requestDidFinishLoading:) withObject:self withObject:nil];
@@ -468,11 +419,13 @@ static NSString *sPlayHavenPluginIdentifier;
                                                                                 nonce:nonce
                                                                                secret:self.secret];
 
+#ifndef DEBUG
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
 
             return;
         }
+#endif
     }
 
     PH_SBJSONPARSER_CLASS *parser           = [[[PH_SBJSONPARSER_CLASS alloc] init] autorelease];
@@ -486,12 +439,9 @@ static NSString *sPlayHavenPluginIdentifier;
 
 }
 
-//- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 - (void)connectionDidFailWithError:(NSError *)error request:(NSURLRequest *)request context:(id)context
 {
-    DLog(@"");
-
-    //PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
+    PH_LOG(@"Request failed with error: %@", [error localizedDescription]);
     [self didFailWithError:error];
 
     // REQUEST_RELEASE see REQUEST_RETAIN
@@ -502,7 +452,6 @@ static NSString *sPlayHavenPluginIdentifier;
 #pragma mark -
 - (void)processRequestResponse:(NSDictionary *)responseData
 {
-    //DLog(@"");
     id errorValue = [responseData valueForKey:@"error"];
     if (!!errorValue && ![errorValue isEqual:[NSNull null]]) {
         PH_LOG(@"Error response: %@", errorValue);

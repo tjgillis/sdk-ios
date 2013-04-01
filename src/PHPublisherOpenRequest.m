@@ -83,27 +83,13 @@
 
 - (void)didSucceedWithResponse:(NSDictionary *)responseData
 {
-    NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
+    id urlArray = [responseData valueForKey:@"precache"];
 
-    if ([urlArray count] == 0)
-    {
-        DLog(@"prefilling url array");
+    if (urlArray && [urlArray isKindOfClass:[NSArray class]])
+        for (id url in urlArray)
+            if ([url isKindOfClass:[NSString class]])
+                [PHResourceCacher cacheObject:url];
 
-        urlArray = [NSArray arrayWithObjects:@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/more-games.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/announcement.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/data-collection.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/image.html.gz",
-                                             //@"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/promo.html.gz",
-                                             @"http://media.playhaven.com/content-templates/9605c45e316fab317e631356b9fcf9d4072adb6e/html/gow.html.gz", nil];
-    }
-
-    if (!!urlArray) {
-
-        DLog(@"starting to cache content");
-
-        for (NSString *url in urlArray)
-            [PHResourceCacher cacheObject:url];
-    }
 
     NSString *session = (NSString *)[responseData valueForKey:@"session"];
     if (!!session) {

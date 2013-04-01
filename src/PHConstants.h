@@ -157,13 +157,15 @@
 #define PH_NOTE(COMMENT) NSLog(@"[PlayHaven-%@] %@", PH_SDK_VERSION, COMMENT)
 #endif
 
-#ifdef DEBUG
-#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-#else
-#define DLog(...)
+#ifndef PH_DEBUG_LOG
+#define PH_DEBUG_LOG 0
 #endif
 
-#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#if PH_DEBUG_LOG == 1
+#define PH_DEBUG(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define PH_DEBUG(...)
+#endif
 
 #define PH_MULTITASKING_SUPPORTED [[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)] && [[UIDevice currentDevice] isMultitaskingSupported]
 

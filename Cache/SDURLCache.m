@@ -453,8 +453,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
-    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/content-templates"])
-        DLog(@"request: %@", [[request URL] absoluteString]);
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+        PH_DEBUG(@"Caching resource for URL: %@", [[request URL] absoluteString]);
 
     if (disabled)
     {
@@ -507,12 +507,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
-
-    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/content-templates"])
-        DLog(@"request: %@", [[request URL] absoluteString]);
-
-    if ([super cachedResponseForRequest:request])
-        DLog(@"returning something: %@", [[super cachedResponseForRequest:request] description]);
+    if (disabled && [super cachedResponseForRequest:request])
+        if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+            PH_DEBUG(@"Cache hit for URL: %@", [[request URL] absoluteString]);
 
     if (disabled) return [super cachedResponseForRequest:request];
 
@@ -521,7 +518,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
     {
-        NSLog(@"Memory hit for URL: %@", request.URL);
+        if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+            PH_DEBUG(@"Memory hit for URL: %@", [[request URL] absoluteString]);
         return memoryResponse;
     }
 
@@ -568,7 +566,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
-                    NSLog(@"Disk hit for URL: %@", request.URL);
+                    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+                        PH_DEBUG(@"Disk hit for URL: %@", [[request URL] absoluteString]);
                     return diskResponse;
                 }
             }

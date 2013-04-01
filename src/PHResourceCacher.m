@@ -97,7 +97,7 @@ static PHResourceCacher *singleton = nil;
 
 + (BOOL)isRequestPending:(NSString *)requestUrlString
 {
-    return ([requestUrlString isEqualToString:[[PHResourceCacher sharedInstance] currentlyCachingUrl]]);//pendingObjectUrl]]);
+    return ([requestUrlString isEqualToString:[[PHResourceCacher sharedInstance] currentlyCachingUrl]]);
 }
 
 - (NSURLRequest *)requestForObject:(NSString *)object
@@ -106,13 +106,15 @@ static PHResourceCacher *singleton = nil;
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                         timeoutInterval:PH_REQUEST_TIMEOUT];
+                                         timeoutInterval:PH_REQUEST_TIMEOUT + 10];
 
     return request;
 }
 
 - (void)startDownloadingObject:(id)object
 {
+    PH_DEBUG(@"Caching object: %@", object);
+
     self.currentlyCachingUrl = object;
 
     [PHConnectionManager createConnectionFromRequest:[self requestForObject:object]
@@ -134,7 +136,7 @@ static PHResourceCacher *singleton = nil;
 
 - (void)resume
 {
-    if ([self.cacherQueue count] && !self.currentlyCachingUrl)//!self.pendingObject)
+    if ([self.cacherQueue count] && !self.currentlyCachingUrl)
         [self startDownloadingObject:[self.cacherQueue popObjectAtIndex:0]];
 }
 
@@ -153,7 +155,7 @@ static PHResourceCacher *singleton = nil;
 
 - (void)connectionDidFailWithError:(NSError *)error request:(NSURLRequest *)request context:(id)context
 {
-    DLog(@"");
+    PH_DEBUG(@"Failed caching object: %@, with error: %@", request.URL.absoluteString, [error localizedDescription]);
 
     self.currentlyCachingUrl = nil;
 
@@ -169,7 +171,7 @@ static PHResourceCacher *singleton = nil;
 
 - (void)connectionDidFinishLoadingWithRequest:(NSURLRequest *)request response:(NSURLResponse *)response data:(NSData *)data context:(id)context
 {
-    DLog(@"");
+    PH_DEBUG(@"Finished caching object: %@", request.URL.absoluteString);
 
     self.currentlyCachingUrl = nil;
 
