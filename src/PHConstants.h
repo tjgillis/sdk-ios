@@ -126,7 +126,7 @@
  * Sends UDID with each request. To disable, set to 0.
  **/
 #ifndef PH_USE_UNIQUE_IDENTIFIER
-#define PH_USE_UNIQUE_IDENTIFIER 1
+#define PH_USE_UNIQUE_IDENTIFIER 0
 #endif
 
 /**
