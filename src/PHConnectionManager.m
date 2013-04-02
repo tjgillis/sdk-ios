@@ -196,8 +196,8 @@ static PHConnectionManager *singleton = nil;
                 [delegate connectionWasStoppedForRequest:[connectionBundle request] context:[connectionBundle context]];
 
             CFDictionaryRemoveValue(connectionManager.connections, connection);
-            [connectionBundle release];
         }
+        [connectionBundle release];
     }
 }
 
