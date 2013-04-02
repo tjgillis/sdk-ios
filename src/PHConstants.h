@@ -80,7 +80,6 @@
 #ifdef PH_NAMESPACE_LIBS
 #define PH_NAMESPACE_SBJSON     1
 #define PH_NAMESPACE_SDURLCACHE 1
-#define PH_NAMESPACE_OPENUDID   1
 #endif
 
 /**
@@ -113,16 +112,6 @@
 #endif
 
 /**
- * The \c PH_NAMESPACE_OPENUDID Macros
- **/
-#ifndef PH_NAMESPACE_OPENUDID
-#define PH_OPENUDID_CLASS OpenUDID
-#else
-#define PH_OPENUDID_CLASS OpenUDIDPH
-#endif
-/*@}*/
-
-/**
  * Sends UDID with each request. To disable, set to 0.
  **/
 #ifndef PH_USE_UNIQUE_IDENTIFIER
@@ -134,14 +123,6 @@
  **/
 #ifndef PH_USE_MAC_ADDRESS
 #define PH_USE_MAC_ADDRESS 1
-#endif
-
-/**
- * We support the use of OpenUDID as an optional supplemental device identifier.
- * To disable sending OpenUDIDs set PH_USE_OPENUDID = 0
- **/
-#ifndef PH_USE_OPENUDID
-#define PH_USE_OPENUDID 1
 #endif
 
 // Macros

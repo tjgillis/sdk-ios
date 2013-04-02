@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.platform = :ios
 
-  s.source_files = 'Cache', 'src', 'OpenUDID', 'JSON', 'WaterWorks'
+  s.source_files = 'Cache', 'src', 'JSON', 'WaterWorks'
 
   s.clean_paths = "example", "tests", "*.mobileprovision", "PlayHaven_SDK_Agreement.rtf"
 
