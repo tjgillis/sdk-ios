@@ -71,6 +71,18 @@
 #define PH_USE_STOREKIT 1
 #endif
 
+
+/**
+ * By default, PlayHaven will require the AdSupport framework. Projects using a version of
+ * Xcode older than 4.5 may define \c PH_USE_AD_SUPPORT to be 0.
+ *
+ * @note By disabling the AdSupport framework, the SDK will not be able to collect the IFA
+ **/
+#ifndef PH_USE_AD_SUPPORT
+#define PH_USE_AD_SUPPORT 1
+#endif
+
+
 /**
  * @name Namespacing
  * The Unity3D plugin requires namespaced classes so that they may co-exist

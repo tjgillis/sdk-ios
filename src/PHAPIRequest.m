@@ -276,6 +276,7 @@ static NSString *sPlayHavenPluginIdentifier;
 
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if PH_USE_AD_SUPPORT == 1
         if ([ASIdentifierManager class]) {
             NSUUID   *uuid            = [[ASIdentifierManager sharedManager] advertisingIdentifier];
             NSString *uuidString      = [uuid UUIDString];
@@ -283,6 +284,7 @@ static NSString *sPlayHavenPluginIdentifier;
             [combinedParams setValue:uuidString forKey:@"d_ifa"];
             [combinedParams setValue:trackingEnabled forKey:@"tracking"];
         }
+#endif
 #endif
 #endif
 
