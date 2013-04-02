@@ -7,10 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2391BD8B16BB643200105789 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348DF5C94983127880EC16 /* PHConnectionManager.m */; };
-		2391BD8C16BB643200105789 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348C5886308073361F8F76 /* PHResourceCacher.m */; };
-		62348033646FF95083F176D0 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348C5886308073361F8F76 /* PHResourceCacher.m */; };
-		6234889693774905F020BAD2 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348DF5C94983127880EC16 /* PHConnectionManager.m */; };
+		623480364AAC6FE321B48FD8 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348042630B8C109AE07D23 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		623480CC30DFF5D3B4816EAD /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		6234811B3CABA0F980B67137 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		6234811BDCA6B13535941ACD /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		62348136FA0059F5D4D3E98B /* PHConnectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */; };
+		6234819E8A7FD7CCF6C92C29 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		623482B612AF3F5031BAB988 /* PHResourceCacher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */; };
+		6234847223A7D7C6CF3B498B /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		6234849FF3AC9AB2DFFDCE47 /* PHResourceCacher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */; };
+		623484ABDA0C7791F4977088 /* PHConnectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */; };
+		62348636C5791F9602B8FD64 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		6234870D44303641D962A738 /* PHConnectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */; };
+		623488AD098E556A84FE979E /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348AEF0D79852FB3C32C14 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348C26E641A8F9F1031E1A /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348CC8ADF83AF7D83E025D /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348D753B6B0F894B6AF667 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348E17221039AFE93CDE47 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		62348F0961311F5A24348127 /* PHResourceCacher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */; };
+		62348F22058DD45F4D63FF58 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		62348FFE44D67C4BDBE3F305 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
 		D108A83015A6553700082388 /* PHTimeInGame.h in Headers */ = {isa = PBXBuildFile; fileRef = D108A82E15A6553700082388 /* PHTimeInGame.h */; };
 		D108A83115A6553700082388 /* PHTimeInGame.h in Headers */ = {isa = PBXBuildFile; fileRef = D108A82E15A6553700082388 /* PHTimeInGame.h */; };
 		D108A83215A6553700082388 /* PHTimeInGame.h in Headers */ = {isa = PBXBuildFile; fileRef = D108A82E15A6553700082388 /* PHTimeInGame.h */; };
@@ -539,10 +557,10 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		62348700A10A3389FCC961D1 /* PHResourceCacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHResourceCacher.h; sourceTree = "<group>"; };
-		62348C5886308073361F8F76 /* PHResourceCacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHResourceCacher.m; sourceTree = "<group>"; };
-		62348D8D11EF586B60EC9380 /* PHConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConnectionManager.h; sourceTree = "<group>"; };
-		62348DF5C94983127880EC16 /* PHConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConnectionManager.m; sourceTree = "<group>"; };
+		623485743F4C00197912D96D /* PHResourceCacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHResourceCacher.m; sourceTree = "<group>"; };
+		62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConnectionManager.m; sourceTree = "<group>"; };
+		62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConnectionManager.h; sourceTree = "<group>"; };
+		62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHResourceCacher.h; sourceTree = "<group>"; };
 		D108A82E15A6553700082388 /* PHTimeInGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTimeInGame.h; sourceTree = "<group>"; };
 		D108A82F15A6553700082388 /* PHTimeInGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTimeInGame.m; sourceTree = "<group>"; };
 		D108A83D15A6B68600082388 /* PHTimeInGameTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTimeInGameTest.m; sourceTree = "<group>"; };
@@ -1034,10 +1052,10 @@
 				EA6031CD1361FFD6007B2BF5 /* PlayHavenSDK.h */,
 				EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */,
 				EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */,
-				62348DF5C94983127880EC16 /* PHConnectionManager.m */,
-				62348D8D11EF586B60EC9380 /* PHConnectionManager.h */,
-				62348C5886308073361F8F76 /* PHResourceCacher.m */,
-				62348700A10A3389FCC961D1 /* PHResourceCacher.h */,
+				62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */,
+				62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */,
+				62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */,
+				623485743F4C00197912D96D /* PHResourceCacher.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1203,6 +1221,8 @@
 				EA24FCAB1554510D0074FC13 /* PHNetworkUtil.h in Headers */,
 				EA451033156298E80095538E /* SDCachedURLResponse.h in Headers */,
 				D108A83015A6553700082388 /* PHTimeInGame.h in Headers */,
+				62348136FA0059F5D4D3E98B /* PHConnectionManager.h in Headers */,
+				6234849FF3AC9AB2DFFDCE47 /* PHResourceCacher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1256,8 @@
 				EA06AA67151A812B00C11220 /* OpenUDID.h in Headers */,
 				EA451034156298E80095538E /* SDCachedURLResponse.h in Headers */,
 				D108A83115A6553700082388 /* PHTimeInGame.h in Headers */,
+				623484ABDA0C7791F4977088 /* PHConnectionManager.h in Headers */,
+				623482B612AF3F5031BAB988 /* PHResourceCacher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,6 +1287,8 @@
 				EAF168631534E2DE006B6993 /* OpenUDID.h in Headers */,
 				EA451035156298E80095538E /* SDCachedURLResponse.h in Headers */,
 				D108A83215A6553700082388 /* PHTimeInGame.h in Headers */,
+				6234870D44303641D962A738 /* PHConnectionManager.h in Headers */,
+				62348F0961311F5A24348127 /* PHResourceCacher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1634,8 +1658,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2391BD8B16BB643200105789 /* PHConnectionManager.m in Sources */,
-				2391BD8C16BB643200105789 /* PHResourceCacher.m in Sources */,
 				D1BD481D14C0EDD100EE8A5A /* PHPurchase.m in Sources */,
 				D1E15B7D14981E90001241EE /* SDURLCache.m in Sources */,
 				EA03811813B272FB00A31FF7 /* PHPublisherMetadataRequest.m in Sources */,
@@ -1675,6 +1697,8 @@
 				EADB57BB16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6115BF70CE00892B81 /* IAPViewController.m in Sources */,
 				EAA86A96167FFDE100F6B388 /* IDViewController.m in Sources */,
+				6234811B3CABA0F980B67137 /* PHConnectionManager.m in Sources */,
+				623488AD098E556A84FE979E /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1721,8 +1745,8 @@
 				D108A83E15A6B68600082388 /* PHTimeInGameTest.m in Sources */,
 				EADB57BA16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EA98C12D16640E4500B6AA8C /* PHNetworkUtilTest.m in Sources */,
-				6234889693774905F020BAD2 /* PHConnectionManager.m in Sources */,
-				62348033646FF95083F176D0 /* PHResourceCacher.m in Sources */,
+				6234811BDCA6B13535941ACD /* PHConnectionManager.m in Sources */,
+				623480CC30DFF5D3B4816EAD /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1775,6 +1799,8 @@
 				EADB57BC16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6215BF70CE00892B81 /* IAPViewController.m in Sources */,
 				EAA86A97167FFDE100F6B388 /* IDViewController.m in Sources */,
+				62348FFE44D67C4BDBE3F305 /* PHConnectionManager.m in Sources */,
+				62348CC8ADF83AF7D83E025D /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1823,6 +1849,8 @@
 				EADB57BD16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6315BF70CE00892B81 /* IAPViewController.m in Sources */,
 				EAA86A98167FFDE100F6B388 /* IDViewController.m in Sources */,
+				6234847223A7D7C6CF3B498B /* PHConnectionManager.m in Sources */,
+				62348AEF0D79852FB3C32C14 /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1856,6 +1884,8 @@
 				EA24FCB01554510D0074FC13 /* PHNetworkUtil.m in Sources */,
 				EA45102F156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				D108A83815A6553700082388 /* PHTimeInGame.m in Sources */,
+				6234819E8A7FD7CCF6C92C29 /* PHConnectionManager.m in Sources */,
+				62348D753B6B0F894B6AF667 /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1888,6 +1918,8 @@
 				EA06AA6C151A812B00C11220 /* OpenUDID.m in Sources */,
 				EA451030156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				D108A83915A6553700082388 /* PHTimeInGame.m in Sources */,
+				62348E17221039AFE93CDE47 /* PHConnectionManager.m in Sources */,
+				623480364AAC6FE321B48FD8 /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1920,6 +1952,8 @@
 				EAF1684B1534E2DE006B6993 /* OpenUDID.m in Sources */,
 				EA451031156298E80095538E /* SDCachedURLResponse.m in Sources */,
 				D108A83A15A6553700082388 /* PHTimeInGame.m in Sources */,
+				62348F22058DD45F4D63FF58 /* PHConnectionManager.m in Sources */,
+				62348042630B8C109AE07D23 /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1998,6 +2032,8 @@
 				EADB57BE16094C7F000433D8 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EAE36A6415BF70CE00892B81 /* IAPViewController.m in Sources */,
 				EAA86A99167FFDE100F6B388 /* IDViewController.m in Sources */,
+				62348636C5791F9602B8FD64 /* PHConnectionManager.m in Sources */,
+				62348C26E641A8F9F1031E1A /* PHResourceCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
