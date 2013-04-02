@@ -24,6 +24,7 @@
 		62348AEF0D79852FB3C32C14 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
 		62348C26E641A8F9F1031E1A /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
 		62348CC8ADF83AF7D83E025D /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348D3EEA9F789AFB6A664A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348609073FF1A6FE01DE56 /* NSData+Base64.m */; };
 		62348D753B6B0F894B6AF667 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
 		62348E17221039AFE93CDE47 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
 		62348F0961311F5A24348127 /* PHResourceCacher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */; };
@@ -545,7 +546,9 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		623485743F4C00197912D96D /* PHResourceCacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHResourceCacher.m; sourceTree = "<group>"; };
+		62348609073FF1A6FE01DE56 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConnectionManager.m; sourceTree = "<group>"; };
+		62348AD5C67E43569CA54FBC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHConnectionManager.h; sourceTree = "<group>"; };
 		62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHResourceCacher.h; sourceTree = "<group>"; };
 		D108A82E15A6553700082388 /* PHTimeInGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTimeInGame.h; sourceTree = "<group>"; };
@@ -935,6 +938,8 @@
 				EAA86A93167FFDE100F6B388 /* IDViewController.h */,
 				EAA86A94167FFDE100F6B388 /* IDViewController.m */,
 				EAA86A95167FFDE100F6B388 /* IDViewController.xib */,
+				62348609073FF1A6FE01DE56 /* NSData+Base64.m */,
+				62348AD5C67E43569CA54FBC /* NSData+Base64.h */,
 			);
 			name = "Example/Debug App";
 			path = example;
@@ -1669,6 +1674,7 @@
 				EAA86A96167FFDE100F6B388 /* IDViewController.m in Sources */,
 				6234811B3CABA0F980B67137 /* PHConnectionManager.m in Sources */,
 				623488AD098E556A84FE979E /* PHResourceCacher.m in Sources */,
+				62348D3EEA9F789AFB6A664A /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

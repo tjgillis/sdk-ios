@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11D50b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<int key="IBDocument.SystemTarget">1552</int>
+		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1179</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBUITableView</string>
-			<string>IBUISegmentedControl</string>
-			<string>IBUIView</string>
-			<string>IBUITextField</string>
 			<string>IBProxyObject</string>
+			<string>IBUISegmentedControl</string>
+			<string>IBUITableView</string>
+			<string>IBUITextField</string>
+			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -44,10 +44,10 @@
 							<object class="IBUITextField" id="597816931">
 								<reference key="NSNextResponder" ref="972347475"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{207, 20}, {88, 31}}</string>
+								<string key="NSFrame">{{210, 10}, {90, 31}}</string>
 								<reference key="NSSuperview" ref="972347475"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="792700841"/>
+								<reference key="NSNextKeyView" ref="389236077"/>
 								<string key="NSReuseIdentifierKey">_NS:304</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -81,7 +81,7 @@
 							<object class="IBUITextField" id="400180422">
 								<reference key="NSNextResponder" ref="972347475"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{20, 20}, {179, 31}}</string>
+								<string key="NSFrame">{{20, 10}, {180, 31}}</string>
 								<reference key="NSSuperview" ref="972347475"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="597816931"/>
@@ -106,10 +106,38 @@
 								<reference key="IBUIFontDescription" ref="647430611"/>
 								<reference key="IBUIFont" ref="350587780"/>
 							</object>
+							<object class="IBUITextField" id="389236077">
+								<reference key="NSNextResponder" ref="972347475"/>
+								<int key="NSvFlags">290</int>
+								<string key="NSFrame">{{20, 51}, {280, 31}}</string>
+								<reference key="NSSuperview" ref="972347475"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="792700841"/>
+								<string key="NSReuseIdentifierKey">_NS:304</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<string key="IBUIText"/>
+								<int key="IBUIBorderStyle">3</int>
+								<string key="IBUIPlaceholder">Receipt Data (optional - for testing only)</string>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MAA</bytes>
+									<reference key="NSCustomColorSpace" ref="974295534"/>
+								</object>
+								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
+								<float key="IBUIMinimumFontSize">17</float>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="647430611"/>
+								<reference key="IBUIFont" ref="350587780"/>
+							</object>
 							<object class="IBUISegmentedControl" id="792700841">
 								<reference key="NSNextResponder" ref="972347475"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 59}, {280, 30}}</string>
+								<string key="NSFrame">{{20, 92}, {280, 30}}</string>
 								<reference key="NSSuperview" ref="972347475"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:273</string>
@@ -150,14 +178,14 @@
 								</array>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 108}</string>
+						<string key="NSFrameSize">{320, 132}</string>
 						<reference key="NSSuperview" ref="490592980"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="400180422"/>
 						<string key="NSReuseIdentifierKey">_NS:196</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC45NDk5OTk5OTkzIDEgMQA</bytes>
+							<bytes key="NSRGB">MC45MDE5NjA3OTAyIDAuOTAxOTYwNzkwMiAwLjkwMTk2MDc5MDIAA</bytes>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -231,6 +259,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">receiptField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="389236077"/>
+					</object>
+					<int key="connectionID">17</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="490592980"/>
 						<reference key="destination" ref="372490531"/>
@@ -277,9 +313,10 @@
 						<int key="objectID">4</int>
 						<reference key="object" ref="972347475"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="597816931"/>
 							<reference ref="400180422"/>
+							<reference ref="389236077"/>
 							<reference ref="792700841"/>
+							<reference ref="597816931"/>
 						</array>
 						<reference key="parent" ref="490592980"/>
 					</object>
@@ -298,6 +335,11 @@
 						<reference key="object" ref="792700841"/>
 						<reference key="parent" ref="972347475"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">16</int>
+						<reference key="object" ref="389236077"/>
+						<reference key="parent" ref="972347475"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -307,6 +349,7 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<integer value="3" key="14.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -316,7 +359,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">15</int>
+			<int key="maxID">17</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -345,6 +388,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="productField">UITextField</string>
 						<string key="quantityField">UITextField</string>
+						<string key="receiptField">UITextField</string>
 						<string key="resolutionSegment">UISegmentedControl</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -354,6 +398,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="quantityField">
 							<string key="name">quantityField</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="receiptField">
+							<string key="name">receiptField</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="resolutionSegment">
@@ -370,12 +418,8 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
-		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<string key="IBCocoaTouchPluginVersion">1179</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

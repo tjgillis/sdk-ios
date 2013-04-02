@@ -20,10 +20,12 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import "PublisherIAPTrackingViewController.h"
+#import "NSData+Base64.h"
 
 @implementation PublisherIAPTrackingViewController
 @synthesize productField;
 @synthesize quantityField;
+@synthesize receiptField;
 @synthesize resolutionSegment;
 
 - (void)startRequest
@@ -44,6 +46,9 @@
     request.quantity = ([self.quantityField.text isEqualToString:@""]) ?
                                 1 : [self.quantityField.text integerValue];
 
+    request.receiptData = ([self.receiptField.text isEqualToString:@""]) ?
+                                nil : [NSData decodeBase64WithString:self.receiptField.text];
+
     request.resolution = (PHPurchaseResolutionType)[self.resolutionSegment selectedSegmentIndex];
     request.error      = PHCreateError(PHIAPTrackingSimulatorErrorType);
     [request send];
@@ -58,6 +63,7 @@
     [productField release];
     [quantityField release];
     [resolutionSegment release];
+    [receiptField release];
     [super dealloc];
 }
 
