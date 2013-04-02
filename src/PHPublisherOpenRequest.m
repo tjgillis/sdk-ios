@@ -11,6 +11,7 @@
 #import "SDURLCache.h"
 #import "PHTimeInGame.h"
 #import "PHNetworkUtil.h"
+#import "PHResourceCacher.h"
 
 @interface PHAPIRequest (Private)
 - (void)finish;
@@ -74,15 +75,13 @@
 
 - (void)didSucceedWithResponse:(NSDictionary *)responseData
 {
-    NSArray *urlArray = (NSArray *)[responseData valueForKey:@"precache"];
-    if (!!urlArray) {
-        for (NSString *urlString in urlArray) {
-            NSURL *url = [NSURL URLWithString:urlString];
-            NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:PH_REQUEST_TIMEOUT];
-            NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:nil];
-            [connection start];
-        }
-    }
+    id urlArray = [responseData valueForKey:@"precache"];
+
+    if (urlArray && [urlArray isKindOfClass:[NSArray class]])
+        for (id url in urlArray)
+            if ([url isKindOfClass:[NSString class]])
+                [PHResourceCacher cacheObject:url];
+
 
     NSString *session = (NSString *)[responseData valueForKey:@"session"];
     if (!!session) {

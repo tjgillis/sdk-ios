@@ -426,7 +426,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     // iOS 5 implements disk caching. SDURLCache then disables itself at runtime if the current device OS
     // version is 5 or greater
     NSArray *version = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-    disabled = [[version objectAtIndex:0] intValue] >= 5;
+    //disabled = [[version objectAtIndex:0] intValue] >= 5;
 
     if (disabled)
     {
@@ -453,6 +453,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+        PH_DEBUG(@"Caching resource for URL: %@", [[request URL] absoluteString]);
+
     if (disabled)
     {
         [super storeCachedResponse:cachedResponse forRequest:request];
@@ -504,6 +507,10 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
+    if (disabled && [super cachedResponseForRequest:request])
+        if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+            PH_DEBUG(@"Cache hit for URL: %@", [[request URL] absoluteString]);
+
     if (disabled) return [super cachedResponseForRequest:request];
 
     request = [PH_SDURLCACHE_CLASS canonicalRequestForRequest:request];
@@ -511,7 +518,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
     {
-        //NSLog(@"Memory hit for URL: %@", request.URL);
+        if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+            PH_DEBUG(@"Memory hit for URL: %@", [[request URL] absoluteString]);
         return memoryResponse;
     }
 
@@ -558,7 +566,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
-                    //NSLog(@"Disk hit for URL: %@", request.URL);
+                    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+                        PH_DEBUG(@"Disk hit for URL: %@", [[request URL] absoluteString]);
                     return diskResponse;
                 }
             }

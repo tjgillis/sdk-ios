@@ -531,9 +531,9 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 - (void)pushContent:(PHContent *)content
 {
     PHContentView *contentView = [PHContentView dequeueContentViewInstance];
+
     if (!contentView)
         contentView = [[[PHContentView alloc] initWithContent:nil] autorelease];
-
 
     [contentView redirectRequest:@"ph://subcontent" toTarget:self action:@selector(requestSubcontent:callback:source:)];
     [contentView redirectRequest:@"ph://reward" toTarget:self action:@selector(requestRewards:callback:source:)];

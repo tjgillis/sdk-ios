@@ -10,12 +10,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+// TODO: Optimize the imports
+#import "PHConnectionManager.h"
+
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 #import <AdSupport/AdSupport.h>
 #endif
 #endif
 
+//@protocol PHConnectionManagerDelegate;
 @protocol PHAPIRequestDelegate;
 
 /**
@@ -24,16 +28,18 @@
  * @brief Base class for API requests, generates valid request signatures based on the
  * device's GID, and checks for a valid X-PH-DIGEST response signature.
  **/
-@interface PHAPIRequest : NSObject {
+@interface PHAPIRequest : NSObject <PHConnectionManagerDelegate> {
     NSURL           *_URL;
     NSString        *_token, *_secret;
-    NSURLConnection *_connection;
     NSDictionary    *_signedParameters;
-    NSMutableData   *_connectionData;
-    NSString        *_urlPath;
     NSDictionary    *_additionalParameters;
-    NSURLResponse   *_response;
+    NSString        *_urlPath;
     int              _hashCode;
+
+    BOOL alreadySent;
+//    NSURLConnection *_connection;
+//    NSMutableData   *_connectionData;
+//    NSURLResponse   *_response;
 
     id<PHAPIRequestDelegate> _delegate;
 }
