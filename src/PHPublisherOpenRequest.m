@@ -11,11 +11,10 @@
 #import "SDURLCache.h"
 #import "PHTimeInGame.h"
 #import "PHNetworkUtil.h"
+#import "PHResourceCacher.h"
 
 #if PH_USE_OPENUDID == 1
 #import "OpenUDID.h"
-#import "PHConnectionManager.h"
-#import "PHResourceCacher.h"
 #endif
 
 @interface PHAPIRequest (Private)
