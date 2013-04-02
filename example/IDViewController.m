@@ -28,7 +28,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     self.UDIDLabel.text = [[UIDevice currentDevice] uniqueIdentifier];
-    self.IFALabel.text  = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+
+    self.IFALabel.text  = [[[NSClassFromString(@"ASIdentifierManager") sharedManager] advertisingIdentifier] UUIDString];
 
     CFDataRef macBytes   = [[PHNetworkUtil sharedInstance] newMACBytes];
     self.MACLabel.text   = [[PHNetworkUtil sharedInstance] stringForMACBytes:macBytes];
