@@ -183,16 +183,16 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
  **/
 - (void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type;
 
-/**
- * The request encountered an error and cannot continue
- *
- * @param request
- *   The request
- *
- * @param error
- *   The error
- **/
-- (void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
+///**
+// * The request encountered an error and cannot continue
+// *
+// * @param request
+// *   The request
+// *
+// * @param error
+// *   The error
+// **/
+//- (void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
 
 /**
  * @deprecated

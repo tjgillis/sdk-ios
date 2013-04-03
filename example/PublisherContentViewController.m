@@ -124,7 +124,7 @@
     [self finishRequest];
 }
 
-- (void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error
+- (void)request:(PHAPIRequest *)request didFailWithError:(NSError *)error
 {
     NSString *message = [NSString stringWithFormat:@"[ERROR] Failed with error: %@", error];
     [self addMessage:message];

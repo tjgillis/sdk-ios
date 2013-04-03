@@ -267,8 +267,8 @@
             cell.accessibilityLabel   = @"iap";
             break;
         case 6:
-            cell.textLabel.text       = @"identifiers";
-            cell.detailTextLabel.text = @"all of them";
+            cell.textLabel.text       = @"Identifiers";
+            cell.detailTextLabel.text = @"All of them";
             cell.accessibilityLabel   = @"identifiers";
         default:
             break;

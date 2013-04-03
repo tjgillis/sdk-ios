@@ -19,6 +19,7 @@
  Created by Jesus Fernandez on 2/9/11.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+#import <UIKit/UIKit.h>
 #import "PHURLLoader.h"
 #import "PHConstants.h"
 
