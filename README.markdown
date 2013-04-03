@@ -98,6 +98,11 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 
 API Reference
 =============
+### Setting the plugin identifier (plugins only)
+If you are creating a specific plugin (for Unity or AdobeAIR, e.g.) by wrapping the SDK in your code, you should set the SDK's plugin identifier to something meaningful (e.g., "com.unity.JohnDoe-v1.1.1"). Any Reserved Characters as specified by RFC 3986 will be removed and identifiers will be trimmed to 42 characters.
+
+    [PHAPIRequest setPluginIdentifier:(NSString *)identifier];
+
 ### Device tracking
 You can use the OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as to allow for user-initiated opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
 
