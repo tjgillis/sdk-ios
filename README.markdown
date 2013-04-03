@@ -121,11 +121,11 @@ Consider putting an open request in _both_ of these application delegate methods
 
 The first method records a game open when the application is first launched:
 
-	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 The second method records a game open each time the app moves to the foreground after being launched:
 
-	-(void)applicationWillEnterForeground:(UIApplication *)application
+	- (void)applicationWillEnterForeground:(UIApplication *)application
 
 The game open request is sent using the following code:
 
@@ -155,7 +155,7 @@ The placement tags are set using the PlayHaven dashboard.
 Optionally, you can show the loading overlay immediately by setting the request object's `showsOverlayImmediately` property to YES. This is useful if you would like keep users from interacting with your UI while the content is loading.
 
 #### Preloading requests (optional)
-To make content requests more responsive, you may choose to preload a content unit for a given placement. This starts a request for a content unit without displaying it, preserving the content unit until you call `-(void)send` on a  content request for the same placement in your app.
+To make content requests more responsive, you may choose to preload a content unit for a given placement. This starts a request for a content unit without displaying it, preserving the content unit until you call `- (void)send` on a  content request for the same placement in your app.
 
     [[PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate] preload];
 
@@ -166,27 +166,27 @@ Preloading only works for the next content request for a given placement. If you
 #### Starting a content request
 The request is about to attempt to get content from the PlayHaven API.
 
-	-(void)requestWillGetContent:(PHPublisherContentRequest *)request;
+	- (void)requestWillGetContent:(PHPublisherContentRequest *)request;
 
 #### Receiving content
 The request received some valid content from the PlayHaven API. This will be the last delegate method a preloading request will receive, unless there is an error.
 
-	-(void)requestDidGetContent:(PHPublisherContentRequest *)request;
+	- (void)requestDidGetContent:(PHPublisherContentRequest *)request;
 
 #### Preparing to show a content view
 If there is content for this placement, it is loaded at this point. An overlay view appears over your app and a spinner indicates that the content is loading. Depending on the transition type for your content, your view may or may not be visible at this time. If you haven't done this, you should mute any sounds and pause any animations in your app.
 
-	-(void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content;
+	- (void)request:(PHPublisherContentRequest *)request contentWillDisplay:(PHContent *)content;
 
 #### Content view finished loading
 The content has been successfully loaded and the user is now interacting with the downloaded content view.
 
-	-(void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content;
+	- (void)request:(PHPublisherContentRequest *)request contentDidDisplay:(PHContent *)content;
 
 #### Content view dismissing
 The content has successfully dismissed and control is being returned to your app. This can happen as a result of the user clicking on the close button or clicking on a link that will open outside of the app. You may restore sounds and animations at this point.
 
-	-(void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type;
+	- (void)request:(PHPublisherContentRequest *)request contentDidDismissWithType:(PHPublisherContentDismissType *)type;
 
 Type may be one of the following constants:
 
@@ -198,14 +198,14 @@ Type may be one of the following constants:
 #### Content request failing
 If for any reason the content request does not successfully return some content to display or fails to load after the overlay view has appeared, the request stops and any visible overlays are removed.
 
-	-(void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
+	- (void)request:(PHPublisherContentRequest *)request didFailWithError:(NSError *)error;
 
-NOTE: `-(void)request:contentDidFailWithError:` is deprecated in favor of `request:didFailWithError:`. Please update any previous uses of the this method accordingly.
+NOTE: `- (void)request:contentDidFailWithError:` is deprecated in favor of `request:didFailWithError:`. Please update any previous uses of the this method accordingly.
 
 ### Canceling requests
-You can cancel any API request at any time using the `-(void)cancel` method. This also cancels any open network connections and cleans up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
+You can cancel any API request at any time using the `- (void)cancel` method. This also cancels any open network connections and cleans up any views in the case of content requests. Canceled requests will not send any more messages to their delegates.
 
-You can also cancel all open API requests for a given delegate. This can be useful if you are not keeping references to API request instances you may have created. As with the `-(void)cancel` method, canceled requests will not send any more messages to delegates. To cancel all requests:
+You can also cancel all open API requests for a given delegate. This can be useful if you are not keeping references to API request instances you may have created. As with the `- (void)cancel` method, canceled requests will not send any more messages to delegates. To cancel all requests:
 
     [PHAPIRequest cancelAllRequestsWithDelegate:(id)delegate];
 
@@ -213,12 +213,12 @@ You can also cancel all open API requests for a given delegate. This can be usef
 ####Replace close button graphics
 Use the following request method to replace the close button image with something that more closely matches your app. Images will be scaled to a maximum size of 40x40.
 
-	-(UIImage *)request:(PHPublisherContentRequest *)request closeButtonImageForControlState:(UIControlState)state content:(PHContent *)content;
+	- (UIImage *)request:(PHPublisherContentRequest *)request closeButtonImageForControlState:(UIControlState)state content:(PHContent *)content;
 
 ### Unlocking rewards with the SDK
 PlayHaven allows you to reward users with virtual currency, in-game items, or any other content within your game. If you have configured unlockable rewards for your content units, you will receive unlock events through a delegate method. It is important to handle these unlock events in every placement that has rewards configured.
 
-	-(void)request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward;
+	- (void)request:(PHPublisherContentRequest *)request unlockedReward:(PHReward *)reward;
 
 The `PHReward` object passed through this method has the following helpful properties:
 
@@ -229,7 +229,7 @@ The `PHReward` object passed through this method has the following helpful prope
 ### Triggering in-app purchases
 Using the Virtual Goods Promotion content unit, PlayHaven can be used to trigger In-App Purchase requests in your app using the following:
 
-	-(void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
+	- (void)request:(PHPublisherContentRequest *)request makePurchase:(PHPurchase *)purchase;
 
 The `PHPurchase` object passed through this method has the following properties:
 
@@ -276,29 +276,29 @@ Add the notification view as a subview somewhere in your view controller's view.
 
     notificationView.center = CGPointMake(10,10);
 
-The notification view will query and update itself when its `-(void)refresh` method is called:
+The notification view will query and update itself when its `- (void)refresh` method is called:
 
     [notificationView refresh];
 
 We recommend refreshing the notification view each time it appears in your UI. See `examples/PublisherContentViewController.m` for an example.
 
-You also need to clear any notification view instances when you successfully launch a content unit. You do this by using the `-(void)clear` method on any notification views that you wish to clear.
+You also need to clear any notification view instances when you successfully launch a content unit. You do this by using the `- (void)clear` method on any notification views that you wish to clear.
 
 #### Testing PHNotificationView
-Most of the time the API returns an empty response, which means a notification is not shown. You can see a sample notification by using `-(void)test;` wherever you would use `-(void)refresh`. It is listed as deprecated to remind you to switch all instances of `-(void)test` in your code to `-(void)refresh;`.
+Most of the time the API returns an empty response, which means a notification is not shown. You can see a sample notification by using `- (void)test;` wherever you would use `- (void)refresh`. It is listed as deprecated to remind you to switch all instances of `- (void)test` in your code to `- (void)refresh;`.
 
 #### Customizing notification rendering with PHNotificationRenderer
 `PHNotificationRenderer` is a base class that draws a notification view for the given notification data. The base class implements a blank notification view used for unknown notification types. `PHNotificationBadgeRenderer` renders an iOS default-style notification badge with a given value string. You can customize existing notification renderers and register new ones at runtime using the following method on `PHNotificationView`:
 
-	+(void)setRendererClass:(Class)class forType:(NSString *)type;
+	+ (void)setRendererClass:(Class)class forType:(NSString *)type;
 
 Your `PHNotificationRenderer` subclass needs to implement the following methods to draw and size your notification view appropriately:
 
-	-(void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect;
+	- (void)drawNotification:(NSDictionary *)notificationData inRect:(CGRect)rect;
 
-This method is called inside of the `PHNotificationView` instance `-(void)drawRect:` method whenever the view needs to be drawn. You use specific keys inside of `notificationData` to draw your badge in the view. If you need access to the graphics context you may use the `UIGraphicsGetCurrentContext()` function.
+This method is called inside of the `PHNotificationView` instance `- (void)drawRect:` method whenever the view needs to be drawn. You use specific keys inside of `notificationData` to draw your badge in the view. If you need access to the graphics context you may use the `UIGraphicsGetCurrentContext()` function.
 
-	-(CGSize)sizeForNotification:(NSDictionary *)notificationData;
+	- (CGSize)sizeForNotification:(NSDictionary *)notificationData;
 
 This method is called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of `notificationData`, you need to calculate an appropriate size.
 
