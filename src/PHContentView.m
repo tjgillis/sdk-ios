@@ -442,7 +442,7 @@ static NSMutableSet *allContentViews = nil;
     if ([request.URL.absoluteString isEqualToString:self.content.URL.absoluteString]) {
 
         [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:PH_PRECACHER_CALLBACK_NOTIFICATION
+                                                        name:PH_PREFETCH_CALLBACK_NOTIFICATION
                                                       object:nil];
         [self loadTemplate];
 
@@ -462,9 +462,11 @@ static NSMutableSet *allContentViews = nil;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(templateLoaded:)
-                                                     name:PH_PRECACHER_CALLBACK_NOTIFICATION
+                                                     name:PH_PREFETCH_CALLBACK_NOTIFICATION
                                                    object:nil];
     } else {
+        [PHResourceCacher pause];
+
         PH_LOG(@"Loading template from network or cahce: %@", self.content.URL);
         [_webView loadRequest:request];
     }
@@ -547,6 +549,7 @@ static NSMutableSet *allContentViews = nil;
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self dismissWithError:error];
+    [PHResourceCacher resume];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -560,6 +563,8 @@ static NSMutableSet *allContentViews = nil;
     if ([self.delegate respondsToSelector:(@selector(contentViewDidLoad:))]) {
         [self.delegate contentViewDidLoad:self];
     }
+
+    [PHResourceCacher resume];
 }
 
 #pragma mark -

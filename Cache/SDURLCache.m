@@ -454,7 +454,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
     if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
-        PH_DEBUG(@"Caching resource for URL: %@", [[request URL] absoluteString]);
+        PH_DEBUG(@"Storing resource: %@", [[request URL] absoluteString]);
 
     if (disabled)
     {
@@ -507,6 +507,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+        PH_DEBUG(@"Checking for local resource: %@", [[request URL] absoluteString]);
+
     if (disabled && [super cachedResponseForRequest:request])
         if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
             PH_DEBUG(@"Cache hit for URL: %@", [[request URL] absoluteString]);
