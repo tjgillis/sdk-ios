@@ -93,7 +93,7 @@
     if (urlArray && [urlArray isKindOfClass:[NSArray class]])
         for (id url in urlArray)
             if ([url isKindOfClass:[NSString class]])
-                [PHResourceCacher cacheObject:url];
+                [PHResourceCacher prefetchObject:url];
 
 
     NSString *session = (NSString *)[responseData valueForKey:@"session"];

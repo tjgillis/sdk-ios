@@ -26,9 +26,7 @@
 #import "PlayHavenSDK.h"
 
 @interface PHResourceCacher : NSObject <PHConnectionManagerDelegate, UIWebViewDelegate, PHPublisherContentRequestDelegate>
-@property (nonatomic, retain) UIWebView *webView;
-
-+ (void)cacheObject:(NSString *)object;
++ (void)prefetchObject:(NSString *)object;
 + (BOOL)isRequestPending:(NSString *)requestUrlString;
 
 + (void)pause;

@@ -169,8 +169,6 @@ static PHConnectionManager *singleton = nil;
                          connection,
                          connectionBundle);
 
-    // TODO: Do we need this?
-    //[connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [connection start];
 
     return YES;

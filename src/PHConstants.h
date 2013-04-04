@@ -40,7 +40,7 @@
  **/
 // TODO: Can we safely rename this to put a space between the PH and CONTENTVIEW words?
 #define PHCONTENTVIEW_CALLBACK_NOTIFICATION  @"PHContentViewPHCallbackNotification"
-#define PH_PRECACHER_CALLBACK_NOTIFICATION   @"PHPrecacherPHCallbackNotification"
+#define PH_PREFETCH_CALLBACK_NOTIFICATION   @"PHPrecacherPHCallbackNotification"
 
 
 /**
@@ -61,6 +61,16 @@
  * response from the server.
  **/
 #define PH_REQUEST_TIMEOUT 10
+
+/**
+ * Defines the maximum amount of time that an API request will wait for a
+ * response from the server.
+ **/
+#ifdef DEBUG
+#define PH_PREFETCHING_TIMEOUT 30
+#else
+#define PH_PREFETCHING_TIMEOUT
+#endif
 
 /**
  * Recycles content view instances to reduce the number of allocations.
