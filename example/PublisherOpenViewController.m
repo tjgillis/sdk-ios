@@ -27,6 +27,7 @@
 
 @implementation PublisherOpenViewController
 @synthesize customUDIDField;
+@synthesize pluginIdentifier;
 
 - (void)startRequest
 {
@@ -36,6 +37,11 @@
      * This is an alternate implementation which allows you you get response
      * data from API requests. This isn't necessary for most developers.
      */
+
+    if (self.pluginIdentifier.text && ![self.pluginIdentifier.text isEqualToString:@""])
+        [PHAPIRequest setPluginIdentifier:self.pluginIdentifier.text];
+    else
+        [PHAPIRequest setPluginIdentifier:nil];
 
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:self.token secret:self.secret];
     request.customUDID = self.customUDIDField.text;
@@ -49,6 +55,7 @@
 {
     [PHAPIRequest cancelAllRequestsWithDelegate:self];
     [customUDIDField release];
+    [pluginIdentifier release];
     [super dealloc];
 }
 
