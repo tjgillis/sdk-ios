@@ -69,7 +69,7 @@
 #ifdef DEBUG
 #define PH_PREFETCHING_TIMEOUT 30
 #else
-#define PH_PREFETCHING_TIMEOUT
+#define PH_PREFETCHING_TIMEOUT 10
 #endif
 
 /**
