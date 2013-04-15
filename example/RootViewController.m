@@ -275,58 +275,6 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 				theExampleController.secret = self.secretField.text;
 			}
 			[self.navigationController pushViewController:theController animated:YES];
-
-//        if (indexPath.row == 0) {
-//            PublisherOpenViewController *controller =
-//                [[PublisherOpenViewController alloc] initWithNibName:@"PublisherOpenViewController" bundle:nil];
-//            controller.title  = @"Open";
-//            controller.token  = self.tokenField.text;
-//            controller.secret = self.secretField.text;
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        } else if (indexPath.row == 1) {
-//            PublisherContentViewController *controller =
-//                [[PublisherContentViewController alloc] initWithNibName:@"PublisherContentViewController" bundle:nil];
-//            controller.title  = @"Content";
-//            controller.token  = self.tokenField.text;
-//            controller.secret = self.secretField.text;
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        } else if (indexPath.row == 2) {
-//            PublisherIAPTrackingViewController *controller =
-//                [[PublisherIAPTrackingViewController alloc] initWithNibName:@"PublisherIAPTrackingViewController" bundle:nil];
-//            controller.title  = @"IAP Tracking";
-//            controller.token  = self.tokenField.text;
-//            controller.secret = self.secretField.text;
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        } else if (indexPath.row == 3) {
-//            PublisherCancelContentViewController *controller =
-//                [[PublisherCancelContentViewController alloc] initWithNibName:@"PublisherContentViewController" bundle:nil];
-//            controller.title  = @"Content";
-//            controller.token  = self.tokenField.text;
-//            controller.secret = self.secretField.text;
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        } else if (indexPath.row == 4) {
-//            URLLoaderViewController *controller =
-//                [[URLLoaderViewController alloc] initWithNibName:@"URLLoaderViewController" bundle:nil];
-//            controller.title = @"URL Loader";
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        } else if (indexPath.row == 5) {
-//            IAPViewController *controller =
-//                [[IAPViewController alloc] initWithNibName:@"IAPViewController" bundle:nil];
-//            controller.title = @"IAP";
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        } else if (indexPath.row == 6) {
-//            IDViewController *controller =
-//                [[IDViewController alloc] initWithNibName:@"IDViewController" bundle:nil];
-//            controller.title = @"Identifiers";
-//            [self.navigationController pushViewController:controller animated:YES];
-//            [controller release];
-//        }
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Credentials"
                                                         message:@"You must supply a PlayHaven API token and secret to use this app. To get a token and secret, please visit http://playhaven.com on your computer and sign up."
