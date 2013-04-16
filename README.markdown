@@ -85,7 +85,10 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 		PH_USE_STOREKIT=0
 
     This makes it possible to build the SDK without Store Kit linked to your project.
-1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure to set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target.
+1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure to set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target. Also, versions of Xcode prior to version 4.5 do not include AdSupport.framework. If you are using a version of Xcode prior to version 4.5, you will need to disable references to this framework. To do this, set the following preproccessor macro in your project or target's Build Settings:
+
+		PH_USE_AD_SUPPORT=0
+
 1. Include the PlayHavenSDK headers in your code wherever you are using PlayHaven request classes:
 
 		#import "PlayHavenSDK.h"
