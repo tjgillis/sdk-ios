@@ -13,22 +13,21 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PushNotificationRegistrationViewController.h
+ PlayHavenConfiguration.h
  playhaven-sdk-ios
 
- Created by Anton Fedorchenko on 4/12/13.
+ Created by Anton Fedorchenko on 4/15/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "ExampleViewController.h"
-#import "PushProvider.h"
+#import <Foundation/Foundation.h>
 
 /**
- * @brief Controller demonstrating how to enable/disable push notifications from PlayHaven
+ * @brief Utility class that represents configurable parametrs which are passed to
+ *	PlayHaven SDK.
  **/
-@interface PushNotificationRegistrationViewController : ExampleViewController
-			<PushRegistrationObserver>
+@interface PlayHavenConfiguration : NSObject
++ (PlayHavenConfiguration *)currentConfiguration;
 
-- (IBAction)registerForPushNotifications:(id)aSender;
-- (IBAction)unregisterForPushNotifications:(id)aSender;
-
+@property (nonatomic, retain) NSString *applicationToken;
+@property (nonatomic, retain) NSString *applicationSecret;
 @end

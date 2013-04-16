@@ -29,6 +29,7 @@
 #import "IDViewController.h"
 #import "PushNotificationRegistrationViewController.h"
 #import "SDURLCache.h"
+#import "PlayHavenConfiguration.h"
 
 static NSString *kPHClassNameKey = @"ClassName";
 static NSString *kPHControllerNameKey = @"ControllerName";
@@ -54,19 +55,9 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 + (void)initialize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString       *token    = [defaults valueForKey:@"ExampleToken"];
-    NSString       *secret   = [defaults valueForKey:@"ExampleSecret"];
 
     if (PH_BASE_URL == nil || [PH_BASE_URL isEqualToString:@""]) {
         [defaults setValue:@"http://api2.playhaven.com" forKey:@"PHBaseUrl"];
-    }
-
-    if (token == nil || [token isEqualToString:@""]) {
-        [defaults setValue:@"8ae979ddcdaf450996e897322169d26c" forKey:@"ExampleToken"];
-    }
-
-    if (secret == nil || [secret isEqualToString:@""]) {
-        [defaults setValue:@"080d853e433a4468ba3315953b22615e" forKey:@"ExampleSecret"];
     }
 
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -96,11 +87,8 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 
 - (void)loadTokenAndSecretFromDefaults
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize];
-
-    self.tokenField.text  = [defaults valueForKey:@"ExampleToken"];
-    self.secretField.text = [defaults valueForKey:@"ExampleSecret"];
+    self.tokenField.text  = [PlayHavenConfiguration currentConfiguration].applicationToken;
+    self.secretField.text = [PlayHavenConfiguration currentConfiguration].applicationSecret;
     self.serviceURLField.text = PH_BASE_URL;
 
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
@@ -108,12 +96,8 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 
 - (void)saveTokenAndSecretToDefaults
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    [defaults setValue:self.tokenField.text forKey:@"ExampleToken"];
-    [defaults setValue:self.secretField.text forKey:@"ExampleSecret"];
-
-    [defaults synchronize];
+    [PlayHavenConfiguration currentConfiguration].applicationToken = self.tokenField.text;
+    [PlayHavenConfiguration currentConfiguration].applicationSecret = self.secretField.text;
 }
 
 #pragma mark -

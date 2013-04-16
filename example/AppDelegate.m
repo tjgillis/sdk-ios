@@ -21,6 +21,10 @@
 
 #import "AppDelegate.h"
 #import "IAPHelper.h"
+#import "PushNotificationRegistrationViewController.h"
+#import "PlayHavenSDK.h"
+#import "PushProvider.h"
+#import "PlayHavenConfiguration.h"
 
 #if RUN_KIF_TESTS
 #import "PHTestController.h"
@@ -32,12 +36,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self configurePlayHaven];
+
     // Override point for customization after application launch.
     // Add the navigation controller's view to the window and display.
     self.window.rootViewController = self.navigationController;
 
     [self.window makeKeyAndVisible];
     [[IAPHelper sharedIAPHelper] restorePurchases];
+
+	[[PushProvider sharedInstance] registerForPushNotifications];
 
 #if RUN_KIF_TESTS
     [[PHTestController sharedInstance] startTestingWithCompletionBlock:^{
@@ -93,6 +101,48 @@
     [_window release];
     [_navigationController release];
     [super dealloc];
+}
+
+#pragma mark - PN Registration
+
+- (void)application:(UIApplication *)anApplication
+			didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
+{
+	[[PushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+}
+
+- (void)application:(UIApplication *)anApplication
+			didFailToRegisterForRemoteNotificationsWithError:(NSError *)anError
+{
+	NSString *theLogMessage = [NSString stringWithFormat:
+				@"Error in registration for PN: %@", anError];
+	
+	if ([self.navigationController.topViewController isKindOfClass:
+				[PushNotificationRegistrationViewController class]])
+	{
+		[(PushNotificationRegistrationViewController *)[self.navigationController
+					topViewController] addMessage:theLogMessage];
+	}
+	else
+	{
+		NSLog(@"%@", theLogMessage);
+	}
+}
+
+#pragma mark - Private
+
+- (void)configurePlayHaven
+{
+    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
+				currentConfiguration];
+
+	if (0 == [theConfiguration.applicationToken length]) {
+        theConfiguration.applicationToken = @"8ae979ddcdaf450996e897322169d26c";
+    }
+
+    if (0 == [theConfiguration.applicationSecret length]) {
+        theConfiguration.applicationSecret = @"080d853e433a4468ba3315953b22615e";
+    }
 }
 
 @end

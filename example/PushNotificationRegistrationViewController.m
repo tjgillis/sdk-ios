@@ -20,6 +20,7 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import "PushNotificationRegistrationViewController.h"
+#import "PushProvider.h"
 
 @interface PushNotificationRegistrationViewController ()
 
@@ -32,12 +33,59 @@
     [super viewDidLoad];
 
     self.navigationItem.rightBarButtonItem = nil;
+	
+	[[PushProvider sharedInstance] addObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+	[[PushProvider sharedInstance] removeObserver:self];
+	
+	[super dealloc];
+}
+
+- (IBAction)registerForPushNotifications:(id)aSender
+{
+	[self startTimers];
+	[self addMessage:@"Sending Registration Request..."];
+
+	[[PushProvider sharedInstance] registerForPushNotifications];
+}
+
+- (IBAction)unregisterForPushNotifications:(id)aSender
+{
+	[self startTimers];
+	[self addMessage:@"Sending Unregistration Request..."];
+	
+	[[PushProvider sharedInstance] unregisterForPushNotifications];
+}
+
+#pragma mark - PushRegistrationObserver
+
+- (void)provider:(PushProvider *)aProvider
+			didSucceedWithResponse:(NSDictionary *)aResponse
+{
+    NSString *theMessage = [NSString stringWithFormat:@"[OK] Success with response: %@",
+				aResponse];
+    [self addMessage:theMessage];
+
+    [self finishRequest];
+}
+
+- (void)provider:(PushProvider *)aProvider
+			didFailWithError:(NSError *)anError
+{
+    NSString *theMessage = [NSString stringWithFormat:@"[ERROR] Failed with error: %@",
+				anError];
+    [self addMessage:theMessage];
+
+    [self finishRequest];
 }
 
 @end
