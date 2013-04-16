@@ -53,7 +53,7 @@
 - (IBAction)registerForPushNotifications:(id)aSender
 {
 	[self startTimers];
-	[self addMessage:@"Sending Registration Request..."];
+	[self addMessage:@"Sending Registration Request to PNs Provider..."];
 
 	[[PushProvider sharedInstance] registerForPushNotifications];
 }
@@ -61,7 +61,7 @@
 - (IBAction)unregisterForPushNotifications:(id)aSender
 {
 	[self startTimers];
-	[self addMessage:@"Sending Unregistration Request..."];
+	[self addMessage:@"Sending Unregistration Request to PNs Provider..."];
 	
 	[[PushProvider sharedInstance] unregisterForPushNotifications];
 }

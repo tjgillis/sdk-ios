@@ -109,6 +109,14 @@
 			didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
 {
 	[[PushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+
+	if ([self.navigationController.topViewController isKindOfClass:
+				[PushNotificationRegistrationViewController class]])
+	{
+		[(PushNotificationRegistrationViewController *)[self.navigationController
+					topViewController] addMessage:[NSString stringWithFormat:
+                    @"Got APNS Device Token: %@", [aDeviceToken description]]];
+	}
 }
 
 - (void)application:(UIApplication *)anApplication
