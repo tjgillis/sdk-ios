@@ -25,6 +25,10 @@ Also see the [Integration](#integration) and [API Reference](#api-reference) sec
 Version History
 ===============
 
+1.13.0
+======
+
+
 1.12.1
 ======
 * iOS 6 compatibility improvements.
@@ -34,7 +38,6 @@ Version History
 1.12.0
 ======
 * The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording-game-opens).
-
 
 1.11.0
 ======
