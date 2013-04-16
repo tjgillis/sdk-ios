@@ -72,9 +72,6 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 1. (optional) Unless you are already using SBJSON, also add the following to your project:
     * JSON directory.
   If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
-1. (optional) Unless you are already using OpenUDID, also add the following to your project:
-     * OpenUDID directory.
-  If your project is already using OpenUDID, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. Ensure the following frameworks are included with your project. Add any missing frameworks in the Build Phases tab for your application's target:
     * UIKit.framework
     * Foundation.framework
@@ -104,13 +101,12 @@ If you are creating a specific plugin (for Unity or AdobeAIR, e.g.) by wrapping 
     [PHAPIRequest setPluginIdentifier:(NSString *)identifier];
 
 ### Device tracking
-You can use the OpenUDID in addition to our own proprietary identification system for the purposes of authenticating API requests and tracking conversions across applications. OpenUDID is a collaborative open-source effort to create a tracking token that can be shared across the device as well as to allow for user-initiated opt out of tracking. There is no additional implementation to take advantage of these changes but it does introduce the following pre-processor macros you may choose to use.
+Apple has announced that as of May 1, 2013 it is no longer accepting newly submitted and updated apps that access UDID, and as such the SDK is no longer sending this token. Likewise, OpenUDID has been removed as well. The SDK is continuing to send MAC, IFA/IDFA, and ODIN. Because PlayHaven utilizes device identifiers to serve revenue generating content like Ads to apps, and IFA/IDFA is only available for devices running iOS 6.0 and greater, it is especially important to ensure that your integration is sending MAC addresses.
 
-NOTE: The "test device" feature of the PlayHaven Dashboard will only work with games that send either OpenUDID or UDIDs.
+By default `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address and ODIN values for the current device with the open request. Since UDID is no longer supported, and IDFA is only sent with devices running iOS version 6.0 and greater, PlayHaven requires that MAC address be used.
 
-By default `PH_USE_OPENUDID=1` is set, which sends the OpenUDID value for the current device with the open request. If you would like to opt out of OpenUDID collection, set `PH_USE_OPENUDID=0` instead. If you opt out of OpenUDID collection, you may also remove the OpenUDID classes from your project.
+If you have previously added the preprocessor macro `PH_USE_MAC_ADDRESS=0`, **you should remove it**.
 
-By default `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address along with these new tokens.
 
 #### User opt-out
 To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of UDID and MAC addresses. To set the opt out status for your app, use the following method:
