@@ -98,18 +98,12 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 
 API Reference
 =============
-### Setting the plugin identifier (plugins only)
-If you are creating a specific plugin (for Unity or AdobeAIR, e.g.) by wrapping the SDK in your code, you should set the SDK's plugin identifier to something meaningful (e.g., "com.unity.JohnDoe-v1.1.1"). Any Reserved Characters as specified by RFC 3986 will be removed and identifiers will be trimmed to 42 characters.
-
-    [PHAPIRequest setPluginIdentifier:(NSString *)identifier];
-
 ### Device tracking
 Apple has announced that as of May 1, 2013 it is no longer accepting newly submitted and updated apps that access UDID, and as such the SDK is no longer sending this token. Likewise, OpenUDID has been removed as well. The SDK is continuing to send MAC, IFA/IDFA, and ODIN. Because PlayHaven utilizes device identifiers to serve revenue generating content like Ads to apps, and IFA/IDFA is only available for devices running iOS 6.0 and greater, it is especially important to ensure that your integration is sending MAC addresses.
 
 By default `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address and ODIN values for the current device with the open request. Since UDID is no longer supported, and IDFA is only sent with devices running iOS version 6.0 and greater, PlayHaven requires that MAC address be used.
 
 If you have previously added the preprocessor macro `PH_USE_MAC_ADDRESS=0`, **you should remove it**.
-
 
 #### User opt-out
 To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of UDID and MAC addresses. To set the opt out status for your app, use the following method:
@@ -305,6 +299,12 @@ This method is called inside of the `PHNotificationView` instance `- (void)drawR
 	- (CGSize)sizeForNotification:(NSDictionary *)notificationData;
 
 This method is called to calculate an appropriate frame for the notification badge each time the notification data changes. Using specific keys inside of `notificationData`, you need to calculate an appropriate size.
+
+### Setting the plugin identifier (plugin creation only)
+If you are creating a specific plugin (for Unity or AdobeAIR, e.g.) by wrapping the SDK in your code, you should set the SDK's plugin identifier to something meaningful (e.g., "com.unity.JohnDoe-v1.1.1"). Any Reserved Characters as specified by RFC 3986 will be removed and identifiers will be trimmed to 42 characters.
+
+    [PHAPIRequest setPluginIdentifier:(NSString *)identifier];
+
 
 Integration Test Console Overview
 =================================
