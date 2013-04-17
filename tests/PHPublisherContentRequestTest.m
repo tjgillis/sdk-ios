@@ -91,8 +91,10 @@
     STAssertNotNil(keywordUnit, @"Keyword definition should result in unit!");
 
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    STAssertTrue(CGRectEqualToRect([keywordUnit frameForOrientation:UIInterfaceOrientationPortrait], applicationFrame),
-                 @"Frame mismatch from keyword. Got %@", NSStringFromCGRect(applicationFrame));
+    CGRect theExpectedFrame = CGRectZero;
+    theExpectedFrame.size = applicationFrame.size;
+    STAssertTrue(CGRectEqualToRect([keywordUnit frameForOrientation:UIInterfaceOrientationPortrait], theExpectedFrame),
+                 @"Frame mismatch from keyword. Got %@", NSStringFromCGRect(theExpectedFrame));
 
     NSURL *adURL = [NSURL URLWithString:@"http://google.com"];
     STAssertTrue([keywordUnit.URL isEqual:adURL],
