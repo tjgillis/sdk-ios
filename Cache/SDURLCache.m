@@ -32,12 +32,12 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    
+
     [dateFormatter setLocale:locale];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
     [dateFormatter setDateFormat:format];
     [locale release];
-    
+
     return [dateFormatter autorelease];
 }
 
@@ -426,7 +426,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     // iOS 5 implements disk caching. SDURLCache then disables itself at runtime if the current device OS
     // version is 5 or greater
     NSArray *version = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-    disabled = [[version objectAtIndex:0] intValue] >= 5;
+    //disabled = [[version objectAtIndex:0] intValue] >= 5;
 
     if (disabled)
     {
@@ -443,7 +443,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         self.ioQueue = queue;
         [queue release];
-        
+
         ioQueue.maxConcurrentOperationCount = 1; // used to streamline operations in a separate thread
         self.ignoreMemoryOnlyStoragePolicy = YES;
 	}
@@ -453,6 +453,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+        PH_DEBUG(@"Storing resource: %@", [[request URL] absoluteString]);
+
     if (disabled)
     {
         [super storeCachedResponse:cachedResponse forRequest:request];
@@ -504,6 +507,13 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
+    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+        PH_DEBUG(@"Checking for local resource: %@", [[request URL] absoluteString]);
+
+    if (disabled && [super cachedResponseForRequest:request])
+        if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+            PH_DEBUG(@"Cache hit for URL: %@", [[request URL] absoluteString]);
+
     if (disabled) return [super cachedResponseForRequest:request];
 
     request = [PH_SDURLCACHE_CLASS canonicalRequestForRequest:request];
@@ -511,7 +521,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
     {
-        //NSLog(@"Memory hit for URL: %@", request.URL);
+        if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+            PH_DEBUG(@"Memory hit for URL: %@", [[request URL] absoluteString]);
         return memoryResponse;
     }
 
@@ -527,7 +538,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
             // load wrapper
             PH_SDCACHEDURLRESPONSE_CLASS *diskResponseWrapper = nil;
             NSCachedURLResponse *diskResponse = nil;
-            
+
             @try {
                 diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:[diskCachePath stringByAppendingPathComponent:cacheKey]];
                 diskResponse = diskResponseWrapper.response;
@@ -535,11 +546,11 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
                 //catch NSInvalidUnarchiveOperationException
                 diskResponseWrapper = nil;
                 diskResponse = nil;
-                
+
                 //TODO: remove invalid cache entry?
                 //[self removeCachedResponseForRequest:request];
             }
-            
+
             if (diskResponse)
             {
                 // OPTI: Log the entry last access time for LRU cache eviction algorithm but don't save the dictionary
@@ -558,7 +569,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
-                    //NSLog(@"Disk hit for URL: %@", request.URL);
+                    if ([[[request URL] absoluteString] hasPrefix:@"http://media.playhaven.com/"])
+                        PH_DEBUG(@"Disk hit for URL: %@", [[request URL] absoluteString]);
                     return diskResponse;
                 }
             }
@@ -597,12 +609,12 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 - (void)removeAllCachedResponses
 {
     [super removeAllCachedResponses];
-    
+
     if (disabled) return;
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     [fileManager removeItemAtPath:diskCachePath error:NULL];
     [fileManager release];
-    
+
     @synchronized(self)
     {
         [diskCacheInfo release], diskCacheInfo = nil;
@@ -624,10 +636,10 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSString *cacheKey = [PH_SDURLCACHE_CLASS cacheKeyForURL:url];
     NSString *cacheFile = [diskCachePath stringByAppendingPathComponent:cacheKey];
     NSFileManager *manager = [[NSFileManager alloc] init];
-    
+
     BOOL exists = [manager fileExistsAtPath:cacheFile];
     [manager release];
-    
+
     if (exists)
     {
         return YES;

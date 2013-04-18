@@ -1,7 +1,20 @@
 Pod::Spec.new do |s|
   s.name     = 'Playhaven-SDK'
-  s.version  = '1.10.0'
-  s.license  = 'MIT'
+  s.version  = '1.13.0'
+  s.license  = { :type => 'Apache 2.0',
+                 :text => 'Copyright 2013 Medium Entertainment, Inc.
+
+                           Licensed under the Apache License, Version 2.0 (the "License");
+                           you may not use this file except in compliance with the License.
+                           You may obtain a copy of the License at
+
+                           http://www.apache.org/licenses/LICENSE-2.0
+
+                           Unless required by applicable law or agreed to in writing, software
+                           distributed under the License is distributed on an "AS IS" BASIS,
+                           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                           See the License for the specific language governing permissions and
+                           limitations under the License.' }
   s.summary  = 'PlayHaven is a real-time mobile game marketing platform to help you take control of the business of your games.'
   s.homepage = 'http://playhaven.com'
   s.author   = { 'Sam Stewart' => 'sam@playhaven.com' }
@@ -12,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.platform = :ios
 
-  s.source_files = 'Cache', 'src', 'OpenUDID', 'JSON', 'WaterWorks'
+  s.source_files = 'Cache', 'src', 'JSON', 'WaterWorks'
 
   s.clean_paths = "example", "tests", "*.mobileprovision", "PlayHaven_SDK_Agreement.rtf"
 
