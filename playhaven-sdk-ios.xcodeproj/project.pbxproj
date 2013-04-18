@@ -496,6 +496,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E1525A32171F84A70092B0F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA12ABD21365DBB700CB2F24;
+			remoteInfo = Example;
+		};
 		EA5E12D015ED4087002E1AA6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EA62D6501579922300B31E62 /* KIF.xcodeproj */;
@@ -1304,6 +1311,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E1525A33171F84A70092B0F2 /* PBXTargetDependency */,
 			);
 			name = "Unit Tests";
 			productName = "PlayHavenAds Unit Test";
@@ -1950,6 +1958,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E1525A33171F84A70092B0F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA12ABD21365DBB700CB2F24 /* Example */;
+			targetProxy = E1525A32171F84A70092B0F2 /* PBXContainerItemProxy */;
+		};
 		EAE3A133160BD2830004E563 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = KIF;
