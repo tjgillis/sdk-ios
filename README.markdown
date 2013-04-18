@@ -27,43 +27,46 @@ Version History
 
 1.13.0
 ======
+* UDID collection has been removed to comply with Apple’s policy for the use of device information, beginning May 1, 2013
+* Receipt verification available on the SDK with server-side component available soon. See [Tracking in-app purchases](#tracking-in-app-purchases) for information on how to integrate this into your app
+* Miscellaneous bug fixes
 
 
 1.12.1
 ======
-* iOS 6 compatibility improvements.
-* In-App iTunes purchases support for content units. See [Links to the App Store](#links-to-the-app-store).
-* Fixes for crashes affecting devices running iOS versions lower than 5.0.
+* iOS 6 compatibility improvements
+* In-App iTunes purchases support for content units. See [Links to the App Store](#links-to-the-app-store)
+* Fixes for crashes affecting devices running iOS versions lower than 5.0
 
 1.12.0
 ======
-* The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording-game-opens).
+* The SDK now automatically records the number of game sessions and the length of game sessions. This depends on a proper open request implementation. See [Recording game opens](#recording-game-opens)
 
 1.11.0
 ======
-* App Store launches now properly preserve affiliate link tokens.
-* Build settings changed to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin.
+* App Store launches now properly preserve affiliate link tokens
+* Build settings changed to remove THUMB instructions from static library builds. This change only affects publishers using this SDK as a static library from the Unity plugin
 
 1.10.4
 ======
-* In-App Purchase (IAP) tracking requests now report accurate price information.
+* In-App Purchase (IAP) tracking requests now report accurate price information
 
 1.10.3
 ======
-* DNS resolution for API servers happens in a background thread.
+* DNS resolution for API servers happens in a background thread
 
 1.10.2
 ======
-* Bugfixes for issues with canceling requests and a rare crash involving precaching.
+* Bugfixes for issues with canceling requests and a rare crash involving precaching
 
 1.10.1
 ======
-* Ability to opt out of user data collection at runtime.
+* Ability to opt out of user data collection at runtime
 
 1.10.0
 ======
-* In-App Purchase tracking and virtual goods promotion support. See [Triggering in-app purchases](#triggering-in-app-purchases) and [Tracking in-app purchases](#tracking-in-app-purchases) for information on how to integrate this into your app.
-* New documentation on how to disable Store Kit-based features in the SDK.
+* In-App Purchase tracking and virtual goods promotion support. See [Triggering in-app purchases](#triggering-in-app-purchases) and [Tracking in-app purchases](#tracking-in-app-purchases) for information on how to integrate this into your app
+* New documentation on how to disable Store Kit-based features in the SDK
 
 Integration
 ===========
