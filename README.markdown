@@ -259,15 +259,22 @@ In-App iTunes purchases are like other in-app purchases in that when launched fr
 ### Tracking in-app purchases
 By providing data on your In-App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the `PHPublisherIAPTrackingRequest` class. To report successful purchases use the following either in your `SKPaymentQueueObserver` instance or after a purchase has been successfully delivered:
 
-    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY resolution:PHPurchaseResolutionBuy];
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY resolution:PHPurchaseResolutionBuy receiptData:RECEIPT_DATA];
     [request send];
 
 Purchases that are canceled or encounter errors should be reported using the following:
 
-    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY error:ERROR_OBJECT];
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY error:ERROR_OBJECT receiptData:RECEIPT_DATA];
     [request send];
 
 If the error comes from an `SKPaymentTransaction` instance's `error` property, the SDK will automatically select the correct resolution (buy/cancel) based on the `NSError` object that is passed in.
+
+#### Receipt verification
+
+Additionally, you can now send the receipt data to the PlayHaven server to verify purchases against Apple receipts to insure that only valid purchases are being reported. To verify that a purchase is valid, add the receipt data from the In-App Purchase to the IAP tracking request by using the `receiptData` argument to the method.
+
+**Note:** Although we're still working on server-side support for receipt verification, we highly recommend implementing receipt verification as supported in the SDK. We're a couple weeks from fully supporting it but this way you don't need to do anything extra when it's available.
+
 
 ### Add a notification view (notifier badge)
 Adding a notification view to your More Games button can increase the number of More Games Widget opens for your game by up to 300%. To create a notification view:
