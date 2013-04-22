@@ -104,11 +104,17 @@
     mib[2] = 0;
     mib[3] = AF_LINK;
     mib[4] = NET_RT_IFLIST;
+    mib[5] = if_nametoindex("en0");
 
-    if ((mib[5] = if_nametoindex("en0")) == 0)
+    if (mib[5] == 0)
     {
-        PH_NOTE(@"Error: if_nametoindex error\n");
-        return NULL;
+        mib[5] = if_nametoindex("en1");
+        
+        if (mib[5] == 0)
+        {
+            PH_NOTE(@"Error: if_nametoindex error\n");
+            return NULL;
+        }
     }
 
     if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0)
