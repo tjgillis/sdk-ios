@@ -34,7 +34,7 @@
 
 @interface PHConnectionManager : NSObject
 + (BOOL)createConnectionFromRequest:(NSURLRequest *)request
-                        forDelegate:(id <PHConnectionManagerDelegate>)delegate
+                        forDelegate:(id<PHConnectionManagerDelegate>)delegate
                         withContext:(id)context;
 
 + (void)stopConnectionsForDelegate:(id<PHConnectionManagerDelegate>)delegate;
