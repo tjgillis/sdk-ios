@@ -65,4 +65,27 @@
     STAssertFalse([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
                  @"Custom parameter missing when one is set.");
 }
+
+- (void)testTimeZoneParameter
+{
+    NSString *theTestToken  = @"PUBLISHER_TOKEN";
+    NSString *theTestSecret = @"PUBLISHER_SECRET";
+    PHPublisherOpenRequest *theRequest = [PHPublisherOpenRequest requestForApp:theTestToken secret:
+                theTestSecret];
+
+    STAssertNotNil([theRequest.additionalParameters objectForKey:@"tz"], @"Missed time zone!");
+    STAssertTrue(0 < [[theRequest.URL absoluteString] rangeOfString:@"tz="].length, @"Missed time "
+                "zone!");
+
+    NSScanner *theTimeZoneScanner = [NSScanner scannerWithString:[theRequest.URL absoluteString]];
+
+    STAssertTrue([theTimeZoneScanner scanUpToString:@"tz=" intoString:NULL], @"Missed time zone!");
+    STAssertTrue([theTimeZoneScanner scanString:@"tz=" intoString:NULL], @"Missed time zone!");
+    
+    float theTimeOffset = 0;
+    STAssertTrue([theTimeZoneScanner scanFloat:&theTimeOffset], @"Missed time zone!");
+    
+    STAssertTrue(- 11 <= theTimeOffset && theTimeOffset <= 14, @"Incorrect time zone offset");
+}
+
 @end
