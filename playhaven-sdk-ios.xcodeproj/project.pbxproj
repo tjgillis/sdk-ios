@@ -44,7 +44,6 @@
 		D1BD481C14C0EDC500EE8A5A /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
 		D1BD481D14C0EDD100EE8A5A /* PHPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD481914C0CC6300EE8A5A /* PHPurchase.m */; };
 		D1E15B7D14981E90001241EE /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E15B7B14981C39001241EE /* SDURLCache.m */; };
-<<<<<<< HEAD
 		E1111531171C3AAE0012C465 /* PushNotificationRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */; };
 		E1111532171C3AAF0012C465 /* PushNotificationRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */; };
 		E1111533171C3AB00012C465 /* PushNotificationRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */; };
