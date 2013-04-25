@@ -46,6 +46,8 @@
     [[IAPHelper sharedIAPHelper] restorePurchases];
 
 	[[PushProvider sharedInstance] registerForPushNotifications];
+    [[PushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions objectForKey:
+                UIApplicationLaunchOptionsRemoteNotificationKey]];
 
 #if RUN_KIF_TESTS
     [[PHTestController sharedInstance] startTestingWithCompletionBlock:^{
@@ -117,6 +119,14 @@
 					topViewController] addMessage:[NSString stringWithFormat:
                     @"Got APNS Device Token: %@", [aDeviceToken description]]];
 	}
+}
+
+- (void)application:(UIApplication *)anApplication
+            didReceiveRemoteNotification:(NSDictionary *)aUserInfo
+{
+    NSLog(@"Did receive notification with user info: %@", aUserInfo);
+
+    [[PushProvider sharedInstance] handleRemoteNotificationWithUserInfo:aUserInfo];
 }
 
 - (void)application:(UIApplication *)anApplication

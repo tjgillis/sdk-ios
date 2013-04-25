@@ -51,9 +51,13 @@
 		E1111537171C3F330012C465 /* PushProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1111535171C3F330012C465 /* PushProvider.m */; };
 		E1111538171C3F330012C465 /* PushProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1111535171C3F330012C465 /* PushProvider.m */; };
 		E1111539171C3F330012C465 /* PushProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E1111535171C3F330012C465 /* PushProvider.m */; };
+		E1508EB417293F7A00DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
+		E1508EB717297F2A00DDE809 /* PHPushDeliveryRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB617297F2A00DDE809 /* PHPushDeliveryRequestTest.m */; };
+		E1508EB81729845E00DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
+		E1508EB9172987CF00DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
+		E1508EBB172987D300DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
+		E1508EBC172987D600DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
 		E1769A8B171E29C300FE6518 /* PHPushNotificationRegistrationRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1769A8A171E29C200FE6518 /* PHPushNotificationRegistrationRequestTest.m */; };
-		E1769A8C171E4DFB00FE6518 /* PHPushNotificationRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushNotificationRegistrationRequest.m */; };
-		E1769A8D171E4E0400FE6518 /* PlayHavenConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4EE171CABD900F64E12 /* PlayHavenConfiguration.m */; };
 		E17A203D1718DC4600EF6C14 /* PushNotificationRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */; };
 		E17A203E1718DC4600EF6C14 /* PushNotificationRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17A203C1718DC4500EF6C14 /* PushNotificationRegistrationViewController.xib */; };
 		E1C8F4EF171CABD900F64E12 /* PlayHavenConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4EE171CABD900F64E12 /* PlayHavenConfiguration.m */; };
@@ -118,9 +122,7 @@
 		EA2163B915BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
 		EA2163BA15BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
 		EA2163BB15BF71C900C9A8A9 /* IAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2163B715BF71C900C9A8A9 /* IAPViewController.xib */; };
-		EA21F69D14215EAD00A4177E /* PBXBuildFile */ = {isa = PBXBuildFile; fileRef = EA1799DF14200FAE005F286F /* PHConstants.m */; };
 		EA24FCAB1554510D0074FC13 /* PHNetworkUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = EA24FCA91554510D0074FC13 /* PHNetworkUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA24FCAC1554510D0074FC13 /* PBXBuildFile */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
 		EA24FCAD1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
 		EA24FCAE1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
 		EA24FCAF1554510D0074FC13 /* PHNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EA24FCAA1554510D0074FC13 /* PHNetworkUtil.m */; };
@@ -575,6 +577,9 @@
 		D1E15B7B14981C39001241EE /* SDURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDURLCache.m; sourceTree = "<group>"; };
 		E1111534171C3F330012C465 /* PushProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushProvider.h; sourceTree = "<group>"; };
 		E1111535171C3F330012C465 /* PushProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushProvider.m; sourceTree = "<group>"; };
+		E1508EB217293F7900DDE809 /* PHPushDeliveryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPushDeliveryRequest.h; sourceTree = "<group>"; };
+		E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPushDeliveryRequest.m; sourceTree = "<group>"; };
+		E1508EB617297F2A00DDE809 /* PHPushDeliveryRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPushDeliveryRequestTest.m; sourceTree = "<group>"; };
 		E1769A8A171E29C200FE6518 /* PHPushNotificationRegistrationRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPushNotificationRegistrationRequestTest.m; sourceTree = "<group>"; };
 		E17A203A1718DC4300EF6C14 /* PushNotificationRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationRegistrationViewController.h; sourceTree = "<group>"; };
 		E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationRegistrationViewController.m; sourceTree = "<group>"; };
@@ -907,6 +912,8 @@
 			children = (
 				E1C8F4F8171CC94400F64E12 /* PHPushNotificationRegistrationRequest.h */,
 				E1C8F4F9171CC94400F64E12 /* PHPushNotificationRegistrationRequest.m */,
+				E1508EB217293F7900DDE809 /* PHPushDeliveryRequest.h */,
+				E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */,
 			);
 			name = PushNotifications;
 			sourceTree = "<group>";
@@ -1045,6 +1052,7 @@
 				D108A83D15A6B68600082388 /* PHTimeInGameTest.m */,
 				EA98C12C16640E4500B6AA8C /* PHNetworkUtilTest.m */,
 				E1769A8A171E29C200FE6518 /* PHPushNotificationRegistrationRequestTest.m */,
+				E1508EB617297F2A00DDE809 /* PHPushDeliveryRequestTest.m */,
 			);
 			name = "Unit Testing";
 			path = tests;
@@ -1730,6 +1738,7 @@
 				E1111536171C3F330012C465 /* PushProvider.m in Sources */,
 				E1C8F4EF171CABD900F64E12 /* PlayHavenConfiguration.m in Sources */,
 				E1C8F4FA171CC94400F64E12 /* PHPushNotificationRegistrationRequest.m in Sources */,
+				E1508EB417293F7A00DDE809 /* PHPushDeliveryRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1749,6 +1758,8 @@
 				D108A83E15A6B68600082388 /* PHTimeInGameTest.m in Sources */,
 				EA98C12D16640E4500B6AA8C /* PHNetworkUtilTest.m in Sources */,
 				E1769A8B171E29C300FE6518 /* PHPushNotificationRegistrationRequestTest.m in Sources */,
+				E1508EB717297F2A00DDE809 /* PHPushDeliveryRequestTest.m in Sources */,
+				E1508EB81729845E00DDE809 /* PHPushDeliveryRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1806,6 +1817,7 @@
 				E1111537171C3F330012C465 /* PushProvider.m in Sources */,
 				E1C8F4F0171CABD900F64E12 /* PlayHavenConfiguration.m in Sources */,
 				E1C8F4FB171CC94400F64E12 /* PHPushNotificationRegistrationRequest.m in Sources */,
+				E1508EB9172987CF00DDE809 /* PHPushDeliveryRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1859,6 +1871,7 @@
 				E1111538171C3F330012C465 /* PushProvider.m in Sources */,
 				E1C8F4F1171CABD900F64E12 /* PlayHavenConfiguration.m in Sources */,
 				E1C8F4FC171CC94400F64E12 /* PHPushNotificationRegistrationRequest.m in Sources */,
+				E1508EBC172987D600DDE809 /* PHPushDeliveryRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2048,6 +2061,7 @@
 				E1111539171C3F330012C465 /* PushProvider.m in Sources */,
 				E1C8F4F2171CABD900F64E12 /* PlayHavenConfiguration.m in Sources */,
 				E1C8F4FD171CC94400F64E12 /* PHPushNotificationRegistrationRequest.m in Sources */,
+				E1508EBB172987D300DDE809 /* PHPushDeliveryRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

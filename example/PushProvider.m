@@ -22,8 +22,14 @@
 #import "PushProvider.h"
 #import "PHPushNotificationRegistrationRequest.h"
 #import "PlayHavenConfiguration.h"
+#import "PHPublisherContentRequest.h"
+#import "PHPushDeliveryRequest.h"
+
+static NSString *const kPHMessageIDKey = @"mi";
+static NSString *const kPHContentIDKey = @"ci";
 
 @interface PushProvider ()
+@property (nonatomic, retain) NSData *APNSDeviceToken;
 @property (nonatomic, readonly) CFMutableArrayRef registrationObservers;
 @end
 
@@ -56,6 +62,7 @@
 - (void)dealloc
 {
 	CFRelease(_registrationObservers);
+    [_APNSDeviceToken release];
 	
 	[super dealloc];
 }
@@ -72,8 +79,46 @@
 	[self registerAPNSDeviceToken:nil];
 }
 
+- (void)handleRemoteNotificationWithUserInfo:(NSDictionary *)aUserInfo
+{
+#warning: Custom fields of a push should be agreed/documented with a server side
+
+    NSString *theMessageID = [aUserInfo objectForKey:kPHMessageIDKey];
+    if (nil == theMessageID)
+    {
+        // No further actions if required field is absent.
+        return;
+    }
+    
+    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
+                currentConfiguration];
+    NSString *theContentID = [aUserInfo objectForKey:kPHContentIDKey];
+    
+    if (nil != theContentID)
+    {
+        PHPublisherContentRequest *theContentRquest = [PHPublisherContentRequest requestForApp:
+                    theConfiguration.applicationToken secret:theConfiguration.applicationSecret
+                    contentUnitID:theContentID];
+        
+        if (![self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)] ||
+                    ([self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)]
+                    && [self.delegate pushProvider:self shouldSendRequest:theContentRquest]))
+        {
+            [theContentRquest send];
+        }
+    }
+    
+    PHPushDeliveryRequest *thePushDeliveryRequest = [PHPushDeliveryRequest requestForApp:
+                 theConfiguration.applicationToken secret:theConfiguration.applicationSecret
+                 pushNotificationDeviceToken:self.APNSDeviceToken messageID:theMessageID
+                 contentUnitID:theContentID];
+    [thePushDeliveryRequest send];
+}
+
 - (void)registerAPNSDeviceToken:(NSData *)aToken
 {
+    self.APNSDeviceToken = aToken;
+    
     PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
 				currentConfiguration];
 	

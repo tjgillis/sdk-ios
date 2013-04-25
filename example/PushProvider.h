@@ -23,12 +23,15 @@
 #import "PlayHavenSDK.h"
 
 @protocol PushRegistrationObserver;
+@protocol PushProviderDelegate;
 
 /**
  * @brief Provides ability to register/unregister for push notification.
  **/
 @interface PushProvider : NSObject <PHAPIRequestDelegate>
 + (PushProvider *)sharedInstance;
+
+@property (nonatomic, assign) id<PushProviderDelegate> delegate;
 
 /**
  * Registers device token with PlayHaven's push server. This call completes the
@@ -50,6 +53,13 @@
 - (void)unregisterForPushNotifications;
 
 /**
+ * Handles incoming push notifications which system provides in form of dictionary containing
+ * information about notification, for more details on the dictionary content see
+ * application:didReceiveRemoteNotification: of UIApplicationDelegate.
+ **/
+- (void)handleRemoteNotificationWithUserInfo:(NSDictionary *)aUserInfo;
+
+/**
  * Adds new observer which will be notified about the results of registration/
  * unregistration events.
  *
@@ -67,4 +77,10 @@
 			didSucceedWithResponse:(NSDictionary *)aResponse;
 - (void)provider:(PushProvider *)aProvider
 			didFailWithError:(NSError *)anError;
+@end
+
+@protocol PushProviderDelegate <NSObject>
+@optional
+- (BOOL)pushProvider:(PushProvider *)aProvider
+            shouldSendRequest:(PHPublisherContentRequest *)aRequest;
 @end

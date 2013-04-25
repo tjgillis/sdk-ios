@@ -14,7 +14,7 @@
  limitations under the License.
 
  PHPushNotificationRegistrationRequest.m
- PNTestApp
+ playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/11/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
