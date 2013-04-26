@@ -20,10 +20,12 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import <Foundation/Foundation.h>
-#import "PlayHavenSDK.h"
+#import "PHAPIRequest.h"
 
 @protocol PHPushRegistrationObserver;
 @protocol PHPushProviderDelegate;
+
+@class PHPublisherContentRequest;
 
 /**
  * @brief Provides ability to register/unregister for push notification.
@@ -99,7 +101,9 @@
 /**
  * Provider calls this method when it handles push notification initiated by
  * handleRemoteNotificationWithUserInfo: to check if it should load content associated with the push
- * notification.
+ * notification. Delegates should implement this method and return NO to prevent content loading
+ * and displaying. Another reason why delegate might want to implement this method is to take
+ * control over content loading and displaying by assigning own delegate to the request object.
  *
  * @param aProvider
  *	aProvider which is initiated this call
