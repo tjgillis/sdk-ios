@@ -81,6 +81,18 @@
 
 @protocol PushProviderDelegate <NSObject>
 @optional
+/**
+ * Provider calls this method when it handles push notification initiated by
+ * handleRemoteNotificationWithUserInfo: to check if it should load content associated with the push
+ * notification.
+ *
+ * @param aProvider
+ *	aProvider which is initiated this call
+ *
+ * @param aRequest
+ *	aRequest - request object created by the provider to load content associated with the push
+ *  notification.
+ **/
 - (BOOL)pushProvider:(PushProvider *)aProvider
             shouldSendRequest:(PHPublisherContentRequest *)aRequest;
 @end
