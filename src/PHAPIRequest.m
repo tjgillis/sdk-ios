@@ -234,6 +234,14 @@ static NSString *sPlayHavenPluginIdentifier;
 
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret
 {
+	if (nil == token || nil == secret)
+    {
+        PH_LOG(@"[%@ %@] ERROR: Nil input arguments. (token - %@; secret - %@)", NSStringFromClass(
+                    [self class]), NSStringFromSelector(_cmd), token, secret, nil);
+        [self release];
+        return nil;
+    }
+
     self = [self init];
     if (self) {
         _token  = [token copy];

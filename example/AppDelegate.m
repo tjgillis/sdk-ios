@@ -44,9 +44,15 @@
     [self.window makeKeyAndVisible];
     [[IAPHelper sharedIAPHelper] restorePurchases];
 
-	[[PHPushProvider sharedInstance] registerForPushNotifications];
-    [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions objectForKey:
-                UIApplicationLaunchOptionsRemoteNotificationKey]];
+    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
+				currentConfiguration];
+
+	[PHPushProvider sharedInstance].applicationToken = theConfiguration.applicationToken;
+    [PHPushProvider sharedInstance].applicationSecret = theConfiguration.applicationSecret;
+    
+    [[PHPushProvider sharedInstance] registerForPushNotifications];
+    [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions
+                objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 
 #if RUN_KIF_TESTS
     [[PHTestController sharedInstance] startTestingWithCompletionBlock:^{
