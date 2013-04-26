@@ -13,23 +13,23 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PHPushNotificationRegistrationRequest.m
+ PHPushRegistrationRequest.m
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/11/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PHPushNotificationRegistrationRequest.h"
+#import "PHPushRegistrationRequest.h"
 #import "PHConstants.h"
 #import "PHStringUtil.h"
 
 static NSString *const kPHPushTokenKey = @"push_token";
 
-@interface PHPushNotificationRegistrationRequest ()
+@interface PHPushRegistrationRequest ()
 @property (nonatomic, retain) NSData *pushNotificationDeviceToken;
 @end
 
-@implementation PHPushNotificationRegistrationRequest
+@implementation PHPushRegistrationRequest
 
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
 			pushNotificationDeviceToken:(NSData *)aDeviceToken

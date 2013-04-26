@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PHPushNotificationRegistrationRequest.m
+ PHPushRegistrationRequest.h
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/11/13.
@@ -21,7 +21,7 @@
 
 #import "PHAPIRequest.h"
 
-@interface PHPushNotificationRegistrationRequest : PHAPIRequest
+@interface PHPushRegistrationRequest : PHAPIRequest
 
 /**
  * Conveniece method creating an autoreleased request object.
@@ -30,7 +30,7 @@
 			pushNotificationDeviceToken:(NSData *)aDeviceToken;
 /**
  * Constructs a request which is used to register/unregister for push notifications on
- * PlayHaven server which provides provides notifications to Apple Push Service.
+ * PlayHaven server which provides notifications to Apple Push Service.
  * @param aToken
  *   Application token
  * @param aSecret

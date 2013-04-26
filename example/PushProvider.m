@@ -20,7 +20,7 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import "PushProvider.h"
-#import "PHPushNotificationRegistrationRequest.h"
+#import "PHPushRegistrationRequest.h"
 #import "PlayHavenConfiguration.h"
 #import "PHPublisherContentRequest.h"
 #import "PHPushDeliveryRequest.h"
@@ -122,8 +122,7 @@ static NSString *const kPHContentIDKey = @"ci";
     PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
 				currentConfiguration];
 	
-	PHPushNotificationRegistrationRequest *theRequest =
-				[PHPushNotificationRegistrationRequest requestForApp:
+	PHPushRegistrationRequest *theRequest = [PHPushRegistrationRequest requestForApp:
 				theConfiguration.applicationToken secret:
 				theConfiguration.applicationSecret pushNotificationDeviceToken:aToken];
 	

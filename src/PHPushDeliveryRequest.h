@@ -19,9 +19,9 @@
  Created by Anton Fedorchenko on 4/25/13
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PHPushNotificationRegistrationRequest.h"
+#import "PHPushRegistrationRequest.h"
 
-@interface PHPushDeliveryRequest : PHPushNotificationRegistrationRequest
+@interface PHPushDeliveryRequest : PHPushRegistrationRequest
 
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
 			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
