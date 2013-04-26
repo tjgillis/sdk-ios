@@ -23,6 +23,8 @@
 #import "PHPushRegistrationRequest.h"
 #import "PHPublisherContentRequest.h"
 #import "PHPushDeliveryRequest.h"
+#import "PHConstants.h"
+#import "PHError.h"
 
 static NSString *const kPHMessageIDKey = @"mi";
 static NSString *const kPHContentIDKey = @"ci";
@@ -119,6 +121,14 @@ static NSString *const kPHContentIDKey = @"ci";
 	PHPushRegistrationRequest *theRequest = [PHPushRegistrationRequest requestForApp:
 				self.applicationToken secret: self.applicationSecret pushNotificationDeviceToken:
                 aToken];
+    if (nil != aToken && nil == theRequest)
+    {
+        NSError *theError = [NSError errorWithDomain:kPHSDKErrorDomain code:
+                    PHErrorIncompleteWorkflow userInfo:@{NSLocalizedDescriptionKey :
+                    @"Cannot create push notification registration request to register device "
+                    "token."}];
+        [self didFailToRegisterAPNSDeviceTokenWithError:theError];
+    }
 	
 	theRequest.delegate = self;
 	[theRequest send];
@@ -189,7 +199,14 @@ static NSString *const kPHContentIDKey = @"ci";
         return;
     }
 
+    [self didFailToRegisterAPNSDeviceTokenWithError:anError];
+}
 
+
+#pragma mark - Private
+
+- (void)didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
+{
 	for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
 				++theIndex)
 	{

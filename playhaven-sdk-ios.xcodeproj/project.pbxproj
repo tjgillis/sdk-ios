@@ -52,6 +52,11 @@
 		E122A1CA172A8889001F3A14 /* PHPushProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1C7172A8889001F3A14 /* PHPushProvider.m */; };
 		E122A1CB172A8889001F3A14 /* PHPushProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1C7172A8889001F3A14 /* PHPushProvider.m */; };
 		E122A1CC172A8889001F3A14 /* PHPushProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1C7172A8889001F3A14 /* PHPushProvider.m */; };
+		E122A1CF172ABD03001F3A14 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1CE172ABD03001F3A14 /* PHError.m */; };
+		E122A1D0172ABD03001F3A14 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1CE172ABD03001F3A14 /* PHError.m */; };
+		E122A1D1172ABD03001F3A14 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1CE172ABD03001F3A14 /* PHError.m */; };
+		E122A1D2172ABD03001F3A14 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1CE172ABD03001F3A14 /* PHError.m */; };
+		E122A1D3172ABD03001F3A14 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = E122A1CE172ABD03001F3A14 /* PHError.m */; };
 		E1508EB417293F7A00DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
 		E1508EB717297F2A00DDE809 /* PHPushDeliveryRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB617297F2A00DDE809 /* PHPushDeliveryRequestTest.m */; };
 		E1508EB81729845E00DDE809 /* PHPushDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */; };
@@ -578,6 +583,8 @@
 		D1E15B7B14981C39001241EE /* SDURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDURLCache.m; sourceTree = "<group>"; };
 		E122A1C6172A8889001F3A14 /* PHPushProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPushProvider.h; sourceTree = "<group>"; };
 		E122A1C7172A8889001F3A14 /* PHPushProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPushProvider.m; sourceTree = "<group>"; };
+		E122A1CD172ABD03001F3A14 /* PHError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHError.h; sourceTree = "<group>"; };
+		E122A1CE172ABD03001F3A14 /* PHError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHError.m; sourceTree = "<group>"; };
 		E1508EB217293F7900DDE809 /* PHPushDeliveryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPushDeliveryRequest.h; sourceTree = "<group>"; };
 		E1508EB317293F7900DDE809 /* PHPushDeliveryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPushDeliveryRequest.m; sourceTree = "<group>"; };
 		E1508EB617297F2A00DDE809 /* PHPushDeliveryRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHPushDeliveryRequestTest.m; sourceTree = "<group>"; };
@@ -1087,6 +1094,8 @@
 				62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */,
 				62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */,
 				623485743F4C00197912D96D /* PHResourceCacher.m */,
+				E122A1CD172ABD03001F3A14 /* PHError.h */,
+				E122A1CE172ABD03001F3A14 /* PHError.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1740,6 +1749,7 @@
 				E1C8F4FA171CC94400F64E12 /* PHPushRegistrationRequest.m in Sources */,
 				E1508EB417293F7A00DDE809 /* PHPushDeliveryRequest.m in Sources */,
 				E122A1C9172A8889001F3A14 /* PHPushProvider.m in Sources */,
+				E122A1D0172ABD03001F3A14 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1762,6 +1772,7 @@
 				E1508EB717297F2A00DDE809 /* PHPushDeliveryRequestTest.m in Sources */,
 				E1508EB81729845E00DDE809 /* PHPushDeliveryRequest.m in Sources */,
 				E122A1C8172A8889001F3A14 /* PHPushProvider.m in Sources */,
+				E122A1CF172ABD03001F3A14 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1820,6 +1831,7 @@
 				E1C8F4FB171CC94400F64E12 /* PHPushRegistrationRequest.m in Sources */,
 				E1508EB9172987CF00DDE809 /* PHPushDeliveryRequest.m in Sources */,
 				E122A1CA172A8889001F3A14 /* PHPushProvider.m in Sources */,
+				E122A1D1172ABD03001F3A14 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1874,6 +1886,7 @@
 				E1C8F4FC171CC94400F64E12 /* PHPushRegistrationRequest.m in Sources */,
 				E1508EBC172987D600DDE809 /* PHPushDeliveryRequest.m in Sources */,
 				E122A1CB172A8889001F3A14 /* PHPushProvider.m in Sources */,
+				E122A1D2172ABD03001F3A14 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2064,6 +2077,7 @@
 				E1C8F4FD171CC94400F64E12 /* PHPushRegistrationRequest.m in Sources */,
 				E1508EBB172987D300DDE809 /* PHPushDeliveryRequest.m in Sources */,
 				E122A1CC172A8889001F3A14 /* PHPushProvider.m in Sources */,
+				E122A1D3172ABD03001F3A14 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
