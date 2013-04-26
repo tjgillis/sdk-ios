@@ -45,9 +45,10 @@ static NSString *const kPHRequestParameterContentID = @"content_id";
 			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID
 {
-	if (nil == aMessageID)
+	if (nil == aDeviceToken || nil == aMessageID)
     {
-        PH_LOG(@"Error: Cannot create request with nil message ID", nil);
+        PH_LOG(@"ERROR: Cannot initialize request with nil argument. (aDeviceToken - %@;"
+                    " aMessageID - %@)",aDeviceToken, aMessageID, nil);
         [self release];
         return nil;
     }
