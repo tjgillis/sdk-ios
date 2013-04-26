@@ -13,13 +13,13 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PushProvider.m
+ PHPushProvider.m
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/15/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PushProvider.h"
+#import "PHPushProvider.h"
 #import "PHPushRegistrationRequest.h"
 #import "PlayHavenConfiguration.h"
 #import "PHPublisherContentRequest.h"
@@ -28,25 +28,25 @@
 static NSString *const kPHMessageIDKey = @"mi";
 static NSString *const kPHContentIDKey = @"ci";
 
-@interface PushProvider ()
+@interface PHPushProvider ()
 @property (nonatomic, retain) NSData *APNSDeviceToken;
 @property (nonatomic, readonly) CFMutableArrayRef registrationObservers;
 @end
 
-@implementation PushProvider
+@implementation PHPushProvider
 
-+ (PushProvider *)sharedInstance
++ (PHPushProvider *)sharedInstance
 {
-    static PushProvider *sPushProviderInsatnce = nil;
+    static PHPushProvider *sPHPushProviderInsatnce = nil;
     @synchronized (self)
     {
-        if (nil == sPushProviderInsatnce)
+        if (nil == sPHPushProviderInsatnce)
         {
-            sPushProviderInsatnce = [PushProvider new];
+            sPHPushProviderInsatnce = [PHPushProvider new];
         }
     }
     
-    return sPushProviderInsatnce;
+    return sPHPushProviderInsatnce;
 }
 
 - (id)init
@@ -63,6 +63,8 @@ static NSString *const kPHContentIDKey = @"ci";
 {
 	CFRelease(_registrationObservers);
     [_APNSDeviceToken release];
+    [_applicationToken release];
+    [_applicationSecret release];
 	
 	[super dealloc];
 }
@@ -100,9 +102,9 @@ static NSString *const kPHContentIDKey = @"ci";
                     theConfiguration.applicationToken secret:theConfiguration.applicationSecret
                     contentUnitID:theContentID];
         
-        if (![self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)] ||
-                    ([self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)]
-                    && [self.delegate pushProvider:self shouldSendRequest:theContentRquest]))
+        if (![self.delegate respondsToSelector:@selector(PHPushProvider:shouldSendRequest:)] ||
+                    ([self.delegate respondsToSelector:@selector(PHPushProvider:shouldSendRequest:)]
+                    && [self.delegate PHPushProvider:self shouldSendRequest:theContentRquest]))
         {
             [theContentRquest send];
         }

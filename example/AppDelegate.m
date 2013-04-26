@@ -23,7 +23,6 @@
 #import "IAPHelper.h"
 #import "PushNotificationRegistrationViewController.h"
 #import "PlayHavenSDK.h"
-#import "PushProvider.h"
 #import "PlayHavenConfiguration.h"
 
 #if RUN_KIF_TESTS
@@ -45,8 +44,8 @@
     [self.window makeKeyAndVisible];
     [[IAPHelper sharedIAPHelper] restorePurchases];
 
-	[[PushProvider sharedInstance] registerForPushNotifications];
-    [[PushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions objectForKey:
+	[[PHPushProvider sharedInstance] registerForPushNotifications];
+    [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions objectForKey:
                 UIApplicationLaunchOptionsRemoteNotificationKey]];
 
 #if RUN_KIF_TESTS
@@ -110,7 +109,7 @@
 - (void)application:(UIApplication *)anApplication
 			didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
 {
-	[[PushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+	[[PHPushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
 
 	if ([self.navigationController.topViewController isKindOfClass:
 				[PushNotificationRegistrationViewController class]])
@@ -126,7 +125,7 @@
 {
     NSLog(@"Did receive notification with user info: %@", aUserInfo);
 
-    [[PushProvider sharedInstance] handleRemoteNotificationWithUserInfo:aUserInfo];
+    [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:aUserInfo];
 }
 
 - (void)application:(UIApplication *)anApplication

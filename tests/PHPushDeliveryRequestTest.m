@@ -33,8 +33,9 @@ static NSString *const kTestContentID = @"testContentID";
 - (void)testCreation
 {
     PHPushDeliveryRequest *theRequest = [[[PHPushDeliveryRequest alloc] initWithApp:@"testToken"
-                secret:@"testSecret" pushNotificationDeviceToken:nil messageID:kTestMessageID
-                contentUnitID:@"testContentID"] autorelease];
+                secret:@"testSecret" pushNotificationDeviceToken:[@"testToken" dataUsingEncoding:
+                NSUTF8StringEncoding] messageID:kTestMessageID contentUnitID:@"testContentID"]
+                autorelease];
     STAssertNotNil(theRequest, @"Cannot create request through designated initializer");
 
     theRequest = [[[PHPushDeliveryRequest alloc] initWithApp:@"testToken" secret:@"testSecret"
@@ -46,8 +47,8 @@ static NSString *const kTestContentID = @"testContentID";
 - (void)testParameters
 {
     PHPushDeliveryRequest *theRequest = [PHPushDeliveryRequest requestForApp:@"testToken"
-                secret:@"testSecret" pushNotificationDeviceToken:nil messageID:kTestMessageID
-                contentUnitID:kTestContentID];
+                secret:@"testSecret" pushNotificationDeviceToken:[@"testToken" dataUsingEncoding:
+                NSUTF8StringEncoding] messageID:kTestMessageID contentUnitID:kTestContentID];
     STAssertNotNil(theRequest, @"Cannot create request through designated initializer");
 
     NSString *theRequestQuery = [theRequest.URL query];

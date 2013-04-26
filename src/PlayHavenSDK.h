@@ -30,3 +30,5 @@
 #import "PHNotificationView.h"
 #import "PHReward.h"
 #import "PHPurchase.h"
+
+#import "PHPushProvider.h"

@@ -20,7 +20,7 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import "ExampleViewController.h"
-#import "PushProvider.h"
+#import "PlayHavenSDK.h"
 
 /**
  * @brief Controller demonstrating how to enable/disable push notifications from PlayHaven

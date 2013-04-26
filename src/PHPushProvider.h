@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PushProvider.h
+ PHPushProvider.h
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/15/13.
@@ -23,15 +23,18 @@
 #import "PlayHavenSDK.h"
 
 @protocol PushRegistrationObserver;
-@protocol PushProviderDelegate;
+@protocol PHPushProviderDelegate;
 
 /**
  * @brief Provides ability to register/unregister for push notification.
  **/
-@interface PushProvider : NSObject <PHAPIRequestDelegate>
-+ (PushProvider *)sharedInstance;
+@interface PHPushProvider : NSObject <PHAPIRequestDelegate>
++ (PHPushProvider *)sharedInstance;
 
-@property (nonatomic, assign) id<PushProviderDelegate> delegate;
+@property (nonatomic, retain) NSString *applicationToken;
+@property (nonatomic, retain) NSString *applicationSecret;
+
+@property (nonatomic, assign) id<PHPushProviderDelegate> delegate;
 
 /**
  * Registers device token with PlayHaven's push server. This call completes the
@@ -73,13 +76,13 @@
 
 @protocol PushRegistrationObserver <NSObject>
 @optional
-- (void)provider:(PushProvider *)aProvider
+- (void)provider:(PHPushProvider *)aProvider
 			didSucceedWithResponse:(NSDictionary *)aResponse;
-- (void)provider:(PushProvider *)aProvider
+- (void)provider:(PHPushProvider *)aProvider
 			didFailWithError:(NSError *)anError;
 @end
 
-@protocol PushProviderDelegate <NSObject>
+@protocol PHPushProviderDelegate <NSObject>
 @optional
 /**
  * Provider calls this method when it handles push notification initiated by
@@ -93,6 +96,6 @@
  *	aRequest - request object created by the provider to load content associated with the push
  *  notification.
  **/
-- (BOOL)pushProvider:(PushProvider *)aProvider
+- (BOOL)PHPushProvider:(PHPushProvider *)aProvider
             shouldSendRequest:(PHPublisherContentRequest *)aRequest;
 @end

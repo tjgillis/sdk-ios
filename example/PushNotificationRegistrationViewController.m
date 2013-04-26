@@ -20,7 +20,6 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import "PushNotificationRegistrationViewController.h"
-#import "PushProvider.h"
 
 @interface PushNotificationRegistrationViewController ()
 
@@ -34,7 +33,7 @@
 
     self.navigationItem.rightBarButtonItem = nil;
 	
-	[[PushProvider sharedInstance] addObserver:self];
+	[[PHPushProvider sharedInstance] addObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,7 +44,7 @@
 
 - (void)dealloc
 {
-	[[PushProvider sharedInstance] removeObserver:self];
+	[[PHPushProvider sharedInstance] removeObserver:self];
 	
 	[super dealloc];
 }
@@ -55,7 +54,7 @@
 	[self startTimers];
 	[self addMessage:@"Sending Registration Request to PNs Provider..."];
 
-	[[PushProvider sharedInstance] registerForPushNotifications];
+	[[PHPushProvider sharedInstance] registerForPushNotifications];
 }
 
 - (IBAction)unregisterForPushNotifications:(id)aSender
@@ -63,12 +62,12 @@
 	[self startTimers];
 	[self addMessage:@"Sending Unregistration Request to PNs Provider..."];
 	
-	[[PushProvider sharedInstance] unregisterForPushNotifications];
+	[[PHPushProvider sharedInstance] unregisterForPushNotifications];
 }
 
 #pragma mark - PushRegistrationObserver
 
-- (void)provider:(PushProvider *)aProvider
+- (void)provider:(PHPushProvider *)aProvider
 			didSucceedWithResponse:(NSDictionary *)aResponse
 {
     NSString *theMessage = [NSString stringWithFormat:@"[OK] Success with response: %@",
@@ -78,7 +77,7 @@
     [self finishRequest];
 }
 
-- (void)provider:(PushProvider *)aProvider
+- (void)provider:(PHPushProvider *)aProvider
 			didFailWithError:(NSError *)anError
 {
     NSString *theMessage = [NSString stringWithFormat:@"[ERROR] Failed with error: %@",
