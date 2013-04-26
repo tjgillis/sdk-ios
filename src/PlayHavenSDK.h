@@ -25,7 +25,6 @@
 #import "PHPublisherContentRequest.h"
 #import "PHPublisherMetadataRequest.h"
 #import "PHPublisherIAPTrackingRequest.h"
-#import "PHPushRegistrationRequest.h"
 
 #import "PHNotificationView.h"
 #import "PHReward.h"

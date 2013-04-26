@@ -108,6 +108,6 @@
  *	aRequest - request object created by the provider to load content associated with the push
  *  notification.
  **/
-- (BOOL)PHPushProvider:(PHPushProvider *)aProvider
+- (BOOL)pushProvider:(PHPushProvider *)aProvider
             shouldSendRequest:(PHPublisherContentRequest *)aRequest;
 @end

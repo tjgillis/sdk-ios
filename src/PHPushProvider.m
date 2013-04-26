@@ -100,9 +100,9 @@ static NSString *const kPHContentIDKey = @"ci";
         PHPublisherContentRequest *theContentRquest = [PHPublisherContentRequest requestForApp:
                     self.applicationToken secret:self.applicationSecret contentUnitID:theContentID];
         
-        if (![self.delegate respondsToSelector:@selector(PHPushProvider:shouldSendRequest:)] ||
-                    ([self.delegate respondsToSelector:@selector(PHPushProvider:shouldSendRequest:)]
-                    && [self.delegate PHPushProvider:self shouldSendRequest:theContentRquest]))
+        if (![self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)] ||
+                    ([self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)]
+                    && [self.delegate pushProvider:self shouldSendRequest:theContentRquest]))
         {
             [theContentRquest send];
         }
