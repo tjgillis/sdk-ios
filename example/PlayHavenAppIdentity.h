@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PlayHavenConfiguration.h
+ PlayHavenAppIdentity.h
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/15/13.
@@ -25,8 +25,8 @@
  * @brief Utility class that represents configurable parametrs which are passed to
  *	PlayHaven SDK.
  **/
-@interface PlayHavenConfiguration : NSObject
-+ (PlayHavenConfiguration *)currentConfiguration;
+@interface PlayHavenAppIdentity : NSObject
++ (PlayHavenAppIdentity *)sharedIdentity;
 
 @property (nonatomic, retain) NSString *applicationToken;
 @property (nonatomic, retain) NSString *applicationSecret;

@@ -23,7 +23,7 @@
 #import "IAPHelper.h"
 #import "PushNotificationRegistrationViewController.h"
 #import "PlayHavenSDK.h"
-#import "PlayHavenConfiguration.h"
+#import "PlayHavenAppIdentity.h"
 
 #if RUN_KIF_TESTS
 #import "PHTestController.h"
@@ -44,11 +44,10 @@
     [self.window makeKeyAndVisible];
     [[IAPHelper sharedIAPHelper] restorePurchases];
 
-    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
-				currentConfiguration];
+    PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
 
-	[PHPushProvider sharedInstance].applicationToken = theConfiguration.applicationToken;
-    [PHPushProvider sharedInstance].applicationSecret = theConfiguration.applicationSecret;
+	[PHPushProvider sharedInstance].applicationToken = theAppIdentity.applicationToken;
+    [PHPushProvider sharedInstance].applicationSecret = theAppIdentity.applicationSecret;
     
     [[PHPushProvider sharedInstance] registerForPushNotifications];
     [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions
@@ -156,15 +155,14 @@
 
 - (void)configurePlayHaven
 {
-    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
-				currentConfiguration];
+    PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
 
-	if (0 == [theConfiguration.applicationToken length]) {
-        theConfiguration.applicationToken = @"8ae979ddcdaf450996e897322169d26c";
+	if (0 == [theAppIdentity.applicationToken length]) {
+        theAppIdentity.applicationToken = @"8ae979ddcdaf450996e897322169d26c";
     }
 
-    if (0 == [theConfiguration.applicationSecret length]) {
-        theConfiguration.applicationSecret = @"080d853e433a4468ba3315953b22615e";
+    if (0 == [theAppIdentity.applicationSecret length]) {
+        theAppIdentity.applicationSecret = @"080d853e433a4468ba3315953b22615e";
     }
 }
 

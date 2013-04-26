@@ -29,7 +29,7 @@
 #import "IDViewController.h"
 #import "PushNotificationRegistrationViewController.h"
 #import "SDURLCache.h"
-#import "PlayHavenConfiguration.h"
+#import "PlayHavenAppIdentity.h"
 
 static NSString *kPHClassNameKey = @"ClassName";
 static NSString *kPHControllerNameKey = @"ControllerName";
@@ -87,8 +87,8 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 
 - (void)loadTokenAndSecretFromDefaults
 {
-    self.tokenField.text  = [PlayHavenConfiguration currentConfiguration].applicationToken;
-    self.secretField.text = [PlayHavenConfiguration currentConfiguration].applicationSecret;
+    self.tokenField.text  = [PlayHavenAppIdentity sharedIdentity].applicationToken;
+    self.secretField.text = [PlayHavenAppIdentity sharedIdentity].applicationSecret;
     self.serviceURLField.text = PH_BASE_URL;
 
     self.optOutStatusSlider.on = [PHAPIRequest optOutStatus];
@@ -96,8 +96,8 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 
 - (void)saveTokenAndSecretToDefaults
 {
-    [PlayHavenConfiguration currentConfiguration].applicationToken = self.tokenField.text;
-    [PlayHavenConfiguration currentConfiguration].applicationSecret = self.secretField.text;
+    [PlayHavenAppIdentity sharedIdentity].applicationToken = self.tokenField.text;
+    [PlayHavenAppIdentity sharedIdentity].applicationSecret = self.secretField.text;
 }
 
 #pragma mark -

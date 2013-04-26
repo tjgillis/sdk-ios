@@ -21,7 +21,7 @@
 
 #import "IAPHelper.h"
 #import "PlayHavenSDK.h"
-#import "PlayHavenConfiguration.h"
+#import "PlayHavenAppIdentity.h"
 
 @interface NSObject (hash)
 - (NSString *)hashString;
@@ -228,12 +228,12 @@
     // these instances throughout the IAP process. This way, these purchase instances may be
     // used to report purchases to PlayHaven, as well as back to the originating content unit.
     if (!!purchase) {
-        PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration currentConfiguration];
+        PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
 
         // Reporting to the Tracking API
         PHPublisherIAPTrackingRequest *request =
-                  [PHPublisherIAPTrackingRequest requestForApp:theConfiguration.applicationToken
-                                                        secret:theConfiguration.applicationSecret
+                  [PHPublisherIAPTrackingRequest requestForApp:theAppIdentity.applicationToken
+                                                        secret:theAppIdentity.applicationSecret
                                                        product:purchase.productIdentifier
                                                       quantity:purchase.quantity
                                                     resolution:resolution
@@ -251,12 +251,12 @@
     // cancellations, or other incomplete transactions to PlayHaven. It is also important
     // to inform the originating content unit (for VGP-driven purchases) of the error.
     if (!!purchase) {
-        PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration currentConfiguration];
+        PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
 
         // Reporting to the Tracking API
         PHPublisherIAPTrackingRequest *request =
-                  [PHPublisherIAPTrackingRequest requestForApp:theConfiguration.applicationToken
-                                                        secret:theConfiguration.applicationSecret
+                  [PHPublisherIAPTrackingRequest requestForApp:theAppIdentity.applicationToken
+                                                        secret:theAppIdentity.applicationSecret
                                                        product:purchase.productIdentifier
                                                       quantity:purchase.quantity
                                                          error:error

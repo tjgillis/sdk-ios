@@ -13,27 +13,27 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PlayHavenConfiguration.m
+ PlayHavenAppIdentity.m
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/15/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PlayHavenConfiguration.h"
+#import "PlayHavenAppIdentity.h"
 
 static NSString *const kPlayhavenAppTokenKey = @"ExampleToken";
 static NSString *const kPlayhavenAppSecretKey = @"ExampleSecret";
 
-@implementation PlayHavenConfiguration
+@implementation PlayHavenAppIdentity
 
-+ (PlayHavenConfiguration *)currentConfiguration
++ (PlayHavenAppIdentity *)sharedIdentity
 {
-    static PlayHavenConfiguration *sConfigurationInsatnce = nil;
+    static PlayHavenAppIdentity *sConfigurationInsatnce = nil;
     @synchronized (self)
     {
         if (nil == sConfigurationInsatnce)
         {
-            sConfigurationInsatnce = [PlayHavenConfiguration new];
+            sConfigurationInsatnce = [PlayHavenAppIdentity new];
         }
     }
     
