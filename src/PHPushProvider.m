@@ -21,7 +21,6 @@
 
 #import "PHPushProvider.h"
 #import "PHPushRegistrationRequest.h"
-#import "PlayHavenConfiguration.h"
 #import "PHPublisherContentRequest.h"
 #import "PHPushDeliveryRequest.h"
 
@@ -92,15 +91,12 @@ static NSString *const kPHContentIDKey = @"ci";
         return;
     }
     
-    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
-                currentConfiguration];
     NSString *theContentID = [aUserInfo objectForKey:kPHContentIDKey];
     
     if (nil != theContentID)
     {
         PHPublisherContentRequest *theContentRquest = [PHPublisherContentRequest requestForApp:
-                    theConfiguration.applicationToken secret:theConfiguration.applicationSecret
-                    contentUnitID:theContentID];
+                    self.applicationToken secret:self.applicationSecret contentUnitID:theContentID];
         
         if (![self.delegate respondsToSelector:@selector(PHPushProvider:shouldSendRequest:)] ||
                     ([self.delegate respondsToSelector:@selector(PHPushProvider:shouldSendRequest:)]
@@ -111,9 +107,8 @@ static NSString *const kPHContentIDKey = @"ci";
     }
     
     PHPushDeliveryRequest *thePushDeliveryRequest = [PHPushDeliveryRequest requestForApp:
-                 theConfiguration.applicationToken secret:theConfiguration.applicationSecret
-                 pushNotificationDeviceToken:self.APNSDeviceToken messageID:theMessageID
-                 contentUnitID:theContentID];
+                 self.applicationToken secret:self.applicationSecret pushNotificationDeviceToken:
+                 self.APNSDeviceToken messageID:theMessageID contentUnitID:theContentID];
     [thePushDeliveryRequest send];
 }
 
@@ -121,12 +116,9 @@ static NSString *const kPHContentIDKey = @"ci";
 {
     self.APNSDeviceToken = aToken;
     
-    PlayHavenConfiguration *theConfiguration = [PlayHavenConfiguration
-				currentConfiguration];
-	
 	PHPushRegistrationRequest *theRequest = [PHPushRegistrationRequest requestForApp:
-				theConfiguration.applicationToken secret:
-				theConfiguration.applicationSecret pushNotificationDeviceToken:aToken];
+				self.applicationToken secret: self.applicationSecret pushNotificationDeviceToken:
+                aToken];
 	
 	theRequest.delegate = self;
 	[theRequest send];

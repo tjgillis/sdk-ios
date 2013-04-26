@@ -31,7 +31,18 @@
 @interface PHPushProvider : NSObject <PHAPIRequestDelegate>
 + (PHPushProvider *)sharedInstance;
 
+/**
+ * Token used to identify application when it communicates with PlayHaven server. Publishers get
+ * a token for each game registered in Publisher Dashboard. This is mandatory property which must be
+ * assigned before other calls to the provider instance.
+ **/
 @property (nonatomic, retain) NSString *applicationToken;
+
+/**
+ * Secret used to identify application when it communicates with PlayHaven server. Publishers get
+ * a secret for each game registered in Publisher Dashboard. This is mandatory property which must
+ * assigned before other calls to the provider instance.
+ **/
 @property (nonatomic, retain) NSString *applicationSecret;
 
 @property (nonatomic, assign) id<PHPushProviderDelegate> delegate;
