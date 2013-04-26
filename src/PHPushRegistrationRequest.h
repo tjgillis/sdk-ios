@@ -45,5 +45,9 @@
  **/
 - (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret
 			pushNotificationDeviceToken:(NSData *)aDeviceToken;
+/**
+ * Device token passed to the request during initialization.
+ **/
+@property (nonatomic, retain, readonly) NSData *pushNotificationDeviceToken;
 
 @end

@@ -22,7 +22,7 @@
 #import <Foundation/Foundation.h>
 #import "PlayHavenSDK.h"
 
-@protocol PushRegistrationObserver;
+@protocol PHPushRegistrationObserver;
 @protocol PHPushProviderDelegate;
 
 /**
@@ -81,16 +81,16 @@
  *	Observers are not retained and caller is responsible for removing observer at before
  *	it is released.
  **/
-- (void)addObserver:(id<PushRegistrationObserver>)anObserver;
-- (void)removeObserver:(id<PushRegistrationObserver>)anObserver;
+- (void)addObserver:(id<PHPushRegistrationObserver>)anObserver;
+- (void)removeObserver:(id<PHPushRegistrationObserver>)anObserver;
 @end
 
-@protocol PushRegistrationObserver <NSObject>
+@protocol PHPushRegistrationObserver <NSObject>
 @optional
+
+- (void)providerDidRegisterForPushNotifications:(PHPushProvider *)aProvider;
 - (void)provider:(PHPushProvider *)aProvider
-			didSucceedWithResponse:(NSDictionary *)aResponse;
-- (void)provider:(PHPushProvider *)aProvider
-			didFailWithError:(NSError *)anError;
+			didFailToRegisterForPushNotificationsWithError:(NSError *)anError;
 @end
 
 @protocol PHPushProviderDelegate <NSObject>

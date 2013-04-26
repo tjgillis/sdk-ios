@@ -59,28 +59,24 @@
 
 - (IBAction)unregisterForPushNotifications:(id)aSender
 {
-	[self startTimers];
-	[self addMessage:@"Sending Unregistration Request to PNs Provider..."];
-	
 	[[PHPushProvider sharedInstance] unregisterForPushNotifications];
+
+	[self addMessage:@"Unregistration Request has been sent."];
 }
 
-#pragma mark - PushRegistrationObserver
+#pragma mark - PHPushRegistrationObserver
 
-- (void)provider:(PHPushProvider *)aProvider
-			didSucceedWithResponse:(NSDictionary *)aResponse
+- (void)providerDidRegisterForPushNotifications:(PHPushProvider *)aProvider
 {
-    NSString *theMessage = [NSString stringWithFormat:@"[OK] Success with response: %@",
-				aResponse];
-    [self addMessage:theMessage];
+    [self addMessage:@"Did register for push notifications"];
 
     [self finishRequest];
 }
 
 - (void)provider:(PHPushProvider *)aProvider
-			didFailWithError:(NSError *)anError
+			didFailToRegisterForPushNotificationsWithError:(NSError *)anError
 {
-    NSString *theMessage = [NSString stringWithFormat:@"[ERROR] Failed with error: %@",
+    NSString *theMessage = [NSString stringWithFormat:@"[ERROR] Failed to register with error: %@",
 				anError];
     [self addMessage:theMessage];
 

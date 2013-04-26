@@ -124,7 +124,7 @@ static NSString *const kPHContentIDKey = @"ci";
 	[theRequest send];
 }
 
-- (void)addObserver:(id<PushRegistrationObserver>)anObserver
+- (void)addObserver:(id<PHPushRegistrationObserver>)anObserver
 {
 	if (!CFArrayContainsValue(self.registrationObservers, CFRangeMake(0,
 				CFArrayGetCount(self.registrationObservers)), anObserver))
@@ -133,7 +133,7 @@ static NSString *const kPHContentIDKey = @"ci";
 	}
 }
 
-- (void)removeObserver:(id<PushRegistrationObserver>)anObserver
+- (void)removeObserver:(id<PHPushRegistrationObserver>)anObserver
 {
 	if (CFArrayContainsValue(self.registrationObservers, CFRangeMake(0,
 				CFArrayGetCount(self.registrationObservers)), anObserver))
@@ -149,29 +149,58 @@ static NSString *const kPHContentIDKey = @"ci";
 - (void)request:(PHAPIRequest *)aRequest
 			didSucceedWithResponse:(NSDictionary *)aResponseData
 {
-	for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
+	if (![aRequest isKindOfClass:[PHPushRegistrationRequest class]])
+    {
+        return;
+    }
+    
+    PHPushRegistrationRequest *theRegistrationRequest = (PHPushRegistrationRequest *)aRequest;
+    if (nil == theRegistrationRequest.pushNotificationDeviceToken)
+    {
+        // No need to report the results of unregisteration request.
+        return;
+    }
+    
+    for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
 				++theIndex)
 	{
-		id<PushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
+		id<PHPushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
 					self.registrationObservers, theIndex);
-		if ([theObserver respondsToSelector:@selector(provider:didSucceedWithResponse:)])
-		{
-			[theObserver provider:self didSucceedWithResponse:aResponseData];
-		}
+        
+        if ([theObserver respondsToSelector:@selector(
+                    providerDidRegisterForPushNotifications:)])
+        {
+            [theObserver providerDidRegisterForPushNotifications:self];
+        }
 	}
 }
 
 - (void)request:(PHAPIRequest *)aRequest didFailWithError:(NSError *)anError
 {
+	if (![aRequest isKindOfClass:[PHPushRegistrationRequest class]])
+    {
+        return;
+    }
+    
+    PHPushRegistrationRequest *theRegistrationRequest = (PHPushRegistrationRequest *)aRequest;
+    if (nil == theRegistrationRequest.pushNotificationDeviceToken)
+    {
+        // No need to report the results of unregisteration request.
+        return;
+    }
+
+
 	for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
 				++theIndex)
 	{
-		id<PushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
+		id<PHPushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
 					self.registrationObservers, theIndex);
-		if ([theObserver respondsToSelector:@selector(provider:didFailWithError:)])
-		{
-			[theObserver provider:self didFailWithError:anError];
-		}
+
+        if ([theObserver respondsToSelector:@selector(
+                    provider:didFailToRegisterForPushNotificationsWithError:)])
+        {
+            [theObserver provider:self didFailToRegisterForPushNotificationsWithError:anError];
+        }
 	}
 }
 
