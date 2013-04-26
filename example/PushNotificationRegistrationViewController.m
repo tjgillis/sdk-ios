@@ -66,7 +66,7 @@
 
 #pragma mark - PHPushRegistrationObserver
 
-- (void)providerDidRegisterForPushNotifications:(PHPushProvider *)aProvider
+- (void)providerDidRegisterAPNSDeviceToken:(PHPushProvider *)aProvider
 {
     [self addMessage:@"Did register for push notifications"];
 
@@ -74,7 +74,7 @@
 }
 
 - (void)provider:(PHPushProvider *)aProvider
-			didFailToRegisterForPushNotificationsWithError:(NSError *)anError
+			didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
 {
     NSString *theMessage = [NSString stringWithFormat:@"[ERROR] Failed to register with error: %@",
 				anError];

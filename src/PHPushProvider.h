@@ -50,7 +50,8 @@
 /**
  * Registers device token with PlayHaven's push server. This call completes the
  * push notification registration procedure and after that the application will be able to
- * receive remote notification.
+ * receive remote notification. This is the last point in registering for push notifications which
+ * can be sent from PlayHaven dashboard. Observers are informed of the results of the registration.
  **/
 - (void)registerAPNSDeviceToken:(NSData *)aToken;
 
@@ -88,9 +89,9 @@
 @protocol PHPushRegistrationObserver <NSObject>
 @optional
 
-- (void)providerDidRegisterForPushNotifications:(PHPushProvider *)aProvider;
+- (void)providerDidRegisterAPNSDeviceToken:(PHPushProvider *)aProvider;
 - (void)provider:(PHPushProvider *)aProvider
-			didFailToRegisterForPushNotificationsWithError:(NSError *)anError;
+			didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError;
 @end
 
 @protocol PHPushProviderDelegate <NSObject>

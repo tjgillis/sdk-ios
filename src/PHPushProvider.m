@@ -168,9 +168,9 @@ static NSString *const kPHContentIDKey = @"ci";
 					self.registrationObservers, theIndex);
         
         if ([theObserver respondsToSelector:@selector(
-                    providerDidRegisterForPushNotifications:)])
+                    providerDidRegisterAPNSDeviceToken:)])
         {
-            [theObserver providerDidRegisterForPushNotifications:self];
+            [theObserver providerDidRegisterAPNSDeviceToken:self];
         }
 	}
 }
@@ -197,9 +197,9 @@ static NSString *const kPHContentIDKey = @"ci";
 					self.registrationObservers, theIndex);
 
         if ([theObserver respondsToSelector:@selector(
-                    provider:didFailToRegisterForPushNotificationsWithError:)])
+                    provider:didFailToRegisterAPNSDeviceTokenWithError:)])
         {
-            [theObserver provider:self didFailToRegisterForPushNotificationsWithError:anError];
+            [theObserver provider:self didFailToRegisterAPNSDeviceTokenWithError:anError];
         }
 	}
 }
