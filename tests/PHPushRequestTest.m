@@ -13,33 +13,32 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PHPushRegistrationRequestTest.m
+ PHPushRequestTest.m
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/16/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "PHPushRegistrationRequest.h"
+#import "PHPushRequest.h"
 
-@interface PHPushRegistrationRequestTest : SenTestCase
+@interface PHPushRequestTest : SenTestCase
 @end
 
-@implementation PHPushRegistrationRequestTest
+@implementation PHPushRequestTest
 
 - (void)testCreation
 {
-    PHPushRegistrationRequest *theRequest = [[[PHPushRegistrationRequest alloc] initWithApp:
-                @"testToken" secret:@"testSecret" pushNotificationDeviceToken:nil] autorelease];
+    PHPushRequest *theRequest = [[[PHPushRequest alloc] initWithApp:@"testToken" secret:
+                @"testSecret" pushNotificationDeviceToken:nil] autorelease];
     STAssertNotNil(theRequest, @"Cannot create request through designated initializer");
 }
 
 - (void)testRegistration
 {
     NSString *theTestToken = @"testToken";
-    PHPushRegistrationRequest *theRequest = [PHPushRegistrationRequest requestForApp:@"testToken"
-                secret:@"testSecret" pushNotificationDeviceToken:[theTestToken dataUsingEncoding:
-                NSUTF8StringEncoding]];
+    PHPushRequest *theRequest = [PHPushRequest requestForApp:@"testToken" secret:@"testSecret"
+                pushNotificationDeviceToken:[theTestToken dataUsingEncoding:NSUTF8StringEncoding]];
     STAssertNotNil(theRequest, @"Cannot create request instance with test parameters");
 
     STAssertEqualObjects(theRequest.urlPath, @"http://api2.playhaven.com/v3/publisher/push/",
@@ -53,8 +52,8 @@
 
 - (void)testUnregistration
 {
-    PHPushRegistrationRequest *theRequest = [PHPushRegistrationRequest requestForApp:@"testToken"
-                secret:@"testSecret" pushNotificationDeviceToken:nil];
+    PHPushRequest *theRequest = [PHPushRequest requestForApp:@"testToken" secret:@"testSecret"
+                pushNotificationDeviceToken:nil];
     STAssertNotNil(theRequest, @"Cannot create request instance with test parameters");
 
     STAssertEqualObjects(theRequest.urlPath, @"http://api2.playhaven.com/v3/publisher/push/",

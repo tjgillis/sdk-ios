@@ -20,7 +20,7 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #import "PHPushProvider.h"
-#import "PHPushRegistrationRequest.h"
+#import "PHPushRequest.h"
 #import "PHPublisherContentRequest.h"
 #import "PHPushDeliveryRequest.h"
 #import "PHConstants.h"
@@ -118,9 +118,8 @@ static NSString *const kPHContentIDKey = @"ci";
 {
     self.APNSDeviceToken = aToken;
     
-	PHPushRegistrationRequest *theRequest = [PHPushRegistrationRequest requestForApp:
-				self.applicationToken secret: self.applicationSecret pushNotificationDeviceToken:
-                aToken];
+	PHPushRequest *theRequest = [PHPushRequest requestForApp:self.applicationToken secret:
+                self.applicationSecret pushNotificationDeviceToken:aToken];
     if (nil != aToken && nil == theRequest)
     {
         NSError *theError = [NSError errorWithDomain:kPHSDKErrorDomain code:
@@ -159,12 +158,12 @@ static NSString *const kPHContentIDKey = @"ci";
 - (void)request:(PHAPIRequest *)aRequest
 			didSucceedWithResponse:(NSDictionary *)aResponseData
 {
-	if (![aRequest isKindOfClass:[PHPushRegistrationRequest class]])
+	if (![aRequest isKindOfClass:[PHPushRequest class]])
     {
         return;
     }
     
-    PHPushRegistrationRequest *theRegistrationRequest = (PHPushRegistrationRequest *)aRequest;
+    PHPushRequest *theRegistrationRequest = (PHPushRequest *)aRequest;
     if (nil == theRegistrationRequest.pushNotificationDeviceToken)
     {
         // No need to report the results of unregisteration request.
@@ -187,12 +186,12 @@ static NSString *const kPHContentIDKey = @"ci";
 
 - (void)request:(PHAPIRequest *)aRequest didFailWithError:(NSError *)anError
 {
-	if (![aRequest isKindOfClass:[PHPushRegistrationRequest class]])
+	if (![aRequest isKindOfClass:[PHPushRequest class]])
     {
         return;
     }
     
-    PHPushRegistrationRequest *theRegistrationRequest = (PHPushRegistrationRequest *)aRequest;
+    PHPushRequest *theRegistrationRequest = (PHPushRequest *)aRequest;
     if (nil == theRegistrationRequest.pushNotificationDeviceToken)
     {
         // No need to report the results of unregisteration request.

@@ -19,12 +19,12 @@
  Created by Anton Fedorchenko on 4/25/13
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PHPushRegistrationRequest.h"
+#import "PHPushRequest.h"
 
 /**
  * Request used to track delivery of the push notifications.
  **/
-@interface PHPushDeliveryRequest : PHPushRegistrationRequest
+@interface PHPushDeliveryRequest : PHPushRequest
 
 /**
  * Convenience method creating an autoreleased request object.

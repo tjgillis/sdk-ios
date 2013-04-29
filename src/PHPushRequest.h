@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PHPushRegistrationRequest.h
+ PHPushRequest.h
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/11/13.
@@ -21,7 +21,7 @@
 
 #import "PHAPIRequest.h"
 
-@interface PHPushRegistrationRequest : PHAPIRequest
+@interface PHPushRequest : PHAPIRequest
 
 /**
  * @brief Request designed to pass device token registered with Apple Push Notifications Service to

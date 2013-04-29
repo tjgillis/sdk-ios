@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PHPushRegistrationRequestTest.m
+ PHPushRequestTest.m
  playhaven-sdk-ios
 
  Created by Anton Fedorchenko on 4/25/13.
