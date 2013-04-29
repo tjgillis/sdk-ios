@@ -362,7 +362,9 @@ This section outlines the changes which need to be done to add push notification
 		
 	where launchOptions is a dictionary passed to your delegate method as one of the input parameters.
 
-The code listing below demonstrates possible implementation of your application delegate with push notification support.
+Listing 1 demonstrates possible implementation of your application delegate with push notification support.
+
+**Listing 1** Registering for push notifications, handling incoming notifications
 
 	- (BOOL)application:(UIApplication *)anApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 	{
