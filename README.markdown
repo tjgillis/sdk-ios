@@ -394,7 +394,7 @@ Listing 1 demonstrates possible implementation of your application delegate with
 #### Responding to incoming push notifications
 The requisite code given in ["Adding support to push notifications"](#adding-support-to-push-notifications) section adds support to push push notifications in your application. If you followed those instructions at this point your application will be able to receive push notifications sent from PlayHaven dashboard and display a content associated with that notification. In simple applications it is all what you need but in more complex applications, most probably you would need to trigger own context-depending action of the application when push notifications arrives. For example, when push notification is sent to a device running your game in real time you would need to pause the game prior to displaying content associated with the notification to a user .
 
-For that purpose SDK provides you with the ability to trigger action appropriate to your application. To make use of that ability you need to implement delegated method declared in `PHPushProviderDelegate` protocol and assign you delegate to `PHPushProvider` instance. For more details refer to the header documentation of `PHPushProvider` class.
+For that purpose SDK provides you with the ability to trigger action appropriate to your application. To make use of that ability you need to implement delegated method declared in `PHPushProviderDelegate` protocol and assign your delegate to `PHPushProvider` instance. For more details refer to the header documentation of `PHPushProvider` class.
 
 Integration Test Console Overview
 =================================
