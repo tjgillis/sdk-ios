@@ -24,7 +24,8 @@
 @interface PHPushRegistrationRequest : PHAPIRequest
 
 /**
- * Conveniece method creating an autoreleased request object.
+ * @brief Request designed to pass device token registered with Apple Push Notifications Service to
+ *  a server representing push notifications provider.
  **/
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
 			pushNotificationDeviceToken:(NSData *)aDeviceToken;
@@ -36,10 +37,10 @@
  * @param aSecret
  *   Application secret
  * @param aDeviceToken
- *   Token provided by Apple Push Service identiying destination device of a push
- *   notification. Request has different effect depending on this parameter. If
- *   aDeviceToken is not nil then request registers for push notification, otherwise if it
- *   is nil then request performs unregistration.
+ *   Token provided by Apple Push Service identifying destination device of a push
+ *   notification. Request has different effect depending on this parameter. If aDeviceToken is not
+ *   nil then request registers for push notification, otherwise if it is nil then request performs 
+ *   unregistration.
  * @return
  *   An initialized request
  **/

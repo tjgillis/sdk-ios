@@ -21,12 +21,34 @@
 
 #import "PHPushRegistrationRequest.h"
 
+/**
+ * Request used to track delivery of the push notifications.
+ **/
 @interface PHPushDeliveryRequest : PHPushRegistrationRequest
 
+/**
+ * Convenience method creating an autoreleased request object.
+ **/
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
 			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID;
 
+/**
+ * Constructs a request which is used to track delivery of the push notifications.
+ * @param aToken
+ *  Application token
+ * @param aSecret
+ *  Application secret
+ * @param aDeviceToken
+ *  Token provided by Apple Push Service to identify destination device of a push notification.
+ *  This parameter must be a valid device token.
+ * @param aDeviceToken
+ *  Identifier of a push notification sent by PlayHaven server. This id is internal to PlayHaven
+ *  server and it is sent with each notification as a part of its payload.
+ * @return
+ *  Identifier of a content associated with a push notification. When push notification is
+ *  associated with some content, identifier of that content is sent in the notification payload.
+ **/
 - (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret
 			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID;

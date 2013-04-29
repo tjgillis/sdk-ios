@@ -28,7 +28,9 @@
 @class PHPublisherContentRequest;
 
 /**
- * @brief Provides ability to register/unregister for push notification.
+ * @brief Central object used to add push notifications support in your application. It provides
+ *  convenience methods to register/unregister for push notification and is responsible for handling
+ *  incoming push notifications.
  **/
 @interface PHPushProvider : NSObject <PHAPIRequestDelegate>
 + (PHPushProvider *)sharedInstance;
