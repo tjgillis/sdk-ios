@@ -104,6 +104,8 @@
  * notification. Delegates should implement this method and return NO to prevent content loading
  * and displaying. Another reason why delegate might want to implement this method is to take
  * control over content loading and displaying by assigning own delegate to the request object.
+ * Delegate also can trigger a context-depending action of the application (f.e. pause a game) at
+ * the time this method is called.
  *
  * @param aProvider
  *	aProvider which is initiated this call

@@ -46,7 +46,7 @@
 
     PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
 
-	[PHPushProvider sharedInstance].applicationToken = theAppIdentity.applicationToken;
+    [PHPushProvider sharedInstance].applicationToken = theAppIdentity.applicationToken;
     [PHPushProvider sharedInstance].applicationSecret = theAppIdentity.applicationSecret;
     
     [[PHPushProvider sharedInstance] registerForPushNotifications];
