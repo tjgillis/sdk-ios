@@ -30,7 +30,7 @@
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
 
-static NSString *kPHApplicationTestToken = @"TEST_TOKEN";
+static NSString *kPHApplicationTestToken  = @"TEST_TOKEN";
 static NSString *kPHApplicationTestSecret = @"TEST_SECRET";
 static NSString *kPHTestPlacement = @"test_placement";
 static NSString *kPHTestContentID = @"test_content_id";
@@ -280,14 +280,16 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)testRequestParametersCase2
 {
-    PHPublisherContentRequest *theTestRequest = [PHPublisherContentRequest requestForApp:
-                kPHApplicationTestToken secret:kPHApplicationTestSecret placement:kPHTestPlacement
-                delegate:nil];
-    
+    PHPublisherContentRequest *theTestRequest =
+                    [PHPublisherContentRequest requestForApp:kPHApplicationTestToken
+                                                      secret:kPHApplicationTestSecret
+                                                   placement:kPHTestPlacement
+                                                    delegate:nil];
+
     STAssertEqualObjects(theTestRequest.placement, kPHTestPlacement, @"The request's placement "
             "doesn't mach the one passed in the initializer");
     STAssertNil(theTestRequest.delegate, @"");
-    
+
     NSNumber *theSessionDuration = [theTestRequest.additionalParameters objectForKey:@"stime"];
     STAssertNotNil(theSessionDuration, @"Missed mandatory parameter!");
     STAssertTrue(0 <= [theSessionDuration intValue], @"Incorrect session duration value");
@@ -295,29 +297,31 @@ static NSString *kPHTestContentID = @"test_content_id";
     NSNumber *theRequestPreloaded = [theTestRequest.additionalParameters objectForKey:@"preload"];
     STAssertNotNil(theRequestPreloaded, @"Missed mandatory parameter!");
     STAssertFalse([theSessionDuration boolValue], @"Request is not preloaded");
-    
+
     NSNumber *theIsaParameter = [theTestRequest.additionalParameters objectForKey:@"isa"];
     STAssertNotNil(theIsaParameter, @"Missed mandatory parameter!");
-    
-    NSString *thePlacementParameter = [theTestRequest.additionalParameters objectForKey:
-                @"placement_id"];
+
+    NSString *thePlacementParameter =
+                     [theTestRequest.additionalParameters objectForKey:@"placement_id"];
+
     STAssertEqualObjects(thePlacementParameter, kPHTestPlacement, @"Missed mandatory parameter!");
 
-    NSString *theContentIDParameter = [theTestRequest.additionalParameters objectForKey:
-                @"content_id"];
+    NSString *theContentIDParameter =
+                     [theTestRequest.additionalParameters objectForKey:@"content_id"];
+
     STAssertEqualObjects(theContentIDParameter, @"", @"Missed mandatory parameter!");
 
     NSString *theRequestQuery = [theTestRequest.URL query];
-    
-    STAssertTrue((0 < [theRequestQuery rangeOfString:[NSString stringWithFormat:@"stime=%@",
-                theSessionDuration]].length), @"");
+
+    STAssertTrue((0 < [theRequestQuery rangeOfString:
+                              [NSString stringWithFormat:@"stime=%@", theSessionDuration]].length), @"");
 
     STAssertTrue((0 < [theRequestQuery rangeOfString:@"preload=0"].length), @"");
 
     STAssertTrue((0 < [theRequestQuery rangeOfString:@"isa="].length), @"");
-    
+
     STAssertTrue((0 < [theRequestQuery rangeOfString:@"placement_id=test_placement"].length), @"");
-    
+
     STAssertTrue((0 < [theRequestQuery rangeOfString:@"placement_id=test_placement"].length), @"");
 
     STAssertTrue((0 < [theRequestQuery rangeOfString:@"content_id="].length), @"");
@@ -325,20 +329,22 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)testRequestParametersCase3
 {
-    PHPublisherContentRequest *theTestRequest = [PHPublisherContentRequest requestForApp:
-                kPHApplicationTestToken secret:kPHApplicationTestSecret contentUnitID:
-                kPHTestContentID];
+    PHPublisherContentRequest *theTestRequest =
+                    [PHPublisherContentRequest requestForApp:kPHApplicationTestToken
+                                                      secret:kPHApplicationTestSecret
+                                               contentUnitID:kPHTestContentID];
 
-    NSString *thePlacementParameter = [theTestRequest.additionalParameters objectForKey:
-                @"placement_id"];
+    NSString *thePlacementParameter =
+                     [theTestRequest.additionalParameters objectForKey:@"placement_id"];
+
     STAssertEqualObjects(thePlacementParameter, @"", @"Missed mandatory parameter!");
 
     NSString *theRequestQuery = [theTestRequest.URL query];
-    
+
     STAssertTrue((0 < [theRequestQuery rangeOfString:@"placement_id="].length), @"");
 
-    STAssertTrue((0 < [theRequestQuery rangeOfString:[NSString stringWithFormat:@"content_id=%@",
-                kPHTestContentID]].length), @"");
+    STAssertTrue((0 < [theRequestQuery rangeOfString:
+                            [NSString stringWithFormat:@"content_id=%@", kPHTestContentID]].length), @"");
 }
 
 @end

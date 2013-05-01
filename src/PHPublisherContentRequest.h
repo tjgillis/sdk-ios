@@ -276,8 +276,7 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
  * @return
  *   A PHPublisherContentRequest instance
  **/
-+ (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
-            contentUnitID:(NSString *)aContentID;
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret contentUnitID:(NSString *)contentID;
 
 @property (nonatomic,retain)    NSString       *placement;               /**< Placement id for this content request, this should correspond to one of the
                                                                               placements set up for this game on the PlayHaven Dashboard */

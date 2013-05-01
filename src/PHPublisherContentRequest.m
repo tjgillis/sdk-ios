@@ -42,11 +42,11 @@ NSString *const PHPublisherContentRequestPurchaseReceiptKey   = @"receipt";
 NSString *const PHPublisherContentRequestPurchaseSignatureKey = @"signature";
 NSString *const PHPublisherContentRequestPurchaseCookieKey    = @"cookie";
 
-static NSString *const kPHSessionDurationKey = @"stime";
+static NSString *const kPHSessionDurationKey  = @"stime";
 static NSString *const kPHRequestPreloadedKey = @"preload";
-static NSString *const kPHIsaKey = @"isa";
-static NSString *const kPHPlacementIDKey = @"placement_id";
-static NSString *const kPHContentIDKey = @"content_id";
+static NSString *const kPHIsaKey              = @"isa";
+static NSString *const kPHPlacementIDKey      = @"placement_id";
+static NSString *const kPHContentIDKey        = @"content_id";
 
 PHPublisherContentDismissType * const PHPublisherContentUnitTriggeredDismiss           = @"PHPublisherContentUnitTriggeredDismiss";
 PHPublisherContentDismissType * const PHPublisherNativeCloseButtonTriggeredDismiss     = @"PHPublisherNativeCloseButtonTriggeredDismiss";
@@ -98,7 +98,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 @end
 
 @implementation PHPublisherContentRequest
-@synthesize contentUnitID = _contentUnitID;
+@synthesize contentUnitID           = _contentUnitID;
 @synthesize placement               = _placement;
 @synthesize animated                = _animated;
 @synthesize showsOverlayImmediately = _showsOverlayImmediately;
@@ -134,11 +134,9 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
     }
 }
 
-+ (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
-            contentUnitID:(NSString *)aContentID
++ (id)requestForApp:(NSString *)token secret:(NSString *)secret contentUnitID:(NSString *)contentID
 {
-    return [[[[self class] alloc] initWithApp:aToken secret:aSecret contentUnitID:aContentID]
-                autorelease];
+    return [[[[self class] alloc] initWithApp:token secret:secret contentUnitID:contentID] autorelease];
 }
 
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate
@@ -151,12 +149,12 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
     return self;
 }
 
-- (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret contentUnitID:(NSString *)aContentID
+- (id)initWithApp:(NSString *)token secret:(NSString *)secret contentUnitID:(NSString *)contentID
 {
-    self = [self initWithApp:aToken secret:aSecret];
+    self = [self initWithApp:token secret:secret];
     if (nil != self)
     {
-        _contentUnitID = [aContentID retain];
+        _contentUnitID = [contentID retain];
     }
     return self;
 }
@@ -238,12 +236,13 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 {
     [PHPublisherContentRequest cancelPreviousPerformRequestsWithTarget:self selector:@selector(showCloseButtonBecauseOfTimeout) object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [_content release], _content = nil;
     [_placement release], _placement = nil;
     [_contentViews release], _contentViews = nil;
     [_closeButton release], _closeButton = nil;
     [_overlayWindow release], _overlayWindow = nil;
-    [_contentUnitID release];
+    [_contentUnitID release], _contentUnitID = nil;
 
     [super dealloc];
 }
@@ -371,24 +370,24 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 - (NSDictionary *)additionalParameters
 {
-    NSMutableDictionary *theAdditionalParameters = [NSMutableDictionary
-                dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:(int)floor([[PHTimeInGame
-                getInstance] getCurrentSessionDuration])], kPHSessionDurationKey,
-                @(_targetState == PHPublisherContentRequestPreloaded), kPHRequestPreloadedKey, nil];
+    NSMutableDictionary *theAdditionalParameters =
+                                [NSMutableDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithInt:(int)floor([[PHTimeInGame getInstance] getCurrentSessionDuration])], kPHSessionDurationKey,
+            @(_targetState == PHPublisherContentRequestPreloaded),                                       kPHRequestPreloadedKey, nil];
 
 #if PH_USE_STOREKIT != 0
-    [theAdditionalParameters setObject:@([SKStoreProductViewController class] != nil) forKey:
-                kPHIsaKey];
+    [theAdditionalParameters setObject:@([SKStoreProductViewController class] != nil)
+                                forKey:kPHIsaKey];
 #else
     [theAdditionalParameters setObject:@(NO) forKey:kPHIsaKey];
 #endif
 
-    [theAdditionalParameters setObject:(nil != self.placement ? self.placement : @"") forKey:
-                kPHPlacementIDKey];
+    [theAdditionalParameters setObject:(nil != self.placement ? self.placement : @"")
+                                forKey:kPHPlacementIDKey];
 
     [theAdditionalParameters setObject:(nil != self.contentUnitID ? self.contentUnitID : @"")
-                forKey:kPHContentIDKey];
-    
+                                forKey:kPHContentIDKey];
+
     return theAdditionalParameters;
 }
 
