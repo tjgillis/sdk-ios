@@ -31,4 +31,6 @@
 
 - (IBAction)touchedClearGID:(id)sender;
 - (IBAction)touchedClearSession:(id)sender;
+- (IBAction)touchedClearCustomUDID:(id)sender;
+- (IBAction)touchedClearPluginIdentifier:(id)sender;
 @end
