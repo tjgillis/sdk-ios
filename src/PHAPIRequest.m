@@ -301,6 +301,18 @@ static NSString *sPlayHavenPluginIdentifier;
 #endif
 #endif
 
+#if PH_USE_MAC_ADDRESS == 1
+        if (![PHAPIRequest optOutStatus]) {
+            PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
+            CFDataRef macBytes = [netUtil newMACBytes];
+            if (macBytes) {
+                [combinedParams setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
+                [combinedParams setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
+                CFRelease(macBytes);
+            }
+        }
+#endif
+
         // Adds plugin identifier
         [combinedParams setValue:[PHAPIRequest pluginIdentifier] forKey:@"plugin"];
 
