@@ -503,7 +503,7 @@ static NSString *sPlayHavenCustomUDID;
                                                                                 nonce:nonce
                                                                                secret:self.secret];
 
-#ifndef DEBUG
+#ifndef PH_IGNORE_SIGNATURE
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
 
