@@ -32,7 +32,7 @@
 @end
 
 @implementation PHPublisherOpenRequest
-@synthesize customUDID = _customUDID;
+//@synthesize customUDID = _customUDID;
 
 + (void)initialize
 {
@@ -49,10 +49,6 @@
 - (NSDictionary *)additionalParameters
 {
     NSMutableDictionary *additionalParameters = [NSMutableDictionary dictionary];
-
-    if (!!self.customUDID) {
-        [additionalParameters setValue:self.customUDID forKey:@"d_custom"];
-    }
 
     [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]]
                             forKey:@"scount"];
@@ -103,7 +99,6 @@
 
 - (void)dealloc
 {
-    [_customUDID release], _customUDID = nil;
     [super dealloc];
 }
 

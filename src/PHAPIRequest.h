@@ -111,12 +111,28 @@
  **/
 /*@{*/
 /**
- * Gets and sets the plugin identifier. Third party plugins based on the iOS SDK
- * should set this to a value that is unique for each plugin version.
- * Defaults to <tt>ios-PH_SDK_VERSION</tt>
+ * Gets and sets the plugin identifier. Third party plugins based on the iOS SDK should set this to a value that is
+ * unique for each plugin version. That is, if you are creating a specific plugin (for Unity or AdobeAIR, e.g.) by
+ * wrapping the SDK in your code, you should set the SDK's plugin identifier to something meaningful
+ * (e.g., "com.unity.JohnDoe-v1.1.1"). Any Reserved Characters as specified by RFC 3986 will be removed and
+ * identifiers will be trimmed to 42 characters. Defaults to <tt>ios</tt>
  **/
 + (NSString *)pluginIdentifier;
 + (void)setPluginIdentifier:(NSString *)identifier;
+/*@}*/
+
+/**
+ * @name Custom UDID
+ **/
+/*@{*/
+/**
+ * Gets and sets the custom UDID. Publishers can attach an arbitrary user identifier to a request by using the
+ * PHPublisherOpenRequest#customUDID property or the PHAPIRequest#setCustomUDID:() class method. This will be appended
+ * to all requests as a d_custom parameter. Any Reserved Characters as specified by RFC 3986 will be removed and
+ * identifiers will be trimmed to 42 characters.
+ **/
++ (NSString *)customUDID;
++ (void)setCustomUDID:(NSString *)customUDID;
 /*@}*/
 
 /**
@@ -180,6 +196,9 @@
 @property (nonatomic, assign)   int hashCode;      /**< Unique hash code identifying this request. Used by the Unity3d plugin */
 
 @property (nonatomic, assign)   id<PHAPIRequestDelegate>  delegate; /**< Request delegate, see PHAPIRequestDelegate */
+
+@property (nonatomic, copy) NSString *customUDID; /**< Publishers can attach an arbitrary user identifier to the open request by setting
+                                                       this property. This will be appended to the request as a d_custom parameter. */
 
 /**
  * URL-encoded parameter string using keys and values in self.signedParameters
