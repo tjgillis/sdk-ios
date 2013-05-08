@@ -25,6 +25,12 @@ Also see the [Integration](#integration) and [API Reference](#api-reference) sec
 Version History
 ===============
 
+1.13.1
+======
+* MAC Address and ODIN1 are now sent on all requests
+* More unit tests added and a warning fixed
+
+
 1.13.0
 ======
 * UDID collection has been removed to comply with Apple’s policy for the use of device information, beginning May 1, 2013
