@@ -419,7 +419,7 @@
     NSString *newDelegate = @"DELEGATE";
     PHPublisherContentRequest *requestNewDelegate = [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement1" delegate:newDelegate];
 
-    STAssertTrue(requestNewDelegate.delegate == newDelegate, @"This request should have had its delegate reassigned!");
+    STAssertTrue((id)requestNewDelegate.delegate == (id)newDelegate, @"This request should have had its delegate reassigned!");
 }
 @end
 

@@ -27,6 +27,7 @@
 #import "JSON.h"
 #import "UIDevice+HardwareString.h"
 #import "PHNetworkUtil.h"
+#import "PHConstants.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
