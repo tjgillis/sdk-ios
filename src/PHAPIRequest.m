@@ -182,8 +182,7 @@ static NSString *sPlayHavenCustomUDID;
 {
     @synchronized (self) {
         if (sPlayHavenPluginIdentifier == nil ||
-            [sPlayHavenPluginIdentifier isEqualToString:@""] ||
-            [sPlayHavenPluginIdentifier isEqual:[NSNull null]]) {
+            [sPlayHavenPluginIdentifier isEqualToString:@""]) {
                 [sPlayHavenPluginIdentifier autorelease];
                 sPlayHavenPluginIdentifier = [[NSString alloc] initWithFormat:@"ios"];
         }
@@ -197,9 +196,9 @@ static NSString *sPlayHavenCustomUDID;
     @synchronized (self) {
         [sPlayHavenPluginIdentifier autorelease];
 
-        if (!identifier || [identifier isEqualToString:@""] || [identifier isEqual:[NSNull null]]) {
+        if (!identifier || [identifier isEqual:[NSNull null]] || [identifier isEqualToString:@""]) {
             PH_LOG(@"Setting the plugin identifier to nil or an empty string will result in using the default value: \"ios\"", nil);
-            sPlayHavenPluginIdentifier = [identifier copy];
+            sPlayHavenPluginIdentifier = nil;
             return;
         }
 
@@ -236,7 +235,7 @@ static NSString *sPlayHavenCustomUDID;
     @synchronized (self) {
         [sPlayHavenCustomUDID autorelease];
 
-        if (!customUDID || [customUDID isEqualToString:@""] || [customUDID isEqual:[NSNull null]]) {
+        if (!customUDID || [customUDID isEqual:[NSNull null]] || [customUDID isEqualToString:@""]) {
             sPlayHavenCustomUDID = nil;
             return;
         }
@@ -251,10 +250,7 @@ static NSString *sPlayHavenCustomUDID;
                                                              range:NSMakeRange(0, [customUDID length])
                                                       withTemplate:@""];
 
-        if ([string length] > 42)
-            string = [string substringToIndex:42];
-
-        if (error || !string) {
+        if (error || !string || ![string length]) {
             PH_LOG(@"There was an error setting the custom UDID. Value will not be sent to PlayHaven server.", nil);
             string = nil;
         }

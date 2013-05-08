@@ -73,4 +73,43 @@
     STAssertTrue([[request3 signedParameterString] rangeOfString:@"cookie"].location == NSNotFound, @"cookie should only exist once! parameterString: %@", [request3 signedParameterString]);
     [request3 cancel];
 }
+
+- (void)testRequestParameters
+{
+    NSString *token  = @"PUBLISHER_TOKEN",
+             *secret = @"PUBLISHER_SECRET";
+
+    [PHAPIRequest setCustomUDID:nil];
+
+    PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:token secret:secret];
+
+    NSDictionary *signedParameters  = [request signedParameters];
+    NSString     *requestURLString  = [request.URL absoluteString];
+
+#if PH_USE_UNIQUE_IDENTIFIER == 1
+    NSString *device = [signedParameters valueForKey:@"device"];
+    STAssertNotNil(device, @"UDID param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param is missing!");
+#else
+    NSString *device = [signedParameters valueForKey:@"device"];
+    STAssertNil(device, @"UDID param is present!");
+    STAssertTrue([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param exists when it shouldn't.");
+#endif
+
+#if PH_USE_MAC_ADDRESS == 1
+    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    STAssertNotNil(mac, @"MAC param is missing!");
+    STAssertNotNil(odin1, @"ODIN1 param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param is missing!");
+#else
+    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    STAssertNil(mac, @"MAC param is present!");
+    STAssertNil(odin1, @"ODIN1 param is present!");
+    STAssertTrue([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param exists when it shouldn't.");
+    STAssertTrue([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param exists when it shouldn't.");
+#endif
+}
 @end

@@ -128,8 +128,7 @@
 /**
  * Gets and sets the custom UDID. Publishers can attach an arbitrary user identifier to a request by using the
  * PHPublisherOpenRequest#customUDID property or the PHAPIRequest#setCustomUDID:() class method. This will be appended
- * to all requests as a d_custom parameter. Any Reserved Characters as specified by RFC 3986 will be removed and
- * identifiers will be trimmed to 42 characters.
+ * to all requests as a d_custom parameter. Any Reserved Characters as specified by RFC 3986 will be removed.
  **/
 + (NSString *)customUDID;
 + (void)setCustomUDID:(NSString *)customUDID;
@@ -197,8 +196,12 @@
 
 @property (nonatomic, assign)   id<PHAPIRequestDelegate>  delegate; /**< Request delegate, see PHAPIRequestDelegate */
 
-@property (nonatomic, copy) NSString *customUDID; /**< Publishers can attach an arbitrary user identifier to the open request by setting
-                                                       this property. This will be appended to the request as a d_custom parameter. */
+@property (nonatomic, copy) NSString *customUDID; /**< Gets and sets the custom UDID. Publishers can attach an
+                                                       arbitrary user identifier to a request by using the
+                                                       PHPublisherOpenRequest#customUDID property or the
+                                                       PHAPIRequest#setCustomUDID:() class method. This will
+                                                       be appended to all requests as a d_custom parameter. Any
+                                                       Reserved Characters as specified by RFC 3986 will be removed */
 
 /**
  * URL-encoded parameter string using keys and values in self.signedParameters
