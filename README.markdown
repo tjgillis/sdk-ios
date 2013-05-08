@@ -27,7 +27,8 @@ Version History
 
 1.13.1
 ======
-* MAC Address and ODIN1 are now sent on all requests
+* MAC Address, ODIN1, customUDID parameters are now sent on all requests
+* The customUDID parameter now strips RFC 3986 Reserved Characters
 * More unit tests added and a warning fixed
 
 
