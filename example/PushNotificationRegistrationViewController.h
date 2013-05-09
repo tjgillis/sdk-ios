@@ -13,21 +13,22 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PlayHavenSDK.h
+ PushNotificationRegistrationViewController.h
  playhaven-sdk-ios
 
- Created by Jesus Fernandez on 4/22/11.
+ Created by Anton Fedorchenko on 4/12/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PHConstants.h"
+#import "ExampleViewController.h"
+#import "PlayHavenSDK.h"
 
-#import "PHPublisherOpenRequest.h"
-#import "PHPublisherContentRequest.h"
-#import "PHPublisherMetadataRequest.h"
-#import "PHPublisherIAPTrackingRequest.h"
+/**
+ * @brief Controller demonstrating how to enable/disable push notifications from PlayHaven
+ **/
+@interface PushNotificationRegistrationViewController : ExampleViewController
+			<PHPushRegistrationObserver>
 
-#import "PHNotificationView.h"
-#import "PHReward.h"
-#import "PHPurchase.h"
+- (IBAction)registerForPushNotifications:(id)aSender;
+- (IBAction)unregisterForPushNotifications:(id)aSender;
 
-#import "PHPushProvider.h"
+@end

@@ -13,21 +13,21 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PlayHavenSDK.h
+ PlayHavenAppIdentity.h
  playhaven-sdk-ios
 
- Created by Jesus Fernandez on 4/22/11.
+ Created by Anton Fedorchenko on 4/15/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import "PHConstants.h"
+#import <Foundation/Foundation.h>
 
-#import "PHPublisherOpenRequest.h"
-#import "PHPublisherContentRequest.h"
-#import "PHPublisherMetadataRequest.h"
-#import "PHPublisherIAPTrackingRequest.h"
+/**
+ * @brief Utility class that represents configurable parametrs which are passed to
+ *	PlayHaven SDK.
+ **/
+@interface PlayHavenAppIdentity : NSObject
++ (PlayHavenAppIdentity *)sharedIdentity;
 
-#import "PHNotificationView.h"
-#import "PHReward.h"
-#import "PHPurchase.h"
-
-#import "PHPushProvider.h"
+@property (nonatomic, retain) NSString *applicationToken;
+@property (nonatomic, retain) NSString *applicationSecret;
+@end

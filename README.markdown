@@ -318,6 +318,83 @@ If you are creating a specific plugin (for Unity or AdobeAIR, e.g.) by wrapping 
 
     [PHAPIRequest setPluginIdentifier:(NSString *)identifier];
 
+### Working with push notifications
+#### Introduction
+As of SDK version 1.x.x PlayHaven provides ability to easily add push notifications functionality to your application by taking all heavy server side work for delivery push notification upon oneself. All what you need to make use of push notifications in your application is to do a few steps integration given in ["Adding support to push notifications"](#adding-support-to-push-notifications) section.
+
+#### Prerequisites
+While adding the remote-notification feature to your application requires that you obtain the proper certificates from the Dev Center this section concentrates exclusively on requisite code for the client side of the application. To find more information on provisioning and setup steps see [“Provisioning and Development”](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ProvisioningDevelopment.html#//apple_ref/doc/uid/TP40008194-CH104-SW1) section of ["Local and Push Notification Programming Guide"](http://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Introduction.html#//apple_ref/doc/uid/TP40008194-CH1-SW1).
+
+If PlayHaven SDK is already integrated to your application the steps given below describe the only code change that is needed in your application to make use of push notifications. If you have not integrated the PlayHaven SDK to your application yet, please follow the instructions given above first. 
+
+#### Adding support to push notifications
+This section outlines the changes which need to be done to add push notifications functionality in you application.
+
+1. Register for push notifications inside your implementation of application:didFinishLaunchingWithOptions: application delegate method.
+
+	To register for push notifications put the following code inside the delegate method:
+
+		[PHPushProvider sharedInstance].applicationToken = @"MYTOKEN";
+		[PHPushProvider sharedInstance].applicationSecret = @"MYSECRET";
+		[[PHPushProvider sharedInstance] registerForPushNotifications];
+	
+	where @"MYTOKEN" and @"MYSECRET" should be replaced by the token and secret of your application. These are the same credentials which you pass to initialization method of open requests (see [Recording game opens](#recording-game-opens) section for more details).
+
+2. Implement application:didRegisterForRemoteNotificationsWithDeviceToken: application delegate method.
+
+	Once system registered an application for push notifications it calls application:didRegisterForRemoteNotificationsWithDeviceToken: application delegate method to inform about successful registration. At this point your application delegate should pass the device token received from the system to PlayHaven SDK to complete registration procedure. To do that put the following code in your implementation of application:didRegisterForRemoteNotificationsWithDeviceToken: application delegate method method:
+
+		[[PHPushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+
+	where aDeviceToken is a device token passed by the system to you delegate method. PlayHaven server uses that token to send push notifications to a device identified by that token.
+
+3. Implement application:didReceiveRemoteNotification: application delegate method and put handlers for incoming push notifications inside this method and application:didFinishLaunchingWithOptions: one.
+
+	Depending on the application state system can deliver incoming push notification in two ways by calling application:didReceiveRemoteNotification: or application:didFinishLaunchingWithOptions: application delegate methods. For this reason you need to add similar handlers inside both delegate methods. To do that put the following code inside your implementation of application:didReceiveRemoteNotification:
+
+		[[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:aUserInfo];
+	
+	where aUserInfo is a push notification user info passed by the system to you delegate method.
+
+	And similar one inside application:didFinishLaunchingWithOptions:
+
+		[[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+		
+	where launchOptions is a dictionary passed to your delegate method as one of the input parameters.
+
+Listing 1 demonstrates possible implementation of your application delegate with push notification support.
+
+**Listing 1** Registering for push notifications, handling incoming notifications
+
+	- (BOOL)application:(UIApplication *)anApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
+	{
+		// other setup tasks here...
+	
+		[PHPushProvider sharedInstance].applicationToken = @"MYTOKEN";
+		[PHPushProvider sharedInstance].applicationSecret = @"MYSECRET";
+		
+		[[PHPushProvider sharedInstance] registerForPushNotifications];
+		[[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[aLaunchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+	
+		return YES;
+	}
+
+	- (void)application:(UIApplication *)anApplication
+				didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
+	{
+		[[PHPushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+	}
+
+	- (void)application:(UIApplication *)anApplication didReceiveRemoteNotification:(NSDictionary *)aUserInfo
+	{
+		[[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:aUserInfo];
+	}
+
+
+#### Responding to incoming push notifications
+The requisite code given in ["Adding support to push notifications"](#adding-support-to-push-notifications) section adds support to push push notifications in your application. If you followed those instructions at this point your application will be able to receive push notifications sent from PlayHaven dashboard and display a content associated with that notification. In simple applications it is all what you need but in more complex applications, most probably you would need to trigger own context-depending action of the application when push notifications arrives. For example, when push notification is sent to a device running your game in real time you would need to pause the game prior to displaying content associated with the notification to a user .
+
+For that purpose SDK provides you with the ability to trigger action appropriate to your application. To make use of that ability you need to implement delegated method declared in `PHPushProviderDelegate` protocol and assign your delegate to `PHPushProvider` instance. For more details refer to the header documentation of `PHPushProvider` class.
 
 Integration Test Console Overview
 =================================
