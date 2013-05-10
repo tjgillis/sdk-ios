@@ -135,13 +135,18 @@ The game open request is sent using the following code:
 
 	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
 
-If you are using an internal identifier to track individual devices in this game, you may use the customUDID
-parameter to pass this identifier along to PlayHaven with the open request.
-This asynchronously reports a game open to PlayHaven.
+If you are using an internal identifier to track individual devices in this game, you may use the customUDID parameter to pass this identifier along to PlayHaven. You can set this parameter on an open request:
 
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:MYTOKEN secret:MYSECRET];
     request.customUDID = @"CUSTOM_UDID" //optional
     [request send];
+
+Alternatively, you can set the parameter through the `PHAPIRequest` class method:
+
+    [PHAPIRequest setCustomUDID:(NSString *)@"CUSTOM_UDID"];
+
+This value is now sent on every request. Additionaly, any Reserved Characters as specified by RFC 3986 will be removed.
+
 
 #### Precaching content templates
 PlayHaven automatically downloads and stores a number of content templates after a successful `PHPublisherOpenRequest`. This happens automatically in the background after each open request, so there's no integration required to take advantage of this feature.
