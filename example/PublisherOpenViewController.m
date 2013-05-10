@@ -44,8 +44,14 @@
         [PHAPIRequest setPluginIdentifier:nil];
 
     PHPublisherOpenRequest *request = [PHPublisherOpenRequest requestForApp:self.token secret:self.secret];
-    request.customUDID = self.customUDIDField.text;
-    request.delegate   = self;
+
+    if (self.customUDIDField.text && ![self.customUDIDField.text isEqualToString:@""])
+        request.customUDID = self.customUDIDField.text;
+    else
+        request.customUDID = nil;
+
+    request.delegate = self;
+
     [request send];
 
     [self.customUDIDField resignFirstResponder];
@@ -82,9 +88,19 @@
     [self addElapsedTime];
 }
 
+- (void)viewDidLoad
+{
+    if ([PHAPIRequest customUDID])
+        customUDIDField.text  = [PHAPIRequest customUDID];
+
+    if (![[PHAPIRequest pluginIdentifier] isEqualToString:@"ios"])
+        pluginIdentifier.text = [PHAPIRequest pluginIdentifier];
+
+    [super viewDidLoad];
+}
+
 - (void)viewDidUnload
 {
-    [self setCustomUDIDField:nil];
     [super viewDidUnload];
 }
 
@@ -97,6 +113,22 @@
 - (IBAction)touchedClearSession:(id)sender
 {
     [PHAPIRequest setSession:nil];
-    [self addMessage:@"session cleared!"];
+    [self addMessage:@"Session cleared!"];
+}
+
+- (IBAction)touchedClearCustomUDID:(id)sender
+{
+    [PHAPIRequest setCustomUDID:nil];
+    customUDIDField.text = nil;
+
+    [self addMessage:@"Custom UDID cleared!"];
+}
+
+- (IBAction)touchedClearPluginIdentifier:(id)sender
+{
+    [PHAPIRequest setPluginIdentifier:nil];
+    pluginIdentifier.text = nil;
+
+    [self addMessage:@"Plugin Identifier cleared!"];
 }
 @end

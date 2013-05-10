@@ -23,6 +23,7 @@
 #import "PHAPIRequest.h"
 #import "PHConstants.h"
 #import "PHStringUtil.h"
+#import "PHPublisherOpenRequest.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -80,6 +81,7 @@
 {
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *signedParameters = [request signedParameters];
+    NSString     *requestURLString = [request.URL absoluteString];
 
     // Test for existence of parameters
     NSString
@@ -89,11 +91,37 @@
         *signature = [signedParameters valueForKey:@"signature"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
 
-    STAssertNotNil(session ,@"Required session param is missing!");
-    STAssertNotNil(gid ,@"Required gid param is missing!");
-    STAssertNotNil(token ,@"Required token param is missing!");
-    STAssertNotNil(signature,@"Required signature param is missing!");
-    STAssertNotNil(nonce ,@"Required nonce param is missing!");
+#if PH_USE_UNIQUE_IDENTIFIER == 1
+    NSString *device = [signedParameters valueForKey:@"device"];
+    STAssertNotNil(device, @"UDID param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param is missing: %@", requestURLString);
+#else
+    NSString *device = [signedParameters valueForKey:@"device"];
+    STAssertNil(device, @"UDID param is present!");
+    STAssertTrue([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param exists when it shouldn't: %@", requestURLString);
+#endif
+
+#if PH_USE_MAC_ADDRESS == 1
+    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    STAssertNotNil(mac, @"MAC param is missing!");
+    STAssertNotNil(odin1, @"ODIN1 param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param is missing: %@", requestURLString);
+    STAssertFalse([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param is missing: %@", requestURLString);
+#else
+    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    STAssertNil(mac, @"MAC param is present!");
+    STAssertNil(odin1, @"ODIN1 param is present!");
+    STAssertTrue([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param exists when it shouldn't: %@", requestURLString);
+    STAssertTrue([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param exists when it shouldn't: %@", requestURLString);
+#endif
+
+    STAssertNotNil(session, @"Required session param is missing!");
+    STAssertNotNil(gid, @"Required gid param is missing!");
+    STAssertNotNil(token, @"Required token param is missing!");
+    STAssertNotNil(signature, @"Required signature param is missing!");
+    STAssertNotNil(nonce, @"Required nonce param is missing!");
 
     NSString *parameterString = [request signedParameterString];
     STAssertNotNil(parameterString, @"Parameter string is nil?");
@@ -114,6 +142,211 @@
     NSString *nonceParam = [NSString stringWithFormat:@"nonce=%@",nonce];
     STAssertFalse([parameterString rangeOfString:nonceParam].location == NSNotFound,
                   @"Nonce parameter not present!");
+}
+
+- (void)testCustomRequestParameters
+{
+    NSDictionary *signedParameters;
+    PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+
+    // Test what happens when they are not set
+    NSString
+        *customUDID       = [PHAPIRequest customUDID],
+        *pluginIdentifier = [PHAPIRequest pluginIdentifier],
+        *requestURLString = [request.URL absoluteString];
+
+    STAssertTrue([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                  @"Custom parameter exists when none should be set.");
+    STAssertNil(customUDID, @"Custom UDID param is not nil!");
+    STAssertNotNil(pluginIdentifier, @"Plugin identifier param is missing!");
+    STAssertTrue([pluginIdentifier isEqualToString:@"ios"], @"Plugin identifier param is incorrect!");
+
+    // Test what happens when they are set to nil
+    [PHAPIRequest setCustomUDID:nil];
+    [PHAPIRequest setPluginIdentifier:nil];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                  @"Custom parameter exists when none should be set.");
+    STAssertNil(customUDID, @"Custom UDID param is not nil!");
+    STAssertNotNil(pluginIdentifier, @"Plugin identifier param is missing!");
+    STAssertTrue([pluginIdentifier isEqualToString:@"ios"], @"Plugin identifier param is incorrect!");
+
+    // Test what happens when they are set to empty strings
+    [PHAPIRequest setCustomUDID:@""];
+    [PHAPIRequest setPluginIdentifier:@""];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                  @"Custom parameter exists when none should be set.");
+    STAssertNil(customUDID, @"Custom UDID param is not nil!");
+    STAssertNotNil(pluginIdentifier, @"Plugin identifier param is missing!");
+    STAssertTrue([pluginIdentifier isEqualToString:@"ios"], @"Plugin identifier param is incorrect!");
+
+    // Test what happens when they are set to [NSNull null]
+    [PHAPIRequest setCustomUDID:(id)[NSNull null]];
+    [PHAPIRequest setPluginIdentifier:(id)[NSNull null]];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                  @"Custom parameter exists when none should be set.");
+    STAssertNil(customUDID, @"Custom UDID param is not nil!");
+    STAssertNotNil(pluginIdentifier, @"Plugin identifier param is missing!");
+    STAssertTrue([pluginIdentifier isEqualToString:@"ios"], @"Plugin identifier param is incorrect!");
+
+    // Test what happens when they are longer than the allowed amount for plugin identifier (42)
+    [PHAPIRequest setCustomUDID:@"12345678911234567892123456789312345678941234567895"];
+    [PHAPIRequest setPluginIdentifier:@"12345678911234567892123456789312345678941234567895"];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([customUDID isEqualToString:@"12345678911234567892123456789312345678941234567895"],
+                 @"Custom UDID param is not 42 characters!"); // Stays the same...
+    STAssertTrue([pluginIdentifier isEqualToString:@"123456789112345678921234567893123456789412"],
+                 @"Plugin identifier param is not 42 characters!"); // Trimmed...
+    STAssertTrue([pluginIdentifier length], @"Plugin identifier param is not 42 characters!");
+
+
+    // Test what happens when they have mixed reserved characters
+    [PHAPIRequest setCustomUDID:@"abcdefg:?#[]@/!$&'()*+,;=\"abcdefg"];
+    [PHAPIRequest setPluginIdentifier:@"abcdefg:?#[]@/!$&'()*+,;=\"abcdefg"];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([customUDID isEqualToString:@"abcdefgabcdefg"],
+                 @"Custom UDID param is not stripped of reserved characters properly!"); // Stripped...
+    STAssertTrue([pluginIdentifier isEqualToString:@"abcdefgabcdefg"],
+                 @"Plugin identifier param is not stripped of reserved characters properly!"); // Stripped...
+
+    // Test what happens when they have mixed reserved characters and at length 42 after
+    [PHAPIRequest setCustomUDID:@"1234567891123456789212345678931234567894:?#[]@/!$&'()*+,;=\"12"];
+    [PHAPIRequest setPluginIdentifier:@"1234567891123456789212345678931234567894:?#[]@/!$&'()*+,;=\"12"];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([customUDID isEqualToString:@"123456789112345678921234567893123456789412"],
+                 @"Custom UDID param is not stripped of reserved characters properly!");
+    STAssertTrue([pluginIdentifier isEqualToString:@"123456789112345678921234567893123456789412"],
+                 @"Plugin identifier param is not stripped of reserved characters properly!");
+
+    // Test what happens when they have mixed reserved characters and over length 42 after
+    [PHAPIRequest setCustomUDID:@"1234567891123456789212345678931234567894:?#[]@/!$&'()*+,;=\"1234567895"];
+    [PHAPIRequest setPluginIdentifier:@"1234567891123456789212345678931234567894:?#[]@/!$&'()*+,;=\"1234567895"];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([customUDID isEqualToString:@"12345678911234567892123456789312345678941234567895"],
+                 @"Custom UDID param is not stripped of reserved characters properly!"); // Stripped
+    STAssertTrue([pluginIdentifier isEqualToString:@"123456789112345678921234567893123456789412"],
+                 @"Plugin identifier param is not stripped of reserved characters properly!"); // Stripped and trimmed
+
+    // Test what happens when it's only reserved characters
+    [PHAPIRequest setCustomUDID:@":?#[]@/!$&'()*+,;=\""];
+    [PHAPIRequest setPluginIdentifier:@":?#[]@/!$&'()*+,;=\""];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+
+    customUDID       = [PHAPIRequest customUDID];
+    pluginIdentifier = [PHAPIRequest pluginIdentifier];
+
+    STAssertTrue([requestURLString rangeOfString:@"d_custom="].location == NSNotFound,
+                  @"Custom parameter exists when none should be set.");
+    STAssertNil(customUDID, @"Custom UDID param is not nil!");
+    STAssertNotNil(pluginIdentifier, @"Plugin identifier param is missing!");
+    STAssertTrue([pluginIdentifier isEqualToString:@"ios"], @"Plugin identifier param is incorrect!");
+
+    // Test PHPublisherOpenRequest.customUDID property and PHAPIRequest property and class methods
+    PHPublisherOpenRequest *openRequest = [PHPublisherOpenRequest requestForApp:PUBLISHER_TOKEN
+                                                                         secret:PUBLISHER_SECRET];
+
+    [openRequest setCustomUDID:@"one"];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+    signedParameters = [request signedParameters];
+    customUDID       = [signedParameters valueForKey:@"d_custom"];
+
+    STAssertFalse([requestURLString rangeOfString:@"d_custom="].location == NSNotFound, @"Custom parameter missing when one is set.");
+    STAssertTrue([customUDID isEqualToString:@"one"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be one", customUDID);
+
+    customUDID       = [PHAPIRequest customUDID];
+    STAssertTrue([customUDID isEqualToString:@"one"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be one", customUDID);
+
+    customUDID       = [request customUDID];
+    STAssertTrue([customUDID isEqualToString:@"one"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be one", customUDID);
+
+    customUDID       = [openRequest customUDID];
+    STAssertTrue([customUDID isEqualToString:@"one"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be one", customUDID);
+
+    [PHAPIRequest setCustomUDID:@"two"];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+    signedParameters = [request signedParameters];
+    customUDID       = [signedParameters valueForKey:@"d_custom"];
+
+    STAssertFalse([requestURLString rangeOfString:@"d_custom="].location == NSNotFound, @"Custom parameter missing when one is set.");
+    STAssertTrue([customUDID isEqualToString:@"two"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be two", customUDID);
+
+    customUDID       = [PHAPIRequest customUDID];
+    STAssertTrue([customUDID isEqualToString:@"two"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be two", customUDID);
+
+    customUDID       = [request customUDID];
+    STAssertTrue([customUDID isEqualToString:@"two"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be two", customUDID);
+
+    customUDID       = [openRequest customUDID];
+    STAssertTrue([customUDID isEqualToString:@"two"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be two", customUDID);
+
+    [request setCustomUDID:@"three"];
+
+    request          = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    requestURLString = [request.URL absoluteString];
+    signedParameters = [request signedParameters];
+    customUDID       = [signedParameters valueForKey:@"d_custom"];
+
+    STAssertFalse([requestURLString rangeOfString:@"d_custom="].location == NSNotFound, @"Custom parameter missing when one is set.");
+    STAssertTrue([customUDID isEqualToString:@"three"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be three", customUDID);
+
+    customUDID       = [PHAPIRequest customUDID];
+    STAssertTrue([customUDID isEqualToString:@"three"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be three", customUDID);
+
+    customUDID       = [request customUDID];
+    STAssertTrue([customUDID isEqualToString:@"three"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be three", customUDID);
+
+    customUDID       = [openRequest customUDID];
+    STAssertTrue([customUDID isEqualToString:@"three"],
+                  @"Custom UDID isn't synced between base PHAPIRequest and PHPublisherOpenRequest: is %@ and should be three", customUDID);
 }
 
 - (void)testURLProperty
