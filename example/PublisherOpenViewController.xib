@@ -161,7 +161,7 @@
 								<string key="NSFrame">{{166, 84}, {134, 37}}</string>
 								<reference key="NSSuperview" ref="1038656081"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="66411161"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -178,8 +178,61 @@
 								<reference key="IBUIFontDescription" ref="678886883"/>
 								<reference key="IBUIFont" ref="804664535"/>
 							</object>
+							<object class="IBUIButton" id="66411161">
+								<reference key="NSNextResponder" ref="1038656081"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{20, 128}, {134, 37}}</string>
+								<reference key="NSSuperview" ref="1038656081"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="150785161"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">Clear Custom UDID</string>
+								<reference key="IBUIHighlightedTitleColor" ref="874803546"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="297327999"/>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">2</int>
+									<double key="pointSize">13</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">16</int>
+								</object>
+							</object>
+							<object class="IBUIButton" id="150785161">
+								<reference key="NSNextResponder" ref="1038656081"/>
+								<int key="NSvFlags">289</int>
+								<string key="NSFrame">{{166, 128}, {134, 37}}</string>
+								<reference key="NSSuperview" ref="1038656081"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">Clear Plugin ID</string>
+								<reference key="IBUIHighlightedTitleColor" ref="874803546"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="297327999"/>
+								<reference key="IBUIFontDescription" ref="678886883"/>
+								<reference key="IBUIFont" ref="804664535"/>
+							</object>
 						</object>
-						<string key="NSFrameSize">{320, 127}</string>
+						<string key="NSFrameSize">{320, 172}</string>
 						<reference key="NSSuperview" ref="1012669227"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="441513440"/>
@@ -191,7 +244,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 247}</string>
+				<string key="NSFrameSize">{320, 350}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1038656081"/>
@@ -287,6 +340,24 @@
 					</object>
 					<int key="connectionID">17</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">touchedClearCustomUDID:</string>
+						<reference key="source" ref="66411161"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">touchedClearPluginIdentifier:</string>
+						<reference key="source" ref="150785161"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">26</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -328,6 +399,8 @@
 							<reference ref="758448134"/>
 							<reference ref="607236956"/>
 							<reference ref="271980813"/>
+							<reference ref="66411161"/>
+							<reference ref="150785161"/>
 						</object>
 						<reference key="parent" ref="1012669227"/>
 					</object>
@@ -351,6 +424,16 @@
 						<reference key="object" ref="758448134"/>
 						<reference key="parent" ref="1038656081"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">20</int>
+						<reference key="object" ref="66411161"/>
+						<reference key="parent" ref="1038656081"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">21</int>
+						<reference key="object" ref="150785161"/>
+						<reference key="parent" ref="1038656081"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -364,6 +447,8 @@
 					<string>12.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
+					<string>20.IBPluginDependency</string>
+					<string>21.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
@@ -373,6 +458,8 @@
 					<string>PublisherOpenViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -394,7 +481,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">19</int>
+			<int key="maxID">26</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -425,11 +512,15 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>touchedClearCustomUDID:</string>
 							<string>touchedClearGID:</string>
+							<string>touchedClearPluginIdentifier:</string>
 							<string>touchedClearSession:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -438,13 +529,23 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>touchedClearCustomUDID:</string>
 							<string>touchedClearGID:</string>
+							<string>touchedClearPluginIdentifier:</string>
 							<string>touchedClearSession:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
+								<string key="name">touchedClearCustomUDID:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">touchedClearGID:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">touchedClearPluginIdentifier:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -29,6 +29,7 @@
     return result;
 }
 
+// TODO: This doesn't escape all characters!
 - (NSString *)stringByEncodingURLFormat
 {
     NSString *result = [self stringByReplacingOccurrencesOfString:@" " withString:@"+"];
