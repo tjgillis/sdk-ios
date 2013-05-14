@@ -27,6 +27,7 @@
 #import "JSON.h"
 #import "UIDevice+HardwareString.h"
 #import "PHNetworkUtil.h"
+#import "PHConstants.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
@@ -35,6 +36,7 @@
 static NSString *sPlayHavenSession;
 static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
+static NSString *sPlayHavenCustomUDID;
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
@@ -171,12 +173,18 @@ static NSString *sPlayHavenPluginIdentifier;
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"PlayHavenOptOutStatus"];
 }
 
++ (void)setOptOutStatus:(BOOL)yesOrNo
+{
+    [[NSUserDefaults standardUserDefaults] setBool:yesOrNo forKey:@"PlayHavenOptOutStatus"];
+}
+
 + (NSString *)pluginIdentifier
 {
     @synchronized (self) {
-        if (sPlayHavenPluginIdentifier == nil || [sPlayHavenPluginIdentifier isEqualToString:@""]) {
-            [sPlayHavenPluginIdentifier autorelease];
-            sPlayHavenPluginIdentifier = [[NSString alloc] initWithFormat:@"ios"];
+        if (sPlayHavenPluginIdentifier == nil ||
+            [sPlayHavenPluginIdentifier isEqualToString:@""]) {
+                [sPlayHavenPluginIdentifier autorelease];
+                sPlayHavenPluginIdentifier = [[NSString alloc] initWithFormat:@"ios"];
         }
     }
 
@@ -188,9 +196,9 @@ static NSString *sPlayHavenPluginIdentifier;
     @synchronized (self) {
         [sPlayHavenPluginIdentifier autorelease];
 
-        if (!identifier || [identifier isEqualToString:@""]) {
+        if (!identifier || [identifier isEqual:[NSNull null]] || [identifier isEqualToString:@""]) {
             PH_LOG(@"Setting the plugin identifier to nil or an empty string will result in using the default value: \"ios\"", nil);
-            sPlayHavenPluginIdentifier = [identifier copy];
+            sPlayHavenPluginIdentifier = nil;
             return;
         }
 
@@ -207,16 +215,58 @@ static NSString *sPlayHavenPluginIdentifier;
         if ([string length] > 42)
             string = [string substringToIndex:42];
 
-        if (error || !string)
+        if (error || !string) {
             PH_LOG(@"There was an error setting the plugin identifier. Using the default value: \"ios\"", nil);
+            string = nil;
+        }
+
 
         sPlayHavenPluginIdentifier = [string retain];
     }
 }
 
-+ (void)setOptOutStatus:(BOOL)yesOrNo
++ (NSString *)customUDID
 {
-    [[NSUserDefaults standardUserDefaults] setBool:yesOrNo forKey:@"PlayHavenOptOutStatus"];
+    return sPlayHavenCustomUDID;
+}
+
++ (void)setCustomUDID:(NSString *)customUDID
+{
+    @synchronized (self) {
+        [sPlayHavenCustomUDID autorelease];
+
+        if (!customUDID || [customUDID isEqual:[NSNull null]] || [customUDID isEqualToString:@""]) {
+            sPlayHavenCustomUDID = nil;
+            return;
+        }
+
+        NSError *error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^A-Za-z0-9\\-\\.\\_\\~]*"
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:&error];
+
+        NSString *string = [regex stringByReplacingMatchesInString:customUDID
+                                                           options:NSMatchingWithTransparentBounds
+                                                             range:NSMakeRange(0, [customUDID length])
+                                                      withTemplate:@""];
+
+        if (error || !string || ![string length]) {
+            PH_LOG(@"There was an error setting the custom UDID. Value will not be sent to PlayHaven server.", nil);
+            string = nil;
+        }
+
+        sPlayHavenCustomUDID = [string retain];
+    }
+}
+
+- (void)setCustomUDID:(NSString *)customUDID
+{
+    [PHAPIRequest setCustomUDID:customUDID];
+}
+
+- (NSString *)customUDID
+{
+    return [PHAPIRequest customUDID];
 }
 
 + (id)requestForApp:(NSString *)token secret:(NSString *)secret
@@ -306,6 +356,22 @@ static NSString *sPlayHavenPluginIdentifier;
         }
 #endif
 #endif
+#endif
+
+        if (self.customUDID) {
+            [combinedParams setValue:self.customUDID forKey:@"d_custom"];
+        }
+
+#if PH_USE_MAC_ADDRESS == 1
+        if (![PHAPIRequest optOutStatus]) {
+            PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
+            CFDataRef macBytes = [netUtil newMACBytes];
+            if (macBytes) {
+                [combinedParams setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
+                [combinedParams setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
+                CFRelease(macBytes);
+            }
+        }
 #endif
 
         // Adds plugin identifier
@@ -441,7 +507,7 @@ static NSString *sPlayHavenPluginIdentifier;
                                                                                 nonce:nonce
                                                                                secret:self.secret];
 
-#ifndef DEBUG
+#ifndef PH_IGNORE_SIGNATURE
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
 

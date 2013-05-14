@@ -224,20 +224,25 @@ static NSString *kPHTestContentID = @"test_content_id";
 @implementation PHContentViewRedirectRecyclingTest
 - (void)testRedirectRecycling
 {
-    PHContent *content = [[PHContent alloc] init];
+    PHContent     *content     = [[PHContent alloc] init];
     PHContentView *contentView = [[PHContentView alloc] initWithContent:content];
     [content release];
 
     [contentView redirectRequest:@"ph://test" toTarget:self action:@selector(handleTest:)];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"ph://test?context=%7B%22url%22%3A%22http%3A%2F%2Fadidas.com%22%7D"]];
+    NSURLRequest *request  =
+            [NSURLRequest requestWithURL:[NSURL URLWithString:@"ph://test?context=%7B%22url%22%3A%22http%3A%2F%2Fadidas.com%22%7D"]];
     _shouldExpectParameter = YES;
-    STAssertFalse([contentView webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked], @"Didn't redirect to dispatch handler");
+    STAssertFalse([contentView webView:nil
+            shouldStartLoadWithRequest:request
+                        navigationType:UIWebViewNavigationTypeLinkClicked], @"Didn't redirect to dispatch handler");
 
     // NOTE: This rest ensures that invocation objects are being properly recycled.
     NSURLRequest *nextRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"ph://test"]];
     _shouldExpectParameter = NO;
-    STAssertFalse([contentView webView:nil shouldStartLoadWithRequest:nextRequest navigationType:UIWebViewNavigationTypeLinkClicked], @"Didn't redirect next request to dispatch handler");
+    STAssertFalse([contentView webView:nil
+            shouldStartLoadWithRequest:nextRequest
+                        navigationType:UIWebViewNavigationTypeLinkClicked], @"Didn't redirect next request to dispatch handler");
 }
 
 - (void)handleTest:(NSDictionary *)parameters
@@ -276,6 +281,35 @@ static NSString *kPHTestContentID = @"test_content_id";
     NSString *placementParam  = @"placement_id=placement_id";
     STAssertFalse([parameterString rangeOfString:placementParam].location == NSNotFound,
                   @"Placment_id parameter not present!");
+
+    NSDictionary *signedParameters  = [request signedParameters];
+    NSString     *requestURLString  = [request.URL absoluteString];
+
+#if PH_USE_UNIQUE_IDENTIFIER == 1
+    NSString *device = [signedParameters valueForKey:@"device"];
+    STAssertNotNil(device, @"UDID param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param is missing!");
+#else
+    NSString *device = [signedParameters valueForKey:@"device"];
+    STAssertNil(device, @"UDID param is present!");
+    STAssertTrue([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param exists when it shouldn't.");
+#endif
+
+#if PH_USE_MAC_ADDRESS == 1
+    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    STAssertNotNil(mac, @"MAC param is missing!");
+    STAssertNotNil(odin1, @"ODIN1 param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param is missing!");
+#else
+    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    STAssertNil(mac, @"MAC param is present!");
+    STAssertNil(odin1, @"ODIN1 param is present!");
+    STAssertTrue([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param exists when it shouldn't.");
+    STAssertTrue([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param exists when it shouldn't.");
+#endif
 }
 
 - (void)testRequestParametersCase2
@@ -445,10 +479,14 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)testPreservation
 {
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement1" delegate:nil];
-    PHPublisherContentRequest *requestIdentical = [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement1" delegate:nil];
-    PHPublisherContentRequest *requestDifferentToken = [PHPublisherContentRequest requestForApp:@"token2" secret:@"secret2" placement:@"placement1" delegate:nil];
-    PHPublisherContentRequest *requestDifferentPlacement = [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement2" delegate:nil];
+    PHPublisherContentRequest *request                   =
+          [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement1" delegate:nil];
+    PHPublisherContentRequest *requestIdentical          =
+          [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement1" delegate:nil];
+    PHPublisherContentRequest *requestDifferentToken     =
+          [PHPublisherContentRequest requestForApp:@"token2" secret:@"secret2" placement:@"placement1" delegate:nil];
+    PHPublisherContentRequest *requestDifferentPlacement =
+          [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement2" delegate:nil];
 
 
     STAssertTrue(request == requestIdentical, @"These requests should be the same instance!");
@@ -458,7 +496,7 @@ static NSString *kPHTestContentID = @"test_content_id";
     NSString *newDelegate = @"DELEGATE";
     PHPublisherContentRequest *requestNewDelegate = [PHPublisherContentRequest requestForApp:@"token1" secret:@"secret1" placement:@"placement1" delegate:newDelegate];
 
-    STAssertTrue(requestNewDelegate.delegate == newDelegate, @"This request should have had its delegate reassigned!");
+    STAssertTrue((id)requestNewDelegate.delegate == (id)newDelegate, @"This request should have had its delegate reassigned!");
 }
 @end
 
@@ -466,7 +504,10 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)setUp
 {
-    _request = [[PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:self] retain];
+    _request = [[PHPublisherContentRequest requestForApp:@"zombie1"
+                                                  secret:@"haven1"
+                                               placement:@"more_games"
+                                                delegate:self] retain];
     _didPreload = NO;
 }
 
@@ -493,7 +534,10 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)testPreloadParameterWhenPreloading
 {
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1"
+                                                                           secret:@"haven1"
+                                                                        placement:@"more_games"
+                                                                         delegate:nil];
     [request preload];
 
     NSString *parameters = [request.URL absoluteString];
@@ -503,7 +547,10 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)testPreloadParameterWhenSending
 {
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1"
+                                                                           secret:@"haven1"
+                                                                        placement:@"more_games"
+                                                                         delegate:nil];
     [request send];
 
     NSString *parameters = [request.URL absoluteString];
@@ -516,9 +563,12 @@ static NSString *kPHTestContentID = @"test_content_id";
 
 - (void)testStateChanges
 {
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1" secret:@"haven1" placement:@"more_games" delegate:nil];
+    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"zombie1"
+                                                                           secret:@"haven1"
+                                                                        placement:@"more_games"
+                                                                         delegate:nil];
 
-    STAssertTrue(request.state == PHPublisherContentRequestInitialized,@"Expected initialized state, got %d", request.state);
+    STAssertTrue(request.state == PHPublisherContentRequestInitialized, @"Expected initialized state, got %d", request.state);
     STAssertTrue([request setPublisherContentRequestState:PHPublisherContentRequestPreloaded], @"Expected to be able to advance state!");
     STAssertFalse([request setPublisherContentRequestState:PHPublisherContentRequestPreloading], @"Expected not to be able to regress state!");
 

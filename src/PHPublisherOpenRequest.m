@@ -34,7 +34,7 @@ static NSString *const kPHTimeZoneKey = @"tz";
 @end
 
 @implementation PHPublisherOpenRequest
-@synthesize customUDID = _customUDID;
+//@synthesize customUDID = _customUDID;
 
 + (void)initialize
 {
@@ -51,22 +51,6 @@ static NSString *const kPHTimeZoneKey = @"tz";
 - (NSDictionary *)additionalParameters
 {
     NSMutableDictionary *additionalParameters = [NSMutableDictionary dictionary];
-
-    if (!!self.customUDID) {
-        [additionalParameters setValue:self.customUDID forKey:@"d_custom"];
-    }
-
-#if PH_USE_MAC_ADDRESS == 1
-    if (![PHAPIRequest optOutStatus]) {
-        PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
-        CFDataRef macBytes = [netUtil newMACBytes];
-        if (macBytes) {
-            [additionalParameters setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
-            [additionalParameters setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
-            CFRelease(macBytes);
-        }
-    }
-#endif
 
     [additionalParameters setValue:[NSNumber numberWithInt:[[PHTimeInGame getInstance] getCountSessions]]
                             forKey:@"scount"];
@@ -118,7 +102,6 @@ static NSString *const kPHTimeZoneKey = @"tz";
 
 - (void)dealloc
 {
-    [_customUDID release], _customUDID = nil;
     [super dealloc];
 }
 
