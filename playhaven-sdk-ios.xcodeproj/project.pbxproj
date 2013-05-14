@@ -16,17 +16,30 @@
 		6234847223A7D7C6CF3B498B /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
 		6234849FF3AC9AB2DFFDCE47 /* PHResourceCacher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */; };
 		623484ABDA0C7791F4977088 /* PHConnectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */; };
+		6234856AEA48EED1569D03C2 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
 		62348636C5791F9602B8FD64 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		623486802624A724CEFE9022 /* PHError.h in Headers */ = {isa = PBXBuildFile; fileRef = 623481DD4CC0BD35EA03D921 /* PHError.h */; };
 		6234870D44303641D962A738 /* PHConnectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348CB17D82F294AEEA0B05 /* PHConnectionManager.h */; };
+		6234876054C099A82E7362D0 /* PHError.h in Headers */ = {isa = PBXBuildFile; fileRef = 623481DD4CC0BD35EA03D921 /* PHError.h */; };
 		623488AD098E556A84FE979E /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		623489471ABC00A733428DB6 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
+		62348A1206AAE33F3B85EC5C /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
+		62348A2BFD742EB0863CF56F /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
+		62348A973FA36C327E5245A9 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
 		62348AEF0D79852FB3C32C14 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348AF8A5D39A2868EA48EE /* PHError.h in Headers */ = {isa = PBXBuildFile; fileRef = 623481DD4CC0BD35EA03D921 /* PHError.h */; };
 		62348C26E641A8F9F1031E1A /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
 		62348CC8ADF83AF7D83E025D /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
 		62348D3EEA9F789AFB6A664A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348609073FF1A6FE01DE56 /* NSData+Base64.m */; };
 		62348D753B6B0F894B6AF667 /* PHResourceCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 623485743F4C00197912D96D /* PHResourceCacher.m */; };
+		62348D975DDF567698A38F43 /* PHError.h in Headers */ = {isa = PBXBuildFile; fileRef = 623481DD4CC0BD35EA03D921 /* PHError.h */; };
+		62348DCCC498482D1F4208C3 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
 		62348E17221039AFE93CDE47 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		62348E9579DDAD6E0F900501 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
 		62348F0961311F5A24348127 /* PHResourceCacher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */; };
 		62348F22058DD45F4D63FF58 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
+		62348FD32AC0287742CF7783 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
+		62348FFCC626F750CCD2F7B8 /* PHError.m in Sources */ = {isa = PBXBuildFile; fileRef = 623481FB27F1832CFCDD3DAF /* PHError.m */; };
 		62348FFE44D67C4BDBE3F305 /* PHConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */; };
 		D108A83015A6553700082388 /* PHTimeInGame.h in Headers */ = {isa = PBXBuildFile; fileRef = D108A82E15A6553700082388 /* PHTimeInGame.h */; };
 		D108A83115A6553700082388 /* PHTimeInGame.h in Headers */ = {isa = PBXBuildFile; fileRef = D108A82E15A6553700082388 /* PHTimeInGame.h */; };
@@ -539,6 +552,8 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		623481DD4CC0BD35EA03D921 /* PHError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHError.h; sourceTree = "<group>"; };
+		623481FB27F1832CFCDD3DAF /* PHError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHError.m; sourceTree = "<group>"; };
 		623485743F4C00197912D96D /* PHResourceCacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHResourceCacher.m; sourceTree = "<group>"; };
 		62348609073FF1A6FE01DE56 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHConnectionManager.m; sourceTree = "<group>"; };
@@ -1031,6 +1046,8 @@
 				62348A0C83B36ABAA9075E3B /* PHConnectionManager.m */,
 				62348F6C792B72ACDB05FC68 /* PHResourceCacher.h */,
 				623485743F4C00197912D96D /* PHResourceCacher.m */,
+				623481FB27F1832CFCDD3DAF /* PHError.m */,
+				623481DD4CC0BD35EA03D921 /* PHError.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1197,6 +1214,7 @@
 				D108A83015A6553700082388 /* PHTimeInGame.h in Headers */,
 				62348136FA0059F5D4D3E98B /* PHConnectionManager.h in Headers */,
 				6234849FF3AC9AB2DFFDCE47 /* PHResourceCacher.h in Headers */,
+				62348D975DDF567698A38F43 /* PHError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,6 +1251,7 @@
 				D108A83115A6553700082388 /* PHTimeInGame.h in Headers */,
 				623484ABDA0C7791F4977088 /* PHConnectionManager.h in Headers */,
 				623482B612AF3F5031BAB988 /* PHResourceCacher.h in Headers */,
+				6234876054C099A82E7362D0 /* PHError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,6 +1284,7 @@
 				D108A83215A6553700082388 /* PHTimeInGame.h in Headers */,
 				6234870D44303641D962A738 /* PHConnectionManager.h in Headers */,
 				62348F0961311F5A24348127 /* PHResourceCacher.h in Headers */,
+				623486802624A724CEFE9022 /* PHError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1299,6 +1319,7 @@
 				EAF1689D1534E34F006B6993 /* PHPublisherIAPTrackingRequest.h in Headers */,
 				EA451036156298E80095538E /* SDCachedURLResponse.h in Headers */,
 				D108A83315A6553700082388 /* PHTimeInGame.h in Headers */,
+				62348AF8A5D39A2868EA48EE /* PHError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1677,6 +1698,7 @@
 				6234811B3CABA0F980B67137 /* PHConnectionManager.m in Sources */,
 				623488AD098E556A84FE979E /* PHResourceCacher.m in Sources */,
 				62348D3EEA9F789AFB6A664A /* NSData+Base64.m in Sources */,
+				6234856AEA48EED1569D03C2 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1695,6 +1717,7 @@
 				EA7CF59D156C365C0095572E /* PlayHavenTest.m in Sources */,
 				D108A83E15A6B68600082388 /* PHTimeInGameTest.m in Sources */,
 				EA98C12D16640E4500B6AA8C /* PHNetworkUtilTest.m in Sources */,
+				62348E9579DDAD6E0F900501 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1748,6 +1771,7 @@
 				EAA86A97167FFDE100F6B388 /* IDViewController.m in Sources */,
 				62348FFE44D67C4BDBE3F305 /* PHConnectionManager.m in Sources */,
 				62348CC8ADF83AF7D83E025D /* PHResourceCacher.m in Sources */,
+				62348A1206AAE33F3B85EC5C /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1797,6 +1821,7 @@
 				EAA86A98167FFDE100F6B388 /* IDViewController.m in Sources */,
 				6234847223A7D7C6CF3B498B /* PHConnectionManager.m in Sources */,
 				62348AEF0D79852FB3C32C14 /* PHResourceCacher.m in Sources */,
+				62348A973FA36C327E5245A9 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1832,6 +1857,7 @@
 				62348D753B6B0F894B6AF667 /* PHResourceCacher.m in Sources */,
 				E69D85961718E82D00CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				EA24FCB01554510D0074FC13 /* PHNetworkUtil.m in Sources */,
+				62348FFCC626F750CCD2F7B8 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1867,6 +1893,7 @@
 				623480364AAC6FE321B48FD8 /* PHResourceCacher.m in Sources */,
 				E69D85971718E83700CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				E69D85A11718E90B00CA4997 /* PHNetworkUtil.m in Sources */,
+				62348FD32AC0287742CF7783 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1902,6 +1929,7 @@
 				62348042630B8C109AE07D23 /* PHResourceCacher.m in Sources */,
 				E69D85981718E83F00CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				E69D85A21718E90F00CA4997 /* PHNetworkUtil.m in Sources */,
+				62348DCCC498482D1F4208C3 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1935,6 +1963,7 @@
 				D108A83B15A6553700082388 /* PHTimeInGame.m in Sources */,
 				E69D85991718E84500CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */,
 				E69D85A31718E91200CA4997 /* PHNetworkUtil.m in Sources */,
+				62348A2BFD742EB0863CF56F /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1982,6 +2011,7 @@
 				EAA86A99167FFDE100F6B388 /* IDViewController.m in Sources */,
 				62348636C5791F9602B8FD64 /* PHConnectionManager.m in Sources */,
 				62348C26E641A8F9F1031E1A /* PHResourceCacher.m in Sources */,
+				623489471ABC00A733428DB6 /* PHError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
