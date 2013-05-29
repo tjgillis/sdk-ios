@@ -84,8 +84,6 @@ static NSString *const kPHContentIDKey = @"ci";
 
 - (void)handleRemoteNotificationWithUserInfo:(NSDictionary *)aUserInfo
 {
-#warning: Custom fields of a push should be agreed/documented with a server side
-
     NSString *theMessageID = [aUserInfo objectForKey:kPHMessageIDKey];
     if (nil == theMessageID)
     {
