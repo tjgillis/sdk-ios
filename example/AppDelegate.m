@@ -112,17 +112,17 @@
 #pragma mark - PN Registration
 
 - (void)application:(UIApplication *)anApplication
-			didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
+            didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
 {
-	[[PHPushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+    [[PHPushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
 
-	if ([self.navigationController.topViewController isKindOfClass:
-				[PushNotificationRegistrationViewController class]])
-	{
-		[(PushNotificationRegistrationViewController *)[self.navigationController
-					topViewController] addMessage:[NSString stringWithFormat:
+    if ([self.navigationController.topViewController isKindOfClass:
+                [PushNotificationRegistrationViewController class]])
+    {
+        [(PushNotificationRegistrationViewController *)[self.navigationController
+                    topViewController] addMessage:[NSString stringWithFormat:
                     @"Got APNS Device Token: %@", [aDeviceToken description]]];
-	}
+    }
 }
 
 - (void)application:(UIApplication *)anApplication
@@ -134,21 +134,21 @@
 }
 
 - (void)application:(UIApplication *)anApplication
-			didFailToRegisterForRemoteNotificationsWithError:(NSError *)anError
+            didFailToRegisterForRemoteNotificationsWithError:(NSError *)anError
 {
-	NSString *theLogMessage = [NSString stringWithFormat:
-				@"Error in registration for PN: %@", anError];
-	
-	if ([self.navigationController.topViewController isKindOfClass:
-				[PushNotificationRegistrationViewController class]])
-	{
-		[(PushNotificationRegistrationViewController *)[self.navigationController
-					topViewController] addMessage:theLogMessage];
-	}
-	else
-	{
-		NSLog(@"%@", theLogMessage);
-	}
+    NSString *theLogMessage = [NSString stringWithFormat:
+                @"Error in registration for PN: %@", anError];
+
+    if ([self.navigationController.topViewController isKindOfClass:
+                [PushNotificationRegistrationViewController class]])
+    {
+        [(PushNotificationRegistrationViewController *)[self.navigationController topViewController]
+                    addMessage:theLogMessage];
+    }
+    else
+    {
+        NSLog(@"%@", theLogMessage);
+    }
 }
 
 #pragma mark - Private
@@ -157,11 +157,13 @@
 {
     PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
 
-	if (0 == [theAppIdentity.applicationToken length]) {
+    if (0 == [theAppIdentity.applicationToken length])
+    {
         theAppIdentity.applicationToken = @"8ae979ddcdaf450996e897322169d26c";
     }
 
-    if (0 == [theAppIdentity.applicationSecret length]) {
+    if (0 == [theAppIdentity.applicationSecret length])
+    {
         theAppIdentity.applicationSecret = @"080d853e433a4468ba3315953b22615e";
     }
 }

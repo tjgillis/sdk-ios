@@ -52,34 +52,34 @@ static NSString *const kPHContentIDKey = @"ci";
 
 - (id)init
 {
-	self = [super init];
-	if (nil != self)
-	{
-		_registrationObservers = CFArrayCreateMutable(kCFAllocatorDefault, 10, NULL);
-	}
-	return self;
+    self = [super init];
+    if (nil != self)
+    {
+        _registrationObservers = CFArrayCreateMutable(kCFAllocatorDefault, 10, NULL);
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-	CFRelease(_registrationObservers);
+    CFRelease(_registrationObservers);
     [_APNSDeviceToken release];
     [_applicationToken release];
     [_applicationSecret release];
-	
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 - (void)registerForPushNotifications
 {
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-				UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+                UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert];
 }
 
 - (void)unregisterForPushNotifications
 {
-	[[UIApplication sharedApplication] unregisterForRemoteNotifications];
-	[self registerAPNSDeviceToken:nil];
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    [self registerAPNSDeviceToken:nil];
 }
 
 - (void)handleRemoteNotificationWithUserInfo:(NSDictionary *)aUserInfo
@@ -116,7 +116,7 @@ static NSString *const kPHContentIDKey = @"ci";
 {
     self.APNSDeviceToken = aToken;
     
-	PHPushRequest *theRequest = [PHPushRequest requestForApp:self.applicationToken secret:
+    PHPushRequest *theRequest = [PHPushRequest requestForApp:self.applicationToken secret:
                 self.applicationSecret pushNotificationDeviceToken:aToken];
     if (nil != aToken && nil == theRequest)
     {
@@ -126,37 +126,37 @@ static NSString *const kPHContentIDKey = @"ci";
                     "token."}];
         [self didFailToRegisterAPNSDeviceTokenWithError:theError];
     }
-	
-	theRequest.delegate = self;
-	[theRequest send];
+    
+    theRequest.delegate = self;
+    [theRequest send];
 }
 
 - (void)addObserver:(id<PHPushRegistrationObserver>)anObserver
 {
-	if (!CFArrayContainsValue(self.registrationObservers, CFRangeMake(0,
-				CFArrayGetCount(self.registrationObservers)), anObserver))
-	{
-		CFArrayAppendValue(self.registrationObservers, anObserver);
-	}
+    if (!CFArrayContainsValue(self.registrationObservers, CFRangeMake(0,
+                CFArrayGetCount(self.registrationObservers)), anObserver))
+    {
+        CFArrayAppendValue(self.registrationObservers, anObserver);
+    }
 }
 
 - (void)removeObserver:(id<PHPushRegistrationObserver>)anObserver
 {
-	if (CFArrayContainsValue(self.registrationObservers, CFRangeMake(0,
-				CFArrayGetCount(self.registrationObservers)), anObserver))
-	{
-		CFArrayRemoveValueAtIndex(self.registrationObservers, CFArrayGetFirstIndexOfValue(
-					self.registrationObservers, CFRangeMake(0, CFArrayGetCount(
-					self.registrationObservers)), anObserver));
-	}
+    if (CFArrayContainsValue(self.registrationObservers, CFRangeMake(0,
+                CFArrayGetCount(self.registrationObservers)), anObserver))
+    {
+        CFArrayRemoveValueAtIndex(self.registrationObservers, CFArrayGetFirstIndexOfValue(
+                    self.registrationObservers, CFRangeMake(0, CFArrayGetCount(
+                    self.registrationObservers)), anObserver));
+    }
 }
 
 #pragma mark - PHAPIRequestDelegate
 
 - (void)request:(PHAPIRequest *)aRequest
-			didSucceedWithResponse:(NSDictionary *)aResponseData
+            didSucceedWithResponse:(NSDictionary *)aResponseData
 {
-	if (![aRequest isKindOfClass:[PHPushRequest class]])
+    if (![aRequest isKindOfClass:[PHPushRequest class]])
     {
         return;
     }
@@ -169,22 +169,22 @@ static NSString *const kPHContentIDKey = @"ci";
     }
     
     for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
-				++theIndex)
-	{
-		id<PHPushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
-					self.registrationObservers, theIndex);
+                ++theIndex)
+    {
+        id<PHPushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
+                    self.registrationObservers, theIndex);
         
         if ([theObserver respondsToSelector:@selector(
                     providerDidRegisterAPNSDeviceToken:)])
         {
             [theObserver providerDidRegisterAPNSDeviceToken:self];
         }
-	}
+    }
 }
 
 - (void)request:(PHAPIRequest *)aRequest didFailWithError:(NSError *)anError
 {
-	if (![aRequest isKindOfClass:[PHPushRequest class]])
+    if (![aRequest isKindOfClass:[PHPushRequest class]])
     {
         return;
     }
@@ -204,18 +204,18 @@ static NSString *const kPHContentIDKey = @"ci";
 
 - (void)didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
 {
-	for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
-				++theIndex)
-	{
-		id<PHPushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
-					self.registrationObservers, theIndex);
+    for (unsigned theIndex = 0; theIndex < CFArrayGetCount(self.registrationObservers);
+                ++theIndex)
+    {
+        id<PHPushRegistrationObserver> theObserver = CFArrayGetValueAtIndex(
+                    self.registrationObservers, theIndex);
 
         if ([theObserver respondsToSelector:@selector(
                     provider:didFailToRegisterAPNSDeviceTokenWithError:)])
         {
             [theObserver provider:self didFailToRegisterAPNSDeviceTokenWithError:anError];
         }
-	}
+    }
 }
 
 @end

@@ -65,14 +65,14 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 
 - (void)dealloc
 {
-	[_controllersInformation release];
-	[tokenField release];
-	[secretField release];
-	[optOutStatusSlider release];
-	[serviceURLField release];
-	[clearCacheButton release];
+    [_controllersInformation release];
+    [tokenField release];
+    [secretField release];
+    [optOutStatusSlider release];
+    [serviceURLField release];
+    [clearCacheButton release];
 
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -230,13 +230,13 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-	 
-	 cell.textLabel.text = [[self.controllersInformation objectAtIndex:indexPath.row]
-				 objectForKey:kPHControllerNameKey];
-	 cell.detailTextLabel.text = [[self.controllersInformation objectAtIndex:indexPath.row]
-				 objectForKey:kPHControllerDescriptionKey];
-	 cell.accessibilityLabel = [[self.controllersInformation objectAtIndex:indexPath.row]
-				 objectForKey:kPHAccessibilityLabelKey];
+
+    cell.textLabel.text = [[self.controllersInformation objectAtIndex:indexPath.row]
+                objectForKey:kPHControllerNameKey];
+    cell.detailTextLabel.text = [[self.controllersInformation objectAtIndex:indexPath.row]
+                objectForKey:kPHControllerDescriptionKey];
+    cell.accessibilityLabel = [[self.controllersInformation objectAtIndex:indexPath.row]
+                objectForKey:kPHAccessibilityLabelKey];
 
     return cell;
 }
@@ -246,20 +246,22 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
     if ([self isTokenAndSecretFilledIn]) {
         [self saveTokenAndSecretToDefaults];
 
-			Class theControllerClass = NSClassFromString([[self.controllersInformation
-						objectAtIndex:indexPath.row] objectForKey:kPHClassNameKey]);
-			UIViewController *theController = [[theControllerClass new] autorelease];
-			theController.title = [[self.controllersInformation objectAtIndex:indexPath.row]
-						objectForKey:kPHControllerNameKey];
+        Class theControllerClass = NSClassFromString([[self.controllersInformation objectAtIndex:
+                    indexPath.row] objectForKey:kPHClassNameKey]);
+        UIViewController *theController = [[theControllerClass new] autorelease];
+        theController.title = [[self.controllersInformation objectAtIndex:indexPath.row]
+                    objectForKey:kPHControllerNameKey];
 
-			if ([theController isKindOfClass:[ExampleViewController class]])
-			{
-				ExampleViewController *theExampleController = (ExampleViewController *)theController;
-				theExampleController.token  = self.tokenField.text;
-				theExampleController.secret = self.secretField.text;
-			}
-			[self.navigationController pushViewController:theController animated:YES];
-    } else {
+        if ([theController isKindOfClass:[ExampleViewController class]])
+        {
+            ExampleViewController *theExampleController = (ExampleViewController *)theController;
+            theExampleController.token  = self.tokenField.text;
+            theExampleController.secret = self.secretField.text;
+        }
+        [self.navigationController pushViewController:theController animated:YES];
+    }
+    else
+    {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Credentials"
                                                         message:@"You must supply a PlayHaven API token and secret to use this app. To get a token and secret, please visit http://playhaven.com on your computer and sign up."
                                                        delegate:nil
@@ -283,48 +285,48 @@ static NSString *kPHAccessibilityLabelKey = @"AccessibilityLabel";
 
 - (NSArray *)controllersInformation
 {
-	if (nil == _controllersInformation)
-	{
-		_controllersInformation = [@[@{kPHClassNameKey : NSStringFromClass(
-					[PublisherOpenViewController class]), kPHControllerNameKey : @"Open",
-					kPHControllerDescriptionKey : @"/publisher/open/",
-					kPHAccessibilityLabelKey : @"open"},
-					
-					@{kPHClassNameKey : NSStringFromClass([PublisherContentViewController class]),
-					kPHControllerNameKey : @"Content",
-					kPHControllerDescriptionKey : @"/publisher/content/",
-					kPHAccessibilityLabelKey : @"content"},
+    if (nil == _controllersInformation)
+    {
+        _controllersInformation = [@[@{kPHClassNameKey : NSStringFromClass(
+                    [PublisherOpenViewController class]), kPHControllerNameKey : @"Open",
+                    kPHControllerDescriptionKey : @"/publisher/open/",
+                    kPHAccessibilityLabelKey : @"open"},
 
-					@{kPHClassNameKey : NSStringFromClass(
-					[PushNotificationRegistrationViewController class]),
-					kPHControllerNameKey : @"Push Notification Registration",
-					kPHControllerDescriptionKey : @"/publisher/push/"},
-					
-					@{kPHClassNameKey : NSStringFromClass([PublisherIAPTrackingViewController class]),
-					 kPHControllerNameKey : @"IAP Tracking",
-					kPHControllerDescriptionKey : @""},
+                    @{kPHClassNameKey : NSStringFromClass([PublisherContentViewController class]),
+                    kPHControllerNameKey : @"Content",
+                    kPHControllerDescriptionKey : @"/publisher/content/",
+                    kPHAccessibilityLabelKey : @"content"},
 
-					@{kPHClassNameKey : NSStringFromClass([PublisherCancelContentViewController class]),
-					kPHControllerNameKey : @"Cancelled Content",
-					kPHControllerDescriptionKey :  @"This content will be cancelled at an awkward time.",
-					kPHAccessibilityLabelKey : @""},
+                    @{kPHClassNameKey : NSStringFromClass(
+                    [PushNotificationRegistrationViewController class]),
+                    kPHControllerNameKey : @"Push Notification Registration",
+                    kPHControllerDescriptionKey : @"/publisher/push/"},
 
-					@{kPHClassNameKey : NSStringFromClass([URLLoaderViewController class]),
-					kPHControllerNameKey : @"URL Loader",
-					kPHControllerDescriptionKey : @"Test loading device URLs",
-					kPHAccessibilityLabelKey : @"url loader"},
+                    @{kPHClassNameKey : NSStringFromClass([PublisherIAPTrackingViewController class]),
+                     kPHControllerNameKey : @"IAP Tracking",
+                    kPHControllerDescriptionKey : @""},
 
-					@{kPHClassNameKey : NSStringFromClass(
-					[IAPViewController class]), kPHControllerNameKey : @"IAP",
-					kPHControllerDescriptionKey : @"Test In-App Purchases",
-					kPHAccessibilityLabelKey : @"iap"},
+                    @{kPHClassNameKey : NSStringFromClass([PublisherCancelContentViewController class]),
+                    kPHControllerNameKey : @"Cancelled Content",
+                    kPHControllerDescriptionKey :  @"This content will be cancelled at an awkward time.",
+                    kPHAccessibilityLabelKey : @""},
 
-					@{kPHClassNameKey : NSStringFromClass([IDViewController class]),
-					kPHControllerNameKey : @"Identifiers",
-					kPHControllerDescriptionKey : @"All of them",
-					kPHAccessibilityLabelKey : @"identifiers"}] retain];
-	}
-	return _controllersInformation;
+                    @{kPHClassNameKey : NSStringFromClass([URLLoaderViewController class]),
+                    kPHControllerNameKey : @"URL Loader",
+                    kPHControllerDescriptionKey : @"Test loading device URLs",
+                    kPHAccessibilityLabelKey : @"url loader"},
+
+                    @{kPHClassNameKey : NSStringFromClass(
+                    [IAPViewController class]), kPHControllerNameKey : @"IAP",
+                    kPHControllerDescriptionKey : @"Test In-App Purchases",
+                    kPHAccessibilityLabelKey : @"iap"},
+
+                    @{kPHClassNameKey : NSStringFromClass([IDViewController class]),
+                    kPHControllerNameKey : @"Identifiers",
+                    kPHControllerDescriptionKey : @"All of them",
+                    kPHAccessibilityLabelKey : @"identifiers"}] retain];
+    }
+    return _controllersInformation;
 }
 
 @end

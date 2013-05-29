@@ -28,7 +28,7 @@
  *  a server representing push notifications provider.
  **/
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken;
+            pushNotificationDeviceToken:(NSData *)aDeviceToken;
 /**
  * Constructs a request which is used to register/unregister for push notifications on
  * PlayHaven server which provides notifications to Apple Push Service.
@@ -45,7 +45,7 @@
  *   An initialized request
  **/
 - (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken;
+            pushNotificationDeviceToken:(NSData *)aDeviceToken;
 /**
  * Device token passed to the request during initialization.
  **/

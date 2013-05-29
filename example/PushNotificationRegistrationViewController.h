@@ -26,7 +26,7 @@
  * @brief Controller demonstrating how to enable/disable push notifications from PlayHaven
  **/
 @interface PushNotificationRegistrationViewController : ExampleViewController
-			<PHPushRegistrationObserver>
+            <PHPushRegistrationObserver>
 
 - (IBAction)registerForPushNotifications:(id)aSender;
 - (IBAction)unregisterForPushNotifications:(id)aSender;

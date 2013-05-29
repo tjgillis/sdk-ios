@@ -79,7 +79,7 @@
 #pragma mark - PHPushRegistrationObserver
 
 - (void)provider:(PHPushProvider *)aProvider
-			didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
+            didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
 {
     self.registrationError = anError;
 }

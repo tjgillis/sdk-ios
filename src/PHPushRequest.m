@@ -32,44 +32,44 @@ static NSString *const kPHPushTokenKey = @"push_token";
 @implementation PHPushRequest
 
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken
+            pushNotificationDeviceToken:(NSData *)aDeviceToken
 {
-	return [[[[self class] alloc] initWithApp:aToken secret:aSecret
-				pushNotificationDeviceToken:aDeviceToken] autorelease];
+    return [[[[self class] alloc] initWithApp:aToken secret:aSecret
+                pushNotificationDeviceToken:aDeviceToken] autorelease];
 }
 
 - (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken
+            pushNotificationDeviceToken:(NSData *)aDeviceToken
 {
-	if ((self = [super initWithApp:aToken secret:aSecret]))
-	{
-		_pushNotificationDeviceToken = [aDeviceToken retain];
-	}
-	
-	return self;
+    if ((self = [super initWithApp:aToken secret:aSecret]))
+    {
+        _pushNotificationDeviceToken = [aDeviceToken retain];
+    }
+    
+    return self;
 }
 
 - (void)dealloc
 {
-	[_pushNotificationDeviceToken release];
-	
-	[super dealloc];
+    [_pushNotificationDeviceToken release];
+    
+    [super dealloc];
 }
 
 #pragma mark - PHAPIRequest
 
 - (NSString *)urlPath
 {
-	return PH_URL(/v3/publisher/push/);
+    return PH_URL(/v3/publisher/push/);
 }
 
 - (NSDictionary *)additionalParameters
 {
-	// nil device token means unregistration for push notifications
-	NSString *thPushTokenHexRep = nil == self.pushNotificationDeviceToken ? @"" :
-				[PHStringUtil hexEncodedStringForData:self.pushNotificationDeviceToken];
+    // nil device token means unregistration for push notifications
+    NSString *thPushTokenHexRep = nil == self.pushNotificationDeviceToken ? @"" :
+                [PHStringUtil hexEncodedStringForData:self.pushNotificationDeviceToken];
 
-	return @{kPHPushTokenKey : thPushTokenHexRep};
+    return @{kPHPushTokenKey : thPushTokenHexRep};
 }
 
 @end

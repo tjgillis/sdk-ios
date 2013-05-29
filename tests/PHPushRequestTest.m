@@ -84,8 +84,8 @@
 
     for (NSUInteger theIndex = 0; theIndex < [aString length]; theIndex += 2)
     {
-        uint8_t theByte = (uint8_t)strtol([[aString substringWithRange:NSMakeRange(theIndex,
-                    2)] UTF8String], NULL, 16);
+        uint8_t theByte = (uint8_t)strtol([[aString substringWithRange:NSMakeRange(theIndex,2)]
+                    UTF8String], NULL, 16);
         [theData appendBytes:&theByte length:1];
     }
 

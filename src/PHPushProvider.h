@@ -83,8 +83,8 @@
  * unregistration events.
  *
  * @param anObserver
- *	Observers are not retained and caller is responsible for removing observer at before
- *	it is released.
+ *  Observers are not retained and caller is responsible for removing observer at before
+ *  it is released.
  **/
 - (void)addObserver:(id<PHPushRegistrationObserver>)anObserver;
 - (void)removeObserver:(id<PHPushRegistrationObserver>)anObserver;
@@ -95,7 +95,7 @@
 
 - (void)providerDidRegisterAPNSDeviceToken:(PHPushProvider *)aProvider;
 - (void)provider:(PHPushProvider *)aProvider
-			didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError;
+            didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError;
 @end
 
 @protocol PHPushProviderDelegate <NSObject>
@@ -110,10 +110,10 @@
  * the time this method is called.
  *
  * @param aProvider
- *	aProvider which is initiated this call
+ *  aProvider which is initiated this call
  *
  * @param aRequest
- *	aRequest - request object created by the provider to load content associated with the push
+ *  aRequest - request object created by the provider to load content associated with the push
  *  notification.
  **/
 - (BOOL)pushProvider:(PHPushProvider *)aProvider

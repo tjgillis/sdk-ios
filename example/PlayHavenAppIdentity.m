@@ -52,7 +52,7 @@ static NSString *const kPlayhavenAppSecretKey = @"ExampleSecret";
 
 - (NSString *)applicationSecret
 {
-	return [[NSUserDefaults standardUserDefaults] valueForKey:kPlayhavenAppSecretKey];
+    return [[NSUserDefaults standardUserDefaults] valueForKey:kPlayhavenAppSecretKey];
 }
 
 - (void)setApplicationSecret:(NSString *)aSecret
@@ -65,7 +65,7 @@ static NSString *const kPlayhavenAppSecretKey = @"ExampleSecret";
 - (void)storeValue:(id)aValue forKey:(NSString *)aKey
 {
     NSUserDefaults *theDefaults = [NSUserDefaults standardUserDefaults];
-	
+
     [theDefaults setValue:aValue forKey:aKey];
     [theDefaults synchronize];
 }

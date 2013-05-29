@@ -33,19 +33,19 @@ static NSString *const kPHRequestParameterContentID = @"content_id";
 @implementation PHPushDeliveryRequest
 
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
+            pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID
 {
-	return [[[[self class] alloc] initWithApp:aToken secret:aSecret
-				pushNotificationDeviceToken:aDeviceToken messageID:aMessageID contentUnitID:
+    return [[[[self class] alloc] initWithApp:aToken secret:aSecret
+                pushNotificationDeviceToken:aDeviceToken messageID:aMessageID contentUnitID:
                 aContentID] autorelease];
 }
 
 - (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
+            pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID
 {
-	if (nil == aDeviceToken || nil == aMessageID)
+    if (nil == aDeviceToken || nil == aMessageID)
     {
         PH_LOG(@"ERROR: Cannot initialize request with nil argument. (aDeviceToken - %@;"
                     " aMessageID - %@)",aDeviceToken, aMessageID, nil);
@@ -55,27 +55,27 @@ static NSString *const kPHRequestParameterContentID = @"content_id";
     
     self = [super initWithApp:aToken secret:aSecret pushNotificationDeviceToken:aDeviceToken];
     if (nil != self)
-	{
+    {
         _messageID = [aMessageID retain];
         _contentID = [aContentID retain];
-	}
-	
-	return self;
+    }
+
+    return self;
 }
 
 - (void)dealloc
 {
-	[_messageID release];
+    [_messageID release];
     [_contentID release];
-	
-	[super dealloc];
+
+    [super dealloc];
 }
 
 #pragma mark - PHAPIRequest
 
 - (NSDictionary *)additionalParameters
 {
-	NSMutableDictionary *theParameters = [NSMutableDictionary dictionaryWithDictionary:[super
+    NSMutableDictionary *theParameters = [NSMutableDictionary dictionaryWithDictionary:[super
                 additionalParameters]];
 
     [theParameters setObject:self.messageID forKey:kPHRequestParameterMessageID];
@@ -85,7 +85,7 @@ static NSString *const kPHRequestParameterContentID = @"content_id";
         [theParameters setObject:self.contentID forKey:kPHRequestParameterContentID];
     }
 
-	return theParameters;
+    return theParameters;
 }
 
 @end

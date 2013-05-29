@@ -147,22 +147,22 @@
 
 - (NSString *)stringForMACBytes:(CFDataRef)macBytes
 {
-	 if (NULL == macBytes)
-	 {
-		return nil;
-	 }
-	 
-	 const uint8_t *ptr = CFDataGetBytePtr(macBytes);
+    if (NULL == macBytes)
+    {
+        return nil;
+    }
+
+    const uint8_t *ptr = CFDataGetBytePtr(macBytes);
     return [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X",
                             *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)] lowercaseString];
 }
 
 - (NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes
 {
-	 if (NULL == macBytes)
-	 {
-		return nil;
-	 }
+    if (NULL == macBytes)
+    {
+        return nil;
+    }
 
     unsigned char messageDigest[CC_SHA1_DIGEST_LENGTH];
 

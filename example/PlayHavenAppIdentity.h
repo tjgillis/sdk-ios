@@ -23,7 +23,7 @@
 
 /**
  * @brief Utility class that represents configurable parametrs which are passed to
- *	PlayHaven SDK.
+ *  PlayHaven SDK.
  **/
 @interface PlayHavenAppIdentity : NSObject
 + (PlayHavenAppIdentity *)sharedIdentity;

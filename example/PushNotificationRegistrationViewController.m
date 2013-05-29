@@ -32,8 +32,8 @@
     [super viewDidLoad];
 
     self.navigationItem.rightBarButtonItem = nil;
-	
-	[[PHPushProvider sharedInstance] addObserver:self];
+
+    [[PHPushProvider sharedInstance] addObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,24 +44,24 @@
 
 - (void)dealloc
 {
-	[[PHPushProvider sharedInstance] removeObserver:self];
-	
-	[super dealloc];
+    [[PHPushProvider sharedInstance] removeObserver:self];
+
+    [super dealloc];
 }
 
 - (IBAction)registerForPushNotifications:(id)aSender
 {
-	[self startTimers];
-	[self addMessage:@"Sending Registration Request to PNs Provider..."];
+    [self startTimers];
+    [self addMessage:@"Sending Registration Request to PNs Provider..."];
 
-	[[PHPushProvider sharedInstance] registerForPushNotifications];
+    [[PHPushProvider sharedInstance] registerForPushNotifications];
 }
 
 - (IBAction)unregisterForPushNotifications:(id)aSender
 {
-	[[PHPushProvider sharedInstance] unregisterForPushNotifications];
+    [[PHPushProvider sharedInstance] unregisterForPushNotifications];
 
-	[self addMessage:@"Unregistration Request has been sent."];
+    [self addMessage:@"Unregistration Request has been sent."];
 }
 
 #pragma mark - PHPushRegistrationObserver
@@ -74,10 +74,10 @@
 }
 
 - (void)provider:(PHPushProvider *)aProvider
-			didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
+            didFailToRegisterAPNSDeviceTokenWithError:(NSError *)anError
 {
     NSString *theMessage = [NSString stringWithFormat:@"[ERROR] Failed to register with error: %@",
-				anError];
+                anError];
     [self addMessage:theMessage];
 
     [self finishRequest];

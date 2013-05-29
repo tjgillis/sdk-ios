@@ -30,7 +30,7 @@
  * Convenience method creating an autoreleased request object.
  **/
 + (id)requestForApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
+            pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID;
 
 /**
@@ -50,7 +50,7 @@
  *  associated with some content, identifier of that content is sent in the notification payload.
  **/
 - (id)initWithApp:(NSString *)aToken secret:(NSString *)aSecret
-			pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
+            pushNotificationDeviceToken:(NSData *)aDeviceToken messageID:(NSString *)aMessageID
             contentUnitID:(NSString *)aContentID;
 
 @end
