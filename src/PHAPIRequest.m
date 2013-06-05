@@ -112,6 +112,9 @@ static NSString *sPlayHavenPluginIdentifier;
 
 + (NSString *)expectedSignatureValueForResponse:(NSString *)responseString nonce:(NSString *)nonce secret:(NSString *)secret
 {
+    if (!responseString || !secret)
+        return nil;
+
     const char   *cKey = [secret cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
 
@@ -385,6 +388,7 @@ static NSString *sPlayHavenPluginIdentifier;
     if (!alreadySent)
     {
         PH_LOG(@"Sending request: %@", [self.URL absoluteString]);
+
         NSURLRequest *request = [NSURLRequest requestWithURL:self.URL
                                                  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                              timeoutInterval:PH_REQUEST_TIMEOUT];
@@ -426,6 +430,8 @@ static NSString *sPlayHavenPluginIdentifier;
 
     NSString *responseString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
+    if (!responseString) ; // TODO: Create an error for when responseString is nil, which happens when data is not UTF8 encoded. Right now it fails in the signature check
+
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSString *requestSignature  = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
@@ -434,13 +440,11 @@ static NSString *sPlayHavenPluginIdentifier;
                                                                                 nonce:nonce
                                                                                secret:self.secret];
 
-#ifndef DEBUG
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
 
             return;
         }
-#endif
     }
 
     PH_SBJSONPARSER_CLASS *parser           = [[[PH_SBJSONPARSER_CLASS alloc] init] autorelease];
