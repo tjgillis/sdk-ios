@@ -25,6 +25,11 @@ Also see the [Integration](#integration) and [API Reference](#api-reference) sec
 Version History
 ===============
 
+1.13.2
+======
+* Bug fix
+
+
 1.13.1
 ======
 * MAC Address, ODIN1, customUDID parameters are now sent on all requests
