@@ -500,7 +500,7 @@ static NSString *sPlayHavenCustomUDID;
 
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        NSString *requestSignature  = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
+        NSString *requestSignature  = [self requestSignatureFromHttpHeaderFields:[httpResponse allHeaderFields]];
         NSString *nonce             = [self.signedParameters valueForKey:@"nonce"];
         NSString *expectedSignature = [PHAPIRequest expectedSignatureValueForResponse:responseString
                                                                                 nonce:nonce
@@ -568,4 +568,27 @@ static NSString *sPlayHavenCustomUDID;
 
     [self finish];
 }
+
+#pragma mark -
+
+// The functions returns request signature looking for X-PH-DIGEST header field using
+// caseinsennsetive comparsion. It fixes an issue with signature validation failing as some
+// iOS versions return expected header but with changed letters so that just first letter are in
+// upper-case. F.e. 4.3.2 returns X-Ph-Digest.
+- (NSString *)requestSignatureFromHttpHeaderFields:(NSDictionary *)aHeaderFields
+{
+    NSString *theSignature = nil;
+    
+    for (NSString *theFiledName in [aHeaderFields allKeys])
+    {
+        if (NSOrderedSame == [theFiledName caseInsensitiveCompare:@"X-PH-DIGEST"])
+        {
+            theSignature = [aHeaderFields objectForKey:theFiledName];
+            break;
+        }
+    }
+    
+    return theSignature;
+}
+
 @end
