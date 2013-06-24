@@ -148,6 +148,8 @@
  **/
 + (id)requestForApp:(NSString *)token secret:(NSString *)secret;
 
+- (id)initWithApp:(NSString *)token secret:(NSString *)secret;
+
 /**
  * Returns an existing request with a hash code value of \c hashCode.
  * Used by the Unity3d plugin.

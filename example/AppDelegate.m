@@ -21,6 +21,9 @@
 
 #import "AppDelegate.h"
 #import "IAPHelper.h"
+#import "PushNotificationRegistrationViewController.h"
+#import "PlayHavenSDK.h"
+#import "PlayHavenAppIdentity.h"
 
 #if RUN_KIF_TESTS
 #import "PHTestController.h"
@@ -32,12 +35,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self configurePlayHaven];
+
     // Override point for customization after application launch.
     // Add the navigation controller's view to the window and display.
     self.window.rootViewController = self.navigationController;
 
     [self.window makeKeyAndVisible];
     [[IAPHelper sharedIAPHelper] restorePurchases];
+
+    PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
+
+    [PHPushProvider sharedInstance].applicationToken = theAppIdentity.applicationToken;
+    [PHPushProvider sharedInstance].applicationSecret = theAppIdentity.applicationSecret;
+    
+    [[PHPushProvider sharedInstance] registerForPushNotifications];
+    [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions
+                objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 
 #if RUN_KIF_TESTS
     [[PHTestController sharedInstance] startTestingWithCompletionBlock:^{
@@ -93,6 +107,65 @@
     [_window release];
     [_navigationController release];
     [super dealloc];
+}
+
+#pragma mark - PN Registration
+
+- (void)application:(UIApplication *)anApplication
+            didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
+{
+    [[PHPushProvider sharedInstance] registerAPNSDeviceToken:aDeviceToken];
+
+    if ([self.navigationController.topViewController isKindOfClass:
+                [PushNotificationRegistrationViewController class]])
+    {
+        [(PushNotificationRegistrationViewController *)[self.navigationController
+                    topViewController] addMessage:[NSString stringWithFormat:
+                    @"Got APNS Device Token: %@", [aDeviceToken description]]];
+    }
+}
+
+- (void)application:(UIApplication *)anApplication
+            didReceiveRemoteNotification:(NSDictionary *)aUserInfo
+{
+    NSLog(@"Did receive notification with user info: %@", aUserInfo);
+
+    [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:aUserInfo];
+}
+
+- (void)application:(UIApplication *)anApplication
+            didFailToRegisterForRemoteNotificationsWithError:(NSError *)anError
+{
+    NSString *theLogMessage = [NSString stringWithFormat:
+                @"Error in registration for PN: %@", anError];
+
+    if ([self.navigationController.topViewController isKindOfClass:
+                [PushNotificationRegistrationViewController class]])
+    {
+        [(PushNotificationRegistrationViewController *)[self.navigationController topViewController]
+                    addMessage:theLogMessage];
+    }
+    else
+    {
+        NSLog(@"%@", theLogMessage);
+    }
+}
+
+#pragma mark - Private
+
+- (void)configurePlayHaven
+{
+    PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
+
+    if (0 == [theAppIdentity.applicationToken length])
+    {
+        theAppIdentity.applicationToken = @"8ae979ddcdaf450996e897322169d26c";
+    }
+
+    if (0 == [theAppIdentity.applicationSecret length])
+    {
+        theAppIdentity.applicationSecret = @"080d853e433a4468ba3315953b22615e";
+    }
 }
 
 @end

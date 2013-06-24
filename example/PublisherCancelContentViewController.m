@@ -26,6 +26,12 @@ static NSString *PublisherCancelContentViewControllerNotification = @"PublisherC
 @implementation PublisherCancelContentViewController
 
 #pragma mark -
+
+- (NSString *)nibName
+{
+    return @"PublisherContentViewController";
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
