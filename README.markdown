@@ -25,19 +25,22 @@ Also see the [Integration](#integration) and [API Reference](#api-reference) sec
 Version History
 ===============
 
+1.13.2
+======
+* Addresse an issue which causes content units to not work on iOS 4.3
+* Addresses an issue with the error management of PHAPIRequest.m
+
 1.13.1
 ======
 * MAC Address, ODIN1, customUDID parameters are now sent on all requests
 * The customUDID parameter now strips RFC 3986 Reserved Characters
 * More unit tests added and a warning fixed
 
-
 1.13.0
 ======
 * UDID collection has been removed to comply with Apple’s policy for the use of device information, beginning May 1, 2013
 * Receipt verification available on the SDK with server-side component available soon. See [Tracking in-app purchases](#tracking-in-app-purchases) for information on how to integrate this into your app
 * Miscellaneous bug fixes
-
 
 1.12.1
 ======
