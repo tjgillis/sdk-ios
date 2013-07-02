@@ -113,6 +113,9 @@ static NSString *sPlayHavenCustomUDID;
 
 + (NSString *)expectedSignatureValueForResponse:(NSString *)responseString nonce:(NSString *)nonce secret:(NSString *)secret
 {
+    if (!responseString || !secret)
+        return nil;
+
     const char   *cKey = [secret cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
 
@@ -458,6 +461,7 @@ static NSString *sPlayHavenCustomUDID;
     if (!alreadySent)
     {
         PH_LOG(@"Sending request: %@", [self.URL absoluteString]);
+
         NSURLRequest *request = [NSURLRequest requestWithURL:self.URL
                                                  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                              timeoutInterval:PH_REQUEST_TIMEOUT];
@@ -499,21 +503,21 @@ static NSString *sPlayHavenCustomUDID;
 
     NSString *responseString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
+    //if (!responseString) ; // TODO: Create an error for when responseString is nil, which happens when data is not UTF8 encoded. Right now it fails in the signature check
+
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        NSString *requestSignature  = [[httpResponse allHeaderFields] valueForKey:@"X-PH-DIGEST"];
+        NSString *requestSignature  = [self requestSignatureFromHttpHeaderFields:[httpResponse allHeaderFields]];
         NSString *nonce             = [self.signedParameters valueForKey:@"nonce"];
         NSString *expectedSignature = [PHAPIRequest expectedSignatureValueForResponse:responseString
                                                                                 nonce:nonce
                                                                                secret:self.secret];
 
-#ifndef PH_IGNORE_SIGNATURE
         if (![expectedSignature isEqualToString:requestSignature]) {
             [self didFailWithError:PHCreateError(PHRequestDigestErrorType)];
 
             return;
         }
-#endif
     }
 
     PH_SBJSONPARSER_CLASS *parser           = [[[PH_SBJSONPARSER_CLASS alloc] init] autorelease];
@@ -571,4 +575,27 @@ static NSString *sPlayHavenCustomUDID;
 
     [self finish];
 }
+
+#pragma mark -
+
+// The functions returns request signature looking for X-PH-DIGEST header field using
+// caseinsennsetive comparsion. It fixes an issue with signature validation failing as some
+// iOS versions return expected header but with changed letters so that just first letter are in
+// upper-case. F.e. 4.3.2 returns X-Ph-Digest.
+- (NSString *)requestSignatureFromHttpHeaderFields:(NSDictionary *)aHeaderFields
+{
+    NSString *theSignature = nil;
+    
+    for (NSString *theFiledName in [aHeaderFields allKeys])
+    {
+        if (NSOrderedSame == [theFiledName caseInsensitiveCompare:@"X-PH-DIGEST"])
+        {
+            theSignature = [aHeaderFields objectForKey:theFiledName];
+            break;
+        }
+    }
+    
+    return theSignature;
+}
+
 @end
