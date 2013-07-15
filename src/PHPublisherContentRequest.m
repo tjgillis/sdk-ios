@@ -47,6 +47,7 @@ static NSString *const kPHRequestPreloadedKey = @"preload";
 static NSString *const kPHIsaKey              = @"isa";
 static NSString *const kPHPlacementIDKey      = @"placement_id";
 static NSString *const kPHContentIDKey        = @"content_id";
+static NSString *const kPHRequestParameterMessageIDKey = @"message_id";
 
 PHPublisherContentDismissType * const PHPublisherContentUnitTriggeredDismiss           = @"PHPublisherContentUnitTriggeredDismiss";
 PHPublisherContentDismissType * const PHPublisherNativeCloseButtonTriggeredDismiss     = @"PHPublisherNativeCloseButtonTriggeredDismiss";
@@ -95,6 +96,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
 @interface PHAPIRequest ()
 @property (nonatomic, retain, readonly) NSString *contentUnitID;
+@property (nonatomic, retain, readonly) NSString *messageID;
 @end
 
 @implementation PHPublisherContentRequest
@@ -102,6 +104,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 @synthesize placement               = _placement;
 @synthesize animated                = _animated;
 @synthesize showsOverlayImmediately = _showsOverlayImmediately;
+@synthesize messageID = _messageID;
 //@synthesize state                   = _state;
 //@dynamic    state; // TODO: Figure out what's going on with this variable (state)
 //                   // TODO: Lilli added @dynamic to try and quelch warnings, but still there
@@ -135,8 +138,10 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 }
 
 + (id)requestForApp:(NSString *)token secret:(NSString *)secret contentUnitID:(NSString *)contentID
+            messageID:(NSString *)messageID
 {
-    return [[[[self class] alloc] initWithApp:token secret:secret contentUnitID:contentID] autorelease];
+    return [[[[self class] alloc] initWithApp:token secret:secret contentUnitID:contentID messageID:
+                messageID] autorelease];
 }
 
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate
@@ -150,11 +155,13 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 }
 
 - (id)initWithApp:(NSString *)token secret:(NSString *)secret contentUnitID:(NSString *)contentID
+            messageID:(NSString *)messageID
 {
     self = [self initWithApp:token secret:secret];
     if (nil != self)
     {
         _contentUnitID = [contentID retain];
+        _messageID = [messageID retain];
     }
     return self;
 }
@@ -243,6 +250,7 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
     [_closeButton release], _closeButton = nil;
     [_overlayWindow release], _overlayWindow = nil;
     [_contentUnitID release], _contentUnitID = nil;
+    [_messageID release];
 
     [super dealloc];
 }
@@ -384,9 +392,14 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 
     [theAdditionalParameters setObject:(nil != self.placement ? self.placement : @"")
                                 forKey:kPHPlacementIDKey];
-
     [theAdditionalParameters setObject:(nil != self.contentUnitID ? self.contentUnitID : @"")
                                 forKey:kPHContentIDKey];
+    
+    if (nil != self.contentUnitID)
+    {
+        [theAdditionalParameters setObject:(nil != self.messageID ? self.messageID : @"")
+                                    forKey:kPHRequestParameterMessageIDKey];
+    }
 
     return theAdditionalParameters;
 }

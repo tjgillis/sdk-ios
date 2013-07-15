@@ -34,6 +34,7 @@ static NSString *kPHApplicationTestToken  = @"TEST_TOKEN";
 static NSString *kPHApplicationTestSecret = @"TEST_SECRET";
 static NSString *kPHTestPlacement = @"test_placement";
 static NSString *kPHTestContentID = @"test_content_id";
+static NSString *const kPHTestMessageID = @"87345";
 
 @interface PHPublisherContentRequest (TestMethods)
 @property (nonatomic, readonly) PHPublisherContentRequestState state;
@@ -366,7 +367,8 @@ static NSString *kPHTestContentID = @"test_content_id";
     PHPublisherContentRequest *theTestRequest =
                     [PHPublisherContentRequest requestForApp:kPHApplicationTestToken
                                                       secret:kPHApplicationTestSecret
-                                               contentUnitID:kPHTestContentID];
+                                               contentUnitID:kPHTestContentID
+                                                   messageID:kPHTestMessageID];
 
     NSString *thePlacementParameter =
                      [theTestRequest.additionalParameters objectForKey:@"placement_id"];
@@ -379,6 +381,54 @@ static NSString *kPHTestContentID = @"test_content_id";
 
     STAssertTrue((0 < [theRequestQuery rangeOfString:
                             [NSString stringWithFormat:@"content_id=%@", kPHTestContentID]].length), @"");
+}
+
+- (void)testMessageIDPropertyCase1
+{
+    PHPublisherContentRequest *theTestRequest =
+                    [PHPublisherContentRequest requestForApp:kPHApplicationTestToken
+                                                      secret:kPHApplicationTestSecret
+                                               contentUnitID:kPHTestContentID
+                                                   messageID:kPHTestMessageID];
+
+    STAssertNotNil(theTestRequest, @"Cannot created test request");
+    
+    NSString *theMessageIDParameter = [theTestRequest.additionalParameters objectForKey:
+                @"message_id"];
+
+    STAssertEqualObjects(theMessageIDParameter, kPHTestMessageID, @"Missed message_id parameter!");
+
+    NSString *theRequestQuery = [theTestRequest.URL query];
+
+    STAssertTrue((0 < [theRequestQuery rangeOfString:[NSString stringWithFormat:@"message_id=%@",
+                kPHTestMessageID]].length), @"");
+    
+    // Cancel the request to remove it from the cache
+    [theTestRequest cancel];
+}
+
+- (void)testMessageIDPropertyCase2
+{
+    PHPublisherContentRequest *theTestRequest =
+                    [PHPublisherContentRequest requestForApp:kPHApplicationTestToken
+                                                      secret:kPHApplicationTestSecret
+                                                   placement:kPHTestPlacement
+                                                    delegate:nil];
+
+    STAssertNotNil(theTestRequest, @"Cannot created test request");
+    
+    NSString *theMessageIDParameter = [theTestRequest.additionalParameters objectForKey:
+                @"message_id"];
+
+    STAssertNil(theMessageIDParameter, @"message_id parameter should not be specified for content"
+                " requests which are created with placement");
+
+    NSString *theRequestQuery = [theTestRequest.URL query];
+
+    STAssertTrue(0 == [theRequestQuery rangeOfString:@"message_id="].length, @"");
+    
+    // Cancel the request to remove it from the cache
+    [theTestRequest cancel];
 }
 
 @end
