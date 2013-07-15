@@ -271,11 +271,11 @@ extern PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismis
  *  The placement
  *
  * @param aContentID
- *  Identifier uniqally identifying content unit which is to be requested.
+ *  Identifier uniquely identifying content unit which is to be requested.
  *
  * @param messageID
  *  Identifier of a push notification sent by PlayHaven server. Message id is assigned to each push
- *  notification sent from the server and its is passed as a separate filed in in the push
+ *  notification sent from the server and its is passed as a separate field in in the push
  *  notification payload. This property should be set for a content request that is created as a
  *  result of incoming push notification.
  *
