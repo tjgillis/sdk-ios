@@ -20,15 +20,15 @@ An API token and secret is required to use this SDK. These tokens uniquely ident
 
 For more information, see the [Help Center](http://help.playhaven.com) or contact us at [support@playhaven.com](mailto:support@playhaven.com).  We also recommend reviewing our [Optimization Guides](http://help.playhaven.com/customer/portal/topics/113947-optimization-guides/articles) to learn the best practices and get the most out of your PlayHaven integration. Additionally, the [Integration Test Console](#integration-test-console-overview) can help you test your integration against our APIs.
 
-Also see the [Integration](#integration) and [API Reference](#api-reference) sections in this document.
+Also see the [Integration](#integration) and [Using the SDK](#using-the-sdk) sections in this document.
 
 Version History
 ===============
 
 1.13.2
 ======
-* Addresse an issue which causes content units to not work on iOS 4.3
-* Addresses an issue with the error management of PHAPIRequest.m
+* Addresses an issue which causes content units to not work on iOS 4.3
+* Addresses an issue with the error handling of PHAPIRequest.m
 
 1.13.1
 ======
@@ -78,6 +78,16 @@ Version History
 * In-App Purchase tracking and virtual goods promotion support. See [Triggering in-app purchases](#triggering-in-app-purchases) and [Tracking in-app purchases](#tracking-in-app-purchases) for information on how to integrate this into your app
 * New documentation on how to disable Store Kit-based features in the SDK
 
+Dashboard Setup
+===========
+Setting up PlayHaven is a two-step process: First, you set up your account, game, placements, and content units on the [PlayHaven Publisher Dashboard](https://dashboard.playhaven.com/). Then, you integrate the PlayHaven SDK into your application and add the necessary PlayHaven calls to your code. 
+
+1. To set up your account, go to the [signup page](http://www.playhaven.com/developers) and sign up for a free PlayHaven developer account.
+1. To set up your game, follow [these instructions](http://help.playhaven.com/customer/portal/articles/585190-how-to-add-a-game).
+1. Placements are fundamental to how PlayHaven operates. You can think of them as billboards in your game: what appears on these billboards is controlled by what content units are attached to them. If no content unit is attached to them, nothing is shown and the user is not even aware that they are there. You can switch which content units are connected to which placements with the Publisher Dashboard. To set up your placements, follow [these instructions](http://help.playhaven.com/customer/portal/articles/585198-how-to-add-placements). For more information on placements, you can read [this article](http://help.playhaven.com/customer/portal/articles/243504-placements-overview).  
+1. Set up a content unit. If this is your first time integrating PlayHaven, a good content unit to try first is an interstitial ad. Follow [these steps](http://help.playhaven.com/customer/portal/articles/585250-how-to-create-an-interstitial-ad) to set up a PlayHaven interstitial ad. Be sure to associate this content unit with one of the placements you created in the previous step (by checking the box next to the name of the placement). 
+
+
 Integration
 ===========
 If you are using Unity for your game, please integrate the [Unity SDK](https://github.com/playhaven/sdk-unity/) instead of the iOS SDK.
@@ -85,7 +95,7 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 1. Add the following from the sdk-ios directory that you downloaded or cloned from github to your project:
     * src directory
     * Cache directory
-1. (optional) Unless you are already using SBJSON, also add the following to your project:
+1. Unless you are already using SBJSON, also add the following to your project:
     * JSON directory.
   If your project is already using SBJSON, then you may continue to use those classes or exchange them for the classes included with this SDK. Multiple copies of these classes in the same project may cause errors at compile time.
 1. Ensure the following frameworks are included with your project. Add any missing frameworks in the Build Phases tab for your application's target:
@@ -96,12 +106,12 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
     * CFNetwork.framework
     * AdSupport.framework
     * StoreKit.framework (see next)
-1. (optional) If you are not using StoreKit.framework in your project, you may disable IAP Tracking and VGP by setting the following preproccessor macro in your project or target's Build Settings:
+1. (optional) Most applications integrating PlayHaven SDK are already linked against StoreKit.framework. If your app does not use StoreKit.framework and you do not plan to use Virtual Goods Promotions or In-App Purchase Tracking features in your application, its is possible to disable SDK part supporting those features by setting the following preproccessor macro in your project or target's Build Settings:
 
 		PH_USE_STOREKIT=0
 
     This makes it possible to build the SDK without Store Kit linked to your project.
-1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure to set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target. Also, versions of Xcode prior to version 4.5 do not include AdSupport.framework. If you are using a version of Xcode prior to version 4.5, you will need to disable references to this framework. To do this, set the following preproccessor macro in your project or target's Build Settings:
+1. (optional) If your project needs to be compatible with iOS 5.1 - iOS 4.0, make sure to set "AdSupport.framework" to "Optional" in the Build Phases' Link Binary With Libraries section for your application's target. Also, versions of Xcode prior to version 4.5 do not include AdSupport.framework. If you are using a version of Xcode prior to version 4.5, you will need to disable references to this framework. To do this, set the following preprocessor macro in your project or target's Build Settings:
 
 		PH_USE_AD_SUPPORT=0
 
@@ -112,17 +122,17 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 1. For each placement, you need to send a content request and implement content request delegate methods. See [Requesting content for your placements](#requesting-content-for-your-placements).
 1. If you are planning on using a More Games Widget in your game, we recommend also implementing a notification view for any placements that use this widget. This can improve chart opens performance by up to 300%. See [Add a notification view (notifier badge)](#add-a-notification-view-notifier-badge).
 
-API Reference
+Using the SDK
 =============
 ### Device tracking
-Apple has announced that as of May 1, 2013 it is no longer accepting newly submitted and updated apps that access UDID, and as such the SDK is no longer sending this token. Likewise, OpenUDID has been removed as well. The SDK is continuing to send MAC, IFA/IDFA, and ODIN. Because PlayHaven utilizes device identifiers to serve revenue generating content like Ads to apps, and IFA/IDFA is only available for devices running iOS 6.0 and greater, it is especially important to ensure that your integration is sending MAC addresses.
+It is possible to track individual iOS devices using different device identifiers. The identifiers that PlayHaven relies on most are identifierForAdvertising (IDFA), device MAC address (MAC), and Open Device Identification Number (ODIN). Since IDFA is only available on iOS 6.0 and later, and a significant portion of the iOS market is still on 5.x, it is important that MAC and ODIN be available for PlayHaven to use. By default, `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address and ODIN values for the current device with the open request. If you previously added the preprocessor macro `PH_USE_MAC_ADDRESS=0`, **you should remove it**.
 
-By default `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address and ODIN values for the current device with the open request. Since UDID is no longer supported, and IDFA is only sent with devices running iOS version 6.0 and greater, PlayHaven requires that MAC address be used.
+PlayHaven no longer uses UDID, as Apple is no longer accepting apps which use it. 
 
-If you have previously added the preprocessor macro `PH_USE_MAC_ADDRESS=0`, **you should remove it**.
+As to the use of MAC address, starting from beta release of iOS 7, low-level networking APIs that used to return a device MAC address return the fixed value. As a result it cannot be used as a unique identifier any longer. To address that change, PlayHaven will be releasing a version of the iOS SDK which doesn't use MAC address before the public release of iOS 7.
 
 #### User opt-out
-To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of UDID and MAC addresses. To set the opt out status for your app, use the following method:
+To comply with Apple policies for the use of device information, we've provided a mechanism for your app to opt-out of collection of MAC addresses. To set the opt out status for your app, use the following method:
 
     [PHAPIRequest setOptOutStatus:(BOOL)yesOrNo];
 
@@ -143,7 +153,9 @@ The second method records a game open each time the app moves to the foreground 
 
 The game open request is sent using the following code:
 
-	[[PHPublisherOpenRequest requestForApp:(NSString *)token secret:(NSString *)secret] send]
+	[[PHPublisherOpenRequest requestForApp:@"TOKEN" secret:@"SECRET"] send]
+
+Where token and secret should be replaced with the token and the secret of your application, which are alpha-numerical strings of 32 character length. You can find the token and the secret of your application in the game settings in the PlayHaven dashboard.
 
 If you are using an internal identifier to track individual devices in this game, you may use the customUDID parameter to pass this identifier along to PlayHaven. You can set this parameter on an open request:
 
@@ -165,7 +177,9 @@ PlayHaven automatically downloads and stores a number of content templates after
 ### Requesting content for your placements
 You request content for your app using your API token, secret, and a placement tag to identify the placement for which you are requesting content. Implement `PHPublisherContentRequestDelegate` methods to receive callbacks from this request. Refer to the following section as well as the `example/PublisherContentViewController.m` file for a sample implementation.
 
-	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:(NSString *)token secret:(NSString *)secret placement:(NSString *)placement delegate:(id)delegate];
+The listing below demonstrates a content request for the placement game_launch. Be sure to substitute your own app's token and secret:
+
+	PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:@"TOKEN" secret:@"SECRET" placement:@"game_launch" delegate:self];
 	request.showsOverlayImmediately = YES; //optional, see next.
 	[request send];
 
@@ -256,15 +270,9 @@ The `PHPurchase` object passed through this method has the following properties:
   * quantity - An integer representing the quantity associated with the purchase.
   * receipt - A unique identifier.
 
-**Note:** You must retain this purchase object throughout your IAP process. You are responsible for making a SKProduct request before initiating the purchase of this item so as to comply with IAP requirements. Once the item has been purchased you will need to inform the content unit of that purchase using the following:
+**Note:** You are responsible for making a SKProduct request before initiating the purchase of this item so as to comply with IAP requirements.
 
-    [purchase reportResolution:(PHPurchaseResolution)resolution];
-
-**This step is important.** Unless you call `reportResolution:` the content unit will stall, and your users may not be able to come back to your game. Resolution **must** be one of the following values:
-
-  * PHPurchaseResolutionBuy - The item was purchased and delivered successfully.
-  * PHPurchaseResolutionCancel - The user was prompted for an item, but the user elected to not buy it.
-  * PHPurchaseResolutionError - An error prevented the purchase or delivery of the item.
+**Note:** In earlier versions of PlayHaven, you had to call `[purchase reportResolution:(PHPurchaseResolution)resolution]` to dismiss the Virtual Goods Promotion content unit. You no longer have to do this.   
 
 ### Links to the App Store
 As of 1.12.1, links that open in the App Store will instead launch Apple's In-App iTunes view controller as a modal popup. This view controller is independent of any content request so you will not receive delegate events from it.
@@ -272,7 +280,7 @@ As of 1.12.1, links that open in the App Store will instead launch Apple's In-Ap
 In-App iTunes purchases are like other in-app purchases in that when launched from an app that is being debugged (through XCode), or distributed using an Ad-Hoc profile, they interact with Apple's sandbox iTunes environment. Thus, purchases won't seem to work unless they're tested with a sandbox iTunes account, which is set up through iTunes Connect. The purchases will work as expected from a version of the app downloaded from the App Store, which is signed by Apple.
 
 ### Tracking in-app purchases
-By providing data on your In-App Purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the `PHPublisherIAPTrackingRequest` class. To report successful purchases use the following either in your `SKPaymentQueueObserver` instance or after a purchase has been successfully delivered:
+All in-app purchases made by users in your app, should be tracked by using PlayHaven's IAP tracking calls. You should do this for **ALL** purchases, whether these purchases were triggered by PlayHaven Virtual Goods Promotions or not. By providing data on your in-app purchases to PlayHaven, you can track your users' overall lifetime value as well as track conversions from your Virtual Goods Promotion content units. This is done using the `PHPublisherIAPTrackingRequest` class. To report successful purchases use the following either in your `SKPaymentQueueObserver` instance or after a purchase has been successfully delivered:
 
     PHPublisherIAPTrackingRequest *request = [PHPublisherIAPTrackingRequest requestForApp:TOKEN secret:SECRET product:PRODUCT_IDENTIFIER quantity:QUANTITY resolution:PHPurchaseResolutionBuy receiptData:RECEIPT_DATA];
     [request send];
@@ -287,9 +295,6 @@ If the error comes from an `SKPaymentTransaction` instance's `error` property, t
 #### Receipt verification
 
 Additionally, you can now send the receipt data to the PlayHaven server to verify purchases against Apple receipts to insure that only valid purchases are being reported. To verify that a purchase is valid, add the receipt data from the In-App Purchase to the IAP tracking request by using the `receiptData` argument to the method.
-
-**Note:** Although we're still working on server-side support for receipt verification, we highly recommend implementing receipt verification as supported in the SDK. We're a couple weeks from fully supporting it but this way you don't need to do anything extra when it's available.
-
 
 ### Add a notification view (notifier badge)
 Adding a notification view to your More Games button can increase the number of More Games Widget opens for your game by up to 300%. To create a notification view:
