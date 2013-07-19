@@ -42,7 +42,7 @@
  * @param aDeviceToken
  *  Token provided by Apple Push Service to identify destination device of a push notification.
  *  This parameter must be a valid device token.
- * @param aDeviceToken
+ * @param aMessageID
  *  Identifier of a push notification sent by PlayHaven server. This id is internal to PlayHaven
  *  server and it is sent with each notification as a part of its payload.
  * @return
