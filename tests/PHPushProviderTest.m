@@ -30,6 +30,12 @@
 @end
 
 @implementation PHPushProviderTest
+
+- (void)setUp
+{
+    self.contentRequest = nil;
+}
+
 - (void)testProviderInstance
 {
     PHPushProvider *theProvider = [PHPushProvider sharedInstance];
@@ -59,7 +65,7 @@
     STAssertNil(self.registrationError, @"");
 }
 
-- (void)testPushNotificationHandling
+- (void)testPushNotificationHandlingCase1
 {
     PHPushProvider *theProvider = [PHPushProvider sharedInstance];
 
@@ -68,12 +74,41 @@
     
     theProvider.delegate = self;
     
+    NSString *theTestContentID = @"5767235784";
+    // Check that push handling works with content ID that is a string
     [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : @"testMessageID", @"ci" :
-                @"testContentID"}];
+                theTestContentID}];
 
     STAssertNotNil(self.contentRequest, @"Delegate method was not called during push notification "
                 "handling.");
     STAssertTrue([self.contentRequest isKindOfClass:[PHPublisherContentRequest class]], @"");
+    
+    STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"content_id"],
+                theTestContentID, @"The content request sent as a result of push handling does not"
+                " contain expected content unit ID");
+}
+
+- (void)testPushNotificationHandlingCase2
+{
+    PHPushProvider *theProvider = [PHPushProvider sharedInstance];
+
+    theProvider.applicationToken = @"testToken";
+    theProvider.applicationSecret = @"testSecret";
+    
+    theProvider.delegate = self;
+    
+    NSUInteger theTestContentID = 3238;
+    // Check that push handling works with content ID that is a integer
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : @"testMessageID", @"ci" :
+                @(theTestContentID)}];
+
+    STAssertNotNil(self.contentRequest, @"Delegate method was not called during push notification "
+                "handling.");
+    STAssertTrue([self.contentRequest isKindOfClass:[PHPublisherContentRequest class]], @"");
+    
+    STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"content_id"],
+                [@(theTestContentID) stringValue], @"The content request sent as a result of push "
+                "handling does not contain expected content unit ID");
 }
 
 #pragma mark - PHPushRegistrationObserver

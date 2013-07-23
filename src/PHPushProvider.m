@@ -91,7 +91,8 @@ static NSString *const kPHContentIDKey = @"ci";
         return;
     }
     
-    NSString *theContentID = [aUserInfo objectForKey:kPHContentIDKey];
+    // Note content ID is expected to be integer, but also can be a string.
+    NSString *theContentID = [[aUserInfo objectForKey:kPHContentIDKey] description];
     
     if (nil != theContentID)
     {
