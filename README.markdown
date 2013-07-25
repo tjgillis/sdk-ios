@@ -25,6 +25,10 @@ Also see the [Integration](#integration) and [API Reference](#api-reference) sec
 Version History
 ===============
 
+1.20.0
+======
+* Added support to Push Notifications which can be sent by means of PlayHaven Push Dashboard.
+
 1.13.2
 ======
 * Addresse an issue which causes content units to not work on iOS 4.3
