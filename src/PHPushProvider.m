@@ -84,21 +84,22 @@ static NSString *const kPHContentIDKey = @"ci";
 
 - (void)handleRemoteNotificationWithUserInfo:(NSDictionary *)aUserInfo
 {
-    NSString *theMessageID = [aUserInfo objectForKey:kPHMessageIDKey];
-    if (nil == theMessageID)
+    NSNumber *theMessageID = [aUserInfo objectForKey:kPHMessageIDKey];
+    if (nil == theMessageID || ![theMessageID isKindOfClass:[NSNumber class]])
     {
-        // No further actions if required field is absent.
+        // No further actions if required field is absent or has unexpected type.
         return;
     }
     
     // Note content ID is expected to be integer, but also can be a string.
     NSString *theContentID = [[aUserInfo objectForKey:kPHContentIDKey] description];
+    NSString *theMessageIDString = [theMessageID stringValue];
     
     if (nil != theContentID)
     {
         PHPublisherContentRequest *theContentRquest = [PHPublisherContentRequest requestForApp:
                     self.applicationToken secret:self.applicationSecret contentUnitID:theContentID
-                    messageID:theMessageID];
+                    messageID:theMessageIDString];
         
         if (![self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)] ||
                     ([self.delegate respondsToSelector:@selector(pushProvider:shouldSendRequest:)]
@@ -110,7 +111,7 @@ static NSString *const kPHContentIDKey = @"ci";
     
     PHPushDeliveryRequest *thePushDeliveryRequest = [PHPushDeliveryRequest requestForApp:
                  self.applicationToken secret:self.applicationSecret pushNotificationDeviceToken:
-                 self.APNSDeviceToken messageID:theMessageID contentUnitID:theContentID];
+                 self.APNSDeviceToken messageID:theMessageIDString contentUnitID:theContentID];
     [thePushDeliveryRequest send];
 }
 
