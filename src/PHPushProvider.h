@@ -110,7 +110,7 @@
  * the time this method is called.
  *
  * @param aProvider
- *  aProvider which is initiated this call
+ *  aProvider which initiated this call
  *
  * @param aRequest
  *  aRequest - request object created by the provider to load content associated with the push
@@ -125,7 +125,7 @@
  * notification info dictionary. By default, URL is opened by the provider.
  *
  * @param aProvider
- *  aProvider which is initiated this call
+ *  aProvider which initiated this call
  *
  * @param anURL
  *  anURL - URL that was specified in the push notification on PlayHaven Push Dashboard.
