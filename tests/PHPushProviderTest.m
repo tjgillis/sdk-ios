@@ -75,8 +75,10 @@
     theProvider.delegate = self;
     
     NSString *theTestContentID = @"5767235784";
+    NSNumber *theTestMessageID = @(438744);
+
     // Check that push handling works with content ID that is a string
-    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : @"testMessageID", @"ci" :
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"ci" :
                 theTestContentID}];
 
     STAssertNotNil(self.contentRequest, @"Delegate method was not called during push notification "
@@ -86,6 +88,9 @@
     STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"content_id"],
                 theTestContentID, @"The content request sent as a result of push handling does not"
                 " contain expected content unit ID");
+    STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"message_id"],
+                [theTestMessageID stringValue], @"The content request sent as a result of push "
+                "handling does not contain expected message ID");
 }
 
 - (void)testPushNotificationHandlingCase2
@@ -98,8 +103,10 @@
     theProvider.delegate = self;
     
     NSUInteger theTestContentID = 3238;
+    NSNumber *theTestMessageID = @(43844657678);
+    
     // Check that push handling works with content ID that is a integer
-    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : @"testMessageID", @"ci" :
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"ci" :
                 @(theTestContentID)}];
 
     STAssertNotNil(self.contentRequest, @"Delegate method was not called during push notification "
@@ -109,6 +116,48 @@
     STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"content_id"],
                 [@(theTestContentID) stringValue], @"The content request sent as a result of push "
                 "handling does not contain expected content unit ID");
+    STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"message_id"],
+                [theTestMessageID stringValue], @"The content request sent as a result of push "
+                "handling does not contain expected message ID");
+}
+
+- (void)testPushNotificationHandlingCase3
+{
+    PHPushProvider *theProvider = [PHPushProvider sharedInstance];
+
+    theProvider.applicationToken = @"testToken";
+    theProvider.applicationSecret = @"testSecret";
+    
+    theProvider.delegate = self;
+    
+    NSUInteger theTestContentID = 3238;
+    NSString *theTestMessageID = @"43844657678";
+    
+    // Check that push handler dismisses push notification if message id (mi) field contains
+    // non-numeric value
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"ci" :
+                @(theTestContentID)}];
+
+    STAssertNil(self.contentRequest, @"Content request should not be sent if notification payload"
+                "is not valid");
+}
+
+- (void)testPushNotificationHandlingCase4
+{
+    PHPushProvider *theProvider = [PHPushProvider sharedInstance];
+
+    theProvider.applicationToken = @"testToken";
+    theProvider.applicationSecret = @"testSecret";
+    
+    theProvider.delegate = self;
+    
+    NSUInteger theTestContentID = 3238;
+    
+    // Check that push handler dismisses push notification if message id (mi) field is missed
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"ci" : @(theTestContentID)}];
+
+    STAssertNil(self.contentRequest, @"Content request should not be sent if notification payload"
+                "is not valid");
 }
 
 #pragma mark - PHPushRegistrationObserver
