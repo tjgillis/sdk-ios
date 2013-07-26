@@ -27,6 +27,7 @@
 @interface PHPushProviderTest : SenTestCase <PHPushRegistrationObserver, PHPushProviderDelegate>
 @property (nonatomic, retain) NSError *registrationError;
 @property (nonatomic, retain) PHPublisherContentRequest *contentRequest;
+@property (nonatomic, assign) BOOL shouldOpenURLCalled;
 @end
 
 @implementation PHPushProviderTest
@@ -34,6 +35,7 @@
 - (void)setUp
 {
     self.contentRequest = nil;
+    self.shouldOpenURLCalled = NO;
 }
 
 - (void)testProviderInstance
@@ -160,6 +162,73 @@
                 "is not valid");
 }
 
+- (void)testPushNotificationHandlingCase5
+{
+    PHPushProvider *theProvider = [PHPushProvider sharedInstance];
+
+    theProvider.applicationToken = @"testToken";
+    theProvider.applicationSecret = @"testSecret";
+    
+    theProvider.delegate = self;
+    
+    NSNumber *theTestMessageID = @(43844657678);
+    
+    // Check that URL specified in the push notification payload is opened
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"uri" :
+                @"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8"}];
+    
+    STAssertTrue(self.shouldOpenURLCalled, @"Expected delegate method was not called.");
+}
+
+- (void)testPushNotificationHandlingCase6
+{
+    PHPushProvider *theProvider = [PHPushProvider sharedInstance];
+
+    theProvider.applicationToken = @"testToken";
+    theProvider.applicationSecret = @"testSecret";
+    
+    theProvider.delegate = self;
+    
+    NSNumber *theTestMessageID = @(43844657678);
+    
+    // Check that push handling doesn't try to open malformed URL
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"uri" :
+                @"https//#$%^&*) (*itunes.apple.com"}];
+    
+    STAssertFalse(self.shouldOpenURLCalled, @"The delegate method asking about URL opening should "
+                "not be called for malformed URL.");
+}
+
+- (void)testPushNotificationHandlingCase7
+{
+    PHPushProvider *theProvider = [PHPushProvider sharedInstance];
+
+    theProvider.applicationToken = @"testToken";
+    theProvider.applicationSecret = @"testSecret";
+    
+    theProvider.delegate = self;
+    
+    NSUInteger theTestContentID = 3238;
+    NSNumber *theTestMessageID = @(43844657678);
+    
+    // Check that if push handling contains both content ID and uri then the last one is ignored
+    [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"ci" :
+                @(theTestContentID), @"uri" : @"https://itunes.apple.com"}];
+
+    STAssertNotNil(self.contentRequest, @"Delegate method was not called during push notification "
+                "handling.");
+    
+    STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"content_id"],
+                [@(theTestContentID) stringValue], @"The content request sent as a result of push "
+                "handling does not contain expected content unit ID");
+    STAssertEqualObjects([[self.contentRequest additionalParameters] objectForKey:@"message_id"],
+                [theTestMessageID stringValue], @"The content request sent as a result of push "
+                "handling does not contain expected message ID");
+    
+    STAssertFalse(self.shouldOpenURLCalled, @"The delegate method asking about URL opening should "
+                "not be called if content id (ci) is provided in the push payload");
+}
+
 #pragma mark - PHPushRegistrationObserver
 
 - (void)provider:(PHPushProvider *)aProvider
@@ -174,6 +243,12 @@
             shouldSendRequest:(PHPublisherContentRequest *)aRequest
 {
     self.contentRequest = aRequest;
+    return NO;
+}
+
+- (BOOL)pushProvider:(PHPushProvider *)aProvider shouldOpenURL:(NSURL *)anURL
+{
+    self.shouldOpenURLCalled = YES;
     return NO;
 }
 

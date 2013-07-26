@@ -28,6 +28,7 @@
 
 static NSString *const kPHMessageIDKey = @"mi";
 static NSString *const kPHContentIDKey = @"ci";
+static NSString *const kPHURIKey = @"uri";
 
 @interface PHPushProvider ()
 @property (nonatomic, retain) NSData *APNSDeviceToken;
@@ -106,6 +107,29 @@ static NSString *const kPHContentIDKey = @"ci";
                     && [self.delegate pushProvider:self shouldSendRequest:theContentRquest]))
         {
             [theContentRquest send];
+        }
+    }
+    else
+    {
+        // NB: Push Notification cannot target a specific content unit and URL at the same time.
+        // That is why URL processing part is put in the else branch.
+        
+        NSString *theNotificationURLString = [aUserInfo objectForKey:kPHURIKey];
+        
+        if ([theNotificationURLString isKindOfClass:[NSString class]])
+        {
+            theNotificationURLString = [theNotificationURLString
+                        stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL *theNotificationURL = [NSURL URLWithString:theNotificationURLString];
+            
+            if (nil != theNotificationURL)
+            {
+                [self handleRemoteNotificationURL:theNotificationURL];
+            }
+            else
+            {
+                PH_DEBUG(@"Cannot create URL with string: %@", [aUserInfo objectForKey:kPHURIKey]);
+            }
         }
     }
     
@@ -218,6 +242,16 @@ static NSString *const kPHContentIDKey = @"ci";
         {
             [theObserver provider:self didFailToRegisterAPNSDeviceTokenWithError:anError];
         }
+    }
+}
+
+- (void)handleRemoteNotificationURL:(NSURL *)anURL
+{
+    if (![self.delegate respondsToSelector:@selector(pushProvider:shouldOpenURL:)] ||
+                ([self.delegate respondsToSelector:@selector(pushProvider:shouldOpenURL:)] &&
+                [self.delegate pushProvider:self shouldOpenURL:anURL]))
+    {
+        [[UIApplication sharedApplication] openURL:anURL];
     }
 }
 
