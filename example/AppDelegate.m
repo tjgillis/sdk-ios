@@ -102,6 +102,13 @@
      */
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+            sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    PH_DEBUG(@"URL to open: %@", url);
+    return NO;
+}
+
 - (void)dealloc
 {
     [_window release];

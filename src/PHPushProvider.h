@@ -110,7 +110,7 @@
  * the time this method is called.
  *
  * @param aProvider
- *  aProvider which is initiated this call
+ *  aProvider which initiated this call
  *
  * @param aRequest
  *  aRequest - request object created by the provider to load content associated with the push
@@ -118,4 +118,22 @@
  **/
 - (BOOL)pushProvider:(PHPushProvider *)aProvider
             shouldSendRequest:(PHPublisherContentRequest *)aRequest;
+
+/**
+ * Provider calls this method when it handles push notification initiated by
+ * handleRemoteNotificationWithUserInfo: to check if it should open URL specified in the push
+ * notification info dictionary. By default, URL is opened by the provider.
+ *
+ * @param aProvider
+ *  aProvider which initiated this call
+ *
+ * @param anURL
+ *  anURL - URL that was specified in the push notification on PlayHaven Push Dashboard.
+ * 
+ * @return
+ *  If delegate returns NO, the URL specified in the incoming push notification will not be opened.
+ *  Otherwise, the URL will be opened.
+ **/
+- (BOOL)pushProvider:(PHPushProvider *)aProvider shouldOpenURL:(NSURL *)anURL;
+
 @end

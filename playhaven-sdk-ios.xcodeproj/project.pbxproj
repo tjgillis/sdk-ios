@@ -2263,6 +2263,7 @@
 					"PH_UNIT_TESTING=1",
 					"PH_USE_MAC_ADDRESS=1",
 					"PH_USE_UNIQUE_IDENTIFIER=0",
+					"PH_DEBUG_LOG=1",
 				);
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = tests/Info.plist;
