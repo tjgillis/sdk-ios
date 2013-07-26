@@ -177,7 +177,7 @@
     [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"uri" :
                 @"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8"}];
     
-    STAssertTrue(self.shouldOpenURLCalled, @"Expected delegate method was not called.");
+    STAssertTrue(self.shouldOpenURLCalled, @"Expected delegate method was called.");
 }
 
 - (void)testPushNotificationHandlingCase6
