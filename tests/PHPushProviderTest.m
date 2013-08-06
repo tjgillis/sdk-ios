@@ -174,7 +174,7 @@
     theProvider.delegate = self;
     
     NSNumber *theTestMessageID = @(43844657678);
-	NSURL *theURLToOpen = [NSURL URLWithString:
+    NSURL *theURLToOpen = [NSURL URLWithString:
                 @"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8"];
     
     // Check that URL specified in the push notification payload is opened
@@ -245,7 +245,7 @@
     theProvider.delegate = self;
     
     NSNumber *theTestMessageID = @(43844657678);
-	NSURL *theURLToOpen = [NSURL URLWithString:@"https%3A%2F%2Fitunes.apple.com%2Fru%2Fapp%2F"
+    NSURL *theURLToOpen = [NSURL URLWithString:@"https%3A%2F%2Fitunes.apple.com%2Fru%2Fapp%2F"
                 "sol-runner%2Fid566179205%3Fl%3Den%26mt%3D8"];
     
     NSURL *theDecodedURL = [NSURL URLWithString:[[theURLToOpen absoluteString]
