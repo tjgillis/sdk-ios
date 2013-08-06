@@ -28,7 +28,7 @@
 @property (nonatomic, retain) NSError *registrationError;
 @property (nonatomic, retain) PHPublisherContentRequest *contentRequest;
 @property (nonatomic, assign) BOOL shouldOpenURLCalled;
-@property (nonatomic, assign) NSString *shouldOpenURLCalledWithURL;
+@property (nonatomic, retain) NSURL *pushTriggeredURL;
 @end
 
 @implementation PHPushProviderTest
@@ -37,7 +37,7 @@
 {
     self.contentRequest = nil;
     self.shouldOpenURLCalled = NO;
-    self.shouldOpenURLCalledWithURL = nil;
+    self.pushTriggeredURL = nil;
 }
 
 - (void)testProviderInstance
@@ -174,15 +174,16 @@
     theProvider.delegate = self;
     
     NSNumber *theTestMessageID = @(43844657678);
+	NSURL *theURLToOpen = [NSURL URLWithString:
+                @"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8"];
     
     // Check that URL specified in the push notification payload is opened
     [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"uri" :
-                @"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8"}];
+                [theURLToOpen absoluteString]}];
     
     STAssertTrue(self.shouldOpenURLCalled, @"Expected delegate method was called.");
-    STAssertEqualObjects(@"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8",
-                         self.shouldOpenURLCalledWithURL,
-                         @"Requested URL should match specified");
+    STAssertEqualObjects(theURLToOpen, self.pushTriggeredURL, @"Requested URL should match "
+                "specified");
 }
 
 - (void)testPushNotificationHandlingCase6
@@ -244,15 +245,20 @@
     theProvider.delegate = self;
     
     NSNumber *theTestMessageID = @(43844657678);
+	NSURL *theURLToOpen = [NSURL URLWithString:@"https%3A%2F%2Fitunes.apple.com%2Fru%2Fapp%2F"
+                "sol-runner%2Fid566179205%3Fl%3Den%26mt%3D8"];
+    
+    NSURL *theDecodedURL = [NSURL URLWithString:[[theURLToOpen absoluteString]
+                stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    STAssertNotNil(theDecodedURL, @"Cannot decode the given URL: %@", theURLToOpen);
     
     // Check that URL specified in the push notification payload is opened
     [theProvider handleRemoteNotificationWithUserInfo:@{@"mi" : theTestMessageID, @"uri" :
-     @"https%3A%2F%2Fitunes.apple.com%2Fru%2Fapp%2Fsol-runner%2Fid566179205%3Fl%3Den%26mt%3D8"}];
+                [theURLToOpen absoluteString]}];
     
     STAssertTrue(self.shouldOpenURLCalled, @"Expected delegate method was called.");
-    STAssertEqualObjects(@"https://itunes.apple.com/ru/app/sol-runner/id566179205?l=en&mt=8",
-                         self.shouldOpenURLCalledWithURL,
-                         @"Requested URL should be URL decoded");
+    STAssertEqualObjects(theDecodedURL, self.pushTriggeredURL, @"Requested URL should be URL "
+                "decoded");
 }
 
 #pragma mark - PHPushRegistrationObserver
@@ -275,7 +281,7 @@
 - (BOOL)pushProvider:(PHPushProvider *)aProvider shouldOpenURL:(NSURL *)anURL
 {
     self.shouldOpenURLCalled = YES;
-    self.shouldOpenURLCalledWithURL = [anURL description];
+    self.pushTriggeredURL = anURL;
     return NO;
 }
 
@@ -285,6 +291,7 @@
 {
     [_contentRequest release];
     [_registrationError release];
+    [_pushTriggeredURL release];
     
     [super dealloc];
 }
