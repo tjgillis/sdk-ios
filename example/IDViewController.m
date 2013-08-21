@@ -40,8 +40,6 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.UDIDLabel.text = [[UIDevice currentDevice] uniqueIdentifier];
-
     self.IFALabel.text  = [[[NSClassFromString(@"ASIdentifierManager") sharedManager] advertisingIdentifier] UUIDString];
 
     CFDataRef macBytes   = [[PHNetworkUtil sharedInstance] newMACBytes];
@@ -66,7 +64,6 @@
 
 - (void)dealloc
 {
-    [_UDIDLabel release];
     [_IFALabel release];
     [_MACLabel release];
     [_ODIN1Label release];
@@ -77,7 +74,6 @@
 
 - (void)viewDidUnload
 {
-    [self setUDIDLabel:nil];
     [self setIFALabel:nil];
     [self setMACLabel:nil];
     [self setODIN1Label:nil];
