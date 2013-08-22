@@ -83,6 +83,9 @@
 		E1C8F4FB171CC94400F64E12 /* PHPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushRequest.m */; };
 		E1C8F4FC171CC94400F64E12 /* PHPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushRequest.m */; };
 		E1C8F4FD171CC94400F64E12 /* PHPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushRequest.m */; };
+		E1CB0F5317C647ED00E2036F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0C7103169F6B06005151E8 /* Default-568h@2x.png */; };
+		E1CB0F5417C647EE00E2036F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0C7103169F6B06005151E8 /* Default-568h@2x.png */; };
+		E1CB0F5517C647EF00E2036F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0C7103169F6B06005151E8 /* Default-568h@2x.png */; };
 		E69D85961718E82D00CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
 		E69D85971718E83700CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
 		E69D85981718E83F00CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
@@ -1646,6 +1649,7 @@
 				EA62D6901579925300B31E62 /* 72.png in Resources */,
 				EA62D6911579925300B31E62 /* Settings.bundle in Resources */,
 				EA8A531B15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
+				E1CB0F5317C647ED00E2036F /* Default-568h@2x.png in Resources */,
 				EA2163B915BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
 				EAA86A9B167FFDE100F6B388 /* IDViewController.xib in Resources */,
 			);
@@ -1663,6 +1667,7 @@
 				EA86C7E614D9E75600CB1551 /* RootViewController.xib in Resources */,
 				EA86C7E714D9E75600CB1551 /* PublisherContentViewController.xib in Resources */,
 				EA86C7E814D9E75600CB1551 /* ExampleViewController.xib in Resources */,
+				E1CB0F5417C647EE00E2036F /* Default-568h@2x.png in Resources */,
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
@@ -1686,6 +1691,7 @@
 				EAF168D21534E59C006B6993 /* ExampleViewController.xib in Resources */,
 				EAF168D31534E59C006B6993 /* 512.png in Resources */,
 				EAF168D41534E59C006B6993 /* PublisherIAPTrackingViewController.xib in Resources */,
+				E1CB0F5517C647EF00E2036F /* Default-568h@2x.png in Resources */,
 				EAF168D51534E59C006B6993 /* 57.png in Resources */,
 				EAF168D61534E59C006B6993 /* 72.png in Resources */,
 				EAF168D71534E59C006B6993 /* Settings.bundle in Resources */,
