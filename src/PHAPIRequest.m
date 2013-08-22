@@ -340,13 +340,6 @@ static NSString *sPlayHavenCustomUDID;
 
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
 
-#if PH_USE_UNIQUE_IDENTIFIER == 1
-        if (![PHAPIRequest optOutStatus]) {
-            NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
-            [combinedParams setValue:device forKey:@"device"];
-        }
-#endif
-
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 #if PH_USE_AD_SUPPORT == 1

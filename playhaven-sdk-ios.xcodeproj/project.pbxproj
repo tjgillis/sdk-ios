@@ -703,7 +703,7 @@
 		EAB4429413454F34000DA3E9 /* PHContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PHContent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EAB4429513454F34000DA3E9 /* PHContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHContent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EAB442A113455467000DA3E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPlayHavenNoStoreKit.a; path = "libPlayHaven-NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB6A3AF14EED62D00EAC692 /* libPlayHaven-NoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPlayHaven-NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABAA6971450ED640040B937 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EABC0C75152B8A3200441393 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EABC0C7B152B8A6500441393 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -864,7 +864,7 @@
 				EA12ABD31365DBB700CB2F24 /* Example.app */,
 				EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */,
 				EA86C7EC14D9E75600CB1551 /* Example (Fixtures).app */,
-				EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */,
+				EAB6A3AF14EED62D00EAC692 /* libPlayHaven-NoStoreKit.a */,
 				EAF168671534E2DE006B6993 /* libPlayHaven-Safe.a */,
 				EAF168A21534E34F006B6993 /* libPlayHaven-Safe_NoStoreKit.a */,
 				EAF168DB1534E59C006B6993 /* SafeExample.app */,
@@ -1488,7 +1488,7 @@
 			);
 			name = "PlayHaven NoStoreKit";
 			productName = PlayHaven;
-			productReference = EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */;
+			productReference = EAB6A3AF14EED62D00EAC692 /* libPlayHaven-NoStoreKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		EAF168321534E2DE006B6993 /* PlayHaven Safe */ = {
@@ -2255,7 +2255,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_UNIT_TESTING=1",
 					"PH_USE_MAC_ADDRESS=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_DEBUG_LOG=1",
 				);
 				GCC_THUMB_SUPPORT = NO;
@@ -2528,7 +2527,6 @@
 					PH_NAMESPACE_LIBS,
 					"PH_USE_STOREKIT=1",
 					"PH_USE_MAC_ADDRESS=0",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
@@ -2551,7 +2549,6 @@
 					PH_NAMESPACE_LIBS,
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"PH_USE_STOREKIT=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_THUMB_SUPPORT = NO;
@@ -2581,7 +2578,6 @@
 					"PH_USE_STOREKIT=0",
 					"DEBUG=1",
 					"$(inherited)",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -2605,7 +2601,6 @@
 					"PH_USE_STOREKIT=0",
 					PH_NAMESPACE_LIBS,
 					"PH_USE_MAC_ADDRESS=0",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -2631,7 +2626,6 @@
 				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_USE_STOREKIT=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -2659,7 +2653,6 @@
 				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_USE_STOREKIT=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_THUMB_SUPPORT = NO;
