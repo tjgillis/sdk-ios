@@ -277,7 +277,7 @@
 		EA8A531D15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */; };
 		EA8A6D3414C8C5CA000B86A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA019C8514C102D4008FBCB1 /* StoreKit.framework */; };
 		EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
-		EA8F0137161630CA006FB026 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; };
+		EA8F0137161630CA006FB026 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EA98C12D16640E4500B6AA8C /* PHNetworkUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA98C12C16640E4500B6AA8C /* PHNetworkUtilTest.m */; };
 		EA9AB62014A3B0AA00079704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		EA9AB63114A3B0D500079704 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };

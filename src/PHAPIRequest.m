@@ -37,6 +37,7 @@ static NSString *sPlayHavenSession;
 static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
 static NSString *sPlayHavenCustomUDID;
+static NSString *const kPHRequestParameterIDFVKey = @"d_idfv";
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
@@ -361,6 +362,15 @@ static NSString *sPlayHavenCustomUDID;
 #endif
 #endif
 
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)])
+        {
+            NSString *theDeviceIDFV = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+            if (nil != theDeviceIDFV)
+            {
+                combinedParams[kPHRequestParameterIDFVKey] = theDeviceIDFV;
+            }
+        }
+        
         if (self.customUDID) {
             [combinedParams setValue:self.customUDID forKey:@"d_custom"];
         }
