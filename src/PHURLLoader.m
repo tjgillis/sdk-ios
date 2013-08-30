@@ -171,14 +171,7 @@
 
     if (theITunesLink || !theLinkCanBeHandled)
     {
-        if (theITunesLink)
-        {
-            PH_LOG(@"detected app store URL: %@", self.targetURL);
-        }
-        else if (!theLinkCanBeHandled)
-        {
-            PH_LOG(@"Detected URL that cannot be handled by NSURLConnection: %@", self.targetURL);
-        }
+        PH_DEBUG(@"Loader detected special URL: %@", self.targetURL);
             
         [self finish];
         return nil;
