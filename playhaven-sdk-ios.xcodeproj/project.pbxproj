@@ -602,6 +602,7 @@
 		E17A203A1718DC4300EF6C14 /* PushNotificationRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationRegistrationViewController.h; sourceTree = "<group>"; };
 		E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationRegistrationViewController.m; sourceTree = "<group>"; };
 		E17A203C1718DC4500EF6C14 /* PushNotificationRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushNotificationRegistrationViewController.xib; sourceTree = "<group>"; };
+		E1AB2C5917D5EB6900B3FE71 /* PHAPIRequestPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAPIRequestPrivate.h; sourceTree = "<group>"; };
 		E1C8F4ED171CABD900F64E12 /* PlayHavenAppIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenAppIdentity.h; sourceTree = "<group>"; };
 		E1C8F4EE171CABD900F64E12 /* PlayHavenAppIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHavenAppIdentity.m; sourceTree = "<group>"; };
 		E1C8F4F8171CC94400F64E12 /* PHPushRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPushRequest.h; sourceTree = "<group>"; };
@@ -925,6 +926,14 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
+		E1AB2C5717D5EAA300B3FE71 /* Private Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E1AB2C5917D5EB6900B3FE71 /* PHAPIRequestPrivate.h */,
+			);
+			name = "Private Interfaces";
+			sourceTree = "<group>";
+		};
 		E1C8F4F7171CC90E00F64E12 /* PushNotifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,6 +1092,7 @@
 				EAC53A90134E5F1700F2F956 /* Additions */,
 				EA523D931343EE8E0057DEA5 /* Common */,
 				EA523D941343EE9D0057DEA5 /* Publisher SDK */,
+				E1AB2C5717D5EAA300B3FE71 /* Private Interfaces */,
 			);
 			path = src;
 			sourceTree = "<group>";
