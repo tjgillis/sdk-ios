@@ -24,6 +24,7 @@
 #import "PHConstants.h"
 #import "PHStringUtil.h"
 #import "PHPublisherOpenRequest.h"
+#import "PHAPIRequestPrivate.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -86,7 +87,6 @@
     // Test for existence of parameters
     NSString
         *session   = [signedParameters valueForKey:@"session"],
-        *gid       = [signedParameters valueForKey:@"gid"],
         *token     = [signedParameters valueForKey:@"token"],
         *signature = [signedParameters valueForKey:@"signature"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
@@ -118,9 +118,8 @@
 #endif
 
     STAssertNotNil(session, @"Required session param is missing!");
-    STAssertNotNil(gid, @"Required gid param is missing!");
     STAssertNotNil(token, @"Required token param is missing!");
-    STAssertNotNil(signature, @"Required signature param is missing!");
+    STAssertTrue(0 < [signature length], @"Required signature param is missing!");
     STAssertNotNil(nonce, @"Required nonce param is missing!");
 
     NSString *parameterString = [request signedParameterString];
@@ -133,11 +132,6 @@
     NSString *signatureParam = [NSString stringWithFormat:@"signature=%@",signature];
     STAssertFalse([parameterString rangeOfString:signatureParam].location == NSNotFound,
                   @"Signature parameter not present!");
-
-    NSString
-        *expectedSignatureString = [NSString stringWithFormat:@"%@:%@:%@:%@:%@", PUBLISHER_TOKEN, [PHAPIRequest session], PHGID(), nonce, PUBLISHER_SECRET],
-        *expectedSignature       = [PHStringUtil b64DigestForString:expectedSignatureString];
-    STAssertTrue([signature isEqualToString:expectedSignature], @"signature did not match expected value!");
 
     NSString *nonceParam = [NSString stringWithFormat:@"nonce=%@",nonce];
     STAssertFalse([parameterString rangeOfString:nonceParam].location == NSNotFound,
@@ -386,6 +380,44 @@
     STAssertNoThrow([PHAPIRequest setSession:@"test_session"], @"setting a session shouldn't throw an error");
     STAssertNoThrow([PHAPIRequest setSession:nil], @"clearing a session shouldn't throw");
 }
+
+- (void)testV4Signature
+{
+    // Case 1: Check signature generation with arbitrary identifiers.
+    NSDictionary *theIdentifiers = @{ @"device": @"1111", @"ifa" : @"2222",
+                @"mac" : @"beefbeefbeef", @"odin" : @"3333"};
+    
+    NSString *theSignature = [PHAPIRequest v4SignatureWithIdentifiers:theIdentifiers token:
+                @"app-token" nonce:@"12345" signatureKey:@"app-secret"];
+    STAssertEqualObjects(theSignature, @"ULwcjDFMPwhMCsZs-78HVjyAD-s", @"Incorect signature");
+    
+    // Case 2: Check signature generation with empty list of identifiers.
+    theIdentifiers = @{};
+    theSignature = [PHAPIRequest v4SignatureWithIdentifiers:theIdentifiers token:@"app-token" nonce:
+                @"12345" signatureKey:@"app-secret"];
+    STAssertEqualObjects(theSignature, @"yo9XmQWA5iISpqVwE-zNgkWZ7ZI", @"Incorect signature");
+
+    // Case 3: Check signature generation with nil identifiers.
+    theSignature = [PHAPIRequest v4SignatureWithIdentifiers:nil token:@"app-token" nonce:@"12345"
+                signatureKey:@"app-secret"];
+    STAssertEqualObjects(theSignature, @"yo9XmQWA5iISpqVwE-zNgkWZ7ZI", @"Incorect signature");
+    
+    // Case 4: Check that signature is nil if required parameter is missed.
+    theSignature = [PHAPIRequest v4SignatureWithIdentifiers:nil token:nil nonce:@"12345"
+                signatureKey:@"app-secret"];
+    STAssertNil(theSignature, @"Signature should be nil if application token is not specified.");
+
+    // Case 5: Check that signature is nil if required parameter is missed.
+    theSignature = [PHAPIRequest v4SignatureWithIdentifiers:nil token:@"app-token" nonce:nil
+                signatureKey:@"app-secret"];
+    STAssertNil(theSignature, @"Signature should be nil if nonce is not specified.");
+
+    // Case 6: Check that signature is nil if required parameter is missed.
+    theSignature = [PHAPIRequest v4SignatureWithIdentifiers:nil token:@"app-token" nonce:@"12345"
+                signatureKey:nil];
+    STAssertNil(theSignature, @"Signature should be nil if signature key is not specified.");
+}
+
 @end
 
 @implementation PHAPIRequestResponseTest

@@ -22,6 +22,7 @@
 #import "PHNetworkUtil.h"
 #import "PHConstants.h"
 #import "PHAPIRequest.h"
+#import <CommonCrypto/CommonHMAC.h>
 
 #include <sys/socket.h>
 #include <sys/sysctl.h>

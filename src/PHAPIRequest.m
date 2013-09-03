@@ -19,6 +19,7 @@
  Created by Jesus Fernandez on 3/30/11.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+#import <CommonCrypto/CommonHMAC.h>
 #import "PHConnectionManager.h"
 #import "PHAPIRequest.h"
 
@@ -28,6 +29,7 @@
 #import "UIDevice+HardwareString.h"
 #import "PHNetworkUtil.h"
 #import "PHConstants.h"
+#import "PHAPIRequestPrivate.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
@@ -339,51 +341,14 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0) ?
                                             [[NSLocale preferredLanguages] objectAtIndex:0] : nil;
 
-        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
+        NSDictionary *theIdentifiers = [[self class] identifiers];
+        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] initWithDictionary:
+                    theIdentifiers];
 
 #if PH_USE_UNIQUE_IDENTIFIER == 1
         if (![PHAPIRequest optOutStatus]) {
             NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
             [combinedParams setValue:device forKey:@"device"];
-        }
-#endif
-
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
-#if PH_USE_AD_SUPPORT == 1
-        if ([ASIdentifierManager class]) {
-            NSUUID   *uuid            = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-            NSString *uuidString      = [uuid UUIDString];
-            NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
-            [combinedParams setValue:uuidString forKey:@"d_ifa"];
-            [combinedParams setValue:trackingEnabled forKey:@"tracking"];
-        }
-#endif
-#endif
-#endif
-
-        if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)])
-        {
-            NSString *theDeviceIDFV = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-            if (nil != theDeviceIDFV)
-            {
-                combinedParams[kPHRequestParameterIDFVKey] = theDeviceIDFV;
-            }
-        }
-        
-        if (self.customUDID) {
-            [combinedParams setValue:self.customUDID forKey:@"d_custom"];
-        }
-
-#if PH_USE_MAC_ADDRESS == 1
-        if (![PHAPIRequest optOutStatus]) {
-            PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
-            CFDataRef macBytes = [netUtil newMACBytes];
-            if (macBytes) {
-                [combinedParams setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
-                [combinedParams setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
-                CFRelease(macBytes);
-            }
         }
 #endif
 
@@ -396,11 +361,6 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         NSString
             *nonce         = [PHStringUtil uuid],
             *session       = [PHAPIRequest session],
-            *gid           = PHGID(),
-            *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
-                                    self.token, [PHAPIRequest session],
-                                    PHGID(), nonce, self.secret],
-            *signature     = [PHAPIRequest base64SignatureWithString:signatureHash],
             *appId         = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
             *appVersion    = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
             *hardware      = [[UIDevice currentDevice] hardware],
@@ -410,6 +370,10 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
             *languages     = preferredLanguage;
 
         if (!appVersion) appVersion = @"NA";
+        
+        NSString *signature = [[self class] v4SignatureWithIdentifiers:theIdentifiers token:
+                    self.token nonce:nonce signatureKey:self.secret];
+        signature = nil != signature ? signature : @"";
 
         NSNumber
             *idiom      = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
@@ -434,7 +398,6 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
                                  PH_SDK_VERSION, @"sdk-ios",
                                  languages,      @"languages",
                                  session,        @"session",
-                                 gid,            @"gid",
                                  width,          @"width",
                                  height,         @"height",
                                  scale,          @"scale", nil];
@@ -606,6 +569,102 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
     }
     
     return theSignature;
+}
+
++ (NSDictionary *)identifiers
+{
+    NSMutableDictionary *theIdentifiers = [NSMutableDictionary dictionary];
+    
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if PH_USE_AD_SUPPORT == 1
+    if ([ASIdentifierManager class])
+    {
+        NSUUID   *uuid            = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+        NSString *uuidString      = [uuid UUIDString];
+        NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
+        
+        if (nil != uuidString)
+        {
+            [theIdentifiers setValue:uuidString forKey:@"d_ifa"];
+            [theIdentifiers setValue:trackingEnabled forKey:@"tracking"];
+        }
+    }
+#endif
+#endif
+#endif
+
+    if (self.customUDID)
+    {
+        [theIdentifiers setValue:self.customUDID forKey:@"d_custom"];
+    }
+
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)])
+    {
+        NSString *theDeviceIDFV = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        if (nil != theDeviceIDFV)
+        {
+            theIdentifiers[kPHRequestParameterIDFVKey] = theDeviceIDFV;
+        }
+    }
+
+#if PH_USE_MAC_ADDRESS == 1
+    if (![PHAPIRequest optOutStatus])
+    {
+        PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
+        CFDataRef macBytes = [netUtil newMACBytes];
+        if (macBytes)
+        {
+            [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
+            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
+            CFRelease(macBytes);
+        }
+    }
+#endif
+    
+    return theIdentifiers;
+}
+
++ (NSString *)v4SignatureWithIdentifiers:(NSDictionary *)anIndentifiers token:(NSString *)aToken
+            nonce:(NSString *)aNonce signatureKey:(NSString *)aKey
+{
+    if (0 == [aToken length] || 0 == [aNonce length] || 0 == [aKey length])
+    {
+        PH_DEBUG(@"Incorrect input parmameters: token - %@, token - %@, token - %@\n", aToken,
+                    aNonce, aKey);
+        return nil;
+    }
+    
+    NSArray *theSortedKeys = [[anIndentifiers allKeys] sortedArrayUsingSelector:@selector(
+                caseInsensitiveCompare:)];
+    // Sort the identifiers by key (identifier name).
+    NSArray *theSortedValues = [anIndentifiers objectsForKeys:theSortedKeys notFoundMarker:[NSNull
+                null]];
+
+    // Join identifiers with a colon.
+    NSString *theJoinedIdentifiers = [theSortedValues componentsJoinedByString:@":"];
+
+    // Construct signature with the format string.
+    NSString *theSignature = [NSString stringWithFormat:@"%@:%@:%@", nil != theJoinedIdentifiers ?
+                theJoinedIdentifiers : @"", aToken, aNonce];
+
+    const char *theSignatureCString = [theSignature cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *theKeyCString = [aKey cStringUsingEncoding:NSUTF8StringEncoding];
+
+    unsigned char theHMACDigest[CC_SHA1_DIGEST_LENGTH];
+    NSString *theBase64EncodedDigest = nil;
+
+    if (NULL != theKeyCString && NULL != theSignatureCString)
+    {
+        CCHmac(kCCHmacAlgSHA1, theKeyCString, strlen(theKeyCString), theSignatureCString,
+                    strlen(theSignatureCString), &theHMACDigest);
+
+        NSData *theHMACData = [[[NSData alloc] initWithBytes:theHMACDigest length:sizeof(
+                    theHMACDigest)] autorelease];
+        theBase64EncodedDigest = [PHStringUtil base64EncodedStringForData:theHMACData];
+    }
+    
+    return theBase64EncodedDigest;
 }
 
 @end
