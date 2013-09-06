@@ -87,6 +87,7 @@
     // Test for existence of parameters
     NSString
         *session   = [signedParameters valueForKey:@"session"],
+        *gid       = [signedParameters valueForKey:@"gid"],
         *token     = [signedParameters valueForKey:@"token"],
         *signature = [signedParameters valueForKey:@"signature"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
@@ -118,6 +119,7 @@
 #endif
 
     STAssertNotNil(session, @"Required session param is missing!");
+    STAssertNotNil(gid, @"Required gid param is missing!");
     STAssertNotNil(token, @"Required token param is missing!");
     STAssertTrue(0 < [signature length], @"Required signature param is missing!");
     STAssertNotNil(nonce, @"Required nonce param is missing!");
