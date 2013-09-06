@@ -361,6 +361,7 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         NSString
             *nonce         = [PHStringUtil uuid],
             *session       = [PHAPIRequest session],
+            *gid           = PHGID(),
             *appId         = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
             *appVersion    = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
             *hardware      = [[UIDevice currentDevice] hardware],
@@ -398,6 +399,7 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
                                  PH_SDK_VERSION, @"sdk-ios",
                                  languages,      @"languages",
                                  session,        @"session",
+                                 gid,            @"gid",
                                  width,          @"width",
                                  height,         @"height",
                                  scale,          @"scale", nil];
