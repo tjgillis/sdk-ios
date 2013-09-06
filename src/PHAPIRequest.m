@@ -29,7 +29,7 @@
 #import "UIDevice+HardwareString.h"
 #import "PHNetworkUtil.h"
 #import "PHConstants.h"
-#import "PHAPIRequestPrivate.h"
+#import "PHAPIRequest+Private.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
@@ -615,39 +615,50 @@ static NSString *sPlayHavenCustomUDID;
     return theIdentifiers;
 }
 
-+ (NSString *)v4SignatureWithIdentifiers:(NSDictionary *)anIndentifiers token:(NSString *)aToken
++ (NSString *)v4SignatureWithIdentifiers:(NSDictionary *)anIdentifiers token:(NSString *)aToken
             nonce:(NSString *)aNonce signatureKey:(NSString *)aKey
 {
     if (0 == [aToken length] || 0 == [aNonce length] || 0 == [aKey length])
     {
-        PH_DEBUG(@"Incorrect input parmameters: token - %@, token - %@, token - %@\n", aToken,
-                    aNonce, aKey);
+        PH_DEBUG(@"Incorrect input parmameters: token - %@, nonce - %@, key - %@\n", aToken, aNonce,
+                    aKey);
         return nil;
     }
     
-    NSArray *theSortedKeys = [[anIndentifiers allKeys] sortedArrayUsingSelector:@selector(
+    NSArray *theSortedKeys = [[anIdentifiers allKeys] sortedArrayUsingSelector:@selector(
                 caseInsensitiveCompare:)];
     // Sort the identifiers by key (identifier name).
-    NSArray *theSortedValues = [anIndentifiers objectsForKeys:theSortedKeys notFoundMarker:[NSNull
+    NSArray *theSortedValues = [anIdentifiers objectsForKeys:theSortedKeys notFoundMarker:[NSNull
                 null]];
 
     // Join identifiers with a colon.
     NSString *theJoinedIdentifiers = [theSortedValues componentsJoinedByString:@":"];
 
-    // Construct signature with the format string.
-    NSString *theSignature = [NSString stringWithFormat:@"%@:%@:%@", nil != theJoinedIdentifiers ?
+    // Construct message with the format string.
+    NSString *theMessage = [NSString stringWithFormat:@"%@:%@:%@", nil != theJoinedIdentifiers ?
                 theJoinedIdentifiers : @"", aToken, aNonce];
 
-    const char *theSignatureCString = [theSignature cStringUsingEncoding:NSUTF8StringEncoding];
+    return [self v4SignatureWithMessage:theMessage signatureKey:aKey];
+}
+
++ (NSString *)v4SignatureWithMessage:(NSString *)aMessage signatureKey:(NSString *)aKey
+{
+    if (0 == [aMessage length] || 0 == [aKey length])
+    {
+        PH_DEBUG(@"Incorrect input parmameters: message - %@, key - %@\n", aMessage, aKey);
+        return nil;
+    }
+
+    const char *theMessageCString = [aMessage cStringUsingEncoding:NSUTF8StringEncoding];
     const char *theKeyCString = [aKey cStringUsingEncoding:NSUTF8StringEncoding];
 
     unsigned char theHMACDigest[CC_SHA1_DIGEST_LENGTH];
     NSString *theBase64EncodedDigest = nil;
 
-    if (NULL != theKeyCString && NULL != theSignatureCString)
+    if (NULL != theKeyCString && NULL != theMessageCString)
     {
-        CCHmac(kCCHmacAlgSHA1, theKeyCString, strlen(theKeyCString), theSignatureCString,
-                    strlen(theSignatureCString), &theHMACDigest);
+        CCHmac(kCCHmacAlgSHA1, theKeyCString, strlen(theKeyCString), theMessageCString,
+                    strlen(theMessageCString), &theHMACDigest);
 
         NSData *theHMACData = [[[NSData alloc] initWithBytes:theHMACDigest length:sizeof(
                     theHMACDigest)] autorelease];
