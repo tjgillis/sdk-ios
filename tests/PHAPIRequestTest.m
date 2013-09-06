@@ -24,7 +24,7 @@
 #import "PHConstants.h"
 #import "PHStringUtil.h"
 #import "PHPublisherOpenRequest.h"
-#import "PHAPIRequestPrivate.h"
+#import "PHAPIRequest+Private.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"

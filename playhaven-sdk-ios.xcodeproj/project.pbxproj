@@ -602,7 +602,8 @@
 		E17A203A1718DC4300EF6C14 /* PushNotificationRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationRegistrationViewController.h; sourceTree = "<group>"; };
 		E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationRegistrationViewController.m; sourceTree = "<group>"; };
 		E17A203C1718DC4500EF6C14 /* PushNotificationRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushNotificationRegistrationViewController.xib; sourceTree = "<group>"; };
-		E1AB2C5917D5EB6900B3FE71 /* PHAPIRequestPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAPIRequestPrivate.h; sourceTree = "<group>"; };
+		E1AB2C5917D5EB6900B3FE71 /* PHAPIRequest+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHAPIRequest+Private.h"; sourceTree = "<group>"; };
+		E1B04AA417D9E8C200DE38F6 /* PHPublisherContentRequest+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHPublisherContentRequest+Private.h"; sourceTree = "<group>"; };
 		E1C8F4ED171CABD900F64E12 /* PlayHavenAppIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenAppIdentity.h; sourceTree = "<group>"; };
 		E1C8F4EE171CABD900F64E12 /* PlayHavenAppIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHavenAppIdentity.m; sourceTree = "<group>"; };
 		E1C8F4F8171CC94400F64E12 /* PHPushRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPushRequest.h; sourceTree = "<group>"; };
@@ -929,7 +930,8 @@
 		E1AB2C5717D5EAA300B3FE71 /* Private Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				E1AB2C5917D5EB6900B3FE71 /* PHAPIRequestPrivate.h */,
+				E1AB2C5917D5EB6900B3FE71 /* PHAPIRequest+Private.h */,
+				E1B04AA417D9E8C200DE38F6 /* PHPublisherContentRequest+Private.h */,
 			);
 			name = "Private Interfaces";
 			sourceTree = "<group>";

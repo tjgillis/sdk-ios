@@ -13,13 +13,22 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- PHAPIRequestPrivate.h
+ PHPublisherContentRequest+Private.h
  playhaven-sdk-ios
 
- Created by Anton Fedorchenko on 9/3/13.
+ Created by Anton Fedorchenko on 9/6/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-@interface PHAPIRequest ()
-+ (NSString *)v4SignatureWithIdentifiers:(NSDictionary *)anIndentifiers token:(NSString *)aToken
-            nonce:(NSString *)aNonce signatureKey:(NSString *)aKey;
+@interface PHPublisherContentRequest ()
+/**
+ * Checks if a given dictionary is a valid reward dictionary containing all the expected key-values
+ * and valid signature.
+ **/
+- (BOOL)isValidReward:(NSDictionary *)rewardData;
+
+/**
+ * Checks if a given dictionary is a valid purchase dictionary containing all the expected
+ * key-values and valid signature.
+ **/
+- (BOOL)isValidPurchase:(NSDictionary *)purchaseData;
 @end
