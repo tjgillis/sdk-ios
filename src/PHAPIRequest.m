@@ -387,7 +387,7 @@ static NSString *sPlayHavenCustomUDID;
         NSDictionary *signatureParams =
              [NSDictionary dictionaryWithObjectsAndKeys:
                                  self.token,     @"token",
-                                 signature,      @"signature",
+                                 signature,      @"sig4",
                                  nonce,          @"nonce",
                                  appId,          @"app",
                                  hardware,       @"hardware",

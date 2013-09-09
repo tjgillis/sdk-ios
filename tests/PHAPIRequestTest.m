@@ -89,7 +89,7 @@
         *session   = [signedParameters valueForKey:@"session"],
         *gid       = [signedParameters valueForKey:@"gid"],
         *token     = [signedParameters valueForKey:@"token"],
-        *signature = [signedParameters valueForKey:@"signature"],
+        *signature = [signedParameters valueForKey:@"sig4"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
 
 #if PH_USE_UNIQUE_IDENTIFIER == 1
@@ -131,7 +131,7 @@
     STAssertFalse([parameterString rangeOfString:tokenParam].location == NSNotFound,
                   @"Token parameter not present!");
 
-    NSString *signatureParam = [NSString stringWithFormat:@"signature=%@",signature];
+    NSString *signatureParam = [NSString stringWithFormat:@"sig4=%@",signature];
     STAssertFalse([parameterString rangeOfString:signatureParam].location == NSNotFound,
                   @"Signature parameter not present!");
 
