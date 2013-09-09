@@ -42,7 +42,7 @@
                   @"Token parameter not present!");
     STAssertFalse([requestURLString rangeOfString:@"nonce="].location == NSNotFound,
                   @"Nonce parameter not present!");
-    STAssertFalse([requestURLString rangeOfString:@"signature="].location == NSNotFound,
+    STAssertFalse([requestURLString rangeOfString:@"sig4="].location == NSNotFound,
                   @"Secret parameter not present!");
 
     STAssertTrue([request respondsToSelector:@selector(send)], @"Send method not implemented!");
