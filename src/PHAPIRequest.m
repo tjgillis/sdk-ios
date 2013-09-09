@@ -345,6 +345,18 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] initWithDictionary:
                     theIdentifiers];
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if PH_USE_AD_SUPPORT == 1
+    if ([ASIdentifierManager class])
+    {
+        NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
+        [combinedParams setValue:trackingEnabled forKey:@"tracking"];
+    }
+#endif
+#endif
+#endif
+
 #if PH_USE_UNIQUE_IDENTIFIER == 1
         if (![PHAPIRequest optOutStatus]) {
             NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
@@ -582,14 +594,12 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
 #if PH_USE_AD_SUPPORT == 1
     if ([ASIdentifierManager class])
     {
-        NSUUID   *uuid            = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-        NSString *uuidString      = [uuid UUIDString];
-        NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
-        
+        NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+        NSString *uuidString = [uuid UUIDString];
+
         if (nil != uuidString)
         {
             [theIdentifiers setValue:uuidString forKey:@"d_ifa"];
-            [theIdentifiers setValue:trackingEnabled forKey:@"tracking"];
         }
     }
 #endif
