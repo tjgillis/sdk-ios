@@ -145,14 +145,14 @@
     
     // Test IDFV parameter
 
-    NSString *theIDFV = signedParameters[@"d_idfv"];
+    NSString *theIDFV = signedParameters[@"idfv"];
     NSString *theRequestURL = [request.URL absoluteString];
 
     if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
     {
         STAssertTrue([theIDFV length] > 0, @"Invalid IDFV value: %@", theIDFV);
 
-        NSString *theIDFVParameter = [NSString stringWithFormat:@"d_idfv=%@", theIDFV];
+        NSString *theIDFVParameter = [NSString stringWithFormat:@"idfv=%@", theIDFV];
         STAssertTrue([theRequestURL rangeOfString:theIDFVParameter].length > 0, @"IDFV is missed"
                     " from the request URL");
     
@@ -160,7 +160,7 @@
     else
     {
         STAssertNil(theIDFV, @"IDFV is not available on iOS earlier than 6.0.");
-        STAssertTrue([theRequestURL rangeOfString:@"d_idfv="].length == 0, @"This parameter should "
+        STAssertTrue([theRequestURL rangeOfString:@"idfv="].length == 0, @"This parameter should "
                     "be omitted on system < 6.0.");
     }
 }

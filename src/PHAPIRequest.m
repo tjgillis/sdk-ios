@@ -37,7 +37,7 @@ static NSString *sPlayHavenSession;
 static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
 static NSString *sPlayHavenCustomUDID;
-static NSString *const kPHRequestParameterIDFVKey = @"d_idfv";
+static NSString *const kPHRequestParameterIDFVKey = @"idfv";
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
