@@ -603,7 +603,7 @@ static NSString *sPlayHavenCustomUDID;
 
         if (nil != uuidString)
         {
-            [theIdentifiers setValue:uuidString forKey:@"d_ifa"];
+            [theIdentifiers setValue:uuidString forKey:@"ifa"];
         }
     }
 #endif
@@ -617,13 +617,13 @@ static NSString *sPlayHavenCustomUDID;
         CFDataRef macBytes = [netUtil newMACBytes];
         if (macBytes)
         {
-            [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
-            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
+            [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"mac"];
+            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"odin"];
             CFRelease(macBytes);
         }
     }
 #endif
-    
+
     return theIdentifiers;
 }
 
