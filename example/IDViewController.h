@@ -24,7 +24,6 @@
 @interface IDViewController : UIViewController
 @property (retain, nonatomic) IBOutlet UILabel *IFALabel;
 @property (retain, nonatomic) IBOutlet UILabel *MACLabel;
-@property (retain, nonatomic) IBOutlet UILabel *ODIN1Label;
 @property (retain, nonatomic) IBOutlet UILabel *GIDLabel;
 @property (retain, nonatomic) IBOutlet UILabel *PHIDLabel;
 

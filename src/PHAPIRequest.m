@@ -617,7 +617,6 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         if (macBytes)
         {
             [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"mac"];
-            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"odin"];
             CFRelease(macBytes);
         }
     }

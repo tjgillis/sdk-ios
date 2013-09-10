@@ -95,18 +95,12 @@
 
 #if PH_USE_MAC_ADDRESS == 1
     NSString *mac   = [signedParameters valueForKey:@"mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"odin"];
     STAssertNotNil(mac, @"MAC param is missing!");
-    STAssertNotNil(odin1, @"ODIN1 param is missing!");
     STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing: %@", requestURLString);
-    STAssertFalse([requestURLString rangeOfString:@"odin="].location == NSNotFound, @"ODIN1 param is missing: %@", requestURLString);
 #else
     NSString *mac   = [signedParameters valueForKey:@"mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"odin"];
     STAssertNil(mac, @"MAC param is present!");
-    STAssertNil(odin1, @"ODIN1 param is present!");
     STAssertTrue([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param exists when it shouldn't: %@", requestURLString);
-    STAssertTrue([requestURLString rangeOfString:@"odin="].location == NSNotFound, @"ODIN1 param exists when it shouldn't: %@", requestURLString);
 #endif
 
     STAssertNotNil(session, @"Required session param is missing!");
