@@ -80,6 +80,8 @@
 
 - (void)testRequestParameters
 {
+    [PHAPIRequest setSession:@"test_session"];
+    
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *signedParameters = [request signedParameters];
     NSString     *requestURLString = [request.URL absoluteString];
@@ -87,7 +89,6 @@
     // Test for existence of parameters
     NSString
         *session   = [signedParameters valueForKey:@"session"],
-        *gid       = [signedParameters valueForKey:@"gid"],
         *token     = [signedParameters valueForKey:@"token"],
         *signature = [signedParameters valueForKey:@"sig4"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
@@ -119,7 +120,6 @@
 #endif
 
     STAssertNotNil(session, @"Required session param is missing!");
-    STAssertNotNil(gid, @"Required gid param is missing!");
     STAssertNotNil(token, @"Required token param is missing!");
     STAssertTrue(0 < [signature length], @"Required signature param is missing!");
     STAssertNotNil(nonce, @"Required nonce param is missing!");
