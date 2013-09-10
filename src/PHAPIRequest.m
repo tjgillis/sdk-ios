@@ -376,8 +376,6 @@ static NSString *sPlayHavenCustomUDID;
 
         NSString
             *nonce         = [PHStringUtil uuid],
-            *session       = [PHAPIRequest session],
-            *gid           = PHGID(),
             *appId         = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
             *appVersion    = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
             *hardware      = [[UIDevice currentDevice] hardware],
@@ -414,8 +412,6 @@ static NSString *sPlayHavenCustomUDID;
                                  connection,     @"connection",
                                  PH_SDK_VERSION, @"sdk-ios",
                                  languages,      @"languages",
-                                 session,        @"session",
-                                 gid,            @"gid",
                                  width,          @"width",
                                  height,         @"height",
                                  scale,          @"scale", nil];
@@ -623,6 +619,12 @@ static NSString *sPlayHavenCustomUDID;
         }
     }
 #endif
+
+    NSString *theSession = [PHAPIRequest session];
+    if (0 < [theSession length])
+    {
+        theIdentifiers[@"session"] = theSession;
+    }
 
     return theIdentifiers;
 }
