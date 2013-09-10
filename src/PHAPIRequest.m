@@ -604,7 +604,7 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
 
         if (nil != uuidString)
         {
-            [theIdentifiers setValue:uuidString forKey:@"d_ifa"];
+            [theIdentifiers setValue:uuidString forKey:@"ifa"];
         }
     }
 #endif
@@ -627,13 +627,13 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         CFDataRef macBytes = [netUtil newMACBytes];
         if (macBytes)
         {
-            [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
-            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
+            [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"mac"];
+            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"odin"];
             CFRelease(macBytes);
         }
     }
 #endif
-    
+
     return theIdentifiers;
 }
 
