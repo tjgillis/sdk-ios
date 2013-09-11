@@ -597,7 +597,7 @@ static NSString *sPlayHavenCustomUDID;
         NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
         NSString *uuidString = [uuid UUIDString];
 
-        if (nil != uuidString)
+        if (0 < [uuidString length])
         {
             [theIdentifiers setValue:uuidString forKey:@"ifa"];
         }
