@@ -64,7 +64,6 @@
 {
     [_IFALabel release];
     [_MACLabel release];
-    [_GIDLabel release];
     [_PHIDLabel release];
     [super dealloc];
 }
@@ -73,7 +72,6 @@
 {
     [self setIFALabel:nil];
     [self setMACLabel:nil];
-    [self setGIDLabel:nil];
     [self setPHIDLabel:nil];
     [super viewDidUnload];
 }
