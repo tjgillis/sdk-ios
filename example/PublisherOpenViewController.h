@@ -29,7 +29,6 @@
 @property (retain, nonatomic) IBOutlet UITextField *customUDIDField;
 @property (retain, nonatomic) IBOutlet UITextField *pluginIdentifier;
 
-- (IBAction)touchedClearGID:(id)sender;
 - (IBAction)touchedClearSession:(id)sender;
 - (IBAction)touchedClearCustomUDID:(id)sender;
 - (IBAction)touchedClearPluginIdentifier:(id)sender;
