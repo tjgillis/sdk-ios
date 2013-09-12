@@ -40,6 +40,7 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
 static NSString *sPlayHavenCustomUDID;
 static NSString *const kPHRequestParameterIDFVKey = @"idfv";
+static NSString *const kPHRequestParameterOptOutStatusKey = @"opt_out";
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
@@ -352,6 +353,13 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
         {
             NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
             [combinedParams setValue:trackingEnabled forKey:@"tracking"];
+            
+            if (![PHAPIRequest optOutStatus])
+            {
+                NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+                NSString *uuidString = [uuid UUIDString];
+                [combinedParams setValue:uuidString forKey:@"d_ifa"];
+            }
         }
 #endif
 #endif
@@ -390,6 +398,7 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
             *width      = [NSNumber numberWithFloat:screenWidth],
             *height     = [NSNumber numberWithFloat:screenHeight],
             *scale      = [NSNumber numberWithFloat:screenScale];
+        NSNumber *theOptOutStatus = @([PHAPIRequest optOutStatus]);
 
         [combinedParams addEntriesFromDictionary:self.additionalParameters];
 
@@ -408,7 +417,9 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
                                  languages,      @"languages",
                                  width,          @"width",
                                  height,         @"height",
-                                 scale,          @"scale", nil];
+                                 scale,          @"scale",
+                                 theOptOutStatus, kPHRequestParameterOptOutStatusKey,
+                                 nil];
 
         [combinedParams addEntriesFromDictionary:signatureParams];
         _signedParameters = combinedParams;

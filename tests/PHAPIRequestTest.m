@@ -203,8 +203,83 @@
     STAssertNil([theSignedParameters objectForKey:@"mac"], @"%@!", theUnexpectedMACMessage);
     STAssertTrue([theRequestURLString rangeOfString:@"mac="].length == 0, @"%@: %@",
                 theUnexpectedMACMessage, theRequestURLString);
+}
+
+- (void)testIDFAParameterWithOptedInUser
+{
+    // User is opted in
+    [PHAPIRequest setOptOutStatus:NO];
+    
+    PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *theSignedParameters = [theRequest signedParameters];
+    NSString *theRequestURL = [theRequest.URL absoluteString];
+
+    NSString *theIDFA = theSignedParameters[@"d_ifa"];
+
+    if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
+    {
+        STAssertTrue([theIDFA length] > 0, @"Invalid IDFA value: %@", theIDFA);
+
+        NSString *theIDFAParameter = [NSString stringWithFormat:@"d_ifa=%@", theIDFA];
+        STAssertTrue([theRequestURL rangeOfString:theIDFAParameter].length > 0, @"IDFA is missed"
+                    " from the request URL");
+    
+    }
+    else
+    {
+        STAssertNil(theIDFA, @"IDFA is not available on iOS earlier than 6.0.");
+        STAssertTrue([theRequestURL rangeOfString:@"d_ifa="].length == 0, @"This parameter should "
+                    "be omitted on system < 6.0.");
+    }
+}
+
+- (void)testIDFAParameterWithOptedOutUser
+{
+    // User is opted in
+    [PHAPIRequest setOptOutStatus:YES];
+    
+    PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *theSignedParameters = [theRequest signedParameters];
+    NSString *theRequestURL = [theRequest.URL absoluteString];
+
+    NSString *theIDFA = theSignedParameters[@"d_ifa"];
+
+    STAssertNil(theIDFA, @"IDFA should not be sent for opted out users!");
+    STAssertTrue([theRequestURL rangeOfString:@"d_ifa="].length == 0, @"This parameter should "
+                "not be sent for opted out users!");
     
     // Revert opt-out status
+    [PHAPIRequest setOptOutStatus:NO];
+}
+
+- (void)testOptedInUser
+{
+    // User is opted-in.
+    [PHAPIRequest setOptOutStatus:NO];
+
+    PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *theSignedParameters = [theRequest signedParameters];
+    NSString *theRequestURLString = [theRequest.URL absoluteString];
+    
+    STAssertEqualObjects(theSignedParameters[@"opt_out"], @(NO), @"Incorrect opt-out value!");
+    STAssertTrue([theRequestURLString rangeOfString:@"opt_out=0"].length > 0, @"Incorrect opt-out "
+                "value!");
+}
+
+- (void)testOptedOutUser
+{
+    // User is opted-out.
+    [PHAPIRequest setOptOutStatus:YES];
+
+    PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *theSignedParameters = [theRequest signedParameters];
+    NSString *theRequestURLString = [theRequest.URL absoluteString];
+
+    STAssertEqualObjects(theSignedParameters[@"opt_out"], @(YES), @"Incorrect opt-out value!");
+    STAssertTrue([theRequestURLString rangeOfString:@"opt_out=1"].length > 0, @"Incorrect opt-out "
+                "value!");
+
+    // Revert out-out status.
     [PHAPIRequest setOptOutStatus:NO];
 }
 
