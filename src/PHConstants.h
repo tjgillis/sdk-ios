@@ -148,13 +148,6 @@
 #endif
 
 /**
- * Sends UDID with each request. To disable, set to 0.
- **/
-#ifndef PH_USE_UNIQUE_IDENTIFIER
-#define PH_USE_UNIQUE_IDENTIFIER 0
-#endif
-
-/**
  * Sends the device's MAC address with each request. To disable, set to 0.
  **/
 #ifndef PH_USE_MAC_ADDRESS

@@ -91,16 +91,6 @@
         *signature = [signedParameters valueForKey:@"signature"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
 
-#if PH_USE_UNIQUE_IDENTIFIER == 1
-    NSString *device = [signedParameters valueForKey:@"device"];
-    STAssertNotNil(device, @"UDID param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param is missing: %@", requestURLString);
-#else
-    NSString *device = [signedParameters valueForKey:@"device"];
-    STAssertNil(device, @"UDID param is present!");
-    STAssertTrue([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param exists when it shouldn't: %@", requestURLString);
-#endif
-
 #if PH_USE_MAC_ADDRESS == 1
     NSString *mac   = [signedParameters valueForKey:@"d_mac"];
     NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
