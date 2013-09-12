@@ -28,6 +28,7 @@ Version History
 1.21.0
 ======
 * Upgraded request signatures to v4-style.
+* Removed ODIN1 and GID identifiers.
 
 1.20.0
 ======
@@ -133,7 +134,7 @@ If you are using Unity for your game, please integrate the [Unity SDK](https://g
 Using the SDK
 =============
 ### Device tracking
-It is possible to track individual iOS devices using different device identifiers. The identifiers that PlayHaven relies on most are identifierForAdvertising (IDFA), device MAC address (MAC), and Open Device Identification Number (ODIN). Since IDFA is only available on iOS 6.0 and later, and a significant portion of the iOS market is still on 5.x, it is important that MAC and ODIN be available for PlayHaven to use. By default, `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address and ODIN values for the current device with the open request. If you previously added the preprocessor macro `PH_USE_MAC_ADDRESS=0`, **you should remove it**.
+It is possible to track individual iOS devices using different device identifiers. The identifiers that PlayHaven relies on most are identifierForAdvertising (IDFA), IDFV and device MAC address (MAC). Since IDFA and IDFV are only available on iOS 6.0 and later, and a significant portion of the iOS market is still on 5.x, it is important that MAC be available for PlayHaven to use. By default, `PH_USE_MAC_ADDRESS=1` is set, which sends the device's wifi MAC address for the current device with the open request. If you previously added the preprocessor macro `PH_USE_MAC_ADDRESS=0`, **you should remove it**.
 
 PlayHaven no longer uses UDID, as Apple is no longer accepting apps which use it. 
 
