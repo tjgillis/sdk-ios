@@ -296,9 +296,12 @@ static NSString *const kPHTestMessageID = @"87345";
     NSString     *requestURLString  = [request.URL absoluteString];
 
 #if PH_USE_MAC_ADDRESS == 1
-    NSString *mac   = [signedParameters valueForKey:@"mac"];
-    STAssertNotNil(mac, @"MAC param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing!");
+    if (PH_SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    {
+        NSString *mac   = [signedParameters valueForKey:@"mac"];
+        STAssertNotNil(mac, @"MAC param is missing!");
+        STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing!");
+    }
 #else
     NSString *mac   = [signedParameters valueForKey:@"mac"];
     STAssertNil(mac, @"MAC param is present!");

@@ -21,6 +21,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "PHPublisherMetadataRequest.h"
+#import "PHConstants.h"
 
 @interface PHPublisherMetadataRequestTest : SenTestCase
 @end
@@ -46,9 +47,12 @@
 
 //#define PH_USE_MAC_ADDRESS 1
 #if PH_USE_MAC_ADDRESS == 1
-    NSString *mac   = [signedParameters valueForKey:@"mac"];
-    STAssertNotNil(mac, @"MAC param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing!");
+    if (PH_SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    {
+        NSString *mac   = [signedParameters valueForKey:@"mac"];
+        STAssertNotNil(mac, @"MAC param is missing!");
+        STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing!");
+    }
 #else
     NSString *mac   = [signedParameters valueForKey:@"mac"];
     STAssertNil(mac, @"MAC param is present!");

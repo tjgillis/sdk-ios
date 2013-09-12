@@ -157,7 +157,7 @@
 /**
  * Convenience macros to check system version. Usage example:
  *
- * if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(6.0))
+ * if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
  * {
  *     ...
  * }
