@@ -371,7 +371,7 @@ static NSString *const kPHDefaultUserIsOptedOut = @"PHDefaultUserIsOptedOut";
             {
                 NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
                 NSString *uuidString = [uuid UUIDString];
-                [combinedParams setValue:uuidString forKey:@"d_ifa"];
+                [combinedParams setValue:uuidString forKey:@"ifa"];
             }
         }
 #endif

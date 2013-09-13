@@ -214,13 +214,13 @@
     NSDictionary *theSignedParameters = [theRequest signedParameters];
     NSString *theRequestURL = [theRequest.URL absoluteString];
 
-    NSString *theIDFA = theSignedParameters[@"d_ifa"];
+    NSString *theIDFA = theSignedParameters[@"ifa"];
 
     if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
     {
         STAssertTrue([theIDFA length] > 0, @"Invalid IDFA value: %@", theIDFA);
 
-        NSString *theIDFAParameter = [NSString stringWithFormat:@"d_ifa=%@", theIDFA];
+        NSString *theIDFAParameter = [NSString stringWithFormat:@"ifa=%@", theIDFA];
         STAssertTrue([theRequestURL rangeOfString:theIDFAParameter].length > 0, @"IDFA is missed"
                     " from the request URL");
     
@@ -228,7 +228,7 @@
     else
     {
         STAssertNil(theIDFA, @"IDFA is not available on iOS earlier than 6.0.");
-        STAssertTrue([theRequestURL rangeOfString:@"d_ifa="].length == 0, @"This parameter should "
+        STAssertTrue([theRequestURL rangeOfString:@"ifa="].length == 0, @"This parameter should "
                     "be omitted on system < 6.0.");
     }
 }
@@ -242,10 +242,10 @@
     NSDictionary *theSignedParameters = [theRequest signedParameters];
     NSString *theRequestURL = [theRequest.URL absoluteString];
 
-    NSString *theIDFA = theSignedParameters[@"d_ifa"];
+    NSString *theIDFA = theSignedParameters[@"ifa"];
 
     STAssertNil(theIDFA, @"IDFA should not be sent for opted out users!");
-    STAssertTrue([theRequestURL rangeOfString:@"d_ifa="].length == 0, @"This parameter should "
+    STAssertTrue([theRequestURL rangeOfString:@"ifa="].length == 0, @"This parameter should "
                 "not be sent for opted out users!");
     
     // Revert opt-out status
