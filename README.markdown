@@ -145,7 +145,9 @@ To comply with Apple policies for the use of device information, we've provided 
 
     [PHAPIRequest setOptOutStatus:(BOOL)yesOrNo];
 
-You are responsible for providing an appropriate user interface for user opt-out. User data is sent by default.
+You are responsible for providing an appropriate user interface for user opt-out.
+
+User opt-out status indicated by `[PHAPIRequest optOutStatus]` defaults to NO which means that user data is sent by default. The default value of this method can be changed by specifying PHDefaultUserIsOptedOut key with boolean value in the information property list file. If PHDefaultUserIsOptedOut is set to YES, then [PHAPIRequest optOutStatus] also defaults to YES, otherwise default value is NO. The ability to change default behavior can be useful for publishers who create games targeted at an expected underage audience.
 
 ### Recording game opens
 Your application must report each time that it comes to the foreground. PlayHaven uses these events to measure the click-through rate of your content units to help optimize the performance of your implementation. This request is asynchronous and may run in the background while your game is loading.

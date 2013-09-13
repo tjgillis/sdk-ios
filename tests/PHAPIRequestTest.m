@@ -542,6 +542,28 @@
     STAssertNil(theSignature, @"Signature should be nil if signature key is not specified.");
 }
 
+- (void)testOptOutStatus
+{
+    [PHAPIRequest setOptOutStatus:YES];
+    STAssertTrue([PHAPIRequest optOutStatus], @"Incorrect opt-out status!");
+
+    [PHAPIRequest setOptOutStatus:NO];
+    STAssertFalse([PHAPIRequest optOutStatus], @"Incorrect opt-out status!");
+}
+
+- (void)testDefaultOptOutStatus
+{
+    // Clean up possible changes of the opt-out status to test default value.
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PlayHavenOptOutStatus"];
+
+    // This check relies on the presence of the PHDefaultUserIsOptedOut key in the app info
+    // dictionary.
+    STAssertTrue([PHAPIRequest optOutStatus], @"Incorrect default opt-out status!");
+    
+    [PHAPIRequest setOptOutStatus:NO];
+    STAssertFalse([PHAPIRequest optOutStatus], @"Incorrect default opt-out status!");
+}
+
 @end
 
 @implementation PHAPIRequestResponseTest

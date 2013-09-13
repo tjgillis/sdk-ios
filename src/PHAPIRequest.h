@@ -100,7 +100,11 @@
 /*@{*/
 /**
  * Gets and sets opt-out status for the usage of a device's MAC address. If \c YES and <tt>PH_USE_MAC_ADDRESS == 1</tt>,
- * then the device's MAC address will be sent with each request. Defaults to \c YES
+ * then the device's MAC address will be sent with each request. Defaults to NO. The default value can
+ * be changed by specifying PHDefaultUserIsOptedOut key with boolean value in the information
+ * property list file. If PHDefaultUserIsOptedOut is set to YES this method defaults to YES,
+ * otherwise default value is NO. The ability to change default behavior can be useful for
+ * publishers who create games targeted at an expected underage audience.
  **/
 + (BOOL)optOutStatus;
 + (void)setOptOutStatus:(BOOL)yesOrNo;

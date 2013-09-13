@@ -41,6 +41,7 @@ static NSString *sPlayHavenPluginIdentifier;
 static NSString *sPlayHavenCustomUDID;
 static NSString *const kPHRequestParameterIDFVKey = @"idfv";
 static NSString *const kPHRequestParameterOptOutStatusKey = @"opt_out";
+static NSString *const kPHDefaultUserIsOptedOut = @"PHDefaultUserIsOptedOut";
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
@@ -177,7 +178,19 @@ static NSString *const kPHRequestParameterOptOutStatusKey = @"opt_out";
 
 + (BOOL)optOutStatus
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"PlayHavenOptOutStatus"];
+    BOOL theDefaultOptOutStatus = [[[NSBundle mainBundle] infoDictionary][kPHDefaultUserIsOptedOut]
+                boolValue];
+    NSNumber *theUserPreference = [[NSUserDefaults standardUserDefaults] objectForKey:
+                @"PlayHavenOptOutStatus"];
+    BOOL theOptOutStatus = theDefaultOptOutStatus;
+    
+    // User preference overrides the default status.
+    if (nil != theUserPreference)
+    {
+        theOptOutStatus = [theUserPreference boolValue];
+    }
+
+    return theOptOutStatus;
 }
 
 + (void)setOptOutStatus:(BOOL)yesOrNo
