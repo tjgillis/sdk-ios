@@ -37,8 +37,9 @@
 /**
  * @internal
  *
- * @brief Base class for API requests, generates valid request signatures based on the
- * device's GID, and checks for a valid X-PH-DIGEST response signature.
+ * @brief Base class that represents requests from SDK to PlayHaven server. It encapsulates basic
+ *  parameters needed to construct a request URL, implements logic for establishing a connection
+ *  with the server and processing server's response.
  **/
 @interface PHAPIRequest : NSObject <PHConnectionManagerDelegate> {
     NSURL           *_URL;
@@ -86,7 +87,7 @@
 
 /**
  * Retrieves the PHID (otherwise known as the session token) from the pasteboard.
- * This value is used for GID/PHID-based device identification
+ * This value is used for device identification.
  *
  * @return
  *   The session token

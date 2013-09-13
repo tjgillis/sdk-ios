@@ -84,7 +84,6 @@
     
     PHAPIRequest *request = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *signedParameters = [request signedParameters];
-    NSString     *requestURLString = [request.URL absoluteString];
 
     // Test for existence of parameters
     NSString
@@ -92,22 +91,6 @@
         *token     = [signedParameters valueForKey:@"token"],
         *signature = [signedParameters valueForKey:@"sig4"],
         *nonce     = [signedParameters valueForKey:@"nonce"];
-
-#if PH_USE_MAC_ADDRESS == 1
-    NSString *mac   = [signedParameters valueForKey:@"mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"odin"];
-    STAssertNotNil(mac, @"MAC param is missing!");
-    STAssertNotNil(odin1, @"ODIN1 param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing: %@", requestURLString);
-    STAssertFalse([requestURLString rangeOfString:@"odin="].location == NSNotFound, @"ODIN1 param is missing: %@", requestURLString);
-#else
-    NSString *mac   = [signedParameters valueForKey:@"mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"odin"];
-    STAssertNil(mac, @"MAC param is present!");
-    STAssertNil(odin1, @"ODIN1 param is present!");
-    STAssertTrue([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param exists when it shouldn't: %@", requestURLString);
-    STAssertTrue([requestURLString rangeOfString:@"odin="].location == NSNotFound, @"ODIN1 param exists when it shouldn't: %@", requestURLString);
-#endif
 
     STAssertNotNil(session, @"Required session param is missing!");
     STAssertNotNil(token, @"Required token param is missing!");
@@ -132,23 +115,97 @@
     // Test IDFV parameter
 
     NSString *theIDFV = signedParameters[@"idfv"];
+    NSString *theIDFA = signedParameters[@"ifa"];
+    NSNumber *theAdTrackingFlag = signedParameters[@"tracking"];
     NSString *theRequestURL = [request.URL absoluteString];
 
     if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
     {
-        STAssertTrue([theIDFV length] > 0, @"Invalid IDFV value: %@", theIDFV);
+        NSString *theExpectedIDFV = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSUUID *theUUID = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+        NSString *theExpectedIDFA = [theUUID UUIDString];
+        NSNumber *theExpectedAdTrackingFlag = @([[ASIdentifierManager sharedManager]
+                    isAdvertisingTrackingEnabled]);
 
+        STAssertEqualObjects(theIDFV, theExpectedIDFV, @"Invalid IDFV value!");
+        STAssertEqualObjects(theIDFA, theExpectedIDFA, @"Invalid IDFA value!");
+        STAssertEqualObjects(theAdTrackingFlag, theExpectedAdTrackingFlag, @"Incorect Ad tracking "
+                    "value");
+        
         NSString *theIDFVParameter = [NSString stringWithFormat:@"idfv=%@", theIDFV];
         STAssertTrue([theRequestURL rangeOfString:theIDFVParameter].length > 0, @"IDFV is missed"
                     " from the request URL");
-    
+
+        NSString *theIDFAParameter = [NSString stringWithFormat:@"ifa=%@", theIDFA];
+        STAssertTrue([theRequestURL rangeOfString:theIDFAParameter].length > 0, @"IDFA is missed"
+                    " from the request URL");
     }
     else
     {
         STAssertNil(theIDFV, @"IDFV is not available on iOS earlier than 6.0.");
+        STAssertNil(theIDFA, @"IDFA is not available on iOS earlier than 6.0.");
+        STAssertNil(theAdTrackingFlag, @"Ad tracking flag isn't available on iOS earlier than 6.0");
+
         STAssertTrue([theRequestURL rangeOfString:@"idfv="].length == 0, @"This parameter should "
                     "be omitted on system < 6.0.");
+        STAssertTrue([theRequestURL rangeOfString:@"ifa="].length == 0, @"This parameter should "
+                    "be omitted on system < 6.0.");
+        STAssertTrue([theRequestURL rangeOfString:@"tracking="].length == 0, @"This parameter "
+                    "should be omitted on system < 6.0.");
     }
+}
+
+- (void)testMACParameterCase1
+{
+    // Set opt-out status to NO to get a full set of request parameters.
+    [PHAPIRequest setOptOutStatus:NO];
+
+    PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *theSignedParameters = [theRequest signedParameters];
+    NSString *theRequestURLString = [theRequest.URL absoluteString];
+    NSString *theMAC = [theSignedParameters objectForKey:@"mac"];
+
+#if PH_USE_MAC_ADDRESS == 1
+    // MAC should be sent on iOS 5 and earlier.
+    if (PH_SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    {
+
+        STAssertNotNil(theMAC, @"MAC param is missing!");
+        STAssertFalse([theRequestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC "
+                    "param is missing: %@", theRequestURLString);
+    }
+    else
+    {
+        NSString *theUnexpectedMACMessage = @"MAC should not be sent on iOS 6 and later";
+
+        STAssertNil([theSignedParameters objectForKey:@"mac"], @"%@!", theUnexpectedMACMessage);
+        STAssertTrue([theRequestURLString rangeOfString:@"mac="].length == 0, @"%@: %@",
+                    theUnexpectedMACMessage, theRequestURLString);
+    }
+#else
+    STAssertNil(theMAC, @"MAC param is present!");
+    STAssertTrue([theRequestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param "
+                "exists when it shouldn't: %@", theRequestURLString);
+#endif
+}
+
+- (void)testMACParameterCase2
+{
+    // Set opt-out status to YES to get request parameters without MAC.
+    [PHAPIRequest setOptOutStatus:YES];
+
+    PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+    NSDictionary *theSignedParameters = [theRequest signedParameters];
+    NSString *theRequestURLString = [theRequest.URL absoluteString];
+
+    NSString *theUnexpectedMACMessage = @"MAC should not be sent for opted out users";
+
+    STAssertNil([theSignedParameters objectForKey:@"mac"], @"%@!", theUnexpectedMACMessage);
+    STAssertTrue([theRequestURLString rangeOfString:@"mac="].length == 0, @"%@: %@",
+                theUnexpectedMACMessage, theRequestURLString);
+    
+    // Revert opt-out status
+    [PHAPIRequest setOptOutStatus:NO];
 }
 
 - (void)testCustomRequestParameters

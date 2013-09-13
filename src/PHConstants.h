@@ -157,7 +157,7 @@
 /**
  * Convenience macros to check system version. Usage example:
  *
- * if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(6.0))
+ * if (PH_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
  * {
  *     ...
  * }
@@ -191,9 +191,6 @@
 #endif
 
 #define PH_MULTITASKING_SUPPORTED [[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)] && [[UIDevice currentDevice] isMultitaskingSupported]
-
-NSString *PHGID(void);
-void PHClearGID(void);
 
 // Errors
 typedef enum {
@@ -256,6 +253,3 @@ extern const playHavenImage badge_image;
 extern const playHavenImage badge_2x_image;
 extern const playHavenImage close_image;
 extern const playHavenImage close_active_image;
-
-NSString *PHGID();
-void PHClearGID();

@@ -158,32 +158,4 @@
                             *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)] lowercaseString];
 }
 
-- (NSString *)ODIN1ForMACBytes:(CFDataRef)macBytes
-{
-    if (NULL == macBytes)
-    {
-        return nil;
-    }
-
-    unsigned char messageDigest[CC_SHA1_DIGEST_LENGTH];
-
-    CC_SHA1(CFDataGetBytePtr((CFDataRef)macBytes),
-            CFDataGetLength((CFDataRef)macBytes),
-            messageDigest);
-
-    CFMutableStringRef string = CFStringCreateMutable(NULL, 40);
-    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
-        CFStringAppendFormat(string,
-                             NULL,
-                             (CFStringRef)@"%02X",
-                             messageDigest[i]);
-    }
-
-    CFStringLowercase(string, CFLocaleGetSystem());
-
-    NSString *odinstring = [[[NSString alloc] initWithString:(NSString*)string] autorelease];
-    CFRelease(string);
-
-    return odinstring;
-}
 @end

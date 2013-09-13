@@ -47,12 +47,10 @@
     if (NULL != macBytes)
     {
         self.MACLabel.text   = [[PHNetworkUtil sharedInstance] stringForMACBytes:macBytes];
-        self.ODIN1Label.text = [[PHNetworkUtil sharedInstance] ODIN1ForMACBytes:macBytes];
 
         CFRelease(macBytes);
     }
 
-    self.GIDLabel.text  = PHGID();
     self.PHIDLabel.text = [PHAPIRequest session];
 }
 
@@ -66,8 +64,6 @@
 {
     [_IFALabel release];
     [_MACLabel release];
-    [_ODIN1Label release];
-    [_GIDLabel release];
     [_PHIDLabel release];
     [super dealloc];
 }
@@ -76,8 +72,6 @@
 {
     [self setIFALabel:nil];
     [self setMACLabel:nil];
-    [self setODIN1Label:nil];
-    [self setGIDLabel:nil];
     [self setPHIDLabel:nil];
     [super viewDidUnload];
 }

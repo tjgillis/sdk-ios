@@ -610,14 +610,13 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
     }
 
 #if PH_USE_MAC_ADDRESS == 1
-    if (![PHAPIRequest optOutStatus])
+    if (![PHAPIRequest optOutStatus] && PH_SYSTEM_VERSION_LESS_THAN(@"6.0"))
     {
         PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
         CFDataRef macBytes = [netUtil newMACBytes];
         if (macBytes)
         {
             [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"mac"];
-            [theIdentifiers setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"odin"];
             CFRelease(macBytes);
         }
     }
