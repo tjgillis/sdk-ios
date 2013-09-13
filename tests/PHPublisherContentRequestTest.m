@@ -26,6 +26,7 @@
 #import "PHContentView.h"
 #import "PHPublisherContentRequest.h"
 #import "PHStringUtil.h"
+#import "PHPublisherContentRequest+Private.h"
 
 #define PUBLISHER_TOKEN @"PUBLISHER_TOKEN"
 #define PUBLISHER_SECRET @"PUBLISHER_SECRET"
@@ -39,10 +40,8 @@ static NSString *const kPHTestMessageID = @"87345";
 @interface PHPublisherContentRequest (TestMethods)
 @property (nonatomic, readonly) PHPublisherContentRequestState state;
 - (BOOL)setPublisherContentRequestState:(PHPublisherContentRequestState)state;
-- (BOOL)isValidReward:(NSDictionary *)rewardData;
 - (void)requestRewards:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
 
-- (BOOL)isValidPurchase:(NSDictionary *)purchaseData;
 - (void)requestPurchases:(NSDictionary *)queryParameters callback:(NSString *)callback source:(PHContentView *)source;
 @end
 
@@ -72,6 +71,16 @@ static NSString *const kPHTestMessageID = @"87345";
 
 @interface PHPublisherContentPreloadParameterTest : SenTestCase @end
 @interface PHPublisherContentStateTest : SenTestCase @end
+
+@interface PHPublisherContentRequestMock : PHPublisherContentRequest
+@end
+
+@implementation PHPublisherContentRequestMock
++ (NSDictionary *)identifiers
+{
+    return @{@"ifa" : @"345678KLFL8768HJK"};
+}
+@end
 
 @implementation PHContentTest
 
@@ -287,19 +296,19 @@ static NSString *const kPHTestMessageID = @"87345";
     NSString     *requestURLString  = [request.URL absoluteString];
 
 #if PH_USE_MAC_ADDRESS == 1
-    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    NSString *mac   = [signedParameters valueForKey:@"mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"odin"];
     STAssertNotNil(mac, @"MAC param is missing!");
     STAssertNotNil(odin1, @"ODIN1 param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing!");
+    STAssertFalse([requestURLString rangeOfString:@"odin="].location == NSNotFound, @"ODIN1 param is missing!");
 #else
-    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    NSString *mac   = [signedParameters valueForKey:@"mac"];
+    NSString *odin1 = [signedParameters valueForKey:@"odin"];
     STAssertNil(mac, @"MAC param is present!");
     STAssertNil(odin1, @"ODIN1 param is present!");
-    STAssertTrue([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param exists when it shouldn't.");
-    STAssertTrue([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param exists when it shouldn't.");
+    STAssertTrue([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param exists when it shouldn't.");
+    STAssertTrue([requestURLString rangeOfString:@"odin="].location == NSNotFound, @"ODIN1 param exists when it shouldn't.");
 #endif
 }
 
@@ -430,25 +439,42 @@ static NSString *const kPHTestMessageID = @"87345";
     NSString *reward    = @"SLAPPY_COINS";
     NSNumber *quantity  = [NSNumber numberWithInt:1234];
     NSNumber *receipt   = [NSNumber numberWithInt:102930193];
-    NSString *signature = [PHStringUtil hexDigestForString:[NSString stringWithFormat:@"%@:%@:%@:%@:%@",
-                                                            reward, quantity, PHGID(), receipt, PUBLISHER_SECRET]];
 
-    NSDictionary *rewardDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                    reward, @"reward",
-                                                    quantity, @"quantity",
-                                                    receipt, @"receipt",
-                                                    signature, @"signature", nil];
-    NSDictionary *badRewardDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                    reward, @"reward",
-                                                    quantity, @"quantity",
-                                                    receipt, @"receipt",
-                                                    @"BAD_SIGNATURE_RARARA", @"signature", nil];
+    NSDictionary *theValidReward =
+    @{
+                @"reward" : reward,
+                @"quantity" : quantity,
+                @"receipt" : receipt,
+                @"sig4" : @"7UWbhP-nQtfKi1AEFVz7FlwTDHE",
+                @"id" : @"ifa"
+    };
+    
+    NSDictionary *theRewardWithBadSignature =
+    @{
+                @"reward" : reward,
+                @"quantity" : quantity,
+                @"receipt" : receipt,
+                @"sig4" : @"BAD_SIGNATURE_RARARA",
+                @"id" : @"ifa"
+    };
+    
+    NSDictionary *theIncompleteReward =
+    @{
+                @"reward" : reward,
+                @"quantity" : quantity,
+                @"receipt" : receipt,
+                @"sig4" : @"BAD_SIGNATURE_RARARA",
+    };
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
-                                                                           secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequestMock requestForApp:
+                PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
 
-    STAssertTrue([request isValidReward:rewardDict], @"PHPublisherContentRequest could not validate valid reward.");
-    STAssertFalse([request isValidReward:badRewardDict], @"PHPublisherContentRequest validated invalid reward.");
+    STAssertTrue([request isValidReward:theValidReward], @"PHPublisherContentRequest could not "
+                "validate valid reward.");
+    STAssertFalse([request isValidReward:theRewardWithBadSignature], @"PHPublisherContentRequest "
+                "validated invalid reward.");
+    STAssertFalse([request isValidReward:theIncompleteReward], @"PHPublisherContentRequest "
+                "validated invalid reward.");
 }
 @end
 
@@ -460,28 +486,40 @@ static NSString *const kPHTestMessageID = @"87345";
     NSString *name      = @"Delicious Candy";
     NSNumber *quantity  = [NSNumber numberWithInt:1234];
     NSNumber *receipt   = [NSNumber numberWithInt:102930193];
-    NSString *signature = [PHStringUtil hexDigestForString:
-                                                [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
-                                                                product, name, quantity, PHGID(),
-                                                                receipt, PUBLISHER_SECRET]];
     NSNumber *cookie    = [NSNumber numberWithInt:3423413];
 
-    NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                    product, @"product",
-                                                    name, @"name",
-                                                    quantity, @"quantity",
-                                                    receipt, @"receipt",
-                                                    signature, @"signature",
-                                                    cookie, @"cookie", nil];
+    NSDictionary *thePurchase =
+    @{
+                @"product" : product,
+                @"name" : name,
+                @"quantity" : quantity,
+                @"receipt" : receipt,
+                @"sig4" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
+                @"cookie" : cookie,
+                @"id" : @"ifa"
+    };
 
-    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict]
-                                                              forKey:@"purchases"];
+    NSDictionary *theInvalidPurchase =
+    @{
+                @"product" : product,
+                @"name" : name,
+                @"quantity" : quantity,
+                @"receipt" : receipt,
+                @"sig4" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
+                @"cookie" : cookie,
+    };
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
-                                                                           secret:PUBLISHER_SECRET];
+    NSDictionary *thePurchasesDictionary = @{@"purchases" : @[thePurchase]};
 
-    STAssertTrue([request isValidPurchase:purchaseDict], @"PHPublisherContentRequest could not validate valid purchase");
-    STAssertNoThrow([request requestPurchases:purchasesDict callback:nil source:nil], @"Problem processing valid purchases array");
+    PHPublisherContentRequest *request = [PHPublisherContentRequestMock requestForApp:
+                PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
+
+    STAssertTrue([request isValidPurchase:thePurchase], @"PHPublisherContentRequest could not "
+                "validate valid purchase");
+    STAssertFalse([request isValidPurchase:theInvalidPurchase], @"PHPublisherContentRequest "
+                "validated invalid purchase with missed id field");
+    STAssertNoThrow([request requestPurchases:thePurchasesDictionary callback:nil source:nil],
+                @"Problem processing valid purchases array");
 }
 
 - (void)testAlternateValidation
@@ -490,29 +528,30 @@ static NSString *const kPHTestMessageID = @"87345";
     NSString *name      = @"Delicious Candy";
     NSNumber *quantity  = [NSNumber numberWithInt:1234];
     NSString *receipt   = @"102930193";
-    NSString *signature = [PHStringUtil hexDigestForString:
-                                                [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
-                                                                product, name, quantity, PHGID(),
-                                                                receipt, PUBLISHER_SECRET]];
     NSString *cookie    = @"3423413";
 
-    NSDictionary *purchaseDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                    product, @"product",
-                                                    name, @"name",
-                                                    quantity, @"quantity",
-                                                    receipt, @"receipt",
-                                                    signature, @"signature",
-                                                    cookie, @"cookie", nil];
+    NSDictionary *thePurchase =
+    @{
+                @"product" : product,
+                @"name" : name,
+                @"quantity" : quantity,
+                @"receipt" : receipt,
+                @"sig4" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
+                @"cookie" : cookie,
+                @"id" : @"ifa"
+    };
 
-    NSDictionary *purchasesDict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:purchaseDict]
-                                                              forKey:@"purchases"];
+    NSDictionary *thePurchasesDictionary = @{@"purchases" : @[thePurchase]};
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
-                                                                           secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequestMock requestForApp:
+                PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
 
-    STAssertTrue([request isValidPurchase:purchaseDict], @"PHPublisherContentRequest could not validate valid purchase");
-    STAssertNoThrow([request requestPurchases:purchasesDict callback:nil source:nil], @"Problem processing valid purchases array");
+    STAssertTrue([request isValidPurchase:thePurchase], @"PHPublisherContentRequest could not "
+                "validate valid purchase");
+    STAssertNoThrow([request requestPurchases:thePurchasesDictionary callback:nil source:nil],
+                @"Problem processing valid purchases array");
 }
+
 @end
 
 @implementation PHPublisherContentRequestPreservationTest
