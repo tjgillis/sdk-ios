@@ -192,9 +192,6 @@
 
 #define PH_MULTITASKING_SUPPORTED [[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)] && [[UIDevice currentDevice] isMultitaskingSupported]
 
-NSString *PHGID(void);
-void PHClearGID(void);
-
 // Errors
 typedef enum {
     PHAPIResponseErrorType,
@@ -256,6 +253,3 @@ extern const playHavenImage badge_image;
 extern const playHavenImage badge_2x_image;
 extern const playHavenImage close_image;
 extern const playHavenImage close_active_image;
-
-NSString *PHGID();
-void PHClearGID();
