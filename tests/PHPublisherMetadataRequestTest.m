@@ -44,17 +44,6 @@
     NSDictionary *signedParameters  = [request signedParameters];
     NSString     *requestURLString  = [request.URL absoluteString];
 
-//#define PH_USE_UNIQUE_IDENTIFIER 0
-#if PH_USE_UNIQUE_IDENTIFIER == 1
-    NSString *device = [signedParameters valueForKey:@"device"];
-    STAssertNotNil(device, @"UDID param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param is missing!");
-#else
-    NSString *device = [signedParameters valueForKey:@"device"];
-    STAssertNil(device, @"UDID param is present!");
-    STAssertTrue([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param exists when it shouldn't.");
-#endif
-
 //#define PH_USE_MAC_ADDRESS 1
 #if PH_USE_MAC_ADDRESS == 1
     NSString *mac   = [signedParameters valueForKey:@"mac"];
