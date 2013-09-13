@@ -50,5 +50,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>PHDefaultUserIsOptedOut</key>
+	<true/>
 </dict>
 </plist>

@@ -40,6 +40,8 @@ static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
 static NSString *sPlayHavenCustomUDID;
 static NSString *const kPHRequestParameterIDFVKey = @"idfv";
+static NSString *const kPHRequestParameterOptOutStatusKey = @"opt_out";
+static NSString *const kPHDefaultUserIsOptedOut = @"PHDefaultUserIsOptedOut";
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
@@ -176,7 +178,19 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
 
 + (BOOL)optOutStatus
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"PlayHavenOptOutStatus"];
+    BOOL theDefaultOptOutStatus = [[[NSBundle mainBundle] infoDictionary][kPHDefaultUserIsOptedOut]
+                boolValue];
+    NSNumber *theUserPreference = [[NSUserDefaults standardUserDefaults] objectForKey:
+                @"PlayHavenOptOutStatus"];
+    BOOL theOptOutStatus = theDefaultOptOutStatus;
+    
+    // User preference overrides the default status.
+    if (nil != theUserPreference)
+    {
+        theOptOutStatus = [theUserPreference boolValue];
+    }
+
+    return theOptOutStatus;
 }
 
 + (void)setOptOutStatus:(BOOL)yesOrNo
@@ -390,6 +404,7 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
             *width      = [NSNumber numberWithFloat:screenWidth],
             *height     = [NSNumber numberWithFloat:screenHeight],
             *scale      = [NSNumber numberWithFloat:screenScale];
+        NSNumber *theOptOutStatus = @([PHAPIRequest optOutStatus]);
 
         [combinedParams addEntriesFromDictionary:self.additionalParameters];
 
@@ -408,7 +423,9 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
                                  languages,      @"languages",
                                  width,          @"width",
                                  height,         @"height",
-                                 scale,          @"scale", nil];
+                                 scale,          @"scale",
+                                 theOptOutStatus, kPHRequestParameterOptOutStatusKey,
+                                 nil];
 
         [combinedParams addEntriesFromDictionary:signatureParams];
         _signedParameters = combinedParams;
@@ -586,7 +603,7 @@ static NSString *const kPHRequestParameterIDFVKey = @"idfv";
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 #if PH_USE_AD_SUPPORT == 1
-    if ([ASIdentifierManager class])
+    if (![PHAPIRequest optOutStatus] && [ASIdentifierManager class])
     {
         NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
         NSString *uuidString = [uuid UUIDString];

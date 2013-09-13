@@ -52,6 +52,8 @@
     [[PHPushProvider sharedInstance] registerForPushNotifications];
     [[PHPushProvider sharedInstance] handleRemoteNotificationWithUserInfo:[launchOptions
                 objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+    
+    [PHAPIRequest setOptOutStatus:NO];
 
 #if RUN_KIF_TESTS
     [[PHTestController sharedInstance] startTestingWithCompletionBlock:^{
