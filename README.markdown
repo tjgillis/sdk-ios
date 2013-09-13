@@ -25,6 +25,10 @@ Also see the [Integration](#integration) and [Using the SDK](#using-the-sdk) sec
 Version History
 ===============
 
+1.21.0
+======
+* Upgraded request signatures to v4-style.
+
 1.20.0
 ======
 * Added support to Push Notifications which can be sent by means of PlayHaven Push Dashboard.

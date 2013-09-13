@@ -32,6 +32,7 @@
 #import "PHAPIRequest+Private.h"
 
 static NSString *const kPHReceiptDictionaryIDKey = @"id";
+static NSString *const kPHReceiptDictionaryV4SignatureKey = @"sig4";
 
 NSString *const PHPublisherContentRequestRewardIDKey        = @"reward";
 NSString *const PHPublisherContentRequestRewardQuantityKey  = @"quantity";
@@ -758,11 +759,11 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 #pragma mark - Reward unlocking methods
 - (BOOL)isValidReward:(NSDictionary *)rewardData
 {
-    NSString *theIdentifier = rewardData[kPHReceiptDictionaryIDKey];
+    NSString *theIdentifier = [[self class] identifiers][rewardData[kPHReceiptDictionaryIDKey]];
     NSString *theReward    = rewardData[PHPublisherContentRequestRewardIDKey];
     NSNumber *theQuantity  = rewardData[PHPublisherContentRequestPurchaseQuantityKey];
     NSNumber *theReceipt   = rewardData[PHPublisherContentRequestPurchaseReceiptKey];
-    NSString *theSignature = rewardData[PHPublisherContentRequestPurchaseSignatureKey];
+    NSString *theSignature = rewardData[kPHReceiptDictionaryV4SignatureKey];
     
     if (nil == theIdentifier || nil == theReward || nil == theQuantity || nil == theReceipt ||
                 nil == theSignature)
@@ -809,12 +810,12 @@ PHPublisherContentDismissType * const PHPublisherNoContentTriggeredDismiss      
 #pragma mark - Purchase unlocking methods
 - (BOOL)isValidPurchase:(NSDictionary *)purchaseData
 {
-    NSString *theIdentifier = purchaseData[kPHReceiptDictionaryIDKey];
+    NSString *theIdentifier = [[self class] identifiers][purchaseData[kPHReceiptDictionaryIDKey]];
     NSString *theProductId = purchaseData[PHPublisherContentRequestPurchaseProductIDKey];
     NSString *theName      = purchaseData[PHPublisherContentRequestPurchaseNameKey];
     NSNumber *theQuantity  = purchaseData[PHPublisherContentRequestPurchaseQuantityKey];
     NSNumber *theReceipt   = purchaseData[PHPublisherContentRequestPurchaseReceiptKey];
-    NSString *theSignature = purchaseData[PHPublisherContentRequestPurchaseSignatureKey];
+    NSString *theSignature = purchaseData[kPHReceiptDictionaryV4SignatureKey];
 
     if (nil == theIdentifier || nil == theProductId || nil == theName || nil == theQuantity ||
                 nil == theReceipt || nil == theSignature)

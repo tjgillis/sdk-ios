@@ -72,6 +72,16 @@ static NSString *const kPHTestMessageID = @"87345";
 @interface PHPublisherContentPreloadParameterTest : SenTestCase @end
 @interface PHPublisherContentStateTest : SenTestCase @end
 
+@interface PHPublisherContentRequestMock : PHPublisherContentRequest
+@end
+
+@implementation PHPublisherContentRequestMock
++ (NSDictionary *)identifiers
+{
+    return @{@"ifa" : @"345678KLFL8768HJK"};
+}
+@end
+
 @implementation PHContentTest
 
 - (void)testContent
@@ -445,8 +455,8 @@ static NSString *const kPHTestMessageID = @"87345";
                 @"reward" : reward,
                 @"quantity" : quantity,
                 @"receipt" : receipt,
-                @"signature" : @"7UWbhP-nQtfKi1AEFVz7FlwTDHE",
-                @"id" : @"345678KLFL8768HJK"
+                @"sig4" : @"7UWbhP-nQtfKi1AEFVz7FlwTDHE",
+                @"id" : @"ifa"
     };
     
     NSDictionary *theRewardWithBadSignature =
@@ -454,8 +464,8 @@ static NSString *const kPHTestMessageID = @"87345";
                 @"reward" : reward,
                 @"quantity" : quantity,
                 @"receipt" : receipt,
-                @"signature" : @"BAD_SIGNATURE_RARARA",
-                @"id" : @"345678KLFL8768HJK"
+                @"sig4" : @"BAD_SIGNATURE_RARARA",
+                @"id" : @"ifa"
     };
     
     NSDictionary *theIncompleteReward =
@@ -463,11 +473,11 @@ static NSString *const kPHTestMessageID = @"87345";
                 @"reward" : reward,
                 @"quantity" : quantity,
                 @"receipt" : receipt,
-                @"signature" : @"BAD_SIGNATURE_RARARA",
+                @"sig4" : @"BAD_SIGNATURE_RARARA",
     };
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
-                secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequestMock requestForApp:
+                PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
 
     STAssertTrue([request isValidReward:theValidReward], @"PHPublisherContentRequest could not "
                 "validate valid reward.");
@@ -494,9 +504,9 @@ static NSString *const kPHTestMessageID = @"87345";
                 @"name" : name,
                 @"quantity" : quantity,
                 @"receipt" : receipt,
-                @"signature" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
+                @"sig4" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
                 @"cookie" : cookie,
-                @"id" : @"345678KLFL8768HJK"
+                @"id" : @"ifa"
     };
 
     NSDictionary *theInvalidPurchase =
@@ -505,14 +515,14 @@ static NSString *const kPHTestMessageID = @"87345";
                 @"name" : name,
                 @"quantity" : quantity,
                 @"receipt" : receipt,
-                @"signature" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
+                @"sig4" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
                 @"cookie" : cookie,
     };
 
     NSDictionary *thePurchasesDictionary = @{@"purchases" : @[thePurchase]};
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
-                secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequestMock requestForApp:
+                PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
 
     STAssertTrue([request isValidPurchase:thePurchase], @"PHPublisherContentRequest could not "
                 "validate valid purchase");
@@ -536,15 +546,15 @@ static NSString *const kPHTestMessageID = @"87345";
                 @"name" : name,
                 @"quantity" : quantity,
                 @"receipt" : receipt,
-                @"signature" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
+                @"sig4" : @"vBxtaXGoO8TZY-vWj0O7VCxaL70",
                 @"cookie" : cookie,
-                @"id" : @"345678KLFL8768HJK"
+                @"id" : @"ifa"
     };
 
     NSDictionary *thePurchasesDictionary = @{@"purchases" : @[thePurchase]};
 
-    PHPublisherContentRequest *request = [PHPublisherContentRequest requestForApp:PUBLISHER_TOKEN
-                secret:PUBLISHER_SECRET];
+    PHPublisherContentRequest *request = [PHPublisherContentRequestMock requestForApp:
+                PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
 
     STAssertTrue([request isValidPurchase:thePurchase], @"PHPublisherContentRequest could not "
                 "validate valid purchase");
