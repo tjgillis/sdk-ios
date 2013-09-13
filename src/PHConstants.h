@@ -53,8 +53,10 @@
  * * \b 3: Unknown dispatches are ignored instead of throwing an error
  * * \b 4: ph://launch dispatches no longer create native spinner views
  * * \b 5: ph://launch dispatches support in-app app store launches on iOS 6 <em>(Current Version)</em>
+ * * \b 6: Content template forwards links with a custom URL scheme to SDK using ph://launch dispatch
+ *      instead of executing ph://link dispatch on its own.
  **/
-#define PH_DISPATCH_PROTOCOL_VERSION 5
+#define PH_DISPATCH_PROTOCOL_VERSION 6
 
 /**
  * Defines the maximum amount of time that an API request will wait for a
