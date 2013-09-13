@@ -20,6 +20,12 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 @interface PHAPIRequest ()
+
+/**
+ * List of identifiers used for v4-style signature generation.
+ **/
++ (NSDictionary *)identifiers;
+
 /**
  * Generates v4 - style signature as defined by client-api documentation for a given message in
  * combination with a given key. The returned signature is a URL-safe base64 encoded string.
