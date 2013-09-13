@@ -366,13 +366,6 @@ static NSString *const kPHDefaultUserIsOptedOut = @"PHDefaultUserIsOptedOut";
         {
             NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
             [combinedParams setValue:trackingEnabled forKey:@"tracking"];
-            
-            if (![PHAPIRequest optOutStatus])
-            {
-                NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-                NSString *uuidString = [uuid UUIDString];
-                [combinedParams setValue:uuidString forKey:@"ifa"];
-            }
         }
 #endif
 #endif
@@ -610,7 +603,7 @@ static NSString *const kPHDefaultUserIsOptedOut = @"PHDefaultUserIsOptedOut";
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 #if PH_USE_AD_SUPPORT == 1
-    if ([ASIdentifierManager class])
+    if (![PHAPIRequest optOutStatus] && [ASIdentifierManager class])
     {
         NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
         NSString *uuidString = [uuid UUIDString];
