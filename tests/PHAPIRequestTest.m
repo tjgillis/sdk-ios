@@ -115,7 +115,7 @@
     // Test IDFV parameter
 
     NSString *theIDFV = signedParameters[@"idfv"];
-    NSString *theIDFA = signedParameters[@"d_ifa"];
+    NSString *theIDFA = signedParameters[@"ifa"];
     NSNumber *theAdTrackingFlag = signedParameters[@"tracking"];
     NSString *theRequestURL = [request.URL absoluteString];
 
@@ -136,7 +136,7 @@
         STAssertTrue([theRequestURL rangeOfString:theIDFVParameter].length > 0, @"IDFV is missed"
                     " from the request URL");
 
-        NSString *theIDFAParameter = [NSString stringWithFormat:@"d_ifa=%@", theIDFA];
+        NSString *theIDFAParameter = [NSString stringWithFormat:@"ifa=%@", theIDFA];
         STAssertTrue([theRequestURL rangeOfString:theIDFAParameter].length > 0, @"IDFA is missed"
                     " from the request URL");
     }
@@ -148,7 +148,7 @@
 
         STAssertTrue([theRequestURL rangeOfString:@"idfv="].length == 0, @"This parameter should "
                     "be omitted on system < 6.0.");
-        STAssertTrue([theRequestURL rangeOfString:@"d_ifa="].length == 0, @"This parameter should "
+        STAssertTrue([theRequestURL rangeOfString:@"ifa="].length == 0, @"This parameter should "
                     "be omitted on system < 6.0.");
         STAssertTrue([theRequestURL rangeOfString:@"tracking="].length == 0, @"This parameter "
                     "should be omitted on system < 6.0.");
