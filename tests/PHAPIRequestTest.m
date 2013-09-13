@@ -163,7 +163,7 @@
     PHAPIRequest *theRequest = [PHAPIRequest requestForApp:PUBLISHER_TOKEN secret:PUBLISHER_SECRET];
     NSDictionary *theSignedParameters = [theRequest signedParameters];
     NSString *theRequestURLString = [theRequest.URL absoluteString];
-    NSString *theMAC = [theSignedParameters objectForKey:@"d_mac"];
+    NSString *theMAC = [theSignedParameters objectForKey:@"mac"];
 
 #if PH_USE_MAC_ADDRESS == 1
     // MAC should be sent on iOS 5 and earlier.
@@ -171,20 +171,20 @@
     {
 
         STAssertNotNil(theMAC, @"MAC param is missing!");
-        STAssertFalse([theRequestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC "
+        STAssertFalse([theRequestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC "
                     "param is missing: %@", theRequestURLString);
     }
     else
     {
         NSString *theUnexpectedMACMessage = @"MAC should not be sent on iOS 6 and later";
 
-        STAssertNil([theSignedParameters objectForKey:@"d_mac"], @"%@!", theUnexpectedMACMessage);
-        STAssertTrue([theRequestURLString rangeOfString:@"d_mac="].length == 0, @"%@: %@",
+        STAssertNil([theSignedParameters objectForKey:@"mac"], @"%@!", theUnexpectedMACMessage);
+        STAssertTrue([theRequestURLString rangeOfString:@"mac="].length == 0, @"%@: %@",
                     theUnexpectedMACMessage, theRequestURLString);
     }
 #else
     STAssertNil(theMAC, @"MAC param is present!");
-    STAssertTrue([theRequestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param "
+    STAssertTrue([theRequestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param "
                 "exists when it shouldn't: %@", theRequestURLString);
 #endif
 }
@@ -200,8 +200,8 @@
 
     NSString *theUnexpectedMACMessage = @"MAC should not be sent for opted out users";
 
-    STAssertNil([theSignedParameters objectForKey:@"d_mac"], @"%@!", theUnexpectedMACMessage);
-    STAssertTrue([theRequestURLString rangeOfString:@"d_mac="].length == 0, @"%@: %@",
+    STAssertNil([theSignedParameters objectForKey:@"mac"], @"%@!", theUnexpectedMACMessage);
+    STAssertTrue([theRequestURLString rangeOfString:@"mac="].length == 0, @"%@: %@",
                 theUnexpectedMACMessage, theRequestURLString);
     
     // Revert opt-out status
