@@ -1,6 +1,10 @@
 # Change Log
 ============
 
+1.21.1
+======
+* Fixed issue with application freeze on iOS 7 that happened for push notifications linked with URI.
+
 1.21.0
 ======
 * Upgraded request signatures to v4-style.
