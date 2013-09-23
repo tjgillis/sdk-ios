@@ -29,6 +29,9 @@
 #import "PHTestController.h"
 #endif
 
+static NSString *const kPHApplicationTokenKey = @"applicationToken";
+static NSString *const kPHApplicationSecretKey = @"applicationSecret";
+
 @implementation AppDelegate
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
@@ -36,6 +39,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self configurePlayHaven];
+    [self registerForTokenAndSecretUpdate];
 
     // Override point for customization after application launch.
     // Add the navigation controller's view to the window and display.
@@ -113,6 +117,9 @@
 
 - (void)dealloc
 {
+    [[PlayHavenAppIdentity sharedIdentity] removeObserver:self forKeyPath:kPHApplicationTokenKey];
+    [[PlayHavenAppIdentity sharedIdentity] removeObserver:self forKeyPath:kPHApplicationSecretKey];
+    
     [_window release];
     [_navigationController release];
     [super dealloc];
@@ -174,6 +181,29 @@
     if (0 == [theAppIdentity.applicationSecret length])
     {
         theAppIdentity.applicationSecret = @"080d853e433a4468ba3315953b22615e";
+    }
+}
+
+- (void)registerForTokenAndSecretUpdate
+{
+    [[PlayHavenAppIdentity sharedIdentity] addObserver:self forKeyPath:kPHApplicationTokenKey
+                options:NSKeyValueObservingOptionNew context:NULL];
+    [[PlayHavenAppIdentity sharedIdentity] addObserver:self forKeyPath:kPHApplicationSecretKey
+                options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject
+            change:(NSDictionary *)aChange context:(void *)aContext
+{
+    PlayHavenAppIdentity *theAppIdentity = [PlayHavenAppIdentity sharedIdentity];
+    
+    if ([aKeyPath isEqualToString:kPHApplicationTokenKey])
+    {
+        [PHPushProvider sharedInstance].applicationToken = theAppIdentity.applicationToken;
+    }
+    else if ([aKeyPath isEqualToString:kPHApplicationSecretKey])
+    {
+        [PHPushProvider sharedInstance].applicationSecret = theAppIdentity.applicationSecret;
     }
 }
 
