@@ -19,6 +19,7 @@
  Created by Jesus Fernandez on 3/30/11.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+#import <CommonCrypto/CommonHMAC.h>
 #import "PHConnectionManager.h"
 #import "PHAPIRequest.h"
 
@@ -28,6 +29,7 @@
 #import "UIDevice+HardwareString.h"
 #import "PHNetworkUtil.h"
 #import "PHConstants.h"
+#import "PHAPIRequest+Private.h"
 
 #ifdef PH_USE_NETWORK_FIXTURES
 #import "WWURLConnection.h"
@@ -37,6 +39,9 @@ static NSString *sPlayHavenSession;
 static NSString *const kSessionPasteboard = @"com.playhaven.session";
 static NSString *sPlayHavenPluginIdentifier;
 static NSString *sPlayHavenCustomUDID;
+static NSString *const kPHRequestParameterIDFVKey = @"idfv";
+static NSString *const kPHRequestParameterOptOutStatusKey = @"opt_out";
+static NSString *const kPHDefaultUserIsOptedOut = @"PHDefaultUserIsOptedOut";
 
 @interface PHAPIRequest (Private)
 + (NSMutableSet *)allRequests;
@@ -173,7 +178,19 @@ static NSString *sPlayHavenCustomUDID;
 
 + (BOOL)optOutStatus
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"PlayHavenOptOutStatus"];
+    BOOL theDefaultOptOutStatus = [[[NSBundle mainBundle] infoDictionary][kPHDefaultUserIsOptedOut]
+                boolValue];
+    NSNumber *theUserPreference = [[NSUserDefaults standardUserDefaults] objectForKey:
+                @"PlayHavenOptOutStatus"];
+    BOOL theOptOutStatus = theDefaultOptOutStatus;
+    
+    // User preference overrides the default status.
+    if (nil != theUserPreference)
+    {
+        theOptOutStatus = [theUserPreference boolValue];
+    }
+
+    return theOptOutStatus;
 }
 
 + (void)setOptOutStatus:(BOOL)yesOrNo
@@ -338,44 +355,26 @@ static NSString *sPlayHavenCustomUDID;
         NSString *preferredLanguage = ([[NSLocale preferredLanguages] count] > 0) ?
                                             [[NSLocale preferredLanguages] objectAtIndex:0] : nil;
 
-        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] init];
-
-#if PH_USE_UNIQUE_IDENTIFIER == 1
-        if (![PHAPIRequest optOutStatus]) {
-            NSString *device = [[UIDevice currentDevice] uniqueIdentifier];
-            [combinedParams setValue:device forKey:@"device"];
-        }
-#endif
+        NSDictionary *theIdentifiers = [[self class] identifiers];
+        NSMutableDictionary *combinedParams = [[NSMutableDictionary alloc] initWithDictionary:
+                    theIdentifiers];
 
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 #if PH_USE_AD_SUPPORT == 1
-        if ([ASIdentifierManager class]) {
-            NSUUID   *uuid            = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-            NSString *uuidString      = [uuid UUIDString];
+        if ([ASIdentifierManager class])
+        {
             NSNumber *trackingEnabled = [NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]];
-            [combinedParams setValue:uuidString forKey:@"d_ifa"];
             [combinedParams setValue:trackingEnabled forKey:@"tracking"];
         }
 #endif
 #endif
 #endif
 
-        if (self.customUDID) {
+        if (self.customUDID)
+        {
             [combinedParams setValue:self.customUDID forKey:@"d_custom"];
         }
-
-#if PH_USE_MAC_ADDRESS == 1
-        if (![PHAPIRequest optOutStatus]) {
-            PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
-            CFDataRef macBytes = [netUtil newMACBytes];
-            if (macBytes) {
-                [combinedParams setValue:[netUtil stringForMACBytes:macBytes] forKey:@"d_mac"];
-                [combinedParams setValue:[netUtil ODIN1ForMACBytes:macBytes] forKey:@"d_odin1"];
-                CFRelease(macBytes);
-            }
-        }
-#endif
 
         // Adds plugin identifier
         [combinedParams setValue:[PHAPIRequest pluginIdentifier] forKey:@"plugin"];
@@ -385,12 +384,6 @@ static NSString *sPlayHavenCustomUDID;
 
         NSString
             *nonce         = [PHStringUtil uuid],
-            *session       = [PHAPIRequest session],
-            *gid           = PHGID(),
-            *signatureHash = [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
-                                    self.token, [PHAPIRequest session],
-                                    PHGID(), nonce, self.secret],
-            *signature     = [PHAPIRequest base64SignatureWithString:signatureHash],
             *appId         = [[mainBundle infoDictionary] objectForKey:@"CFBundleIdentifier"],
             *appVersion    = [[mainBundle infoDictionary] objectForKey:@"CFBundleVersion"],
             *hardware      = [[UIDevice currentDevice] hardware],
@@ -400,6 +393,10 @@ static NSString *sPlayHavenCustomUDID;
             *languages     = preferredLanguage;
 
         if (!appVersion) appVersion = @"NA";
+        
+        NSString *signature = [[self class] v4SignatureWithIdentifiers:theIdentifiers token:
+                    self.token nonce:nonce signatureKey:self.secret];
+        signature = nil != signature ? signature : @"";
 
         NSNumber
             *idiom      = [NSNumber numberWithInt:(int)UI_USER_INTERFACE_IDIOM()],
@@ -407,13 +404,14 @@ static NSString *sPlayHavenCustomUDID;
             *width      = [NSNumber numberWithFloat:screenWidth],
             *height     = [NSNumber numberWithFloat:screenHeight],
             *scale      = [NSNumber numberWithFloat:screenScale];
+        NSNumber *theOptOutStatus = @([PHAPIRequest optOutStatus]);
 
         [combinedParams addEntriesFromDictionary:self.additionalParameters];
 
         NSDictionary *signatureParams =
              [NSDictionary dictionaryWithObjectsAndKeys:
                                  self.token,     @"token",
-                                 signature,      @"signature",
+                                 signature,      @"sig4",
                                  nonce,          @"nonce",
                                  appId,          @"app",
                                  hardware,       @"hardware",
@@ -423,11 +421,11 @@ static NSString *sPlayHavenCustomUDID;
                                  connection,     @"connection",
                                  PH_SDK_VERSION, @"sdk-ios",
                                  languages,      @"languages",
-                                 session,        @"session",
-                                 gid,            @"gid",
                                  width,          @"width",
                                  height,         @"height",
-                                 scale,          @"scale", nil];
+                                 scale,          @"scale",
+                                 theOptOutStatus, kPHRequestParameterOptOutStatusKey,
+                                 nil];
 
         [combinedParams addEntriesFromDictionary:signatureParams];
         _signedParameters = combinedParams;
@@ -596,6 +594,111 @@ static NSString *sPlayHavenCustomUDID;
     }
     
     return theSignature;
+}
+
++ (NSDictionary *)identifiers
+{
+    NSMutableDictionary *theIdentifiers = [NSMutableDictionary dictionary];
+    
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if PH_USE_AD_SUPPORT == 1
+    if (![PHAPIRequest optOutStatus] && [ASIdentifierManager class])
+    {
+        NSUUID *uuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+        NSString *uuidString = [uuid UUIDString];
+
+        if (0 < [uuidString length])
+        {
+            [theIdentifiers setValue:uuidString forKey:@"ifa"];
+        }
+    }
+#endif
+#endif
+#endif
+
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)])
+    {
+        NSString *theDeviceIDFV = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        if (nil != theDeviceIDFV)
+        {
+            theIdentifiers[kPHRequestParameterIDFVKey] = theDeviceIDFV;
+        }
+    }
+
+#if PH_USE_MAC_ADDRESS == 1
+    if (![PHAPIRequest optOutStatus] && PH_SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    {
+        PHNetworkUtil *netUtil = [PHNetworkUtil sharedInstance];
+        CFDataRef macBytes = [netUtil newMACBytes];
+        if (macBytes)
+        {
+            [theIdentifiers setValue:[netUtil stringForMACBytes:macBytes] forKey:@"mac"];
+            CFRelease(macBytes);
+        }
+    }
+#endif
+
+    NSString *theSession = [PHAPIRequest session];
+    if (0 < [theSession length])
+    {
+        theIdentifiers[@"session"] = theSession;
+    }
+
+    return theIdentifiers;
+}
+
++ (NSString *)v4SignatureWithIdentifiers:(NSDictionary *)anIdentifiers token:(NSString *)aToken
+            nonce:(NSString *)aNonce signatureKey:(NSString *)aKey
+{
+    if (0 == [aToken length] || 0 == [aNonce length] || 0 == [aKey length])
+    {
+        PH_DEBUG(@"Incorrect input parmameters: token - %@, nonce - %@, key - %@\n", aToken, aNonce,
+                    aKey);
+        return nil;
+    }
+    
+    NSArray *theSortedKeys = [[anIdentifiers allKeys] sortedArrayUsingSelector:@selector(
+                caseInsensitiveCompare:)];
+    // Sort the identifiers by key (identifier name).
+    NSArray *theSortedValues = [anIdentifiers objectsForKeys:theSortedKeys notFoundMarker:[NSNull
+                null]];
+
+    // Join identifiers with a colon.
+    NSString *theJoinedIdentifiers = [theSortedValues componentsJoinedByString:@":"];
+
+    // Construct message with the format string.
+    NSString *theMessage = [NSString stringWithFormat:@"%@:%@:%@", nil != theJoinedIdentifiers ?
+                theJoinedIdentifiers : @"", aToken, aNonce];
+
+    return [self v4SignatureWithMessage:theMessage signatureKey:aKey];
+}
+
++ (NSString *)v4SignatureWithMessage:(NSString *)aMessage signatureKey:(NSString *)aKey
+{
+    if (0 == [aMessage length] || 0 == [aKey length])
+    {
+        PH_DEBUG(@"Incorrect input parmameters: message - %@, key - %@\n", aMessage, aKey);
+        return nil;
+    }
+
+    const char *theMessageCString = [aMessage cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *theKeyCString = [aKey cStringUsingEncoding:NSUTF8StringEncoding];
+
+    unsigned char theHMACDigest[CC_SHA1_DIGEST_LENGTH];
+    NSString *theBase64EncodedDigest = nil;
+
+    if (NULL != theKeyCString && NULL != theMessageCString)
+    {
+        CCHmac(kCCHmacAlgSHA1, theKeyCString, strlen(theKeyCString), theMessageCString,
+                    strlen(theMessageCString), &theHMACDigest);
+
+        NSData *theHMACData = [[[NSData alloc] initWithBytes:theHMACDigest length:sizeof(
+                    theHMACDigest)] autorelease];
+        theBase64EncodedDigest = [PHStringUtil base64EncodedStringForData:theHMACData];
+    }
+    
+    return theBase64EncodedDigest;
 }
 
 @end

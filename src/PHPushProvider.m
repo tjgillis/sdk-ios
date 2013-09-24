@@ -251,7 +251,10 @@ static NSString *const kPHURIKey = @"uri";
                 ([self.delegate respondsToSelector:@selector(pushProvider:shouldOpenURL:)] &&
                 [self.delegate pushProvider:self shouldOpenURL:anURL]))
     {
-        [[UIApplication sharedApplication] openURL:anURL];
+        dispatch_async(dispatch_get_main_queue(),
+        ^{
+            [[UIApplication sharedApplication] openURL:anURL];
+        });
     }
 }
 

@@ -40,8 +40,6 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.UDIDLabel.text = [[UIDevice currentDevice] uniqueIdentifier];
-
     self.IFALabel.text  = [[[NSClassFromString(@"ASIdentifierManager") sharedManager] advertisingIdentifier] UUIDString];
 
     CFDataRef macBytes   = [[PHNetworkUtil sharedInstance] newMACBytes];
@@ -49,12 +47,10 @@
     if (NULL != macBytes)
     {
         self.MACLabel.text   = [[PHNetworkUtil sharedInstance] stringForMACBytes:macBytes];
-        self.ODIN1Label.text = [[PHNetworkUtil sharedInstance] ODIN1ForMACBytes:macBytes];
 
         CFRelease(macBytes);
     }
 
-    self.GIDLabel.text  = PHGID();
     self.PHIDLabel.text = [PHAPIRequest session];
 }
 
@@ -66,22 +62,16 @@
 
 - (void)dealloc
 {
-    [_UDIDLabel release];
     [_IFALabel release];
     [_MACLabel release];
-    [_ODIN1Label release];
-    [_GIDLabel release];
     [_PHIDLabel release];
     [super dealloc];
 }
 
 - (void)viewDidUnload
 {
-    [self setUDIDLabel:nil];
     [self setIFALabel:nil];
     [self setMACLabel:nil];
-    [self setODIN1Label:nil];
-    [self setGIDLabel:nil];
     [self setPHIDLabel:nil];
     [super viewDidUnload];
 }

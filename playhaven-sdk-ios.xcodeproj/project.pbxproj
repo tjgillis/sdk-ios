@@ -83,6 +83,9 @@
 		E1C8F4FB171CC94400F64E12 /* PHPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushRequest.m */; };
 		E1C8F4FC171CC94400F64E12 /* PHPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushRequest.m */; };
 		E1C8F4FD171CC94400F64E12 /* PHPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C8F4F9171CC94400F64E12 /* PHPushRequest.m */; };
+		E1CB0F5317C647ED00E2036F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0C7103169F6B06005151E8 /* Default-568h@2x.png */; };
+		E1CB0F5417C647EE00E2036F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0C7103169F6B06005151E8 /* Default-568h@2x.png */; };
+		E1CB0F5517C647EF00E2036F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA0C7103169F6B06005151E8 /* Default-568h@2x.png */; };
 		E69D85961718E82D00CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
 		E69D85971718E83700CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
 		E69D85981718E83F00CA4997 /* PHStoreProductViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EADB57B916094C7F000433D8 /* PHStoreProductViewControllerDelegate.m */; };
@@ -277,7 +280,7 @@
 		EA8A531D15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8A531915B091AC00E7B3ED /* URLLoaderViewController.xib */; };
 		EA8A6D3414C8C5CA000B86A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA019C8514C102D4008FBCB1 /* StoreKit.framework */; };
 		EA8C313314DC791B0075B473 /* content-subcontent.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8C313214DC791B0075B473 /* content-subcontent.json */; };
-		EA8F0137161630CA006FB026 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; };
+		EA8F0137161630CA006FB026 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD8CFDD1607CCA60027F1D5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EA98C12D16640E4500B6AA8C /* PHNetworkUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA98C12C16640E4500B6AA8C /* PHNetworkUtilTest.m */; };
 		EA9AB62014A3B0AA00079704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		EA9AB63114A3B0D500079704 /* NSObject+QueryComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC53A92134E5F7A00F2F956 /* NSObject+QueryComponents.m */; };
@@ -602,6 +605,8 @@
 		E17A203A1718DC4300EF6C14 /* PushNotificationRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationRegistrationViewController.h; sourceTree = "<group>"; };
 		E17A203B1718DC4400EF6C14 /* PushNotificationRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationRegistrationViewController.m; sourceTree = "<group>"; };
 		E17A203C1718DC4500EF6C14 /* PushNotificationRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushNotificationRegistrationViewController.xib; sourceTree = "<group>"; };
+		E1AB2C5917D5EB6900B3FE71 /* PHAPIRequest+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHAPIRequest+Private.h"; sourceTree = "<group>"; };
+		E1B04AA417D9E8C200DE38F6 /* PHPublisherContentRequest+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHPublisherContentRequest+Private.h"; sourceTree = "<group>"; };
 		E1C8F4ED171CABD900F64E12 /* PlayHavenAppIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHavenAppIdentity.h; sourceTree = "<group>"; };
 		E1C8F4EE171CABD900F64E12 /* PlayHavenAppIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHavenAppIdentity.m; sourceTree = "<group>"; };
 		E1C8F4F8171CC94400F64E12 /* PHPushRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPushRequest.h; sourceTree = "<group>"; };
@@ -703,7 +708,7 @@
 		EAB4429413454F34000DA3E9 /* PHContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PHContent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EAB4429513454F34000DA3E9 /* PHContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHContent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EAB442A113455467000DA3E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPlayHavenNoStoreKit.a; path = "libPlayHaven-NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB6A3AF14EED62D00EAC692 /* libPlayHaven-NoStoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPlayHaven-NoStoreKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABAA6971450ED640040B937 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EABC0C75152B8A3200441393 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EABC0C7B152B8A6500441393 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -864,7 +869,7 @@
 				EA12ABD31365DBB700CB2F24 /* Example.app */,
 				EA9AB61F14A3B0AA00079704 /* libPlayHaven.a */,
 				EA86C7EC14D9E75600CB1551 /* Example (Fixtures).app */,
-				EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */,
+				EAB6A3AF14EED62D00EAC692 /* libPlayHaven-NoStoreKit.a */,
 				EAF168671534E2DE006B6993 /* libPlayHaven-Safe.a */,
 				EAF168A21534E34F006B6993 /* libPlayHaven-Safe_NoStoreKit.a */,
 				EAF168DB1534E59C006B6993 /* SafeExample.app */,
@@ -923,6 +928,15 @@
 				D1E15B7B14981C39001241EE /* SDURLCache.m */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		E1AB2C5717D5EAA300B3FE71 /* Private Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E1AB2C5917D5EB6900B3FE71 /* PHAPIRequest+Private.h */,
+				E1B04AA417D9E8C200DE38F6 /* PHPublisherContentRequest+Private.h */,
+			);
+			name = "Private Interfaces";
 			sourceTree = "<group>";
 		};
 		E1C8F4F7171CC90E00F64E12 /* PushNotifications */ = {
@@ -1083,6 +1097,7 @@
 				EAC53A90134E5F1700F2F956 /* Additions */,
 				EA523D931343EE8E0057DEA5 /* Common */,
 				EA523D941343EE9D0057DEA5 /* Publisher SDK */,
+				E1AB2C5717D5EAA300B3FE71 /* Private Interfaces */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1488,7 +1503,7 @@
 			);
 			name = "PlayHaven NoStoreKit";
 			productName = PlayHaven;
-			productReference = EAB6A3AF14EED62D00EAC692 /* libPlayHavenNoStoreKit.a */;
+			productReference = EAB6A3AF14EED62D00EAC692 /* libPlayHaven-NoStoreKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		EAF168321534E2DE006B6993 /* PlayHaven Safe */ = {
@@ -1548,7 +1563,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "playhaven-sdk-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1646,6 +1661,7 @@
 				EA62D6901579925300B31E62 /* 72.png in Resources */,
 				EA62D6911579925300B31E62 /* Settings.bundle in Resources */,
 				EA8A531B15B091AC00E7B3ED /* URLLoaderViewController.xib in Resources */,
+				E1CB0F5317C647ED00E2036F /* Default-568h@2x.png in Resources */,
 				EA2163B915BF71C900C9A8A9 /* IAPViewController.xib in Resources */,
 				EAA86A9B167FFDE100F6B388 /* IDViewController.xib in Resources */,
 			);
@@ -1663,6 +1679,7 @@
 				EA86C7E614D9E75600CB1551 /* RootViewController.xib in Resources */,
 				EA86C7E714D9E75600CB1551 /* PublisherContentViewController.xib in Resources */,
 				EA86C7E814D9E75600CB1551 /* ExampleViewController.xib in Resources */,
+				E1CB0F5417C647EE00E2036F /* Default-568h@2x.png in Resources */,
 				EA86C7F814D9EAC800CB1551 /* dev.wwfixtures in Resources */,
 				EA2B07A614E9EBA60087A45F /* 512.png in Resources */,
 				EAFF5E7B14F7082800E96C2C /* PublisherIAPTrackingViewController.xib in Resources */,
@@ -1686,6 +1703,7 @@
 				EAF168D21534E59C006B6993 /* ExampleViewController.xib in Resources */,
 				EAF168D31534E59C006B6993 /* 512.png in Resources */,
 				EAF168D41534E59C006B6993 /* PublisherIAPTrackingViewController.xib in Resources */,
+				E1CB0F5517C647EF00E2036F /* Default-568h@2x.png in Resources */,
 				EAF168D51534E59C006B6993 /* 57.png in Resources */,
 				EAF168D61534E59C006B6993 /* 72.png in Resources */,
 				EAF168D71534E59C006B6993 /* Settings.bundle in Resources */,
@@ -2147,10 +2165,6 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2160,6 +2174,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2169,10 +2184,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2262,7 +2273,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_UNIT_TESTING=1",
 					"PH_USE_MAC_ADDRESS=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_DEBUG_LOG=1",
 				);
 				GCC_THUMB_SUPPORT = NO;
@@ -2535,7 +2545,6 @@
 					PH_NAMESPACE_LIBS,
 					"PH_USE_STOREKIT=1",
 					"PH_USE_MAC_ADDRESS=0",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
@@ -2558,7 +2567,6 @@
 					PH_NAMESPACE_LIBS,
 					PH_DONT_DISMISS_WHEN_BACKGROUNDED,
 					"PH_USE_STOREKIT=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_THUMB_SUPPORT = NO;
@@ -2588,7 +2596,6 @@
 					"PH_USE_STOREKIT=0",
 					"DEBUG=1",
 					"$(inherited)",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -2612,7 +2619,6 @@
 					"PH_USE_STOREKIT=0",
 					PH_NAMESPACE_LIBS,
 					"PH_USE_MAC_ADDRESS=0",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -2638,7 +2644,6 @@
 				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_USE_STOREKIT=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -2666,7 +2671,6 @@
 				GCC_PREFIX_HEADER = example/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PH_USE_STOREKIT=1",
-					"PH_USE_UNIQUE_IDENTIFIER=0",
 					"PH_USE_MAC_ADDRESS=0",
 				);
 				GCC_THUMB_SUPPORT = NO;

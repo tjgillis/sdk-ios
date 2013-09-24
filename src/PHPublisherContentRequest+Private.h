@@ -13,17 +13,22 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- IDViewController.h
+ PHPublisherContentRequest+Private.h
  playhaven-sdk-ios
 
- Created by Jesus Fernandez on 12/17/12.
+ Created by Anton Fedorchenko on 9/6/13.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import <UIKit/UIKit.h>
+@interface PHPublisherContentRequest ()
+/**
+ * Checks if a given dictionary is a valid reward dictionary containing all the expected key-values
+ * and valid signature.
+ **/
+- (BOOL)isValidReward:(NSDictionary *)rewardData;
 
-@interface IDViewController : UIViewController
-@property (retain, nonatomic) IBOutlet UILabel *IFALabel;
-@property (retain, nonatomic) IBOutlet UILabel *MACLabel;
-@property (retain, nonatomic) IBOutlet UILabel *PHIDLabel;
-
+/**
+ * Checks if a given dictionary is a valid purchase dictionary containing all the expected
+ * key-values and valid signature.
+ **/
+- (BOOL)isValidPurchase:(NSDictionary *)purchaseData;
 @end

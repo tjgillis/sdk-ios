@@ -21,6 +21,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "PHPublisherOpenRequest.h"
+#import "PHConstants.h"
 
 #define EXPECTED_HASH @"3L0xlrDOt02UrTDwMSnye05Awwk"
 //#define EXPECTED_HASH @"sbiA9ROvCFEPANNFLbq3BK6m_dU-"
@@ -42,7 +43,7 @@
                   @"Token parameter not present!");
     STAssertFalse([requestURLString rangeOfString:@"nonce="].location == NSNotFound,
                   @"Nonce parameter not present!");
-    STAssertFalse([requestURLString rangeOfString:@"signature="].location == NSNotFound,
+    STAssertFalse([requestURLString rangeOfString:@"sig4="].location == NSNotFound,
                   @"Secret parameter not present!");
 
     STAssertTrue([request respondsToSelector:@selector(send)], @"Send method not implemented!");
@@ -60,32 +61,18 @@
     NSDictionary *signedParameters  = [request signedParameters];
     NSString     *requestURLString  = [request.URL absoluteString];
 
-//#define PH_USE_UNIQUE_IDENTIFIER 0
-#if PH_USE_UNIQUE_IDENTIFIER == 1
-    NSString *device = [signedParameters valueForKey:@"device"];
-    STAssertNotNil(device, @"UDID param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param is missing: %@", requestURLString);
-#else
-    NSString *device = [signedParameters valueForKey:@"device"];
-    STAssertNil(device, @"UDID param is present!");
-    STAssertTrue([requestURLString rangeOfString:@"device="].location == NSNotFound, @"UDID param exists when it shouldn't: %@", requestURLString);
-#endif
-
 //#define PH_USE_MAC_ADDRESS 1
 #if PH_USE_MAC_ADDRESS == 1
-    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
-    STAssertNotNil(mac, @"MAC param is missing!");
-    STAssertNotNil(odin1, @"ODIN1 param is missing!");
-    STAssertFalse([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param is missing: %@", requestURLString);
-    STAssertFalse([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param is missing: %@", requestURLString);
+    if (PH_SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    {
+        NSString *mac   = [signedParameters valueForKey:@"mac"];
+        STAssertNotNil(mac, @"MAC param is missing!");
+        STAssertFalse([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param is missing: %@", requestURLString);
+    }
 #else
-    NSString *mac   = [signedParameters valueForKey:@"d_mac"];
-    NSString *odin1 = [signedParameters valueForKey:@"d_odin1"];
+    NSString *mac   = [signedParameters valueForKey:@"mac"];
     STAssertNil(mac, @"MAC param is present!");
-    STAssertNil(odin1, @"ODIN1 param is present!");
-    STAssertTrue([requestURLString rangeOfString:@"d_mac="].location == NSNotFound, @"MAC param exists when it shouldn't: %@", requestURLString);
-    STAssertTrue([requestURLString rangeOfString:@"d_odin1="].location == NSNotFound, @"ODIN1 param exists when it shouldn't: %@", requestURLString);
+    STAssertTrue([requestURLString rangeOfString:@"mac="].location == NSNotFound, @"MAC param exists when it shouldn't: %@", requestURLString);
 #endif
 }
 

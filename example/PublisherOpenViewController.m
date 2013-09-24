@@ -104,12 +104,6 @@
     [super viewDidUnload];
 }
 
-- (IBAction)touchedClearGID:(id)sender
-{
-    PHClearGID();
-    [self addMessage:@"GID cleared!"];
-}
-
 - (IBAction)touchedClearSession:(id)sender
 {
     [PHAPIRequest setSession:nil];
